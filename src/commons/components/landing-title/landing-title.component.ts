@@ -7,10 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class LandingTitleComponent implements OnInit {
   @Input()
-  title!: string;
+  title: string = "";
 
   @Input()
-  color!: string;
+  color: string = "";
+
+  @Input()
+  type: string = "1";
 
   constructor() { }
 

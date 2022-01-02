@@ -1,0 +1,112 @@
+// Remember we are using mobile-first so by default all styles should be made with
+// mobile in mind and breakpoint for larger screens should be applied.
+//
+// usage:
+// .someClassName {
+//     width: 100%;
+//     @include breakpoint-sm-up() {
+//         width: auto;
+//         width: max-width: 800px;
+//     }
+// }
+
+// Extra small devices (portrait phones, less than 575px)
+@mixin breakpoint-xs-down() {
+  @media only screen and (max-width: 575px) and (max-device-aspect-ratio: 1/1) {
+    @content;
+  }
+}
+
+// Small devices (phones, 576px and up)
+@mixin breakpoint-xs-up() {
+  @media only screen and (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-sm-down() {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin breakpoint-sm-up() {
+  @media only screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+// Large devices (desktops, 991px and down)
+@mixin breakpoint-lg-down() {
+  @media only screen and (max-width: 991px) {
+    @content;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@mixin breakpoint-lg() {
+  @media only screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@mixin breakpoint-xl() {
+  @media only screen and (min-width: 1400px) {
+    @content;
+  }
+}
+// Extra large devices (large desktops, 1199px and down)
+@mixin breakpoint-xl-down() {
+  @media only screen and (max-width: 1399px) {
+    @content;
+  }
+}
+
+// Extra extra large devices (large desktops, 1499px and down)
+@mixin breakpoint-xxl-down() {
+  @media only screen and (max-width: 1499px) {
+    @content;
+  }
+}
+
+//Small Devices and in portrait mode
+@mixin breakpoint-sm-down-portrait () {
+  @media only screen
+    and (max-width: 767px)
+  and (max-device-aspect-ratio: 1/1)
+  and (orientation: portrait) {
+    @content;
+  }
+}
+
+//Small Devices and in landscape mode
+@mixin breakpoint-sm-down-landscape () {
+  @media only screen
+    and (max-width: 767px)
+  and (min-device-aspect-ratio: 1/1)
+  and (orientation: landscape) {
+    @content;
+  }
+}
+
+// tablet devices portrait (tablet, ipad)
+@mixin breakpoint-tablet-portrait () {
+  @media only screen
+    and (min-width: 992px)
+  and (max-width: 1000px)
+  and (max-device-aspect-ratio: 1/1)
+  and (orientation: portrait) {
+    @content;
+  }
+}
+// tablet devices landscape (tablet, ipad)
+@mixin breakpoint-tablet-landscape () {
+  @media only screen
+    and (min-width: 1001px)
+  and (max-width: 1366px)
+  and (min-device-aspect-ratio: 1/1)
+  and (orientation: landscape) {
+    @content;
+  }
+}

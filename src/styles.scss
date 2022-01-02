@@ -1,11 +1,50 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$littlevietfe-primary: mat.define-palette(mat.$indigo-palette);
+$littlevietfe-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$littlevietfe-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$littlevietfe-theme: mat.define-light-theme((
+  color: (
+    primary: $littlevietfe-primary,
+    accent: $littlevietfe-accent,
+    warn: $littlevietfe-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($littlevietfe-theme);
+
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@200;300;400;500;600&display=swap');
+@import './assets/breakpoint/breakpoints.scss';
 // html, body { height: 100%;}
 // body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-
+@font-face {
+  font-family: amano;
+  src: url('./assets/fonts/AMANO__0.TTF') format("opentype");
+}
 
 * {
   margin: 0;
@@ -82,5 +121,63 @@
     border: 2px solid transparent;
     border-top-color: #fff;
     animation: circle-loading 1200ms ease infinite;
+  }
+}
+
+// Owl Ca
+
+.owl-carousel {
+  width: 80% !important;
+  margin: 0 auto;
+  padding: 5% 6%;
+  @include breakpoint-lg-down() {
+    width: 100%;
+    padding: 5% 2%;
+  }
+}
+
+.owl-carousel .owl-nav {
+  overflow: hidden;
+}
+
+.owl-carousel {
+  height: auto;
+  cursor: pointer;
+}
+
+.nav-btn {
+  height: 92px;
+  position: absolute;
+  width: 36px;
+  cursor: pointer;
+  top: 45% !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled {
+  pointer-events: none;
+  opacity: 0.2;
+  display: none !important;
+}
+
+.owl-carousel .prev-slide {
+  background: url('./assets/imgs/pre-button.png') no-repeat scroll 0 0;
+  left: -33px;
+}
+
+.owl-carousel .next-slide {
+  background: url('./assets/imgs/next-button.png') no-repeat scroll 0px 0px;
+  right: -33px;
+}
+
+.owl-item {
+  max-width: 80% !important;
+}
+
+.owl-dots {
+  margin-left: -64%;
+  margin-top: 4%;
+  @include breakpoint-lg-down() {
+    margin-left: 0;
   }
 }

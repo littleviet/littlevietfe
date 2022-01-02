@@ -1,133 +1,462 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
 
 .home {
     position: relative;
     background-color: #f3eacd;
+}
 
-  
-    .header {
-      background-color: #c7a67a;
-      height: 107px;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      z-index: 3;
+.header {
+    background-color: #c7a67a;
+    height: 90px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 3;
+}
 
-    }
-  
-    .top-background {
-      padding: 0px;    
-  
-      .landing-page-1 {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-      }
-    }
-  
-    .logo {
-      top: 0;
-      left: 50%;
-      z-index: 10;
-      position: absolute;
-      margin-left: -125px;
-      padding: 0px;
-  
+.header-lt-sm {
+    height: 50px;
+}
 
-      img {
+.top-background {
+    padding: 0px;    
+}
+
+.landing-page-1 {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.logo {
+    top: 0;
+    left: 50%;
+    z-index: 10;
+    position: absolute;
+    margin-left: -125px;
+    padding: 0px;
+        
+    img {
         max-width: 100%;
         height: 100%;
         object-fit: cover;
-      }
     }
-  
-    .reservation-section {
-      padding-top: 6%;
-      padding-bottom: 6%;
-      height: auto;
-      align-items: center;
-      position: relative;
-  
-      .title {
-        width: auto;
-        margin-bottom: 4%;
-      }
-  
-      .content {
+}
+
+.logo-lt-sm {
+    margin-left: -62px;
+    .img-lt-sm {
+        max-width: 50%;
+        height: 50%;
+        object-fit: cover;
+    }
+}
+
+.reservation-section {
+    padding: 6% 0;
+    height: auto;
+    align-items: center;
+    position: relative;
+
+    .content {
         display: flex;
         align-items: center;
         flex-direction: column;
         justify-content: center;
-  
+
         .item {
-          width: auto;
-          height: auto;
-          text-align: center;
-  
-          .booking-btn {
+            width: auto;
+            height: auto;
+            text-align: center;
+            @include breakpoint-lg-down() {
+                font-size: 15px;
+            }
+        }
+
+        .booking-btn {
             background-color: #c7a67a;
             border: 1px solid #c7a67a;
             padding: 10px 20px;
             font-weight: 500;
             font-size: 17px;
-          }
-          .booking-btn:hover {
+        }
+
+        .booking-btn:hover {
             cursor: pointer;
             background-color: #f3eacd;
-          }
         }
-  
+
         .open-title {
-          font-weight: 600;
+            font-weight: 600;
         }
-  
-        .time-title {
-          font-size: 17px;
-        }
-  
-        .section-margin {
-          margin-top: 2%;
-        }
-  
-        .bloc-margin {
-          margin-top: 1%;
-        }
-  
-        .item-margin {
-          margin-top: 0.5%;
-        }
-  
-        .pt-font {
-          font-family: 'PT Sans', sans-serif;
-        }
-  
+
         .phone-number {
-          font-weight: 600;
-          font-size: 18px;
-          background-color: #c7a67a;
-          border: 1px solid #c7a67a;
-          padding: 10px 20px;
+            font-weight: 600;
+            font-size: 18px;
+            background-color: #c7a67a;
+            border: 1px solid #c7a67a;
+            padding: 10px 25px;
         }
-  
+        
         .or-text {
-          font-weight: 600;
-          font-size: 18px;
-          font-style: italic;
+            font-weight: 600;
+            font-size: 18px;
+            font-style: italic;
         }
-      }
     }
-  
-    // .menu-section {
-    //   height: auto;
-    //   align-items: center;
-    //   position: relative;
-    //   .title {
-    //     background-image: url('../assets/imgs/landing-page-2.jpg');
-    //     height: 290px;
-    //   }
-  
-    //   .content {
-    //     height: 500px;
-    //     background-color: #c7a67a;
-    //   }
-    // }
-  }
+}
+
+.menu-section {
+    height: 100%;
+
+    .menu-title {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        background-image: url('./../../../assets/imgs/landing-page-2.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 100%;
+        height: 290px;
+    }
+
+    .menu-title-lm-sm {
+        width: 100%;
+        height: 145px;
+    }    
+
+    .content {
+        height: auto;
+        background-color: #c7a67a;
+        margin-top: 0;
+    }
+}
+
+
+.title {
+    width: auto;
+    margin-bottom: 4%;
+}
+
+.time-title {
+    font-size: 17px;
+}
+
+.section-margin {
+    margin-top: 2%;
+}
+
+.bloc-margin {
+    margin-top: 1%;
+}
+
+.item-margin {
+    margin-top: 0.5%;
+}
+
+.pt-font {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+}
+
+.phone-margin {
+    margin-top: 1.2%;
+}
+
+// Take away
+.take-away-section {
+    display: flex;
+    height: auto;
+    padding-bottom: 6%;
+    @include breakpoint-lg-down() {
+        padding-bottom: 0;
+    }
+
+    .take-away-action {
+        width: 45%;
+        padding: 18% 0 0 8%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include breakpoint-lg-down() {
+            width: 100%;
+            padding-left: 0px;
+            background-image: url('./../../../assets/imgs/landing-page-3.jpg');
+            padding-bottom: 10%;
+        }
+
+        .take-away-title {
+            width: 100%;
+        }
+        
+        .take-way-description-1 {
+            font-family: 'amano';
+            font-size: 23px;
+            margin-top: 5%;
+
+            @include breakpoint-lg-down() {
+                color: #f3eacd;
+            }
+        }
+        
+        .take-way-description-2 {
+            font-family: 'amano';
+            font-size: 23px;
+            margin-bottom: 6%;
+
+            @include breakpoint-lg-down() {
+                color: #f3eacd;
+            }
+        }
+        
+        .order-online-btn {
+            background-color: #f3eacd;
+            border: 1px solid black;
+            padding: 10px 20px;
+            font-weight: 500;
+            font-size: 17px;
+        }
+        
+        .order-online-btn:hover {
+            cursor: pointer;
+            background-color: #c7a67a;
+        }
+    }
+
+    .take-away-presentation {
+        display: flex;
+        height: auto;
+
+        @include breakpoint-lg-down() {
+            display: none;
+        }
+    
+        .vertical-wave-line {
+            margin-right: 6%;
+            height: auto;
+        }
+    }
+}
+
+// Coupon
+.coupon-section {
+    display: flex;
+    height: auto;
+    background-color: #c9ac82;
+
+    .coupon-presentation {
+        display: flex;
+        height: auto;
+        width: 45%;
+        padding-left: 8%;
+        background-color: #efdfbd;
+
+        @include breakpoint-lg-down() {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    }
+    .coupon-action-information {
+        width: 40%;
+
+        @include breakpoint-lg-down() {
+            width: 100%;
+        }
+        
+        .coupon-action {
+            padding: 25% 0 0 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include breakpoint-lg-down() {
+                padding: 15% 0 0 0;
+            }
+
+            .coupon-title {
+                width: 100%;
+            }
+            
+            .coupon-description-1 {
+                font-family: 'amano';
+                font-size: 23px;
+                margin-top: 5%;
+                text-align: center;
+            }
+    
+            .counpon-description {
+                width: 68%;
+    
+                .coupon-description-2 {
+                    font-family: 'amano';
+                    font-size: 23px;
+                    text-align: center;
+                }
+            }
+    
+            .buy-coupon-btn {
+                background-color: #c9ac82;
+                border: 1px solid black;
+                padding: 10px 20px;
+                font-weight: 500;
+                font-size: 17px;
+                margin-top: 10%;
+            }
+            
+            .buy-coupon-btn:hover {
+                cursor: pointer;
+                background-color: #efdfbd;
+            }
+        }
+
+        img {
+            margin-top: 16%;
+            @include breakpoint-lg-down() {
+                max-width: 100%;
+            }
+        }
+    }
+}
+
+// Product
+.product-section {
+    display: flex;
+    height: auto;
+    padding: 10% 0 7% 0;
+    align-items: center;
+    flex-direction: column;
+
+    .product-list {
+        margin-top: 5%;
+        padding: 0 1%;
+
+        .product-item {
+            img {
+                @include breakpoint-lg-down() {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .name {
+                font-weight: 600;
+                font-size: 21px;
+                margin-top: 6%;
+                @include breakpoint-lg-down() {
+                    font-size: 12px;
+                    text-align: center;
+                    margin-top: 3%;
+                }
+            }
+            
+            .other-name {
+                margin-top: 1%;
+                font-size: 17px;
+                @include breakpoint-lg-down() {
+                    font-size: 11px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+// Footer
+.footer-section {
+    display: flex;
+    height: auto;
+    padding: 5% 0 5% 0;
+    align-items: center;
+    flex-direction: column;
+    background-color: #c7a67a;
+
+    .address {
+        width: 50%;
+        text-align: center;
+        margin-top: 3%;
+        @include breakpoint-lg-down() {
+            font-size: 13px;
+            width: 90%;
+        }
+    }
+
+    .open-time {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1%;
+        height: 35px;
+        @include breakpoint-lg-down() {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 13px;
+            width: 90%;
+            align-content: stretch;
+        }
+        
+        .title {
+            padding: 0.5% 2%;
+            border-right: 1px solid black;
+        }
+
+        .time {
+            padding: 0.5% 2%;
+            border-right: 1px solid black;
+            @include breakpoint-lg-down() {
+                border-right: none;
+            }
+        }
+
+        .day-of-week {
+            padding: 0.5% 2%;
+            @include breakpoint-lg-down() {
+                margin-top: -15px;
+            }
+        }
+    }
+
+    .contact {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1%;
+        @include breakpoint-lg-down() {
+            font-size: 13px;
+            width: 100%;
+        }
+        .insta {
+            padding: 0.3% 2%;
+            border-right: 1px solid black;
+
+            img {
+                vertical-align: middle;
+                margin-right: 20px;
+                @include breakpoint-lg-down() {
+                    width: 17px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .phone {
+            padding: 0.3% 2%;
+
+            img {
+                vertical-align: middle;
+                margin-right: 20px;
+                @include breakpoint-lg-down() {
+                    width: 17px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

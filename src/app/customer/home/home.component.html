@@ -1,21 +1,22 @@
 <div class="home">
   <!-- header -->
-  <div class="header">
+  <div class="header" ngClass.lt-sm="header-lt-sm">
   </div>
 
   <!-- logo -->
-  <div class="logo">
-    <img src="../assets/imgs/logo.jpg" alt="">
+  <div class="logo" ngClass.lt-sm="logo-lt-sm">
+    <img ngClass.lt-sm="img-lt-sm" src="assets/imgs/logo.jpg" alt="">
   </div>
 
   <!-- top background -->
   <div class="top-background">
-    <img class="landing-page-1" src="../assets/imgs/landing-page-1.png" alt="">
+    <img class="landing-page-1" src="assets/imgs/landing-page-1.png" alt="">
   </div>
 
   <!-- Reservation section -->
   <div class="reservation-section">
     <div class="title">
+      <app-landing-title title="MAKE A RESERVATION"></app-landing-title>
     </div>
     <div class="content">
       <div class="item">
@@ -39,22 +40,123 @@
         <div class="phone-number">671 270 969</div>
       </div>
 
-      <div class="item item-margin">
+      <div class="item phone-margin">
         <div class="or-text">or</div>
       </div>
       
-      <div class="item item-margin">
+      <div class="item phone-margin">
         <div class="phone-number">931 757 081</div>
       </div>
     </div>
   </div>
 
   <!-- Menu -->
-  <!-- <div class="menu-section">
-    <div class="title">
-      <LandingSectionTitle title="MENU" fontColor="#f3eacd"></LandingSectionTitle>
+  <div class="menu-section">
+    <div class="menu-title" ngClass.lt-sm="menu-title-lm-sm">
+      <app-landing-title type="2" title="MENU" color="#f3eacd"></app-landing-title>
     </div>
     <div class="content">
+      <owl-carousel-o #owlElement [options]="carouselOptions">
+        <ng-container *ngFor="let productType of productsMenu; let i= index; first as isFirst">
+          <ng-template [dotContent]="(i + 1).toString()" carouselSlide >
+            <app-menu-slide [productType]="productType.esName + ' / ' + productType.name" [products]="productType.products"></app-menu-slide>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
     </div>
-  </div> -->
+  </div>
+
+  <!-- Take away -->
+  <div class="take-away-section">
+    <div class="take-away-action">
+      <div class="take-away-title">
+        <app-landing-title title="TAKE AWAY" type="{{takeAwayTitleType}}"></app-landing-title>
+      </div>
+      <div class="take-way-description-1">Want to enjoy our dishes at home?</div>
+      <div class="take-way-description-2">Please order here.</div>
+      <button class="order-online-btn">ORDER ONLINE</button>
+    </div>
+    <div class="take-away-presentation">
+      <div class="vertical-wave-line" >
+        <img src="assets/imgs/vertical-wave-line.png" alt="">
+      </div>
+      <img src="assets/imgs/landing-page-3.jpg" alt="">
+    </div>
+  </div>
+
+  <!-- Coupon gift -->
+  <div class="coupon-section">
+    <div class="coupon-border">
+    </div>
+    <div class="coupon-presentation">
+      <img src="assets/imgs/landing-page-4.jpg" alt="">
+    </div>
+    <div class="coupon-action-information">
+      <div class="coupon-action">
+        <div class="coupon-title">
+          <app-landing-title title="COUPON GIFT"></app-landing-title>
+        </div>
+        <div class="counpon-description">
+          <div class="coupon-description-1">You loved visiting us and want somebody special to enjoy in Little Viet?</div>
+          <div class="coupon-description-2">Buy online our coupon gift and receive it instantly by email.</div>
+        </div>
+        <button class="buy-coupon-btn">BUY COUPON GIFT</button>
+      </div>
+      <img src="assets/imgs/horizontal-wave-line.png" alt="">
+    </div>
+  </div>
+
+  <!-- products section -->
+  <div class="product-section">
+    <div class="product-title">
+      <app-landing-title title="PRODUCTS"></app-landing-title>
+    </div>
+    <div class="product-list">
+      <div fxLayout="row wrap" fxLayoutGap="32px grid" fxLayoutAlign="center" fxLayoutGap.lt-sm="12px 20px grid">
+        <div *ngFor="let product of products" fxFlex="0 1 calc(33%)" fxFlex.lt-md="0 1 calc(33%)"
+        fxFlex.lt-sm="0 1 calc(50%)" >
+          <div class="product-item">
+            <img src="{{product.imageUrl}}" alt="">
+            <div class="name">{{product.name}}</div>
+            <div class="other-name">{{product.esName}}</div>
+            <div class="other-name">{{product.caName}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer section -->
+  <div class="footer-section">
+    <img src="assets/imgs/logo-footer.png" alt="">
+      
+    <div class="address" >
+      CARRE DE CARTAGENA, 328, 08025 BARCELONA
+    </div>
+
+    <div class="open-time">
+      <div class="title"> OPEN</div>
+
+      <div class="time" >
+        13:00 - 16:00 + 20:00 - 23:00
+      </div>
+  
+      <div class="day-of-week" >
+        Mon Wed Thu Fri Sat Sun
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="insta">
+        <img src="assets/imgs/insta-icon.png" alt="">
+        Littleviet.barcelona
+      </div>
+  
+      <div class="phone">
+        <img src="assets/imgs/phone-icon.png" alt="">
+        671 270 969 | 931 757 081
+      </div>
+    </div>    
+  </div>
 </div>
+

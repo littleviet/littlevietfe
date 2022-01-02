@@ -1,0 +1,32 @@
+.container {
+    display: flex;
+    width: auto;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.text-container {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.text-container-lt-sm {
+    font-size: 25px;
+}
+
+.icon {
+    object-fit: cover;
+    margin: 0 1%;
+}
+
+.icon-lt-sm {
+    width: 22px;
+    height: 15px;
+    object-fit: cover;
+    margin: 0 1%;
+}
+
+.right {
+    transform: rotateY(180deg);
+}
