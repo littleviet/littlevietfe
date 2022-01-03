@@ -172,6 +172,10 @@ $littlevietfe-theme: mat.define-light-theme((
 
 .owl-item {
   max-width: 80% !important;
+  display: inline-flex;
+  @include breakpoint-lg-down() {
+    // width: 50%;
+  }
 }
 
 .owl-dots {

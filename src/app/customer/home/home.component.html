@@ -1,6 +1,9 @@
 <div class="home">
   <!-- header -->
   <div class="header" ngClass.lt-sm="header-lt-sm">
+    <div class="menu-btn-section">
+      <app-hamburger-button class="menu-btn"></app-hamburger-button>
+    </div>
   </div>
 
   <!-- logo -->
@@ -112,9 +115,8 @@
       <app-landing-title title="PRODUCTS"></app-landing-title>
     </div>
     <div class="product-list">
-      <div fxLayout="row wrap" fxLayoutGap="32px grid" fxLayoutAlign="center" fxLayoutGap.lt-sm="12px 20px grid">
-        <div *ngFor="let product of products" fxFlex="0 1 calc(33%)" fxFlex.lt-md="0 1 calc(33%)"
-        fxFlex.lt-sm="0 1 calc(50%)" >
+      <div class="item-layout" fxLayout="row wrap" fxLayoutAlign="center">
+        <div class="product-item-layout" *ngFor="let product of products" fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-sm="0 1 calc(100%)" >
           <div class="product-item">
             <img src="{{product.imageUrl}}" alt="">
             <div class="name">{{product.name}}</div>

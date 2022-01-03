@@ -1,8 +1,12 @@
 @import '../../../assets/breakpoint/breakpoints.scss';
 
 .home {
+    max-width: 100%;
     position: relative;
     background-color: #f3eacd;
+    @include breakpoint-lg-down() {
+        max-width: 100%;
+    }
 }
 
 .header {
@@ -12,6 +16,20 @@
     position: absolute;
     top: 0;
     z-index: 3;
+
+    .menu-btn-section {
+        float: right;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        height: 100%;
+        padding-right: 10px;
+        .menu-btn {
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
 }
 
 .header-lt-sm {
@@ -185,7 +203,7 @@
             width: 100%;
             padding-left: 0px;
             background-image: url('./../../../assets/imgs/landing-page-3.jpg');
-            padding-bottom: 10%;
+            padding-bottom: 30%;
         }
 
         .take-away-title {
@@ -209,6 +227,7 @@
 
             @include breakpoint-lg-down() {
                 color: #f3eacd;
+                margin-bottom: 9%;
             }
         }
         
@@ -335,6 +354,17 @@
     .product-list {
         margin-top: 5%;
         padding: 0 1%;
+
+        .item-layout {
+            width: 100%;
+        }
+        
+        .product-item-layout {
+            margin: 0 16px 32px 16px;
+            @include breakpoint-lg-down() {
+                margin-bottom: 16px;
+            }
+        }
 
         .product-item {
             img {

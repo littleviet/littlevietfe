@@ -29,6 +29,7 @@
     width: 80%;
     @include breakpoint-lg-down() {
         font-size: 12px;
+        width: 80%;
     }
 }
 
@@ -56,7 +57,6 @@
     }
 }
 
-
 .other-name {
     font-size: 17px;
     margin-top: 4px;
@@ -67,4 +67,15 @@
 
 .mat-divider {
     border-top-color: #000000;
+}
+
+.item-layout {
+    width: 100%;
+}
+
+.product-item-layout {
+    margin: 0 16px 32px 16px;
+    @include breakpoint-lg-down() {
+        margin: 8px 0;
+    }
 }
