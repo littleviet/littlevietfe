@@ -9,6 +9,13 @@
     }
 }
 
+.noscroll { 
+    @include breakpoint-lg-down() {
+        position: fixed;
+        overflow: hidden;
+    }
+}  
+
 .header {
     background-color: #c7a67a;
     height: 90px;
@@ -21,7 +28,8 @@
 .menu-btn-section {
     top: 8px;
     right: 1%;
-    position: absolute;
+    position: fixed;
+    z-index: 4;
 }
 
 .header-lt-sm {
@@ -50,6 +58,7 @@
 
 /* Position the content inside the overlay */
 .overlay-content {
+    padding-bottom: 8%;
     position: relative;
     top: 8%;
     width: 100%; /* 100% width */
