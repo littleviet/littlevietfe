@@ -1,10 +1,11 @@
 {
-  "routes": [
-    {
-      "route": "/*",
-      "rewrite": "/"
-    }
-  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "*.{jpg,gif,png}",
+      "assets/*"
+    ]
+  },
   "responseOverrides": {
     "400": {
       "rewrite": "/error"
