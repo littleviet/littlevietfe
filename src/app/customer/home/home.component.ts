@@ -1,6 +1,5 @@
 import { AfterViewChecked, AfterViewInit, Component, DoCheck, HostListener, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { OwlCarousel } from 'ngx-owl-carousel';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
 import { Observable } from 'rxjs';
