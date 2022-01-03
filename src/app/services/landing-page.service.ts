@@ -14,6 +14,6 @@ export class LandingPageService {
     }
 
     getProductMenu() : Observable<BaseResponse<CustomerProductType[]>> {
-        return this.http.get<BaseResponse<CustomerProductType[]>>(environment.apiUrl + 'product-type/landing-page/products');
+        return this.http.get<BaseResponse<CustomerProductType[]>>(environment.apiUrl + 'landing-page/products');
     }
 }

@@ -15,6 +15,7 @@ import { CustomerProductType } from 'src/dtos/customer-product-type';
 export class HomeComponent implements OnInit {
   @Select(LandingPageState.getProductMenu) productMenu!: Observable<CustomerProductType[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
+  menuOpen: boolean = false;
   productsMenu: CustomerProductType[] = [
     {
       "name": "Pho",
@@ -153,5 +154,10 @@ export class HomeComponent implements OnInit {
     } else {
       this.takeAwayTitleType = '2';
     }
+  }
+
+  clickBtn() {
+    this.menuOpen = !this.menuOpen;
+    console.log(this.menuOpen);
   }
 }

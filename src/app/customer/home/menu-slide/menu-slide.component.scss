@@ -1,6 +1,6 @@
 @import '../../../../assets/breakpoint/breakpoints.scss';
 .container {
-    width: 100%;
+    max-width: 100%;
 }
 
 .product-type {
@@ -43,7 +43,7 @@
     height: 100%;
 
     .divider {
-        width: 100%;
+        // width: 100%;
         display: inline-block;
         font-weight: 600;
     }
@@ -75,6 +75,7 @@
 
 .product-item-layout {
     margin: 0 16px 32px 16px;
+    max-width: 100%;
     @include breakpoint-lg-down() {
         margin: 8px 0;
     }

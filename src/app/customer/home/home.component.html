@@ -1,8 +1,28 @@
 <div class="home">
   <!-- header -->
   <div class="header" ngClass.lt-sm="header-lt-sm">
-    <div class="menu-btn-section">
-      <app-hamburger-button class="menu-btn"></app-hamburger-button>
+  </div>
+
+  <div class="menu-btn-section">
+    <div [ngClass]="{'open': menuOpen}" class="menu-btn" (click)="clickBtn()">
+      <div class="menu-btn__burger"></div>
+    </div>
+  </div>
+
+  <!-- The overlay -->
+  <div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
+    <div class="overlay-content">
+      <div class="menu-btn-title">INTRODUCE</div>
+      <div class="divider-border">
+        <mat-divider class="divider-1"></mat-divider>
+        <mat-divider class="divider-2"></mat-divider>
+      </div>
+      <div class="menu-item" >RESERVATIONS</div>
+      <div class="menu-item" >MENU</div>
+      <div class="menu-item">TAKE AWAY</div>
+      <div class="menu-item">COUPON GIFT</div>
+      <div class="menu-item">PRODUCTS</div>
+      <div class="menu-item">CONTACT</div>
     </div>
   </div>
 
@@ -55,7 +75,7 @@
 
   <!-- Menu -->
   <div class="menu-section">
-    <div class="menu-title" ngClass.lt-sm="menu-title-lm-sm">
+    <div class="menu-title">
       <app-landing-title type="2" title="MENU" color="#f3eacd"></app-landing-title>
     </div>
     <div class="content">

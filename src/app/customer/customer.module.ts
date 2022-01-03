@@ -8,7 +8,6 @@ import { MenuSlideComponent } from './home/menu-slide/menu-slide.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { LandingTitleComponent } from 'src/commons/components/landing-title/landing-title.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { HamburgerButtonComponent } from 'src/commons/components/hamburger-button/hamburger-button.component';
 
 @NgModule({
   imports: [
@@ -22,8 +21,7 @@ import { HamburgerButtonComponent } from 'src/commons/components/hamburger-butto
   declarations: [
     HomeComponent,
     MenuSlideComponent,
-    LandingTitleComponent,
-    HamburgerButtonComponent
+    LandingTitleComponent
   ]
 })
 export class CustomerModule { }
