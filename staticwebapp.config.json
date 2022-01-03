@@ -1,0 +1,23 @@
+{
+  "routes": [
+    {
+      "route": "/*",
+      "rewrite": "/"
+    }
+  ],
+  "responseOverrides": {
+    "400": {
+      "rewrite": "/error"
+    },
+    "401": {
+      "statusCode": 302,
+      "redirect": "/login"
+    },
+    "403": {
+      "rewrite": "/error"
+    },
+    "404": {
+      "rewrite": "/error"
+    }
+  }
+}
