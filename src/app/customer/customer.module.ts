@@ -12,6 +12,7 @@ import { TakeAwayComponent } from './take-away/take-away.component';
 import { MenuButtonComponent } from 'src/commons/components/menu-button/menu-button.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from 'src/commons/components/footer/footer.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { FooterComponent } from 'src/commons/components/footer/footer.component'
     FlexLayoutModule,
     CarouselModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule
   ],
   declarations: [
     HomeComponent,

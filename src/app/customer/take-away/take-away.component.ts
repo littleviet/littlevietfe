@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -11,7 +11,10 @@ import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
   styleUrls: ['./take-away.component.scss']
 })
 export class TakeAwayComponent implements OnInit {
+  @ViewChild("productTypeNav") productTypeNav!: ElementRef;
   menuOpen: boolean = false;
+  sticky: boolean = false;
+  isExpaned: boolean = false;
   products: TakeAwayProduct[] = [
     {
       name: 'Banh mi',
@@ -210,6 +213,15 @@ export class TakeAwayComponent implements OnInit {
     .map((value, key) => ({ productType: key, products: value }))
     .value();
     console.log(this.displayProduct);
+  }
+
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+      if (window.pageYOffset > this.productTypeNav.nativeElement.getBoundingClientRect().top) {
+        this.sticky = true;
+      } else {
+        this.sticky = false;
+      }
   }
 
   clickBtn() {

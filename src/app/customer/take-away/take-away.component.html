@@ -27,9 +27,23 @@
         </div>
       </div>
     </div>
+    <div class="product-type-expand" [ngClass]="{'sticky': sticky}" #productTypeNav>
+      <mat-expansion-panel [(expanded)]="isExpaned" hideToggle="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title class="title">
+            {{'Banh mi' | uppercase}} <mat-icon>{{isExpaned  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="product-type-list">
+          <div class="product-type-item" [ngClass]="{'product-type-item-active': i == 2}" *ngFor="let productType of displayProduct; let i = index">
+            {{productType.productType | uppercase}}
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </div>
     <div class="product-section">
       <div class="product-list-section">
-        <div *ngFor="let product of displayProduct[0].products; let i = index" class="product-item">
+        <div *ngFor="let product of displayProduct[0].products; let i = index; last as isLast" class="product-item">
           <div class="product-item-img">
             <img src="assets/imgs/take-away/product-example.jpg" alt="">
           </div>
@@ -42,7 +56,7 @@
           <div class="product-item-action">
             <div class="add-button">+</div>
           </div>
-          <mat-divider class="divider"></mat-divider>
+          <mat-divider *ngIf="!isLast" class="divider"></mat-divider>
       </div>
       </div>
     </div>
@@ -76,7 +90,7 @@
       </div>
       <mat-divider class="section-divider"></mat-divider>
       <div class="total">
-        <div>Subtotal</div>
+        <div>Total</div>
         <div class="total-price">{{cartDetail.totalPrice}} &#8364;</div>
       </div>
       <mat-divider class="section-divider"></mat-divider>

@@ -53,7 +53,7 @@
         .day-of-week {
             padding: 0.5% 2%;
             @include breakpoint-lg-down() {
-                margin-top: -15px;
+                // margin-top: -15px;
             }
         }
     }

@@ -183,14 +183,14 @@
   .menu-btn__burger::before {
     transform: translateY(-10px);
     @include breakpoint-lg-down() {
-      transform: translateY(-10px);
+      transform: translateY(-7px);
     }
   }
 
   .menu-btn__burger::after {
     transform: translateY(10px);
     @include breakpoint-lg-down() {
-      transform: translateY(10px);
+      transform: translateY(7px);
     }
   }
 
