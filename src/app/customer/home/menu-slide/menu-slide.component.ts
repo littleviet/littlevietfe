@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CustomerProduct } from 'src/dtos/customer-product';
+import { CustomerProduct } from 'src/dtos/product/customer-product';
 
 @Component({
   selector: 'app-menu-slide',

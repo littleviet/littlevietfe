@@ -1,0 +1,26 @@
+<div class="menu-btn-section">
+  <div [ngClass]="{'open': menuOpen, 'menu-btn-bg': isDisplayBackground}" class="menu-btn" (click)="clickBtn()">
+    <div class="menu-btn__burger"></div>
+  </div>
+</div>
+
+<div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
+  <div class="overlay-content">
+    <div class="menu-btn-title" routerLink="/home">INTRODUCE</div>
+    <div class="divider-border">
+      <mat-divider class="divider-1"></mat-divider>
+      <mat-divider class="divider-2"></mat-divider>
+    </div>
+    <div class="menu-item" >RESERVATIONS</div>
+    <div class="menu-item" >MENU</div>
+    <div class="menu-item" routerLink="/take-away">TAKE AWAY</div>
+    <div class="menu-item">COUPON GIFT</div>
+    <div class="menu-item">PRODUCTS</div>
+    <div class="menu-item">CONTACT</div>
+    <div class="menu-language">
+      <span class="language-item active-language">ES</span>
+      <span class="language-item">EN</span>
+      <span class="language-item">CA</span>
+    </div>
+  </div>
+</div>

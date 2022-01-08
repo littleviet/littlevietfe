@@ -1,4 +1,4 @@
-import { CustomerProduct } from "./customer-product";
+import { CustomerProduct } from "../product/customer-product";
 
 export interface CustomerProductType {
     name: string;

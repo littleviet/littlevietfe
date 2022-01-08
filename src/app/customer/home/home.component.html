@@ -1,44 +1,18 @@
 <div class="home" [ngClass]="{'noscroll': menuOpen}">
   <!-- header -->
-  <div class="header" ngClass.lt-sm="header-lt-sm">
+  <div class="header">
   </div>
 
-  <div class="menu-btn-section">
-    <div [ngClass]="{'open': menuOpen}" class="menu-btn" (click)="clickBtn()">
-      <div class="menu-btn__burger"></div>
-    </div>
-  </div>
-
-  <!-- The overlay -->
-  <div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
-    <div class="overlay-content">
-      <div class="menu-btn-title">INTRODUCE</div>
-      <div class="divider-border">
-        <mat-divider class="divider-1"></mat-divider>
-        <mat-divider class="divider-2"></mat-divider>
-      </div>
-      <div class="menu-item" >RESERVATIONS</div>
-      <div class="menu-item" >MENU</div>
-      <div class="menu-item">TAKE AWAY</div>
-      <div class="menu-item">COUPON GIFT</div>
-      <div class="menu-item">PRODUCTS</div>
-      <div class="menu-item">CONTACT</div>
-      <div class="menu-language">
-        <span class="language-item active-language">ES</span>
-        <span class="language-item">EN</span>
-        <span class="language-item">CA</span>
-      </div>
-    </div>
-  </div>
+  <app-menu-button (isMenuOpen)="menuOpen = $event"></app-menu-button>
 
   <!-- logo -->
   <div class="logo" ngClass.lt-sm="logo-lt-sm">
-    <img ngClass.lt-sm="img-lt-sm" src="assets/imgs/logo.jpg" alt="">
+    <img ngClass.lt-sm="img-lt-sm" src="assets/imgs/landing-page/logo.jpg" alt="">
   </div>
 
   <!-- top background -->
   <div class="top-background">
-    <img class="landing-page-1" src="assets/imgs/landing-page-1.png" alt="">
+    <img class="landing-page-1" src="assets/imgs/landing-page/landing-page-1.png" alt="">
   </div>
 
   <!-- Reservation section -->
@@ -85,7 +59,7 @@
     </div>
     <div class="content">
       <owl-carousel-o #owlElement [options]="carouselOptions">
-        <ng-container *ngFor="let productType of productsMenu; let i= index; first as isFirst">
+        <ng-container *ngFor="let productType of productsMenu; let i= index;">
           <ng-template [dotContent]="(i + 1).toString()" carouselSlide >
             <app-menu-slide [productType]="productType.esName + ' / ' + productType.name" [products]="productType.products"></app-menu-slide>
           </ng-template>
@@ -106,9 +80,9 @@
     </div>
     <div class="take-away-presentation">
       <div class="vertical-wave-line" >
-        <img src="assets/imgs/vertical-wave-line.png" alt="">
+        <img src="assets/imgs/landing-page/vertical-wave-line.png" alt="">
       </div>
-      <img src="assets/imgs/landing-page-3.jpg" alt="">
+      <img src="assets/imgs/landing-page/landing-page-3.jpg" alt="">
     </div>
   </div>
 
@@ -117,7 +91,7 @@
     <div class="coupon-border">
     </div>
     <div class="coupon-presentation">
-      <img src="assets/imgs/landing-page-4.jpg" alt="">
+      <img src="assets/imgs/landing-page/landing-page-4.jpg" alt="">
     </div>
     <div class="coupon-action-information">
       <div class="coupon-action">
@@ -130,7 +104,7 @@
         </div>
         <button class="buy-coupon-btn">BUY COUPON GIFT</button>
       </div>
-      <img src="assets/imgs/horizontal-wave-line.png" alt="">
+      <img src="assets/imgs/landing-page/horizontal-wave-line.png" alt="">
     </div>
   </div>
 
@@ -154,36 +128,6 @@
   </div>
 
   <!-- footer section -->
-  <div class="footer-section">
-    <img src="assets/imgs/logo-footer.png" alt="">
-      
-    <div class="address" >
-      CARRE DE CARTAGENA, 328, 08025 BARCELONA
-    </div>
-
-    <div class="open-time">
-      <div class="title"> OPEN</div>
-
-      <div class="time" >
-        13:00 - 16:00 + 20:00 - 23:00
-      </div>
-  
-      <div class="day-of-week" >
-        Mon Wed Thu Fri Sat Sun
-      </div>
-    </div>
-
-    <div class="contact">
-      <div class="insta">
-        <img src="assets/imgs/insta-icon.png" alt="">
-        Littleviet.barcelona
-      </div>
-  
-      <div class="phone">
-        <img src="assets/imgs/phone-icon.png" alt="">
-        671 270 969 | 931 757 081
-      </div>
-    </div>    
-  </div>
+  <app-footer></app-footer>
 </div>
 

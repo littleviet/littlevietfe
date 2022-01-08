@@ -1,0 +1,210 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
+.menu-btn-section {
+    top: 15px;
+    right: 1.5%;
+    position: fixed;
+    z-index: 4;
+
+    @include breakpoint-lg-down() {
+      top: 6px;
+      right: 1.5%;
+    }
+}
+
+/* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */   
+    height: 100%;
+    width: 0;
+    position: fixed; /* Stay in place */
+    z-index: 3; /* Sit on top */
+    right: 0;
+    top: 0;
+    background-color: #0b1315; /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+  
+    @include breakpoint-lg-down() {
+      width: 100%;
+      height: 0;
+      bottom: 0;
+    }
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    padding-bottom: 8%;
+    position: relative;
+    top: 8%;
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+  
+/* The navigation links inside the overlay */
+.menu-item {
+    padding: 8px;
+    font-size: 25px;
+    color: #e0c296;
+    display: block;
+    transition: 0.3s;
+    margin-bottom: 7%;
+}
+
+.menu-language {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25%;
+    font-weight: 700;
+}
+
+.language-item {
+    font-size: 25px;
+    color: #e0c296;
+    display: block;
+    transition: 0.3s;
+    margin: 0 3%;
+}
+
+.active-language {
+    border-bottom: 3px solid #e0c296;
+}
+
+.menu-btn-title {
+    padding: 8px;
+    font-size: 25px;
+    color: #e0c296;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+.menu-btn-title:hover, .menu-btn-title:focus {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* When you mouse over the navigation links, change their color */
+.menu-item:hover, .menu-item:focus {
+    color: #f1f1f1;
+    cursor: pointer;
+}
+  
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+  
+.overlay-open {
+    width: 30%;
+    @include breakpoint-lg-down() {
+        height: 100%;
+        width: 100%;
+    }
+}
+  
+.divider-border {
+    height: auto;
+    padding: 0 22%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4%;
+  
+    .divider-1 {
+      width: 90%;
+      margin-bottom: 2%;
+      background-color: #e0c296;
+    }
+  
+    .divider-2 {
+      position: relative;
+      align-self: flex-end;
+      width: 90%;
+      background-color: #e0c296;
+    }
+}
+
+.menu-btn-bg {
+  border-radius: 50%;
+  border: 1px solid #090f11;
+  background-color: #090f11;
+}
+
+.menu-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    z-index: 4;
+    @include breakpoint-lg-down() {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .menu-btn__burger {
+    width: 32px;
+    height: 3px;
+    background: #f3eacd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    transition: all .5s ease-in-out;
+    @include breakpoint-lg-down() {
+      width: 26px;
+      height: 3px;
+    }
+  }
+
+  .menu-btn__burger::before,
+  .menu-btn__burger::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 3px;
+    background: #f3eacd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255,101,47,.2);
+    transition: all .5s ease-in-out;
+
+    @include breakpoint-lg-down() {
+      width: 26px;
+      height: 3px;
+    }
+  }
+  
+  .menu-btn__burger::before {
+    transform: translateY(-10px);
+    @include breakpoint-lg-down() {
+      transform: translateY(-10px);
+    }
+  }
+
+  .menu-btn__burger::after {
+    transform: translateY(10px);
+    @include breakpoint-lg-down() {
+      transform: translateY(10px);
+    }
+  }
+
+  /* ANIMATION */
+  .menu-btn.open .menu-btn__burger {
+    transform: translateX(-42px);
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .menu-btn.open .menu-btn__burger::before {
+    transform: rotate(45deg) translate(30px, -30px);
+  }
+
+  .menu-btn.open .menu-btn__burger::after {
+    transform: rotate(-45deg) translate(30px, 30px);
+  }

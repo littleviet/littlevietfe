@@ -1,11 +1,12 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, HostListener, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Select, Store } from '@ngxs/store';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
 import { Observable } from 'rxjs';
 import { GetProductMenu } from 'src/app/actions/landing-page.action';
 import { LandingPageState } from 'src/app/states/landing-page.state';
-import { CustomerProductType } from 'src/dtos/customer-product-type';
+import { CustomerProductType } from 'src/dtos/product-type/customer-product-type';
 
 @Component({
   selector: 'app-home',
@@ -111,19 +112,19 @@ export class HomeComponent implements OnInit {
       name: "Yogur con argoz negro",
       esName: "Iogurt amb arròs negre",
       caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page-5.jpg"
+      imageUrl: "assets/imgs/landing-page/landing-page-5.jpg"
     },
     {
       name: "Yogur con argoz negro",
       esName: "Iogurt amb arròs negre",
       caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page-6.jpg"
+      imageUrl: "assets/imgs/landing-page/landing-page-6.jpg"
     },
     {
       name: "Yogur con argoz negro",
       esName: "Iogurt amb arròs negre",
       caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page-7.jpg"
+      imageUrl: "assets/imgs/landing-page/landing-page-7.jpg"
     }
   ];
   
@@ -137,7 +138,9 @@ export class HomeComponent implements OnInit {
     carouselService.update();
   }
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private titleService: Title) {
+    this.titleService.setTitle("Little Viet - Homepage");
+  }
 
   ngOnInit() {
     this.store.dispatch(new GetProductMenu())

@@ -1,0 +1,99 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
+
+// Footer
+.footer-section {
+    display: flex;
+    height: auto;
+    padding: 4% 0 3% 0;
+    align-items: center;
+    flex-direction: column;
+    background-color: #c7a67a;
+
+    .logo {
+        margin-bottom: 2%;
+    }
+
+    .address {
+        width: 50%;
+        text-align: center;
+        @include breakpoint-lg-down() {
+            font-size: 13px;
+            width: 90%;
+        }
+    }
+
+    .open-time {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1%;
+        height: 35px;
+        @include breakpoint-lg-down() {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 13px;
+            width: 90%;
+            align-content: stretch;
+        }
+        
+        .title {
+            padding: 0.5% 2%;
+            border-right: 1px solid black;
+        }
+
+        .time {
+            padding: 0.5% 2%;
+            border-right: 1px solid black;
+            @include breakpoint-lg-down() {
+                border-right: none;
+            }
+        }
+
+        .day-of-week {
+            padding: 0.5% 2%;
+            @include breakpoint-lg-down() {
+                margin-top: -15px;
+            }
+        }
+    }
+
+    .contact {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 1%;
+        @include breakpoint-lg-down() {
+            font-size: 13px;
+            width: 100%;
+        }
+        .insta {
+            padding: 0.3% 2%;
+            border-right: 1px solid black;
+
+            img {
+                vertical-align: middle;
+                margin-right: 20px;
+                @include breakpoint-lg-down() {
+                    width: 17px;
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        .phone {
+            padding: 0.3% 2%;
+
+            img {
+                vertical-align: middle;
+                margin-right: 20px;
+                
+                @include breakpoint-lg-down() {
+                    width: 17px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

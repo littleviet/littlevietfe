@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CustomerProductType } from 'src/dtos/customer-product-type';
+import { CustomerProductType } from 'src/dtos/product-type/customer-product-type';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
