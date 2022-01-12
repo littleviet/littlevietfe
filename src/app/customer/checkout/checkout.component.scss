@@ -34,212 +34,172 @@
     }
 }
 
-.take-away-section {
+.noscroll { 
+    @include breakpoint-lg-down() {
+        position: fixed;
+        overflow: hidden;
+    }
+}
+
+.checkout-section {
     display: flex;
     height: auto;
     flex-wrap: wrap;
 
-    .product-type-section {
+    .back-button-section {
         width: 25%;
         display: flex;
         flex-direction: column;
         background-color: #f3eacd;
         border-right: 1px solid #c79e4f;
+        padding: 6% 4% 8% 5%;
         
         @include breakpoint-lg-down() {
             display: none;
         }
 
-        .list-product-type {
-            padding: 30% 0 0 23%;
-
-            .produc-type-item {
-                margin-bottom: 30px;
-
-                .produc-type-name {
-                    font-size: 18px;
-                    padding-left: 20%;
-                    cursor: pointer;
-                }
-
-                .divider-border {
-                    height: auto;
-                    padding: 0 15% 0 10%;
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: 4%;
-                  
-                    .divider-1 {
-                      width: 90%;
-                      margin-bottom: 2%;
-                      background-color: #050505;
-                    }
-                  
-                    .divider-2 {
-                      position: relative;
-                      align-self: flex-end;
-                      width: 90%;
-                      background-color: #050505;
-                    }
-                }
-            }
-        }
-    }
-
-    .product-type-expand {
-        display: none;
-        
-        @include breakpoint-lg-down() {
-            width: 100%;
-            display: flex;
-        }
-
-        .mat-expansion-panel {
-            width: 100%;
-        }
-
-        .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
-            justify-content: center;
-            font-size: 16px;
+        .back-button {
+            cursor: pointer;
             font-weight: 600;
-            width: 100%;
-            margin-left: 24px;
-        }
-
-        .title {
-            display: flex;
-            align-items: center;
-        }
-
-        .product-type-list {
-            display: flex;
-            flex-direction: column;
-
-            .product-type-item {
-                padding: 3% 0;
-                font-size: 15px;
-                text-align: center;
-                border-bottom: 1px solid rgb(0,0,0,0.1);
-            }
-
-            .product-type-item-active {
-                background-color: #e1c7a1;
-                font-weight: 600;
-            }
+            text-align: right;
         }
     }
 
-    .sticky {
-        position: fixed;
-        top: 0;
-        width: 100%;
-    }
-
-    .product-section {
+    .customer-register-section {
         display: flex;
         flex-direction: column;
         height: auto;
         width: 47%;
         background-color: #f3eacd;
-
+        
         @include breakpoint-lg-down() {
             width: 100%;
         }
 
-        .product-list-section {
-            padding: 16% 0 0 3%;
+        .customer-register-area {
+            width: 100%;
 
-            @include breakpoint-lg-down() {
-                padding: 8% 0 0 3%;
+            .login-area {
+                width: 100%;
+                padding: 11% 3% 7% 3%;
+                border-bottom: 1px solid #c79e4f;
+
+                .login-area-title {
+                    text-align: center;
+                    font-size: 45px;
+                    font-family: 'amano';
+                    margin-bottom: 2%;
+                }
+
+                .login-form {
+                    display: flex;
+                    padding: 0 6%;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    margin-top: 4%;
+
+                    .email-field {
+                        width: 45%;
+                        margin-right: 5%
+                    }
+
+                    .password-field {
+                        width: 45%;
+                        margin-left: 5%
+                    }
+
+                    .forgot-password {
+                        width: 100%;
+                        text-align: end;
+                        text-decoration: underline;
+                        font-size: 15px;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
+
+                    .login-btn {
+                        margin-top: 5%;
+                        background-color: #c9ac82;
+                        border: 0px;
+                        padding: 10px 35px;
+                        font-weight: 800;
+                        font-size: 17px;
+                    }
+                }
             }
 
-            .product-list-area {
+            .register-area {
                 width: 100%;
-                
-                .product-item {
+                padding: 8% 3% 8% 3%;
+                border-bottom: 1px solid #c79e4f;
+
+                .register-area-title {
+                    text-align: center;
+                    font-size: 45px;
+                    font-family: 'amano';
+                    margin-bottom: 2%;
+                }
+
+                .register-form {
                     display: flex;
+                    padding: 0 6%;
                     flex-wrap: wrap;
-                    padding: 0 0 3% 4%;
-    
-                    @include breakpoint-lg-down() {
-                        padding: 0 0 3% 0;
+                    justify-content: center;
+                    margin-top: 4%;
+
+                    .email-field {
+                        width: 45%;
+                        margin-right: 5%;
+                        margin-bottom: 2%;
                     }
-    
-                    .product-item-img {
-                        width: 35%;
-    
-                        @include breakpoint-lg-down() {
-                            width: 40%;
-                        }
-    
-                        img {
-    
-                            @include breakpoint-lg-down() {
-                                width: 100%;
-                                height: auto;
-                            }
-                        }
+
+                    .password-field {
+                        width: 45%;
+                        margin-left: 5%;
+                        margin-bottom: 2%;
                     }
-    
-                    .product-item-name {
-                        padding-left: 3%;
-                        width: 50%;
-                       
-                        @include breakpoint-lg-down() {
-                            width: 45%;
-                        }
-    
-                        .product-item-esName {
+
+                    .policy {
+                        width: 100%;
+                        text-align: start;
+                        text-decoration: underline;
+                        font-weight: 600;
+                        cursor: pointer;
+                    }
+
+                    .register-btn {
+                        margin-top: 5%;
+                        background-color: #c9ac82;
+                        border: 0px;
+                        padding: 10px 35px;
+                        font-weight: 800;
+                        font-size: 17px;
+                        cursor: pointer;
+                    }
+
+                    .register-btn:hover {
+                        border-radius: 1px solid #f3eacd;
+                        background-color: white;
+                    }
+
+                    .policy-frame {
+                        width: 100%;
+                        margin-top: 3%;
+
+                        .policy-checkbox {
                             font-weight: 600;
-                            font-size: 21px;
-                            margin-bottom: 1%;
-    
-                            @include breakpoint-lg-down() {
-                                font-size: 16px;
-                            }
+                            font-size: 15px;
                         }
-    
-                        .product-item-caName {
-                            font-size: 17px;
-                            margin-bottom: 1%;
-    
-                            @include breakpoint-lg-down() {
-                                font-size: 14px;
-                            }
-                        }
-    
-                        .product-item-enName {
-                            font-size: 17px;
-                            margin-bottom: 6%;
-                            @include breakpoint-lg-down() {
-                                font-size: 14px;
-                            }
-                        }
-    
-                        .product-item-price {
+                    }
+
+                    .news-frame {
+                        width: 100%;
+                        margin-top: 2%;
+
+                        .news-checkbox {
                             font-weight: 600;
+                            font-size: 15px;
                         }
-                    }
-    
-                    .product-item-action {
-                        width: 15%;
-                        .add-button {
-                            width: 38px;
-                            height: 38px;
-                            font-size: 35px;
-                            border: solid 1px;
-                            text-align: center;
-                            line-height: 38px;
-                            cursor: pointer;
-                        }
-                    }
-    
-                    .divider {
-                        width: 105%;
-                        margin-left: -10%;
-                        margin-top: 6%;
-                        background-color: #dcc18a;
                     }
                 }
             }
@@ -392,34 +352,21 @@
         top: 0;
         right: 0;
     }
-
-    // .product-type-sticky {
-    //     position: fixed;
-    //     top: 0;
-    //     left: 0;
-    // }
 }
 
-::ng-deep .mat-expansion-panel-header {
-    width: 100% !important;
-    background-color: #e1c7a1 !important;
+::ng-deep .mat-form-field-flex {
+    border-radius: 0 !important;
+    border: 1px solid black;
 }
 
-::ng-deep .mat-expansion-panel-content {
-    background-color: #f3eacd !important;
+::ng-deep .mat-form-field-underline {
+    display: none;
 }
 
-::ng-deep .mat-expansion-panel-body {
-    padding: 0 !important;
+::ng-deep .mat-checkbox-background {
+    background-color: transparent !important;
 }
 
-::ng-deep .mat-expansion-panel-header.mat-expanded {
-    height: 48px !important;
-}
-
-.noscroll { 
-    @include breakpoint-lg-down() {
-        position: fixed;
-        overflow: hidden;
-    }
+::ng-deep .mat-checkbox-checkmark-path {
+    stroke: black !important;
 }

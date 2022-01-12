@@ -6,17 +6,14 @@
     </div>
   </div>
 
-  <div class="shopping-cart">
-    <mat-icon class="cart" type="button" cdkOverlayOrigin
-          matBadge="0" matBadgeColor="warn">
-          shopping_cart
-    </mat-icon>
-  </div>
+  <app-cart-button></app-cart-button>
   <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
 
   <!-- Take away -->
   <div class="take-away-section">
-    <div class="product-type-section">
+
+    <!-- Product type list -->
+    <div class="product-type-section" [ngClass]="{'product-type-sticky': orderDetailSticky}" >
       <div class="list-product-type">
         <div *ngFor="let productType of displayProduct; let i = index" class="produc-type-item">
           <div class="produc-type-name">{{productType.productType | uppercase}}</div>
@@ -27,6 +24,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Product type expand -->
     <div class="product-type-expand" [ngClass]="{'sticky': sticky}" #productTypeNav>
       <mat-expansion-panel [(expanded)]="isExpaned" hideToggle="true">
         <mat-expansion-panel-header>
@@ -41,60 +40,68 @@
         </div>
       </mat-expansion-panel>
     </div>
+
+    <!-- Product list -->
     <div class="product-section">
-      <div class="product-list-section">
-        <div *ngFor="let product of displayProduct[0].products; let i = index; last as isLast" class="product-item">
-          <div class="product-item-img">
-            <img src="assets/imgs/take-away/product-example.jpg" alt="">
-          </div>
-          <div class="product-item-name">
-            <div class="product-item-esName">{{product.esName}}</div>
-            <div class="product-item-caName">{{product.caName}}</div>
-            <div class="product-item-enName">{{product.name}}</div>
-            <div class="product-item-price">{{product.price}} &#8364;</div>
-          </div>
-          <div class="product-item-action">
-            <div class="add-button">+</div>
-          </div>
-          <mat-divider *ngIf="!isLast" class="divider"></mat-divider>
-      </div>
-      </div>
-    </div>
-    <div class="order-detail-section">
-      <div class="order-detail-title">
-        My order
-      </div>
-      <img src="assets/imgs/take-away/order-detail-wave.png" alt="">
-      <div class="order-item-list">
-        <div class="cart-item" *ngFor="let item of cartDetail.products; last as isLast">
-          <div class="item-name">
-            <div class="product-item-esName">{{item.esName}}</div>
-            <div class="product-item-caName">{{item.caName}}</div>
-            <div class="product-item-enName">{{item.name}}</div>
-          </div>
-          <div class="item-quantity">
-            <div class="quantity-action">
-              <div class="quantity-btn">-</div>
-              <div class="quantity-number">{{item.quantity}}</div>
-              <div class="quantity-btn">+</div>
+      <div class="product-list-section" #productList>
+        <div class="product-list-area" #productListArea>
+          <div *ngFor="let product of displayProduct[0].products; let i = index; last as isLast" class="product-item">
+            <div class="product-item-img">
+              <img src="assets/imgs/take-away/product-example.jpg" alt="">
             </div>
-            <div class="price">{{item.price}} &#8364;</div>
+            <div class="product-item-name">
+              <div class="product-item-esName">{{product.esName}}</div>
+              <div class="product-item-caName">{{product.caName}}</div>
+              <div class="product-item-enName">{{product.name}}</div>
+              <div class="product-item-price">{{product.price}} &#8364;</div>
+            </div>
+            <div class="product-item-action">
+              <div class="add-button">+</div>
+            </div>
+            <mat-divider *ngIf="!isLast" class="divider"></mat-divider>
           </div>
-          <mat-divider *ngIf="!isLast == true" class="divider"></mat-divider>
         </div>
       </div>
-      <mat-divider class="section-divider"></mat-divider>
-      <div class="total">
-        <div>Subtotal</div>
-        <div class="total-price">{{cartDetail.subTotalPrice}} &#8364;</div>
+    </div>
+
+    <!-- Order detail -->
+    <div class="order-detail-section" [ngClass]="{'order-detail-sticky': orderDetailSticky}" #orderDetailSection>
+      <div class="order-detail-area" #orderDetail>
+        <div class="order-detail-title">
+          My order
+        </div>
+        <img src="assets/imgs/take-away/order-detail-wave.png" alt="">
+        <div class="order-item-list">
+          <div class="cart-item" *ngFor="let item of cartDetail.products; last as isLast">
+            <div class="item-name">
+              <div class="product-item-esName">{{item.esName}}</div>
+              <div class="product-item-caName">{{item.caName}}</div>
+              <div class="product-item-enName">{{item.name}}</div>
+            </div>
+            <div class="item-quantity">
+              <div class="quantity-action">
+                <div class="quantity-btn">-</div>
+                <div class="quantity-number">{{item.quantity}}</div>
+                <div class="quantity-btn">+</div>
+              </div>
+              <div class="price">{{item.price}} &#8364;</div>
+            </div>
+            <mat-divider *ngIf="!isLast == true" class="divider"></mat-divider>
+          </div>
+        </div>
+        <mat-divider class="section-divider"></mat-divider>
+        <div class="total">
+          <div>Subtotal</div>
+          <div class="total-price">{{cartDetail.subTotalPrice}} &#8364;</div>
+        </div>
+        <mat-divider class="section-divider"></mat-divider>
+        <div class="total">
+          <div>Total</div>
+          <div class="total-price">{{cartDetail.totalPrice}} &#8364;</div>
+        </div>
+        <mat-divider class="section-divider"></mat-divider>
+        <button class="check-out-btn" routerLink="/checkout">CHECK OUT</button>
       </div>
-      <mat-divider class="section-divider"></mat-divider>
-      <div class="total">
-        <div>Total</div>
-        <div class="total-price">{{cartDetail.totalPrice}} &#8364;</div>
-      </div>
-      <mat-divider class="section-divider"></mat-divider>
-      <button class="check-out-btn">CHECK OUT</button>
     </div>
   </div>
 

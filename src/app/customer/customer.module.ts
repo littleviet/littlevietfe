@@ -13,6 +13,11 @@ import { MenuButtonComponent } from 'src/commons/components/menu-button/menu-but
 import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from 'src/commons/components/footer/footer.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CartButtonComponent } from 'src/commons/components/cart-button/cart-button.component';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   imports: [
@@ -23,7 +28,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CarouselModule,
     MatDividerModule,
     MatIconModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   declarations: [
     HomeComponent,
@@ -31,7 +40,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     LandingTitleComponent,
     TakeAwayComponent,
     MenuButtonComponent,
-    FooterComponent
+    FooterComponent,
+    CheckoutComponent,
+    CartButtonComponent,
   ]
 })
 export class CustomerModule { }

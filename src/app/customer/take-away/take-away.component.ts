@@ -12,10 +12,63 @@ import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 })
 export class TakeAwayComponent implements OnInit {
   @ViewChild("productTypeNav") productTypeNav!: ElementRef;
+  @ViewChild("orderDetail") orderDetail!: ElementRef;
+  @ViewChild("orderDetailSection") orderDetailSection!: ElementRef;
+  @ViewChild("productList") productList!: ElementRef;
+  @ViewChild("productListArea") productListArea!: ElementRef;
   menuOpen: boolean = false;
   sticky: boolean = false;
+  orderDetailSticky: boolean = false;
   isExpaned: boolean = false;
   products: TakeAwayProduct[] = [
+    // {
+    //   name: 'Banh mi',
+    //   esName: 'Banh mi',
+    //   caName: 'Banh mi',
+    //   price: 6.5,
+    //   productTypeName: 'TASTING MENU',
+    //   productTypeId: '1',
+    //   images: [
+    //     {
+    //       id: '',
+    //       isMain: true,
+    //       name: '',
+    //       url: ''
+    //     }
+    //   ]
+    // },
+    // {
+    //   name: 'Banh mi',
+    //   esName: 'Banh mi',
+    //   caName: 'Banh mi',
+    //   price: 6.5,
+    //   productTypeName: 'TASTING MENU',
+    //   productTypeId: '1',
+    //   images: [
+    //     {
+    //       id: '',
+    //       isMain: true,
+    //       name: '',
+    //       url: ''
+    //     }
+    //   ]
+    // },
+    // {
+    //   name: 'Banh mi',
+    //   esName: 'Banh mi',
+    //   caName: 'Banh mi',
+    //   price: 6.5,
+    //   productTypeName: 'TASTING MENU',
+    //   productTypeId: '1',
+    //   images: [
+    //     {
+    //       id: '',
+    //       isMain: true,
+    //       name: '',
+    //       url: ''
+    //     }
+    //   ]
+    // },
     {
       name: 'Banh mi',
       esName: 'Banh mi',
@@ -212,7 +265,6 @@ export class TakeAwayComponent implements OnInit {
     .groupBy(p => p.productTypeName)
     .map((value, key) => ({ productType: key, products: value }))
     .value();
-    console.log(this.displayProduct);
   }
 
   @HostListener("window:scroll", [])
@@ -222,9 +274,24 @@ export class TakeAwayComponent implements OnInit {
       } else {
         this.sticky = false;
       }
+      // let orderDetailTop = this.orderDetail.nativeElement.getBoundingClientRect().top;
+      // let orderDetailHeight = this.orderDetail.nativeElement.getBoundingClientRect().height;
+      // let orderDetailSectionHeight = this.orderDetailSection.nativeElement.getBoundingClientRect().height;
+      // let productListHeight = this.productList.nativeElement.getBoundingClientRect().height;
+      // let productListTop = this.productList.nativeElement.getBoundingClientRect().top;
+      // let productListAreaHeight = this.productList.nativeElement.getBoundingClientRect().height;
+      // console.log(`orderDetailTop: ${this.orderDetail.nativeElement.getBoundingClientRect().top},
+      //             orderDetailSectionHeight: ${this.orderDetailSection.nativeElement.getBoundingClientRect().height},
+      //             productListHeight: ${this.productList.nativeElement.getBoundingClientRect().height}`);
+      // if (productListTop < 0) {
+      //   console.log("Hello");
+      //   this.orderDetailSticky = true;
+      // } else {
+      //   this.orderDetailSticky = false;
+      // }
   }
 
   clickBtn() {
-    
+    this.menuOpen = !this.menuOpen;
   }
 }

@@ -161,6 +161,5 @@ export class HomeComponent implements OnInit {
 
   clickBtn() {
     this.menuOpen = !this.menuOpen;
-    console.log(this.menuOpen);
   }
 }

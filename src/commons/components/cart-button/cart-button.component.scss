@@ -1,0 +1,34 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
+
+.shopping-cart {
+    position: fixed;
+    top: 15px;
+    right: 6%;
+    color: #f3eacd;
+    width: 55px;
+    height: 55px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid #090f11;
+    background-color: #090f11;
+    cursor: pointer;
+
+    @include breakpoint-lg-down() {
+        position: fixed;
+        top: 6px;
+        left: 1.5%;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
+        z-index: 2;
+    }
+
+    .cart {
+        font-size: 35px;
+
+        @include breakpoint-lg-down() {
+            font-size: 25px;
+            text-align: center;
+        }
+    }
+}
