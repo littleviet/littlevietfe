@@ -1,0 +1,18 @@
+<div class="close-btn-area" mat-dialog-close>
+  <mat-icon mat-icon class="close-btn">close</mat-icon>
+</div>
+<div class="take-away-dialog">
+  <h1 mat-dialog-title class="take-away-title">Take away</h1>
+  <div mat-dialog-content>
+    <p class="today-title">Today, {{today}}</p>
+    <form (ngSubmit)="onSubmit()" class="hour-field" name="hour-form">
+      <select [formControl]="hourFormControl" name="hour" class="hour-value">
+        <option value="Hours">Hour*</option>
+        <option value="saab">12:30</option>
+        <option value="opel">13:30</option>
+        <option value="audi">14:30</option>
+      </select>
+      <button type="submit" mat-dialog-close="true" class="next-btn">NEXT</button>
+    </form>
+  </div>
+</div>

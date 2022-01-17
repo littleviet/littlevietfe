@@ -1,0 +1,148 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
+
+.order-detail-section {
+    background-color: #e1c7a1;
+    padding: 4% 5% 5% 4%;
+    width: 100%;
+
+    @include breakpoint-lg-down() {
+        width: 100%;
+    }
+
+    .order-detail-area {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+            max-width: 100%;
+            margin-bottom: 13%;
+        }
+
+        .order-detail-title {
+            text-align: center;
+            font-size: 45px;
+            font-family: 'amano';
+            margin-bottom: 2%;
+        }
+
+        .order-item-list {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-bottom: 8%;
+
+            .cart-item {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 5%;
+
+                .item-name {
+                    padding-bottom: 3%;
+                    width: 75%;
+
+                    .product-item-esName {
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin-bottom: 1%;
+                    }
+
+                    .product-item-caName {
+                        font-size: 15px;
+                        margin-bottom: 1%;
+                    }
+
+                    .product-item-enName {
+                        font-size: 15px;
+                    }
+                }
+
+                .item-quantity {
+                    display: flex;
+                    flex-direction: column;
+                    width: 25%;
+
+                    .quantity-action {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-end;
+
+                        .quantity-btn {
+                            width: 22px;
+                            height: 22px;
+                            font-size: 20px;
+                            line-height: 20px;
+                            border-radius: 50%;
+                            text-align: center;
+                            border: 1px solid black;
+                            cursor: pointer;
+                        }
+
+                        .quantity-number {
+                            margin: 0 6px;
+                            line-height: 24px;
+                            font-weight: 600;
+                        }
+                    }
+
+                    .price {
+                        align-self: flex-end;
+                        font-size: 18;
+                        font-weight: 600;
+                        margin-top: 20%;
+                    }
+                }
+
+                .divider {
+                    width: 110%;
+                    margin-left: -10%;
+                    background-color: #dcc18a;
+                }
+            }
+        }
+
+        .section-divider {
+            background-color: black;
+            width: 100%;
+        }
+
+        .total {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            margin: 4% 0;
+            font-weight: 600;
+            line-height: 20px;
+            text-align: center;
+
+            .total-price {
+                font-size: 20px;
+            }
+        }
+
+        .check-out-btn {
+            margin-top: 10%;
+            background-color: #f3eacd;
+            border: 0px;
+            padding: 10px 30px;
+            font-weight: 600;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .check-out-btn:hover {
+            border-radius: 1px solid #f3eacd;
+            background-color: white;
+        }
+    }
+}
+
+.order-detail-sticky {
+    position: fixed;
+    top: 0;
+    right: 0;
+}

@@ -24,10 +24,10 @@
         <!-- Login area -->
         <div class="login-area">
           <div class="login-area-title">Already registered?</div>
-          <form class="login-form" [formGroup]="loginFormGroup">
+          <form class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Email address</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+              <input type="email" matInput [formControl]="emailFormControl" name="email" placeholder="Ex. pat@example.com">
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                 Please enter a valid email address
               </mat-error>
@@ -43,7 +43,7 @@
               </mat-error>
             </mat-form-field>
             <div class="forgot-password">Forgot your password?</div>
-            <button class="login-btn">SIGN IN</button>
+            <button type="submit" [disabled]="loginFormGroup.invalid" [ngClass]="{'login-btn-active': !loginFormGroup.invalid}" class="login-btn">SIGN IN</button>
           </form>
         </div>
 
@@ -54,96 +54,75 @@
             <!-- First name -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>First name</mat-label>
-              <input type="email" matInput formControlName="emailFormControl" placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="loginFormGroup.hasError('email') && !loginFormGroup.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+              <input type="text" matInput formControlName="firstNameFormControl" placeholder="Ex. Viet">
+              <mat-error *ngIf="firstNameFormControl.hasError('required')">
+                First name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Last name -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Last name</mat-label>
-              <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid password
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Password is <strong>required</strong>
+              <input type="text" matInput [formControl]="lastNameFormControl" placeholder="Ex. Little">
+              <mat-error *ngIf="lastNameFormControl.hasError('required')">
+                Last name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Address -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Address</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+              <input type="text" matInput [formControl]="addressFormControl" placeholder="Ex. Barcelona">
+              <mat-error *ngIf="addressFormControl.hasError('required')">
+                Address is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Number -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Number</mat-label>
-              <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid password
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Password is <strong>required</strong>
+              <input type="text" matInput [formControl]="numberFormControl" placeholder="Ex. 123">
+              <mat-error *ngIf="numberFormControl.hasError('required')">
+                Number is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Flat door -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Flat-Door</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+              <input type="text" matInput [formControl]="flatDoorFormControl" placeholder="Ex. A20">
+              <mat-error *ngIf="flatDoorFormControl.hasError('required')">
+                Flat-Door is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
              <!-- Zip code -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Zip/Postal code</mat-label>
-              <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid password
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Password is <strong>required</strong>
+              <input type="text" matInput [formControl]="zipCodeFormControl" placeholder="Ex. 70000">
+              
+              <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+                Zip code is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Telephone 1 -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Telephone 1</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+              <input type="text" matInput [formControl]="phone1FormControl" placeholder="Ex. 036 289 2891">
+              
+              <mat-error *ngIf="phone1FormControl.hasError('required')">
+                Phone number 1 is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
             <!-- Telephone 2 -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Telephone 2</mat-label>
-              <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid password
-              </mat-error>
-              <mat-error *ngIf="emailFormControl.hasError('required')">
-                Password is <strong>required</strong>
+              <input type="text" matInput [formControl]="phone2FormControl" placeholder="Ex. 036 289 2892">
+             
+              <mat-error *ngIf="phone2FormControl.hasError('required')">
+                Phone number 2 is <strong>required</strong>
               </mat-error>
             </mat-form-field>
 
@@ -151,9 +130,6 @@
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Email address</mat-label>
               <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
-              </mat-error>
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email is <strong>required</strong>
               </mat-error>
@@ -163,9 +139,6 @@
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Password</mat-label>
               <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid password
-              </mat-error>
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Password is <strong>required</strong>
               </mat-error>
@@ -188,43 +161,8 @@
     </div>
 
     <!-- Order detail -->
-    <div class="order-detail-section">
-      <div class="order-detail-area" #orderDetail>
-        <div class="order-detail-title">
-          My order
-        </div>
-        <img src="assets/imgs/take-away/order-detail-wave.png" alt="">
-        <div class="order-item-list">
-          <div class="cart-item" *ngFor="let item of cartDetail.products; last as isLast">
-            <div class="item-name">
-              <div class="product-item-esName">{{item.esName}}</div>
-              <div class="product-item-caName">{{item.caName}}</div>
-              <div class="product-item-enName">{{item.name}}</div>
-            </div>
-            <div class="item-quantity">
-              <div class="quantity-action">
-                <div class="quantity-btn">-</div>
-                <div class="quantity-number">{{item.quantity}}</div>
-                <div class="quantity-btn">+</div>
-              </div>
-              <div class="price">{{item.price}} &#8364;</div>
-            </div>
-            <mat-divider *ngIf="!isLast == true" class="divider"></mat-divider>
-          </div>
-        </div>
-        <mat-divider class="section-divider"></mat-divider>
-        <div class="total">
-          <div>Subtotal</div>
-          <div class="total-price">{{cartDetail.subTotalPrice}} &euro;</div>
-        </div>
-        <mat-divider class="section-divider"></mat-divider>
-        <div class="total">
-          <div>Total</div>
-          <div class="total-price">{{cartDetail.totalPrice}} &#8364;</div>
-        </div>
-        <mat-divider class="section-divider"></mat-divider>
-        <button class="check-out-btn">ORDER MORE</button>
-      </div>
+    <div class="cart-detail">
+      <app-cart-detail titleBtn="ORDER MORE"></app-cart-detail>
     </div>
   </div>
 

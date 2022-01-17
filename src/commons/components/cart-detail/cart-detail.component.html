@@ -1,0 +1,38 @@
+<div class="order-detail-section" [ngClass]="{'order-detail-sticky': orderDetailSticky}" #orderDetailSection>
+  <div class="order-detail-area" #orderDetail>
+    <div class="order-detail-title">
+      My order
+    </div>
+    <img src="assets/imgs/take-away/order-detail-wave.png" alt="">
+    <div *ngIf="cartDetail &&  cartDetail.products &&  cartDetail.products.length > 0"  class="order-item-list">
+      <div class="cart-item" *ngFor="let item of cartDetail.products; last as isLast">
+        <div class="item-name">
+          <div class="product-item-esName">{{item.esName}}</div>
+          <div class="product-item-caName">{{item.caName}}</div>
+          <div class="product-item-enName">{{item.name}}</div>
+        </div>
+        <div class="item-quantity">
+          <div class="quantity-action">
+            <div (click)="adjustCart(item.id, -1)" class="quantity-btn">-</div>
+            <div class="quantity-number">{{item.quantity}}</div>
+            <div (click)="adjustCart(item.id, 1)" class="quantity-btn">+</div>
+          </div>
+          <div class="price">{{item.price * item.quantity}} &#8364;</div>
+        </div>
+        <mat-divider *ngIf="!isLast == true" class="divider"></mat-divider>
+      </div>
+    </div>
+    <mat-divider class="section-divider"></mat-divider>
+    <div class="total">
+      <div>Subtotal</div>
+      <div class="total-price">{{cartDetail && cartDetail.subTotalPrice ? cartDetail.subTotalPrice : 0}} &#8364;</div>
+    </div>
+    <mat-divider class="section-divider"></mat-divider>
+    <div class="total">
+      <div>Total</div>
+      <div class="total-price">{{cartDetail && cartDetail.totalPrice ? cartDetail.totalPrice : 0}} &#8364;</div>
+    </div>
+    <mat-divider class="section-divider"></mat-divider>
+    <button class="check-out-btn" routerLink="/checkout">{{titleBtn}}</button>
+  </div>
+</div>

@@ -186,3 +186,7 @@ $littlevietfe-theme: mat.define-light-theme((
     margin-left: 0;
   }
 }
+
+.cdk-overlay-pane.my-dialog {
+  position: relative!important;
+}

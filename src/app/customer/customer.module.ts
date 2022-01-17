@@ -18,6 +18,11 @@ import { CartButtonComponent } from 'src/commons/components/cart-button/cart-but
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatBadgeModule } from '@angular/material/badge';
+import { CartDetailComponent } from 'src/commons/components/cart-detail/cart-detail.component';
+import { TimePickerDialogComponent } from 'src/commons/components/time-picker-dialog/time-picker-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -32,7 +37,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule,
+    MatBadgeModule,
+    MatDialogModule
   ],
   declarations: [
     HomeComponent,
@@ -43,6 +51,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     FooterComponent,
     CheckoutComponent,
     CartButtonComponent,
+    CartDetailComponent,
+    TimePickerDialogComponent
   ]
 })
 export class CustomerModule { }

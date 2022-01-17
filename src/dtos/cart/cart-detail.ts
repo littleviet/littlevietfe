@@ -1,7 +1,7 @@
 import { CartProduct } from "../product/cart-product";
 
-export interface CartDetail {
-    totalPrice: number;
-    subTotalPrice: number;
-    products: CartProduct[];
+export class CartDetail {
+    totalPrice: number = 0;
+    subTotalPrice: number = 0;
+    products: CartProduct[] = [];
 }

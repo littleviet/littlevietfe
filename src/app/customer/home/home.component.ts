@@ -148,7 +148,6 @@ export class HomeComponent implements OnInit {
       this.productsMenu = result;
     });
     this.setUpTittleColorBasedOnScreenSize();
-
   }
 
   setUpTittleColorBasedOnScreenSize() {

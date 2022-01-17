@@ -1,7 +1,12 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
+import { GetTakeAwayProducts, UpdateCart } from 'src/app/actions/take-away.action';
+import { TakeAwayState } from 'src/app/states/take-away.state';
+import { TimePickerDialogComponent } from 'src/commons/components/time-picker-dialog/time-picker-dialog.component';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 
@@ -16,260 +21,40 @@ export class TakeAwayComponent implements OnInit {
   @ViewChild("orderDetailSection") orderDetailSection!: ElementRef;
   @ViewChild("productList") productList!: ElementRef;
   @ViewChild("productListArea") productListArea!: ElementRef;
+  @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
+  @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
+  cartDetail!: CartDetail;
   menuOpen: boolean = false;
   sticky: boolean = false;
   orderDetailSticky: boolean = false;
   isExpaned: boolean = false;
-  products: TakeAwayProduct[] = [
-    // {
-    //   name: 'Banh mi',
-    //   esName: 'Banh mi',
-    //   caName: 'Banh mi',
-    //   price: 6.5,
-    //   productTypeName: 'TASTING MENU',
-    //   productTypeId: '1',
-    //   images: [
-    //     {
-    //       id: '',
-    //       isMain: true,
-    //       name: '',
-    //       url: ''
-    //     }
-    //   ]
-    // },
-    // {
-    //   name: 'Banh mi',
-    //   esName: 'Banh mi',
-    //   caName: 'Banh mi',
-    //   price: 6.5,
-    //   productTypeName: 'TASTING MENU',
-    //   productTypeId: '1',
-    //   images: [
-    //     {
-    //       id: '',
-    //       isMain: true,
-    //       name: '',
-    //       url: ''
-    //     }
-    //   ]
-    // },
-    // {
-    //   name: 'Banh mi',
-    //   esName: 'Banh mi',
-    //   caName: 'Banh mi',
-    //   price: 6.5,
-    //   productTypeName: 'TASTING MENU',
-    //   productTypeId: '1',
-    //   images: [
-    //     {
-    //       id: '',
-    //       isMain: true,
-    //       name: '',
-    //       url: ''
-    //     }
-    //   ]
-    // },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'TASTING MENU',
-      productTypeId: '1',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'TASTING MENU',
-      productTypeId: '1',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'ENTRADAS',
-      productTypeId: '2',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'BOCADILLO',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'PHO TRADICIONAL',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'VERMICELLI DE ARROZ',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'VEGANO',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'ESPECIAL',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-    {
-      name: 'Banh mi',
-      esName: 'Banh mi',
-      caName: 'Banh mi',
-      price: 6.5,
-      productTypeName: 'BEDIAS',
-      productTypeId: '3',
-      images: [
-        {
-          id: '',
-          isMain: true,
-          name: '',
-          url: ''
-        }
-      ]
-    },
-  ];
-
+  products: TakeAwayProduct[] = [];
+  selectedProductIndex = 0;
   displayProduct: any;
 
-  cartDetail: CartDetail = {
-    totalPrice: 50,
-    subTotalPrice: 45,
-    products: [
-      {
-        name: 'Banh mi 1 ',
-        esName: 'Banh mi 1',
-        caName: 'Banh mi 1',
-        price: 6.5,
-        id: '1',
-        quantity: 10
-      },
-      {
-        name: 'Banh mi 2',
-        esName: 'Banh mi 2',
-        caName: 'Banh mi 2',
-        price: 6.5,
-        id: '1',
-        quantity: 6
-      },
-      {
-        name: 'Banh mi 3',
-        esName: 'Banh mi 3',
-        caName: 'Banh mi 3',
-        price: 6.5,
-        id: '2',
-        quantity: 6
-      },
-      {
-        name: 'Banh mi 4',
-        esName: 'Banh mi 4',
-        caName: 'Banh mi 4',
-        price: 6.5,
-        id: '2',
-        quantity: 7
-      },
-    ]
-  };
 
-  constructor(private store: Store, private titleService: Title) {
+  constructor(private store: Store, private titleService: Title, public dialog: MatDialog) {
     this.titleService.setTitle("Little Viet - Take Away");
   }
 
   ngOnInit() {
-    this.displayProduct = _.chain(this.products)
-    .groupBy(p => p.productTypeName)
-    .map((value, key) => ({ productType: key, products: value }))
-    .value();
+    this.store.dispatch(new GetTakeAwayProducts());
+    this.takeAwayProducts.subscribe((result) => {
+      this.products = result;
+      this.displayProduct = _.chain(this.products)
+        .groupBy(p => p.productTypeId)
+        .map((value, key) => ({ productType: key, products: value }))
+        .value();
+    });
+
+    this.cartDetailObs.subscribe((result) => {
+      this.cartDetail = result;
+    });
   }
 
   @HostListener("window:scroll", [])
   onWindowScroll() {
-      if (window.pageYOffset > this.productTypeNav.nativeElement.getBoundingClientRect().top) {
+      if (this.productTypeNav && window.pageYOffset > this.productTypeNav.nativeElement.getBoundingClientRect().top) {
         this.sticky = true;
       } else {
         this.sticky = false;
@@ -293,5 +78,27 @@ export class TakeAwayComponent implements OnInit {
 
   clickBtn() {
     this.menuOpen = !this.menuOpen;
+  }
+
+  clickProductType(index: number) {
+    this.selectedProductIndex = index;
+  }
+
+  adjustCart(productId: string , quanity: number) {
+    // if ()
+    this.openDialog(quanity, productId);
+  }
+
+  openDialog(quantity: number, productId: string): void {
+    const dialogRef = this.dialog.open(TimePickerDialogComponent, {
+      width: '350px',
+      panelClass: 'my-dialog',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(new UpdateCart(quantity, productId));
+      }
+    });
   }
 }

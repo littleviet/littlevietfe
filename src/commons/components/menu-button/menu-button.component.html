@@ -6,6 +6,16 @@
 
 <div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
   <div class="overlay-content">
+    <div *ngIf="loginInfo" class="login-info-btn">
+      <button mat-button #trigger="matMenuTrigger" class="name-info-btn" [matMenuTriggerFor]="beforeMenu">
+        <div>{{ loginInfo.firstname }}</div>
+        <mat-icon>{{ trigger.menuOpen  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item class="login-menu-item">My account</button>
+        <button mat-menu-item class="login-menu-item">Log out</button>
+      </mat-menu>
+    </div>
     <div class="menu-btn-title" routerLink="/">INTRODUCE</div>
     <div class="divider-border">
       <mat-divider class="divider-1"></mat-divider>

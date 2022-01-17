@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Store } from '@ngxs/store';
+import { Login } from 'src/app/actions/authentication.action';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 
 @Component({
@@ -13,18 +14,36 @@ export class CheckoutComponent implements OnInit {
   menuOpen: boolean = false;
   checked = false;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
   policyFormControl = new FormControl('', [Validators.required]);
+  firstNameFormControl = new FormControl('', [Validators.required]);
+  lastNameFormControl = new FormControl('', [Validators.required]);
+  addressFormControl = new FormControl('', [Validators.required]);
+  numberFormControl = new FormControl('', [Validators.required]);
+  flatDoorFormControl = new FormControl('', [Validators.required]);
+  zipCodeFormControl = new FormControl('', [Validators.required]);
+  phone1FormControl = new FormControl('', [Validators.required]);
+  phone2FormControl = new FormControl('', [Validators.required]);
+  regEmailFormControl = new FormControl('', [Validators.required]);
+  regPasswordFormControl = new FormControl('', [Validators.required]);
 
   loginFormGroup = new FormGroup({
-    emailFormControl: this.emailFormControl,
-    passwordFormControl: this.passwordFormControl,
+    email: this.emailFormControl,
+    password: this.passwordFormControl,
   });
 
   registerFormGroup = new FormGroup({
     policyFormControl: this.policyFormControl,
-    emailFormControl: this.emailFormControl,
-    passwordFormControl: this.passwordFormControl,
+    firstNameFormControl: this.firstNameFormControl,
+    lastNameFormControl: this.lastNameFormControl,
+    addressFormControl: this.addressFormControl,
+    numberFormControl: this.numberFormControl,
+    flatDoorFormControl: this.flatDoorFormControl,
+    zipCodeFormControl: this.zipCodeFormControl,
+    phone1FormControl: this.phone1FormControl,
+    phone2FormControl: this.phone2FormControl,
+    regEmailFormControl: this.regEmailFormControl,
+    regPasswordFormControl: this.regPasswordFormControl,
   });
 
   constructor(private store: Store, private titleService: Title) {
@@ -73,4 +92,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
   }
 
+  onLoginSubmit() {
+    this.store.dispatch(new Login(this.loginFormGroup.value));
+  }
 }

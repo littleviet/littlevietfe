@@ -35,10 +35,28 @@
 .overlay-content {
     padding-bottom: 8%;
     position: relative;
-    top: 8%;
+    top: 6%;
     width: 100%; /* 100% width */
     text-align: center; /* Centered text/links */
     margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+
+    .login-info-btn {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding-right: 2%;
+
+      .name-info-btn {
+        text-align: center;
+        display: flex;
+        text-align: center;
+        line-height: 24px;
+        background-color: #0b1315;
+        color: #e0c296;
+        cursor: pointer;
+        border: none;
+      }
+    }
 }
   
 /* The navigation links inside the overlay */
@@ -135,76 +153,93 @@
 }
 
 .menu-btn {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
-    transition: all .5s ease-in-out;
-    z-index: 4;
-    @include breakpoint-lg-down() {
-      width: 40px;
-      height: 40px;
-    }
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+  z-index: 4;
+  @include breakpoint-lg-down() {
+    width: 40px;
+    height: 40px;
   }
+}
 
-  .menu-btn__burger {
-    width: 32px;
+.menu-btn__burger {
+  width: 32px;
+  height: 3px;
+  background: #f3eacd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255,101,47,.2);
+  transition: all .5s ease-in-out;
+  @include breakpoint-lg-down() {
+    width: 26px;
     height: 3px;
-    background: #f3eacd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(255,101,47,.2);
-    transition: all .5s ease-in-out;
-    @include breakpoint-lg-down() {
-      width: 26px;
-      height: 3px;
-    }
   }
+}
 
-  .menu-btn__burger::before,
-  .menu-btn__burger::after {
-    content: '';
-    position: absolute;
-    width: 32px;
+.menu-btn__burger::before,
+.menu-btn__burger::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 3px;
+  background: #f3eacd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(255,101,47,.2);
+  transition: all .5s ease-in-out;
+
+  @include breakpoint-lg-down() {
+    width: 26px;
     height: 3px;
-    background: #f3eacd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(255,101,47,.2);
-    transition: all .5s ease-in-out;
+  }
+}
 
-    @include breakpoint-lg-down() {
-      width: 26px;
-      height: 3px;
-    }
+.menu-btn__burger::before {
+  transform: translateY(-10px);
+  @include breakpoint-lg-down() {
+    transform: translateY(-7px);
   }
-  
-  .menu-btn__burger::before {
-    transform: translateY(-10px);
-    @include breakpoint-lg-down() {
-      transform: translateY(-7px);
-    }
-  }
+}
 
-  .menu-btn__burger::after {
-    transform: translateY(10px);
-    @include breakpoint-lg-down() {
-      transform: translateY(7px);
-    }
+.menu-btn__burger::after {
+  transform: translateY(10px);
+  @include breakpoint-lg-down() {
+    transform: translateY(7px);
   }
+}
 
-  /* ANIMATION */
-  .menu-btn.open .menu-btn__burger {
-    transform: translateX(-42px);
-    background: transparent;
-    box-shadow: none;
-  }
+/* ANIMATION */
+.menu-btn.open .menu-btn__burger {
+  transform: translateX(-42px);
+  background: transparent;
+  box-shadow: none;
+}
 
-  .menu-btn.open .menu-btn__burger::before {
-    transform: rotate(45deg) translate(30px, -30px);
-  }
+.menu-btn.open .menu-btn__burger::before {
+  transform: rotate(45deg) translate(30px, -30px);
+}
 
-  .menu-btn.open .menu-btn__burger::after {
-    transform: rotate(-45deg) translate(30px, 30px);
-  }
+.menu-btn.open .menu-btn__burger::after {
+  transform: rotate(-45deg) translate(30px, 30px);
+}
+
+.login-menu-item {
+  text-align: right;
+}
+
+::ng-deep .mat-menu-panel {
+  background-color: #0b1315;
+  color: #e0c296;
+}
+
+::ng-deep .mat-menu-item {
+  color: #e0c296;
+}
+
+::ng-deep .mat-elevation-z4 {
+  box-shadow: none;
+}

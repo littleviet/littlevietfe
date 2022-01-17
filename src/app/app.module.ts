@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,11 +13,18 @@ import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthInterceptorService } from './helper/auth-interceptor.service';
+import { AuthenticationState } from './states/authentication.state';
 import { LandingPageState } from './states/landing-page.state';
+import { TakeAwayState } from './states/take-away.state';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
-  declarations: [	
+  declarations: [		
     AppComponent,
+      AdminComponent
    ],
   imports: [
     BrowserModule,
@@ -26,15 +33,23 @@ import { LandingPageState } from './states/landing-page.state';
     CommonModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
+    MatMenuModule,
     HttpClientModule,
-    NgxsModule.forRoot([LandingPageState], {
+    NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
