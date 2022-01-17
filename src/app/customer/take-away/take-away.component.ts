@@ -23,6 +23,7 @@ export class TakeAwayComponent implements OnInit {
   @ViewChild("productListArea") productListArea!: ElementRef;
   @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
+  @Select(TakeAwayState.getTimePickUp) timePickUpObs!: Observable<string>;
   cartDetail!: CartDetail;
   menuOpen: boolean = false;
   sticky: boolean = false;
@@ -31,6 +32,7 @@ export class TakeAwayComponent implements OnInit {
   products: TakeAwayProduct[] = [];
   selectedProductIndex = 0;
   displayProduct: any;
+  timePickUp: string = '';
 
 
   constructor(private store: Store, private titleService: Title, public dialog: MatDialog) {
@@ -50,6 +52,11 @@ export class TakeAwayComponent implements OnInit {
     this.cartDetailObs.subscribe((result) => {
       this.cartDetail = result;
     });
+
+    this.timePickUpObs.subscribe((result) => {
+      this.timePickUp = result;
+    });
+
   }
 
   @HostListener("window:scroll", [])
@@ -85,8 +92,11 @@ export class TakeAwayComponent implements OnInit {
   }
 
   adjustCart(productId: string , quanity: number) {
-    // if ()
-    this.openDialog(quanity, productId);
+    if (!this.timePickUp || this.timePickUp == '') {
+      this.openDialog(quanity, productId);
+    } else {
+      this.store.dispatch(new UpdateCart(quanity, productId));
+    }
   }
 
   openDialog(quantity: number, productId: string): void {

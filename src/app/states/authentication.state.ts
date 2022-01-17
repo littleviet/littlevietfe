@@ -32,7 +32,6 @@ export class AuthenticationState {
 
     @Action(Login)
     login({getState, setState}: StateContext<AuthenticationStateModel>, payload: any) {
-        console.log("padloaddd: ", payload)
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
             const state = getState();
             if (result.success) {

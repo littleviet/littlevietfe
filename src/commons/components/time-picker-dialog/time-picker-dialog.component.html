@@ -6,13 +6,13 @@
   <div mat-dialog-content>
     <p class="today-title">Today, {{today}}</p>
     <form (ngSubmit)="onSubmit()" class="hour-field" name="hour-form">
-      <select [formControl]="hourFormControl" name="hour" class="hour-value">
-        <option value="Hours">Hour*</option>
+      <select [formControl]="hourFormControl" required name="hour" class="hour-value">
+        <option selected value="Hour*">Hour*</option>
         <option value="saab">12:30</option>
         <option value="opel">13:30</option>
         <option value="audi">14:30</option>
       </select>
-      <button type="submit" mat-dialog-close="true" class="next-btn">NEXT</button>
+      <button type="submit" mat-dialog-close="true" [disabled]="hourFormControl.invalid" [ngClass]="{'next-btn-active': !hourFormControl.invalid}" class="next-btn">NEXT</button>
     </form>
   </div>
 </div>

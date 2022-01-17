@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
+import { UpdatePickUpTime } from 'src/app/actions/take-away.action';
 
 @Component({
   selector: 'app-time-picker-dialog',
@@ -11,13 +13,19 @@ export class TimePickerDialogComponent implements OnInit {
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   today!: string;
 
-  hourFormControl = new FormControl('', [Validators.required]);
+  hourFormControl = new FormControl('Hour*', [Validators.required]);
 
-  constructor(public dialogRef: MatDialogRef<TimePickerDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(public dialogRef: MatDialogRef<TimePickerDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
+            private store: Store) {}
 
   
   ngOnInit(): void {
     this.setUpTimeDropdown();
+    this.hourFormControl.valueChanges.subscribe(v => {
+      if (v == 'Hour*') {
+        this.hourFormControl.setErrors({'required': true});
+      }
+    });
   }
   
   setUpTimeDropdown() {
@@ -29,6 +37,6 @@ export class TimePickerDialogComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.hourFormControl.value);
+    this.store.dispatch(new UpdatePickUpTime(this.hourFormControl.value));
   }
 }

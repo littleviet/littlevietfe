@@ -7,3 +7,9 @@ export class UpdateCart {
     constructor(public quantity: number, public productId: string) {
     }
 }
+
+export class UpdatePickUpTime {
+    static readonly type = '[TAKEWAY] Update Pick Up Time'
+    constructor(public time: string) {
+    }
+}

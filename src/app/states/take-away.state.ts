@@ -5,12 +5,13 @@ import { Observable, tap } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
-import { GetTakeAwayProducts, UpdateCart } from '../actions/take-away.action';
+import { GetTakeAwayProducts, UpdateCart, UpdatePickUpTime } from '../actions/take-away.action';
 import { TakeAwayService } from '../services/take-away.service';
 
 export class TakeAwayStateModel {
     products: TakeAwayProduct[] = [];
     cart!: CartDetail;
+    timePickUp!: string | null;
 }
 
 @State<TakeAwayStateModel>({
@@ -20,8 +21,9 @@ export class TakeAwayStateModel {
         cart: {
             products: [],
             subTotalPrice: 0,
-            totalPrice: 0
-        }
+            totalPrice: 0,
+        },
+        timePickUp: null
     }
 })
 
@@ -39,6 +41,11 @@ export class TakeAwayState {
     @Selector()
     static getCartDetail(state: TakeAwayStateModel) {
         return state.cart;
+    }
+
+    @Selector()
+    static getTimePickUp(state: TakeAwayStateModel) {
+        return state.timePickUp;
     }
 
     @Action(GetTakeAwayProducts)
@@ -95,6 +102,15 @@ export class TakeAwayState {
                 subTotalPrice: price,
                 totalPrice: price
             }
+        });
+    }
+
+    @Action(UpdatePickUpTime)
+    updatePickUpTime({getState, setState}: StateContext<TakeAwayStateModel>, payload: string) {
+        const state = getState();
+        setState({
+            ...state,
+           timePickUp: payload
         });
     }
 }

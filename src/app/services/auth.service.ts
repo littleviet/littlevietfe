@@ -14,7 +14,6 @@ export class AuthService {
     }
 
     login(email: string, password: string) : Observable<BaseResponse<LoginAccountInfo>> {
-        console.log(email, password);
         return this.http.post<BaseResponse<LoginAccountInfo>>(environment.apiUrl + 'account/login', {
             email: email,
             password: password
