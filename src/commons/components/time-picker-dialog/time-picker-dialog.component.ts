@@ -13,10 +13,12 @@ export class TimePickerDialogComponent implements OnInit {
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   today!: string;
 
-  hourFormControl = new FormControl('Hour*', [Validators.required]);
+  hourFormControl = new FormControl([Validators.required]);
 
   constructor(public dialogRef: MatDialogRef<TimePickerDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-            private store: Store) {}
+            private store: Store) {
+              this.hourFormControl.setValue('Hour*', {onlySelf: true});
+            }
 
   
   ngOnInit(): void {

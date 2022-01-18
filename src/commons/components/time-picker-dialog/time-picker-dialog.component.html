@@ -12,7 +12,11 @@
         <option value="opel">13:30</option>
         <option value="audi">14:30</option>
       </select>
-      <button type="submit" mat-dialog-close="true" [disabled]="hourFormControl.invalid" [ngClass]="{'next-btn-active': !hourFormControl.invalid}" class="next-btn">NEXT</button>
+      <button type="submit" mat-dialog-close="true"
+        [disabled]="hourFormControl.invalid || hourFormControl.value == 'Hour*'"
+        [ngClass]="{'next-btn-active': !hourFormControl.invalid && hourFormControl.value != 'Hour*'}" class="next-btn">
+        NEXT
+      </button>
     </form>
   </div>
 </div>
