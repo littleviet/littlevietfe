@@ -256,14 +256,15 @@
 
             .order-detail-area {
                 width: 100%;
-                padding: 11% 3% 7% 3%;
+                padding: 8% 3% 7% 3%;
                 border-bottom: 1px solid #c79e4f;
                 text-align: center;
 
                 .order-area-title {
                     text-align: center;
-                    font-size: 45px;
-                    font-family: 'amano';
+                    font-size: 25px;
+                    // font-family: 'amano';
+                    font-weight: 500;
                     margin-bottom: 2%;
                 }
 
@@ -340,6 +341,10 @@
     .cart-detail {
         width: 28%;
         height: 100%;
+
+        @include breakpoint-lg-down() {
+            width: 100%;
+        }
     }
 
     .order-detail-sticky {

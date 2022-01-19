@@ -23,6 +23,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CartDetailComponent } from 'src/commons/components/cart-detail/cart-detail.component';
 import { TimePickerDialogComponent } from 'src/commons/components/time-picker-dialog/time-picker-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProgressSpinnerComponent } from 'src/commons/components/progress-spinner/progress-spinner.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -40,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCheckboxModule,
     MatMenuModule,
     MatBadgeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     HomeComponent,
@@ -52,7 +55,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CheckoutComponent,
     CartButtonComponent,
     CartDetailComponent,
-    TimePickerDialogComponent
+    TimePickerDialogComponent,
+    ProgressSpinnerComponent
   ]
 })
 export class CustomerModule { }

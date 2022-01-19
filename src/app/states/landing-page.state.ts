@@ -8,12 +8,14 @@ import { LandingPageService } from '../services/landing-page.service';
 
 export class LandingPageStateModel {
     productTypes: CustomerProductType[] = [];
+    actions!: string[];
 }
 
 @State<LandingPageStateModel>({
     name: 'landingpage',
     defaults: {
-        productTypes: []
+        productTypes: [],
+        actions: []
     }
 })
 
@@ -28,14 +30,26 @@ export class LandingPageState {
         return state.productTypes
     }
 
+    @Selector()
+    static getActions(state: LandingPageStateModel) {
+        return state.actions;
+    }
+
     @Action(GetProductMenu)
     getProductMenu({getState, setState}: StateContext<LandingPageStateModel>) : Observable<BaseResponse<CustomerProductType[]>> {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, GetProductMenu.name]
+        });
         return this.landingPageService.getProductMenu().pipe(tap((result) => {
-            const state = getState();
+            let tempActions = [...state.actions];
+            tempActions.splice( tempActions.findIndex(a => a == GetProductMenu.name), 1);
             if (result.success) {
                 setState({
                     ...state,
-                    productTypes: result.payload
+                    productTypes: result.payload,
+                    actions: tempActions
                 });
             }
         }));

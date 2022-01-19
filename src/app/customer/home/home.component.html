@@ -130,4 +130,5 @@
   <!-- footer section -->
   <app-footer></app-footer>
 </div>
+<app-progress-spinner *ngIf="(landingActionsObs | async)!.length > 0"></app-progress-spinner>
 

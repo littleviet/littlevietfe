@@ -15,6 +15,7 @@ import { CartDetail } from 'src/dtos/cart/cart-detail';
 })
 export class CheckoutComponent implements OnInit {
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
+  @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   loggedInAccountInfo: LoginAccountInfo | null = null;
   menuOpen: boolean = false;
   checked = false;

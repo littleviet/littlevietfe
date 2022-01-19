@@ -24,6 +24,7 @@ export class TakeAwayComponent implements OnInit {
   @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
   @Select(TakeAwayState.getTimePickUp) timePickUpObs!: Observable<string>;
+  @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
   cartDetail!: CartDetail;
   menuOpen: boolean = false;
   sticky: boolean = false;

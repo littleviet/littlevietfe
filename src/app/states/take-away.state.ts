@@ -12,6 +12,7 @@ export class TakeAwayStateModel {
     products: TakeAwayProduct[] = [];
     cart!: CartDetail;
     timePickUp!: string | null;
+    actions!: string[];
 }
 
 @State<TakeAwayStateModel>({
@@ -23,7 +24,8 @@ export class TakeAwayStateModel {
             subTotalPrice: 0,
             totalPrice: 0,
         },
-        timePickUp: null
+        timePickUp: null,
+        actions: []
     }
 })
 
@@ -48,14 +50,26 @@ export class TakeAwayState {
         return state.timePickUp;
     }
 
+    @Selector()
+    static getActions(state: TakeAwayStateModel) {
+        return state.actions;
+    }
+
     @Action(GetTakeAwayProducts)
     getTakeAwayProducts({getState, setState}: StateContext<TakeAwayStateModel>) : Observable<BaseResponse<TakeAwayProduct[]>> {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, GetTakeAwayProducts.name]
+        });
         return this.takeAwayService.getTakeAwayProductMenu().pipe(tap((result) => {
-            const state = getState();
+            let tempActions = [...state.actions];
+            tempActions.splice( tempActions.findIndex(a => a == GetTakeAwayProducts.name), 1);
             if (result.success) {
                 setState({
                     ...state,
-                    products: result.payload
+                    products: result.payload,
+                    actions: tempActions
                 });
             }
         }));

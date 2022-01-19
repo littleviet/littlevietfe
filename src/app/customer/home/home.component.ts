@@ -15,6 +15,7 @@ import { CustomerProductType } from 'src/dtos/product-type/customer-product-type
 })
 export class HomeComponent implements OnInit {
   @Select(LandingPageState.getProductMenu) productMenu!: Observable<CustomerProductType[]>;
+  @Select(LandingPageState.getActions) landingActionsObs!: Observable<string[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   menuOpen: boolean = false;
   productsMenu: CustomerProductType[] = [

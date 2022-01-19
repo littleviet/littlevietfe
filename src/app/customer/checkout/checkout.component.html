@@ -191,3 +191,5 @@
   <app-footer [isDisplayLogo]="false"></app-footer>
 </div>
 
+<app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner>
+

@@ -10,12 +10,14 @@ import { AuthService } from '../services/auth.service';
 
 export class AuthenticationStateModel {
     loggedinUser!: LoginAccountInfo;
+    actions!: string[];
 }
 
 @State<AuthenticationStateModel>({
     name: 'authentication',
     defaults: {
         loggedinUser: new LoginAccountInfo(),
+        actions: []
     }
 })
 
@@ -30,16 +32,28 @@ export class AuthenticationState {
         return state.loggedinUser;
     }
 
+    @Selector()
+    static getActions(state: AuthenticationStateModel) {
+        return state.actions;
+    }
+
     @Action(Login)
     login({getState, setState}: StateContext<AuthenticationStateModel>, payload: any) {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, Login.name]
+        });
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
-            const state = getState();
             if (result.success) {
+                localStorage.setItem("loginAccountInfo", JSON.stringify(result.payload));
+                let tempActions = [...state.actions];
+                tempActions.splice( tempActions.findIndex(a => a == Login.name), 1);
                 setState({
                     ...state,
-                    loggedinUser: result.payload
+                    loggedinUser: result.payload,
+                    actions: tempActions
                 });
-                localStorage.setItem("loginAccountInfo", JSON.stringify(result.payload));
             }
         }));
     }
@@ -47,7 +61,6 @@ export class AuthenticationState {
     @Action(AutoLogin)
     autoLogin({getState, setState}: StateContext<AuthenticationStateModel>) {
         const state = getState();
-        var loginAccount = new LoginAccountInfo();
         let userInfo = localStorage.getItem("loginAccountInfo");
         if (userInfo != null) {
             let jsonObj: any = JSON.parse(userInfo);

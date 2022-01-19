@@ -255,6 +255,10 @@
     .cart-detail {
         width: 28%;
         height: 100%;
+
+        @include breakpoint-lg-down() {
+            width: 100%;
+        }
     }
 }
 
