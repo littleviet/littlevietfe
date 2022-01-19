@@ -7,10 +7,7 @@
     <p class="today-title">Today, {{today}}</p>
     <form (ngSubmit)="onSubmit()" class="hour-field" name="hour-form">
       <select [formControl]="hourFormControl" required name="hour" class="hour-value">
-        <option selected value="Hour*">Hour*</option>
-        <option value="saab">12:30</option>
-        <option value="opel">13:30</option>
-        <option value="audi">14:30</option>
+        <option *ngFor="let hour of pickUpTimeValuesDropdown" selected value="{{hour}}">{{hour}}</option>
       </select>
       <button type="submit" mat-dialog-close="true"
         [disabled]="hourFormControl.invalid || hourFormControl.value == 'Hour*'"

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { Login } from 'src/app/actions/authentication.action';
+import { AuthenticationState } from 'src/app/states/authentication.state';
+import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 
 @Component({
@@ -11,6 +14,8 @@ import { CartDetail } from 'src/dtos/cart/cart-detail';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
+  loggedInAccountInfo: LoginAccountInfo | null = null;
   menuOpen: boolean = false;
   checked = false;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
@@ -90,6 +95,9 @@ export class CheckoutComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.loggedInAccountObs.subscribe((result) => {
+      this.loggedInAccountInfo = result;
+    });
   }
 
   onLoginSubmit() {

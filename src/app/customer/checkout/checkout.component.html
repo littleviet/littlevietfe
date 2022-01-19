@@ -19,7 +19,7 @@
     </div>
 
     <!-- Register section -->
-    <div class="customer-register-section">
+    <div *ngIf="!loggedInAccountInfo || !loggedInAccountInfo.token" class="customer-register-section">
       <div class="customer-register-area">
         <!-- Login area -->
         <div class="login-area">
@@ -156,6 +156,27 @@
             
             <button class="register-btn">REGISTER</button>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirm payment -->
+    <div *ngIf="loggedInAccountInfo && loggedInAccountInfo.token" class="confirm-payment-section">
+      <div class="confirm-order-area">
+        <!-- Confirm order area -->
+        <div class="order-detail-area">
+          <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
+          <div class="day-title">Today Wednesday</div>
+          <div class="position-title">en: Little Viet Barcelona</div>
+          <div class="time-title">at: <span class="picking-hour-confirm">13AM</span></div>
+          <div class="diners-title">How many diners are you?*
+            <input class="diners-field" placeholder="No." type="text" name="" id="">
+          </div>
+          <div class="payment-method-title">Payment method:
+            <mat-checkbox [checked]="true" class="payment-method-checkbox">Credit card</mat-checkbox>
+          </div>
+          <textarea class="additional-info-field" placeholder="Additional information"></textarea>
+          <button class="pay-btn">PAY</button>
         </div>
       </div>
     </div>
