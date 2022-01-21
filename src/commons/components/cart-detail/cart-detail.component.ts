@@ -13,6 +13,7 @@ import { CartDetail } from 'src/dtos/cart/cart-detail';
 export class CartDetailComponent implements OnInit {
   @Input() titleBtn: string = "CHECK OUT";
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
+  totalItem: number = 0;
   cartDetail!: CartDetail;
   orderDetailSticky: boolean = false;
   constructor(private store: Store) { }
@@ -25,5 +26,15 @@ export class CartDetailComponent implements OnInit {
 
   adjustCart(productId: string , quanity: number) {
     this.store.dispatch(new UpdateCart(quanity, productId))
+  }
+
+  isCartEmpty() {
+    if (this.cartDetail && this.cartDetail.products && this.cartDetail.products.length > 0) {
+      this.totalItem = 0;
+      this.cartDetail.products.forEach(pro => {
+        this.totalItem += pro.quantity;
+      })
+    }
+    return this.totalItem <= 0;
   }
 }

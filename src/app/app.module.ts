@@ -19,7 +19,7 @@ import { LandingPageState } from './states/landing-page.state';
 import { TakeAwayState } from './states/take-away.state';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AdminComponent } from './admin/admin.component';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 
 @NgModule({
   declarations: [		
@@ -36,6 +36,9 @@ import { AdminComponent } from './admin/admin.component';
     HttpClientModule,
     NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState], {
       developmentMode: !environment.production
+    }),
+    NgxsStoragePluginModule.forRoot({
+      key: ['authentication.loggedinUser', 'takeaway.cart', 'takeaway.timePickUp']
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
