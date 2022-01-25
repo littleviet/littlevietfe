@@ -24,14 +24,14 @@ export class CartDetailComponent implements OnInit {
     });
   }
 
-  adjustCart(productId: string , quanity: number) {
-    this.store.dispatch(new UpdateCart(quanity, productId))
+  adjustCart(servingId: string , quanity: number) {
+    this.store.dispatch(new UpdateCart(quanity, servingId))
   }
 
   isCartEmpty() {
-    if (this.cartDetail && this.cartDetail.products && this.cartDetail.products.length > 0) {
+    if (this.cartDetail && this.cartDetail.servings && this.cartDetail.servings.length > 0) {
       this.totalItem = 0;
-      this.cartDetail.products.forEach(pro => {
+      this.cartDetail.servings.forEach(pro => {
         this.totalItem += pro.quantity;
       })
     }

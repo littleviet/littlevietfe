@@ -30,11 +30,10 @@ export class TakeAwayComponent implements OnInit {
   sticky: boolean = false;
   orderDetailSticky: boolean = false;
   isExpaned: boolean = false;
-  products: TakeAwayProduct[] = [];
   selectedProductIndex = 0;
   displayProduct: any;
   timePickUp: string = '';
-
+  products: TakeAwayProduct[] = [];
 
   constructor(private store: Store, private titleService: Title, public dialog: MatDialog) {
     this.titleService.setTitle("Little Viet - Take Away");
@@ -45,9 +44,11 @@ export class TakeAwayComponent implements OnInit {
     this.takeAwayProducts.subscribe((result) => {
       this.products = result;
       this.displayProduct = _.chain(this.products)
-        .groupBy(p => p.productTypeId)
+        .filter(pro => pro.servings && pro.servings.length > 0)
+        .groupBy(p => p.productType.name)
         .map((value, key) => ({ productType: key, products: value }))
         .value();
+        console.log("hhoho:", this.displayProduct);
     });
 
     this.cartDetailObs.subscribe((result) => {
@@ -92,11 +93,11 @@ export class TakeAwayComponent implements OnInit {
     this.selectedProductIndex = index;
   }
 
-  adjustCart(productId: string , quanity: number) {
+  adjustCart(servingId: string , quanity: number) {
     if (!this.timePickUp || this.timePickUp == '') {
-      this.openDialog(quanity, productId);
+      this.openDialog(quanity, servingId);
     } else {
-      this.store.dispatch(new UpdateCart(quanity, productId));
+      this.store.dispatch(new UpdateCart(quanity, servingId));
     }
   }
 

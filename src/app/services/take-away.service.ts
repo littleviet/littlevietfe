@@ -14,6 +14,6 @@ export class TakeAwayService {
     }
 
     getTakeAwayProductMenu() : Observable<BaseResponse<TakeAwayProduct[]>> {
-        return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'product');
+        return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'product?pageSize=50');
     }
 }

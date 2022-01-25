@@ -25,6 +25,8 @@ import { TimePickerDialogComponent } from 'src/commons/components/time-picker-di
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProgressSpinnerComponent } from 'src/commons/components/progress-spinner/progress-spinner.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SideProgressSpinnerComponent } from 'src/commons/components/side-progress-spinner/side-progress-spinner.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   imports: [
@@ -50,13 +52,15 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MenuSlideComponent,
     LandingTitleComponent,
     TakeAwayComponent,
+    ReservationComponent,
     MenuButtonComponent,
     FooterComponent,
     CheckoutComponent,
     CartButtonComponent,
     CartDetailComponent,
     TimePickerDialogComponent,
-    ProgressSpinnerComponent
+    ProgressSpinnerComponent,
+    SideProgressSpinnerComponent
   ]
 })
 export class CustomerModule { }

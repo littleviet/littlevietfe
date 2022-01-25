@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { tap } from 'rxjs';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
-import { AutoLogin, Login } from '../actions/authentication.action';
+import { AutoLogin, CreateAccount, Login, Logout } from '../actions/authentication.action';
 import { AuthService } from '../services/auth.service';
 
 export class AuthenticationStateModel {
-    loggedinUser!: LoginAccountInfo;
+    loggedinUser!: LoginAccountInfo | null;
     actions!: string[];
 }
 
@@ -22,7 +22,7 @@ export class AuthenticationStateModel {
 @Injectable()
 export class AuthenticationState {
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private store: Store) {
     }
 
     @Selector()
@@ -43,30 +43,52 @@ export class AuthenticationState {
             actions: [...state.actions, Login.name]
         });
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
+            console.log("rhahah", result);
             if (result.success) {
-                // localStorage.setItem("loginAccountInfo", JSON.stringify(result.payload));
+                console.log("hihi: ", result)
                 let tempActions = [...state.actions];
-                tempActions.splice( tempActions.findIndex(a => a == Login.name), 1);
+                tempActions.splice( tempActions.findIndex(ac => ac == Login.name), 1);
                 setState({
                     ...state,
                     loggedinUser: result.payload,
                     actions: tempActions
                 });
             }
-        }));
+        },
+        ));
     }
 
     @Action(AutoLogin)
     autoLogin({getState, setState}: StateContext<AuthenticationStateModel>) {
         const state = getState();
-        // let userInfo = localStorage.getItem("loginAccountInfo");
-        // if (userInfo != null) {
-        //     let jsonObj: any = JSON.parse(userInfo);
-        //     let loginAccountInfo: LoginAccountInfo = <LoginAccountInfo>jsonObj;
-        //     setState({
-        //         ...state,
-        //         loggedinUser: loginAccountInfo
-        //     });
-        // }
+    }
+
+    @Action(Logout)
+    logout({getState, setState}: StateContext<AuthenticationStateModel>) {
+        const state = getState();
+        setState({
+            ...state,
+            loggedinUser: null,
+        });
+    }
+
+    @Action(CreateAccount)
+    createAccount({getState, setState}: StateContext<AuthenticationStateModel>, payload: any) {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, CreateAccount.name]
+        });
+        return this.authService.createAccount(payload.regAccountInfo).pipe(tap((result) => {
+            if (result.success) {
+                this.store.dispatch(new Login({email: payload.regAccountInfo.email, password: payload.regAccountInfo.password}));
+            }
+            let tempActions = [...state.actions];
+            tempActions.splice( tempActions.findIndex(a => a == CreateAccount.name), 1);
+            setState({
+                ...state,
+                actions: tempActions
+            });
+        }));
     }
 }

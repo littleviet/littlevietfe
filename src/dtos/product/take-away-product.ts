@@ -1,4 +1,5 @@
 import { ProductImage } from "../product-image/product-image";
+import { TakeAwayServing } from "../serving/take-away-serving";
 
 export interface TakeAwayProduct {
     id: string;
@@ -6,7 +7,7 @@ export interface TakeAwayProduct {
     esName: string;
     caName: string;
     price: number;
-    productType: string;
-    productTypeId: string;
+    productType: any;
     images: ProductImage[];
+    servings: TakeAwayServing[];
 }

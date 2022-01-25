@@ -13,7 +13,7 @@
       </button>
       <mat-menu #beforeMenu="matMenu" xPosition="before">
         <button mat-menu-item class="login-menu-item">My account</button>
-        <button mat-menu-item class="login-menu-item">Log out</button>
+        <button (click)="logout()" mat-menu-item class="login-menu-item">Log out</button>
       </mat-menu>
     </div>
     <div class="menu-btn-title" routerLink="/">INTRODUCE</div>
@@ -21,12 +21,12 @@
       <mat-divider class="divider-1"></mat-divider>
       <mat-divider class="divider-2"></mat-divider>
     </div>
-    <div class="menu-item" >RESERVATIONS</div>
-    <div class="menu-item" >MENU</div>
-    <div class="menu-item" routerLink="/take-away">TAKE AWAY</div>
-    <div class="menu-item">COUPON GIFT</div>
-    <div class="menu-item">PRODUCTS</div>
-    <div class="menu-item">CONTACT</div>
+    <div class="menu-item" routerLink="" fragment="reservation">RESERVATIONS</div>
+    <div class="menu-item" routerLink="" fragment="menu">MENU</div>
+    <div class="menu-item" routerLink="" fragment="take-away">TAKE AWAY</div>
+    <div class="menu-item" routerLink="" fragment="coupon-gift">COUPON GIFT</div>
+    <div class="menu-item" routerLink="" fragment="products">PRODUCTS</div>
+    <div class="menu-item" routerLink="" fragment="contact">CONTACT</div>
     <div class="menu-language">
       <span class="language-item active-language">ES</span>
       <span class="language-item">EN</span>

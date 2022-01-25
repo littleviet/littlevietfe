@@ -19,4 +19,8 @@ export class AuthService {
             password: password
         });
     }
+
+    createAccount(accountInfo: any) : Observable<BaseResponse<object>> {
+        return this.http.post<BaseResponse<LoginAccountInfo>>(environment.apiUrl + 'account/register', accountInfo);
+    }
 }

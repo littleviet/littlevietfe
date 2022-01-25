@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { Logout } from 'src/app/actions/authentication.action';
 import { AuthenticationState } from 'src/app/states/authentication.state';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 
@@ -15,7 +16,7 @@ export class MenuButtonComponent implements OnInit {
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfo!: Observable<LoginAccountInfo>;
   loginInfo: LoginAccountInfo | null = null; 
   menuOpen: boolean = false;
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
   }
@@ -27,5 +28,9 @@ export class MenuButtonComponent implements OnInit {
     this.loginAccountInfo.subscribe((result) => {
       this.loginInfo = result;
     });
+  }
+
+  logout() {
+    this.store.dispatch(new Logout());
   }
 }

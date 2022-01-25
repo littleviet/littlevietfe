@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Select, Store } from '@ngxs/store';
+import { Actions, Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Login } from 'src/app/actions/authentication.action';
+import { CreateAccount, Login } from 'src/app/actions/authentication.action';
 import { AuthenticationState } from 'src/app/states/authentication.state';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
@@ -19,8 +19,11 @@ export class CheckoutComponent implements OnInit {
   loggedInAccountInfo: LoginAccountInfo | null = null;
   menuOpen: boolean = false;
   checked = false;
+  // Login control
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+
+  // Register control
   policyFormControl = new FormControl('', [Validators.required]);
   firstNameFormControl = new FormControl('', [Validators.required]);
   lastNameFormControl = new FormControl('', [Validators.required]);
@@ -32,6 +35,7 @@ export class CheckoutComponent implements OnInit {
   phone2FormControl = new FormControl('', [Validators.required]);
   regEmailFormControl = new FormControl('', [Validators.required]);
   regPasswordFormControl = new FormControl('', [Validators.required]);
+  newsLetterFormControl = new FormControl();
 
   loginFormGroup = new FormGroup({
     email: this.emailFormControl,
@@ -39,17 +43,25 @@ export class CheckoutComponent implements OnInit {
   });
 
   registerFormGroup = new FormGroup({
-    policyFormControl: this.policyFormControl,
-    firstNameFormControl: this.firstNameFormControl,
-    lastNameFormControl: this.lastNameFormControl,
-    addressFormControl: this.addressFormControl,
-    numberFormControl: this.numberFormControl,
-    flatDoorFormControl: this.flatDoorFormControl,
-    zipCodeFormControl: this.zipCodeFormControl,
-    phone1FormControl: this.phone1FormControl,
-    phone2FormControl: this.phone2FormControl,
-    regEmailFormControl: this.regEmailFormControl,
-    regPasswordFormControl: this.regPasswordFormControl,
+    policy: this.policyFormControl,
+    newsLetter: this.newsLetterFormControl,
+    firstName: this.firstNameFormControl,
+    lastName: this.lastNameFormControl,
+    address: this.addressFormControl,
+    number: this.numberFormControl,
+    flatDoor: this.flatDoorFormControl,
+    zipCode: this.zipCodeFormControl,
+    phoneNumber1: this.phone1FormControl,
+    phoneNumber2: this.phone2FormControl,
+    email: this.regEmailFormControl,
+    password: this.regPasswordFormControl,
+  });
+
+  submitPay = new FormGroup({
+    hours: this.emailFormControl,
+    paymentMethod: this.passwordFormControl,
+    // dinners: "",
+    // additionalRequest: ""
   });
 
   constructor(private store: Store, private titleService: Title) {
@@ -59,7 +71,7 @@ export class CheckoutComponent implements OnInit {
   cartDetail: CartDetail = {
     totalPrice: 50,
     subTotalPrice: 45,
-    products: [
+    servings: [
       {
         name: 'Banh mi 1 ',
         esName: 'Banh mi 1',
@@ -103,5 +115,9 @@ export class CheckoutComponent implements OnInit {
 
   onLoginSubmit() {
     this.store.dispatch(new Login(this.loginFormGroup.value));
+  }
+
+  onRegisterSubmit() {
+    this.store.dispatch(new CreateAccount(this.registerFormGroup.value));
   }
 }

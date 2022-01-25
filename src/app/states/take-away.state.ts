@@ -5,6 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
+import { TakeAwayServing } from 'src/dtos/serving/take-away-serving';
 import { GetTakeAwayProducts, UpdateCart, UpdatePickUpTime } from '../actions/take-away.action';
 import { TakeAwayService } from '../services/take-away.service';
 
@@ -20,7 +21,7 @@ export class TakeAwayStateModel {
     defaults: {
         products: [],
         cart: {
-            products: [],
+            servings: [],
             subTotalPrice: 0,
             totalPrice: 0,
         },
@@ -78,41 +79,51 @@ export class TakeAwayState {
     @Action(UpdateCart)
     updateCart({getState, setState}: StateContext<TakeAwayStateModel>, payload: UpdateCart) {
         const state = getState();
-        const index = state.products.findIndex(p => p.id == payload.productId);
-        let cloneProducts = _.cloneDeep(state.cart.products);
-
-        const existed = cloneProducts.findIndex(p => p.id == payload.productId);
+        let servings: TakeAwayServing[] = [];
+        state.products.forEach(element => {
+            if (element.servings && element.servings.length > 0) {
+                Array.prototype.push.apply(servings, element.servings);
+            }
+        });
+        let product = state.products
+            .filter(pro => pro.servings && pro.servings.length > 0
+                         && pro.servings.findIndex(ser => ser.id == payload.servingId) >= 0)[0];
+        const index = servings.findIndex(p => p.id == payload.servingId);
+        let cloneServings = _.cloneDeep(state.cart.servings) || [];
+        console.log("serving:", servings);
+        console.log("cloneServings:", cloneServings);
+        const existed = cloneServings.findIndex(serving => serving.id == payload.servingId);
 
         if (existed >= 0) {
-            cloneProducts[existed].price = state.products[index].price;
-            cloneProducts[existed].quantity += payload.quantity;
+            cloneServings[existed].price = servings[index].price;
+            cloneServings[existed].quantity += payload.quantity;
             setState({
                 ...state,
                 cart: {
                     ...state.cart,
-                    products: cloneProducts
+                    servings: cloneServings
                 }
             });
         } else {
-            cloneProducts.push({
-                caName: state.products[index].caName,
-                esName: state.products[index].esName,
-                name: state.products[index].name,
+            cloneServings.push({
+                caName: product.caName,
+                esName: product.esName + " - " + servings[index].name,
+                name: product.name,
                 quantity: payload.quantity,
-                price: state.products[index].price,
-                id: state.products[index].id
+                price: servings[index].price,
+                id: servings[index].id
             });
         }
-        cloneProducts =  cloneProducts.filter( pro => { return pro.quantity != 0; }); 
+        cloneServings =  cloneServings.filter( serving => { return serving.quantity != 0; }); 
         let price = 0;
-        cloneProducts.forEach(pro => {
-            price += pro.price * pro.quantity;
+        cloneServings.forEach(serving => {
+            price += serving.price * serving.quantity;
         });
         setState({
             ...state,
             cart: {
                 ...state.cart,
-                products: cloneProducts,
+                servings: cloneServings,
                 subTotalPrice: price,
                 totalPrice: price
             }

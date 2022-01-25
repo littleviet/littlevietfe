@@ -186,6 +186,8 @@
                     .product-item-name {
                         padding-left: 3%;
                         width: 50%;
+                        display: flex;
+                        flex-direction: column;
                        
                         @include breakpoint-lg-down() {
                             width: 45%;
@@ -221,23 +223,50 @@
                         .product-item-price {
                             font-weight: 600;
                         }
+
+                        .serving-price {
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: flex-end;
+                            align-content: flex-end;
+
+                            .serving-add-price {
+                                line-height: 38px;
+                                margin-bottom: 1%;
+                                text-align: end;
+                                padding-right: 6%;
+                                font-weight: 600;
+                            }
+                        }
+
                     }
     
                     .product-item-action {
                         width: 15%;
+
                         .add-button {
                             width: 38px;
                             height: 38px;
                             font-size: 35px;
-                            border: solid 1px;
+                            border: solid 1px black;
                             text-align: center;
                             line-height: 38px;
                             cursor: pointer;
+                            margin-bottom: 5%;
                         }
 
                         .add-button:hover {
                             background-color: black;
+                            border: solid 1px black;
                             color: #f3eacd;
+                        }
+
+                        .serving-add-btn {
+                            display: flex;
+                            justify-content: flex-end;
+                            flex-direction: column;
+                            height: 100%;
                         }
                     }
     

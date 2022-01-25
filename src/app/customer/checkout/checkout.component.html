@@ -50,11 +50,11 @@
         <!-- Register area -->
         <div class="register-area">
           <div class="register-area-title">New customer?</div>
-          <form class="register-form" [formGroup]="registerFormGroup">
+          <form class="register-form" [formGroup]="registerFormGroup" (submit)="onRegisterSubmit()">
             <!-- First name -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>First name</mat-label>
-              <input type="text" matInput formControlName="firstNameFormControl" placeholder="Ex. Viet">
+              <input type="text" matInput formControlName="firstName" placeholder="Ex. Viet">
               <mat-error *ngIf="firstNameFormControl.hasError('required')">
                 First name is <strong>required</strong>
               </mat-error>
@@ -63,7 +63,7 @@
             <!-- Last name -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Last name</mat-label>
-              <input type="text" matInput [formControl]="lastNameFormControl" placeholder="Ex. Little">
+              <input type="text" matInput formControlName="lastName" placeholder="Ex. Little">
               <mat-error *ngIf="lastNameFormControl.hasError('required')">
                 Last name is <strong>required</strong>
               </mat-error>
@@ -72,7 +72,7 @@
             <!-- Address -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Address</mat-label>
-              <input type="text" matInput [formControl]="addressFormControl" placeholder="Ex. Barcelona">
+              <input type="text" matInput formControlName="address" placeholder="Ex. Barcelona">
               <mat-error *ngIf="addressFormControl.hasError('required')">
                 Address is <strong>required</strong>
               </mat-error>
@@ -81,7 +81,7 @@
             <!-- Number -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Number</mat-label>
-              <input type="text" matInput [formControl]="numberFormControl" placeholder="Ex. 123">
+              <input type="text" matInput formControlName="number" placeholder="Ex. 123">
               <mat-error *ngIf="numberFormControl.hasError('required')">
                 Number is <strong>required</strong>
               </mat-error>
@@ -90,7 +90,7 @@
             <!-- Flat door -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Flat-Door</mat-label>
-              <input type="text" matInput [formControl]="flatDoorFormControl" placeholder="Ex. A20">
+              <input type="text" matInput formControlName="flatDoor" placeholder="Ex. A20">
               <mat-error *ngIf="flatDoorFormControl.hasError('required')">
                 Flat-Door is <strong>required</strong>
               </mat-error>
@@ -99,7 +99,7 @@
              <!-- Zip code -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Zip/Postal code</mat-label>
-              <input type="text" matInput [formControl]="zipCodeFormControl" placeholder="Ex. 70000">
+              <input type="text" matInput formControlName="zipCode" placeholder="Ex. 70000">
               
               <mat-error *ngIf="zipCodeFormControl.hasError('required')">
                 Zip code is <strong>required</strong>
@@ -109,7 +109,7 @@
             <!-- Telephone 1 -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Telephone 1</mat-label>
-              <input type="text" matInput [formControl]="phone1FormControl" placeholder="Ex. 036 289 2891">
+              <input type="text" matInput formControlName="phoneNumber1" placeholder="Ex. 036 289 2891">
               
               <mat-error *ngIf="phone1FormControl.hasError('required')">
                 Phone number 1 is <strong>required</strong>
@@ -119,7 +119,7 @@
             <!-- Telephone 2 -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Telephone 2</mat-label>
-              <input type="text" matInput [formControl]="phone2FormControl" placeholder="Ex. 036 289 2892">
+              <input type="text" matInput formControlName="phoneNumber2" placeholder="Ex. 036 289 2892">
              
               <mat-error *ngIf="phone2FormControl.hasError('required')">
                 Phone number 2 is <strong>required</strong>
@@ -129,7 +129,7 @@
             <!-- Email -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Email address</mat-label>
-              <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+              <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Email is <strong>required</strong>
               </mat-error>
@@ -138,7 +138,7 @@
              <!-- Password -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Password</mat-label>
-              <input type="password" matInput [formControl]="emailFormControl" placeholder="Ex. 123456">
+              <input type="password" matInput formControlName="password" placeholder="Ex. 123456">
               <mat-error *ngIf="emailFormControl.hasError('required')">
                 Password is <strong>required</strong>
               </mat-error>
@@ -147,14 +147,14 @@
             <div class="policy">PRIVACY POLICY*</div>
 
             <div class="policy-frame">
-              <mat-checkbox class="policy-checkbox">I agree to the terms and conditions and the privacy policy.</mat-checkbox>
+              <mat-checkbox required class="policy-checkbox" formControlName="policy">I agree to the terms and conditions and the privacy policy.</mat-checkbox>
             </div>
 
             <div class="news-frame">
-              <mat-checkbox class="news-checkbox">Sign up for our newsletter.</mat-checkbox>
+              <mat-checkbox class="news-checkbox" formControlName="newsLetter">Sign up for our newsletter.</mat-checkbox>
             </div>
             
-            <button class="register-btn">REGISTER</button>
+            <button [disabled]="registerFormGroup.invalid"  [ngClass]="{'register-btn-active': !registerFormGroup.invalid}" class="register-btn">REGISTER</button>
           </form>
         </div>
       </div>
@@ -164,7 +164,7 @@
     <div *ngIf="loggedInAccountInfo && loggedInAccountInfo.token" class="confirm-payment-section">
       <div class="confirm-order-area">
         <!-- Confirm order area -->
-        <div class="order-detail-area">
+        <form class="order-detail-area">
           <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
           <div class="day-title">Today Wednesday</div>
           <div class="position-title">en: Little Viet Barcelona</div>
@@ -177,7 +177,7 @@
           </div>
           <textarea class="additional-info-field" placeholder="Additional information"></textarea>
           <button class="pay-btn">PAY</button>
-        </div>
+        </form>
       </div>
     </div>
 

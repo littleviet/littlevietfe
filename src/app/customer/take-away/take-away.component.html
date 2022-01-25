@@ -53,10 +53,18 @@
               <div class="product-item-esName">{{product.esName}}</div>
               <div class="product-item-caName">{{product.caName}}</div>
               <div class="product-item-enName">{{product.name}}</div>
-              <div class="product-item-price">{{product.price}} &#8364;</div>
+              <div *ngIf="product.servings && product.servings.length <= 1" class="product-item-price">{{product.servings[0].price}} &#8364;</div>
+              <div *ngIf="product.servings && product.servings.length > 1" class="serving-price">
+                <div *ngFor="let serving of product.servings" class="serving-add-price">
+                  {{serving.name}} - {{serving.price}} &#8364;
+                </div>
+              </div>
             </div>
             <div class="product-item-action">
-              <div (click)="adjustCart(product.id, 1)" class="add-button">+</div>
+              <div *ngIf="product.servings && product.servings.length <= 1" (click)="adjustCart(product.servings[0].id, 1)" class="add-button">+</div>
+              <div *ngIf="product.servings && product.servings.length > 1" class="serving-add-btn">
+                <div *ngFor="let serving of product.servings" class="add-button" (click)="adjustCart(serving.id, 1)">+</div>
+              </div>
             </div>
             <mat-divider *ngIf="!isLast" class="divider"></mat-divider>
           </div>

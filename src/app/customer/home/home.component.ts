@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
@@ -18,6 +19,7 @@ export class HomeComponent implements OnInit {
   @Select(LandingPageState.getActions) landingActionsObs!: Observable<string[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   menuOpen: boolean = false;
+
   productsMenu: CustomerProductType[] = [
     {
       "name": "Pho",
@@ -139,8 +141,21 @@ export class HomeComponent implements OnInit {
     carouselService.update();
   }
 
-  constructor(private store: Store, private titleService: Title) {
+  constructor(private store: Store, private titleService: Title, private route: ActivatedRoute,
+    router: Router) {
     this.titleService.setTitle("Little Viet - Homepage");
+    router.events.subscribe(s => {
+      if (s instanceof NavigationEnd) {
+        const tree = router.parseUrl(router.url);
+        if (tree.fragment) {
+          const element = document.querySelector("#" + tree.fragment);
+          if (element) { element.scrollIntoView(true); }
+        }
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
   }
 
   ngOnInit() {

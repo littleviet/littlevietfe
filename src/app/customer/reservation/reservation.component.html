@@ -1,0 +1,93 @@
+<div class="home" [ngClass]="{'noscroll': menuOpen}">
+  <!-- header -->
+  <div class="header">
+    <div class="menu-title">
+      <app-landing-title type="2" title="MAKE A RESERVATION" color="#f3eacd"></app-landing-title>
+    </div>
+  </div>
+
+  <app-cart-button></app-cart-button>
+  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+
+  <div class="reservation-section">
+
+      <!-- Reservation introduction -->
+    <div class="reservation-intro-section">
+      <div class="back-btn-area">
+        <div class="back-button">
+          &lt;&lt; BACK
+        </div>
+        <img src="assets/imgs/reservation/wavy-line.png" alt="">
+      </div>
+
+      <div class="reservation-time-info">
+        <div class="time-open">
+          <div class="open-title">OPEN</div>
+          <div class="open-time">13:00 - 16:00</div>
+          <div>20:00 - 23:00</div>
+        </div>
+
+        <div class="day-of-week">
+          <div class="week-day">Sun</div>
+          <div class="week-day">Thu</div>
+          <div class="week-day">Mon</div>
+          <div class="week-day">Fri</div>
+          <div class="week-day">Wed</div>
+          <div class="week-day">Sat</div>
+        </div>
+
+        <div class="time-close">
+          <div class="close-title">CLOSE</div>
+          <div>Tuesday</div>
+        </div>
+
+        <img class="middle-line" src="assets/imgs/reservation/wavy-line.png" alt="">
+      </div>
+
+      <div class="reservation-policy">
+        <div class="line-1">Little Viet Barcelona is open every day, except on Tuesdays from <span class="time-title">13:00 to 16:00</span> & <span class="time-title">20:00 to 23:00</span>.</div>
+        <div class="line-2">Make a reservation and come to enjoy a unique food.</div>
+        <div class="line-3">Carrer de Cartagena, 328, 08025</div>
+        <div class="line-4">Your reservation will be annuled because of delay without informing us, after 15 minutes.</div>
+        <div class="line-5">We have child chairs, but please let us know if you bring baby carriage and you need space.</div>
+        <div class="line-6">For more request or information, please call 671270969 or 931757081.</div>
+      </div>
+    </div>
+
+    <!-- Reservation booking detail -->
+    <div class="reservation-booking-section">
+      <div class="reservation-booking-bg">
+        <div class="reservation-title">Fill in the information to make a reservation</div>
+        <form class="reservation-form" name="message" method="post">
+      
+            <div class="reservation-field">
+              <label>Number of people</label>
+              <select class="input-field" required name="hour">
+                <option *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
+              </select>
+            </div>
+      
+            <div class="reservation-field">
+              <label for="name">Day</label>
+              <select class="input-field" required name="hour">
+                <option *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
+              </select>
+            </div>
+      
+            <div class="reservation-field">
+              <label for="name">Hour</label>
+              <select class="input-field" required name="hour">
+                <option *ngFor="let item of hours; let i = index">{{item}}</option>
+              </select>
+            </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <app-footer [isDisplayLogo]="false"></app-footer>
+</div>
+
+<!-- <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner> -->
+

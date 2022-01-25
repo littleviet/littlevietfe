@@ -25,23 +25,23 @@
   right: 0;
 }
 
-.text-loading {
-  position: fixed;
-  z-index: 999;
-  height: fit-content;
-  width: fit-content;
-  overflow: visible;
-  margin: auto;
-  // top: 80px;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  color: rgb(21, 117, 226);
-  // background-color: white;
-  border-radius: 5px;
-  padding: 3px;
-  font-weight: 700;
-}
+// .text-loading {
+//   position: fixed;
+//   z-index: 999;
+//   height: fit-content;
+//   width: fit-content;
+//   overflow: visible;
+//   margin: auto;
+//   // top: 80px;
+//   left: 0;
+//   bottom: 0;
+//   right: 0;
+//   color: rgb(21, 117, 226);
+//   // background-color: white;
+//   border-radius: 5px;
+//   padding: 3px;
+//   font-weight: 700;
+// }
 
 /* Transparent Overlay */
 .loading:before {

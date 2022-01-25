@@ -4,7 +4,7 @@ export class GetTakeAwayProducts {
 
 export class UpdateCart {
     static readonly type = '[TAKEWAY] Update Cart'
-    constructor(public quantity: number, public productId: string) {
+    constructor(public quantity: number, public servingId: string) {
     }
 }
 

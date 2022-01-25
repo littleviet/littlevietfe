@@ -18,9 +18,9 @@ export class CartButtonComponent implements OnInit {
   ngOnInit() {
     this.cartDetailObs.subscribe((result) => {
       this.cartDetail = result;
-      if (this.cartDetail && this.cartDetail.products && this.cartDetail.products.length > 0) {
+      if (this.cartDetail && this.cartDetail.servings && this.cartDetail.servings.length > 0) {
         this.totalItem = 0;
-        this.cartDetail.products.forEach(pro => {
+        this.cartDetail.servings.forEach(pro => {
           this.totalItem += pro.quantity;
         })
       }

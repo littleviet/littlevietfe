@@ -16,13 +16,13 @@
   </div>
 
   <!-- Reservation section -->
-  <div class="reservation-section">
+  <div id="reservation" class="reservation-section">
     <div class="title">
       <app-landing-title title="MAKE A RESERVATION"></app-landing-title>
     </div>
     <div class="content">
       <div class="item">
-        <button class="booking-btn">BOOK TABLE NOW</button>
+        <button routerLink="/reservation" class="booking-btn">BOOK TABLE NOW</button>
       </div>
 
       <div class="item open-title section-margin">OPEN</div>
@@ -39,7 +39,7 @@
       </div>
 
       <div class="item section-margin">
-        <div class="phone-number">671 270 969</div>
+        <div href="tel:671270969" class="phone-number">671 270 969</div>
       </div>
 
       <div class="item phone-margin">
@@ -47,13 +47,13 @@
       </div>
       
       <div class="item phone-margin">
-        <div class="phone-number">931 757 081</div>
+        <div href="tel:931757081" class="phone-number">931 757 081</div>
       </div>
     </div>
   </div>
 
   <!-- Menu -->
-  <div class="menu-section">
+  <div id="menu" class="menu-section">
     <div class="menu-title">
       <app-landing-title type="2" title="MENU" color="#f3eacd"></app-landing-title>
     </div>
@@ -66,17 +66,18 @@
         </ng-container>
       </owl-carousel-o>
     </div>
+    <!-- <app-side-progress-spinner></app-side-progress-spinner> -->
   </div>
 
   <!-- Take away -->
-  <div class="take-away-section">
+  <div id="take-away" class="take-away-section">
     <div class="take-away-action">
       <div class="take-away-title">
         <app-landing-title title="TAKE AWAY" type="{{takeAwayTitleType}}"></app-landing-title>
       </div>
       <div class="take-way-description-1">Want to enjoy our dishes at home?</div>
       <div class="take-way-description-2">Please order here.</div>
-      <button class="order-online-btn">ORDER ONLINE</button>
+      <button routerLink="/take-away" class="order-online-btn">ORDER ONLINE</button>
     </div>
     <div class="take-away-presentation">
       <div class="vertical-wave-line" >
@@ -87,7 +88,7 @@
   </div>
 
   <!-- Coupon gift -->
-  <div class="coupon-section">
+  <div id="coupon-gift" class="coupon-section">
     <div class="coupon-border">
     </div>
     <div class="coupon-presentation">
@@ -109,7 +110,7 @@
   </div>
 
   <!-- products section -->
-  <div class="product-section">
+  <div id="products" class="product-section">
     <div class="product-title">
       <app-landing-title title="PRODUCTS"></app-landing-title>
     </div>
@@ -128,7 +129,5 @@
   </div>
 
   <!-- footer section -->
-  <app-footer></app-footer>
+  <app-footer id="contact"></app-footer>
 </div>
-<app-progress-spinner *ngIf="(landingActionsObs | async)!.length > 0"></app-progress-spinner>
-
