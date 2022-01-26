@@ -43,9 +43,7 @@ export class AuthenticationState {
             actions: [...state.actions, Login.name]
         });
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
-            console.log("rhahah", result);
             if (result.success) {
-                console.log("hihi: ", result)
                 let tempActions = [...state.actions];
                 tempActions.splice( tempActions.findIndex(ac => ac == Login.name), 1);
                 setState({

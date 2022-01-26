@@ -27,12 +27,14 @@ import { FormsModule } from '@angular/forms';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-successful/check-out-successful.component';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [		
     AppComponent,
+    CheckOutSuccessfulComponent
    ],
   imports: [
     BrowserModule,

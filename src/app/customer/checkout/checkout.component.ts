@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { Actions, Select, Store } from '@ngxs/store';
+import { NavigationEnd, Router } from '@angular/router';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CreateAccount, Login } from 'src/app/actions/authentication.action';
+import { CheckOutCart } from 'src/app/actions/take-away.action';
 import { AuthenticationState } from 'src/app/states/authentication.state';
+import { TakeAwayState } from 'src/app/states/take-away.state';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
-import { CartDetail } from 'src/dtos/cart/cart-detail';
 
 @Component({
   selector: 'app-checkout',
@@ -16,9 +18,12 @@ import { CartDetail } from 'src/dtos/cart/cart-detail';
 export class CheckoutComponent implements OnInit {
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
+  @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
+  @Select(TakeAwayState.isCartEmpty) isCartEmptyObs!: Observable<boolean>;
   loggedInAccountInfo: LoginAccountInfo | null = null;
   menuOpen: boolean = false;
   checked = false;
+  orderSuccess: boolean | null = null;
   // Login control
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
@@ -57,55 +62,31 @@ export class CheckoutComponent implements OnInit {
     password: this.regPasswordFormControl,
   });
 
+  // payment form control
+  // hourFormControl = new FormControl('', [Validators.required]);
+  dinnersFormControl = new FormControl('', [Validators.required]);
+  paymentMethodFormControl = new FormControl('', [Validators.required]);
+  additionalRequestFormControl = new FormControl('');
+
   submitPay = new FormGroup({
-    hours: this.emailFormControl,
-    paymentMethod: this.passwordFormControl,
-    // dinners: "",
-    // additionalRequest: ""
+    // hours: this.hourFormControl,
+    paymentMethod: this.paymentMethodFormControl,
+    dinners: this.dinnersFormControl,
+    additionalRequest: this.additionalRequestFormControl,
   });
 
-  constructor(private store: Store, private titleService: Title) {
+  constructor(private store: Store, private titleService: Title, private router: Router) {
     this.titleService.setTitle("Little Viet - Checkout");
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (val.url == '/checkout/order-successful') {
+          this.orderSuccess = true;
+        } else if (val.url == '/checkout/order-canceled') {
+          this.orderSuccess = false;
+        }
+      }
+    });
   }
-
-  cartDetail: CartDetail = {
-    totalPrice: 50,
-    subTotalPrice: 45,
-    servings: [
-      {
-        name: 'Banh mi 1 ',
-        esName: 'Banh mi 1',
-        caName: 'Banh mi 1',
-        price: 6.5,
-        id: '1',
-        quantity: 10
-      },
-      {
-        name: 'Banh mi 2',
-        esName: 'Banh mi 2',
-        caName: 'Banh mi 2',
-        price: 6.5,
-        id: '1',
-        quantity: 6
-      },
-      {
-        name: 'Banh mi 3',
-        esName: 'Banh mi 3',
-        caName: 'Banh mi 3',
-        price: 6.5,
-        id: '2',
-        quantity: 6
-      },
-      {
-        name: 'Banh mi 4',
-        esName: 'Banh mi 4',
-        caName: 'Banh mi 4',
-        price: 6.5,
-        id: '2',
-        quantity: 7
-      },
-    ]
-  };
 
   ngOnInit() {
     this.loggedInAccountObs.subscribe((result) => {
@@ -119,5 +100,9 @@ export class CheckoutComponent implements OnInit {
 
   onRegisterSubmit() {
     this.store.dispatch(new CreateAccount(this.registerFormGroup.value));
+  }
+
+  onPaySubmit() {
+    this.store.dispatch(new CheckOutCart(this.submitPay.value));
   }
 }

@@ -6,7 +6,7 @@ import { BaseResponse } from 'src/dtos/base-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 import { TakeAwayServing } from 'src/dtos/serving/take-away-serving';
-import { GetTakeAwayProducts, UpdateCart, UpdatePickUpTime } from '../actions/take-away.action';
+import { CheckOutCart, GetTakeAwayProducts, UpdateCart, UpdatePickUpTime } from '../actions/take-away.action';
 import { TakeAwayService } from '../services/take-away.service';
 
 export class TakeAwayStateModel {
@@ -56,6 +56,17 @@ export class TakeAwayState {
         return state.actions;
     }
 
+    @Selector()
+    static isCartEmpty(state: TakeAwayStateModel) {
+        let totalItem = 0;
+        if (state.cart && state.cart.servings && state.cart.servings.length > 0) {
+            state.cart.servings.forEach(pro => {
+                totalItem += pro.quantity;
+            })
+          }
+          return totalItem <= 0;
+    }
+
     @Action(GetTakeAwayProducts)
     getTakeAwayProducts({getState, setState}: StateContext<TakeAwayStateModel>) : Observable<BaseResponse<TakeAwayProduct[]>> {
         const state = getState();
@@ -90,8 +101,6 @@ export class TakeAwayState {
                          && pro.servings.findIndex(ser => ser.id == payload.servingId) >= 0)[0];
         const index = servings.findIndex(p => p.id == payload.servingId);
         let cloneServings = _.cloneDeep(state.cart.servings) || [];
-        console.log("serving:", servings);
-        console.log("cloneServings:", cloneServings);
         const existed = cloneServings.findIndex(serving => serving.id == payload.servingId);
 
         if (existed >= 0) {
@@ -137,5 +146,25 @@ export class TakeAwayState {
             ...state,
            timePickUp: payload
         });
+    }
+
+    @Action(CheckOutCart)
+    checkoutCart({getState, setState}: StateContext<TakeAwayStateModel>, payload: any) {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, CheckOutCart.name]
+        });
+        return this.takeAwayService.checkOutCart("", state.cart).pipe(tap((result) => {
+            if (result.success) {
+                window.location.href = result.payload.url;
+            }
+            let tempActions = [...state.actions];
+            tempActions.splice( tempActions.findIndex(a => a == CheckOutCart.name), 1);
+            setState({
+                ...state,
+                actions: tempActions
+            });
+        }));
     }
 }

@@ -48,7 +48,6 @@ export class TakeAwayComponent implements OnInit {
         .groupBy(p => p.productType.name)
         .map((value, key) => ({ productType: key, products: value }))
         .value();
-        console.log("hhoho:", this.displayProduct);
     });
 
     this.cartDetailObs.subscribe((result) => {

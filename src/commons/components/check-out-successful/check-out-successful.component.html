@@ -1,0 +1,16 @@
+<div class="f-modal-alert">
+  <div *ngIf="!orderSuccess" class="f-modal-icon f-modal-warning scaleWarning">
+		<span class="f-modal-body pulseWarningIns"></span>
+		<span class="f-modal-dot pulseWarningIns"></span>
+	</div>
+  <div class="title" *ngIf="!orderSuccess">Your order has been canceled!</div>
+
+	<div *ngIf="orderSuccess" class="f-modal-icon f-modal-success animate">
+		<span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+		<span class="f-modal-line f-modal-long animateSuccessLong"></span>
+		<div class="f-modal-placeholder"></div>
+		<div class="f-modal-fix"></div>
+	</div>
+  <div class="title" *ngIf="orderSuccess">Your order has been placed successfully</div>
+
+</div>

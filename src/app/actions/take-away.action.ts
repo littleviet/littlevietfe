@@ -13,3 +13,9 @@ export class UpdatePickUpTime {
     constructor(public time: string) {
     }
 }
+
+export class CheckOutCart {
+    static readonly type = '[TAKEWAY] Check Out Cart'
+    constructor(public paymentInfo: any) {
+    }
+}

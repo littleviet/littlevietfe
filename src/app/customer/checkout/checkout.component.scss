@@ -243,6 +243,20 @@
         }
     }
 
+    .check-out-response {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        width: 47%;
+        min-width: 47%;
+        background-color: #f3eacd;
+        
+        @include breakpoint-lg-down() {
+            width: 100%;
+            order: 1;
+        }
+    }
+
     .confirm-payment-section {
         display: flex;
         flex-direction: column;
@@ -331,11 +345,15 @@
                     padding: 10px 35px;
                     font-weight: 800;
                     font-size: 17px;
+                    border-radius: 1px solid #c9ac82;
+                }
+
+                .pay-btn-active {
                     cursor: pointer;
                 }
 
-                .pay-btn:hover {
-                    border-radius: 1px solid #f3eacd;
+                .pay-btn-active:hover {
+                    border-radius: 1px solid #c9ac82;
                     background-color: white;
                 }
             }
