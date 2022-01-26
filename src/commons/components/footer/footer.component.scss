@@ -64,13 +64,22 @@
         align-items: flex-start;
         width: 100%;
         margin-top: 1%;
+
         @include breakpoint-lg-down() {
             font-size: 13px;
             width: 100%;
+            flex-wrap: wrap;
+            padding-top: 2%;
         }
+        
         .insta {
             padding: 0.3% 2%;
             border-right: 1px solid black;
+
+            @include breakpoint-lg-down {
+                width: 100%;
+                text-align: center;
+            }
 
             img {
                 vertical-align: middle;
@@ -84,6 +93,11 @@
 
         .phone {
             padding: 0.3% 2%;
+
+            @include breakpoint-lg-down {
+                width: 100%;
+                text-align: center;
+            }
 
             img {
                 vertical-align: middle;

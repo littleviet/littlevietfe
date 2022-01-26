@@ -5,7 +5,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CreateAccount, Login } from 'src/app/actions/authentication.action';
-import { CheckOutCart } from 'src/app/actions/take-away.action';
+import { CheckOutCart, GetTakeAwayProducts } from 'src/app/actions/take-away.action';
 import { AuthenticationState } from 'src/app/states/authentication.state';
 import { TakeAwayState } from 'src/app/states/take-away.state';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
@@ -89,6 +89,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new GetTakeAwayProducts());
     this.loggedInAccountObs.subscribe((result) => {
       this.loggedInAccountInfo = result;
     });
