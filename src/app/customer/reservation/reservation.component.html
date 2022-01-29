@@ -72,7 +72,7 @@
     
           <div class="reservation-field">
             <label>Day</label>
-            <nz-date-picker nzFormat='dd-MM-yyyy' formControlName="day" [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
+            <nz-date-picker [nzDisabledDate]="disabledDate" nzFormat='dd-MM-yyyy' formControlName="day" [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
             <mat-error *ngIf="dayFC.hasError('required')">
               Day is <strong>required</strong>
             </mat-error>

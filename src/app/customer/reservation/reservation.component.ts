@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
+import { differenceInCalendarDays } from 'date-fns';
 import { Observable } from 'rxjs';
 import { ClearReservation, UpdateReservationInfo } from 'src/app/actions/take-away.action';
 import { TakeAwayState } from 'src/app/states/take-away.state';
@@ -24,6 +25,9 @@ export class ReservationComponent implements OnInit {
   noPeopleFC = new FormControl("1", [Validators.required]);
   dayFC = new FormControl("", [Validators.required]);
   hourFC = new FormControl("13:00", [Validators.required]);
+  today = new Date();
+  disabledDate = (current: Date): boolean =>
+    differenceInCalendarDays(current, this.today) < 0;
 
   reservationFG = new FormGroup({
     numberOfPeople: this.noPeopleFC,
