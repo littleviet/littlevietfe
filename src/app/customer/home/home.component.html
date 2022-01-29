@@ -61,7 +61,7 @@
       <owl-carousel-o #owlElement [options]="carouselOptions">
         <ng-container *ngFor="let productType of productsMenu; let i= index;">
           <ng-template [dotContent]="(i + 1).toString()" carouselSlide >
-            <app-menu-slide [productType]="productType.esName + ' / ' + productType.name" [products]="productType.products"></app-menu-slide>
+            <app-menu-slide class="menu-slide" [productType]="productType.esName + ' / ' + productType.name" [products]="productType.products"></app-menu-slide>
           </ng-template>
         </ng-container>
       </owl-carousel-o>

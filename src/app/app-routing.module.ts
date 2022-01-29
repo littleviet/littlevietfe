@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-successful/check-out-successful.component';
+import { PageNotFoundComponent } from 'src/commons/components/page-not-found/page-not-found.component';
 import { CheckoutComponent } from './customer/checkout/checkout.component';
 import { CouponComponent } from './customer/coupon/coupon.component';
 import { ReservationComponent } from './customer/reservation/reservation.component';
@@ -16,6 +17,8 @@ const routes: Routes = [
     ]},
     { path: 'reservation', component: ReservationComponent },
     { path: 'coupon-gift', component: CouponComponent },
+    {path: 'not-found', component: PageNotFoundComponent},
+    {path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
