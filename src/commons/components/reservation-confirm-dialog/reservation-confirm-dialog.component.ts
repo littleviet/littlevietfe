@@ -17,6 +17,8 @@ import { CusReservation } from 'src/dtos/reservation/cus-reservation';
 export class ReservationConfirmDialogComponent implements OnInit {
   @Select(TakeAwayState.getReservationInfo) reservationInfoObs!: Observable<CusReservation>;
   @Select(AuthenticationState.getLoggedInAccountInfo) userInfoObs!: Observable<LoginAccountInfo>;
+  @Select(TakeAwayState.isReservationSuccess) reservationSuccessObs!: Observable<boolean | null>;
+  @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
   reservationInfo!: CusReservation;
   userInfo!: LoginAccountInfo;
 

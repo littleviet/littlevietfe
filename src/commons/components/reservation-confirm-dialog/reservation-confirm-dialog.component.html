@@ -1,7 +1,7 @@
 <div class="close-btn-area" mat-dialog-close>
   <mat-icon mat-icon class="close-btn">close</mat-icon>
 </div>
-<div class="reservation-confirm-dialog">
+<div *ngIf="(reservationSuccessObs | async) == null" class="reservation-confirm-dialog">
   <h1 mat-dialog-title class="reservation-confirm-title">ONLINE RESERVATION</h1>
   <div class="info-reservation">DATE <span class="dotted">{{reservationInfo.day.getDate()}}/{{reservationInfo.day.getMonth() + 1}}/{{reservationInfo.day.getFullYear()}}</span>
       TIME <span class="dotted">{{reservationInfo.hour}}</span>  NUMBER OF PEOPLE <span class="dotted">{{reservationInfo.noOfPeople}}</span></div>
@@ -61,7 +61,7 @@
         <mat-checkbox class="sms-checkbox">I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.</mat-checkbox>
       </div>
 
-      <button [disabled]="!bookReservationFG.valid" [ngClass]="!bookReservationFG.invalid ? 'reserve-btn-active': 'reserve-btn-inactive'" type="submit" mat-dialog-close="true" class="reserve-btn">
+      <button [disabled]="!bookReservationFG.valid" [ngClass]="!bookReservationFG.invalid ? 'reserve-btn-active': 'reserve-btn-inactive'" type="submit" class="reserve-btn">
         RESERVE
       </button>
     </form>
@@ -86,6 +86,26 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="(reservationSuccessObs | async) != null && (reservationSuccessObs | async)" class="f-modal-alert">
+  <div class="f-modal-icon f-modal-success animate">
+    <span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+    <span class="f-modal-line f-modal-long animateSuccessLong"></span>
+    <div class="f-modal-placeholder"></div>
+    <div class="f-modal-fix"></div>
+  </div>
+  <div class="title">SUCCESSFUL BOOKING</div>
+</div>
+
+<div *ngIf="(reservationSuccessObs | async) != null && (reservationSuccessObs | async) == false" class="f-modal-alert">
+  <div class="f-modal-icon f-modal-warning scaleWarning">
+    <span class="f-modal-body pulseWarningIns"></span>
+    <span class="f-modal-dot pulseWarningIns"></span>
+  </div>
+  <div class="title">BOOKING FAIL!</div>
+</div>
+
+<app-progress-spinner *ngIf="(takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>
 
 
 

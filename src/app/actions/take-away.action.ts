@@ -37,3 +37,7 @@ export class UpdateReservationBookerInfo {
     constructor(public reservationBookerInfo: any) {
     }
 }
+
+export class ClearReservation {
+    static readonly type = '[TAKEWAY] Clear Reservation'
+}
