@@ -27,6 +27,8 @@ import { ProgressSpinnerComponent } from 'src/commons/components/progress-spinne
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SideProgressSpinnerComponent } from 'src/commons/components/side-progress-spinner/side-progress-spinner.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { ReservationConfirmDialogComponent } from 'src/commons/components/reservation-confirm-dialog/reservation-confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -45,7 +47,8 @@ import { ReservationComponent } from './reservation/reservation.component';
     MatMenuModule,
     MatBadgeModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NzDatePickerModule
   ],
   declarations: [
     HomeComponent,
@@ -60,7 +63,9 @@ import { ReservationComponent } from './reservation/reservation.component';
     CartDetailComponent,
     TimePickerDialogComponent,
     ProgressSpinnerComponent,
-    SideProgressSpinnerComponent
+    SideProgressSpinnerComponent,
+    ReservationComponent,
+    ReservationConfirmDialogComponent
   ]
 })
 export class CustomerModule { }

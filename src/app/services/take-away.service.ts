@@ -6,6 +6,7 @@ import { BaseResponse } from 'src/dtos/base-response';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 import { CheckoutCartResponse } from 'src/dtos/cart/check-out-cart-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
+import { CusReservation } from 'src/dtos/reservation/cus-reservation';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class TakeAwayService {
     }
 
     getTakeAwayProductMenu() : Observable<BaseResponse<TakeAwayProduct[]>> {
-        return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'product?pageSize=50');
+        return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'take-away/menu');
     }
 
     checkOutCart(pickupTime: string, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutCartResponse>> {
@@ -27,6 +28,24 @@ export class TakeAwayService {
                 pickupTime: "2022-01-25T15:29:15.935Z",
                 totalPrice: cartDetail.totalPrice,
                 orderDetails: cartDetail.servings.map(serving => ({servingId: serving.id, quantity: serving.quantity}))
+            }
+        );
+    }
+
+    bookReservation(reservation: CusReservation) : Observable<BaseResponse<CheckoutCartResponse>> {
+        let date = reservation.day;
+        date.setHours(parseInt(reservation.hour.substring(0, 2)));
+        date.setMinutes(parseInt(reservation.hour.substring(3)));
+        console.log("reservation:", reservation);
+        return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'reservation',
+            {
+                firstName: reservation.firstName,
+                lastName: reservation.lastName,
+                email: reservation.email,
+                furtherRequest: reservation.furtherRequest,
+                noOfPeople: reservation.noOfPeople,
+                bookingDate: date,
+                phoneNumber: "036 289 2891"
             }
         );
     }

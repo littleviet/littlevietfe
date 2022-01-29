@@ -60,6 +60,7 @@ export class CheckoutComponent implements OnInit {
     phoneNumber2: this.phone2FormControl,
     email: this.regEmailFormControl,
     password: this.regPasswordFormControl,
+    // TODO: Add account type
   });
 
   // payment form control

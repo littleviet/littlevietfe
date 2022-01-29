@@ -58,28 +58,35 @@
     <div class="reservation-booking-section">
       <div class="reservation-booking-bg">
         <div class="reservation-title">Fill in the information to make a reservation</div>
-        <form class="reservation-form" name="message" method="post">
-      
-            <div class="reservation-field">
-              <label>Number of people</label>
-              <select class="input-field" required name="hour">
-                <option *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
-              </select>
-            </div>
-      
-            <div class="reservation-field">
-              <label for="name">Day</label>
-              <select class="input-field" required name="hour">
-                <option *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
-              </select>
-            </div>
-      
-            <div class="reservation-field">
-              <label for="name">Hour</label>
-              <select class="input-field" required name="hour">
-                <option *ngFor="let item of hours; let i = index">{{item}}</option>
-              </select>
-            </div>
+        <form [formGroup]="reservationFG" class="reservation-form" name="message" method="post">
+          <div class="reservation-field">
+            <label>Number of people</label>
+            <select formControlName="numberOfPeople" class="input-field" required name="hour">
+              <option value="{{i + 1}}" *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
+            </select>
+            <mat-error *ngIf="noPeopleFC.hasError('required')">
+              Number of people is <strong>required</strong>
+            </mat-error>
+          </div>
+    
+          <div class="reservation-field">
+            <label>Day</label>
+            <nz-date-picker nzFormat='dd-MM-yyyy' formControlName="day" [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
+            <mat-error *ngIf="dayFC.hasError('required')">
+              Day is <strong>required</strong>
+            </mat-error>
+          </div>
+    
+          <div class="reservation-field">
+            <label>Hour</label>
+            <select formControlName="hour" class="input-field" required name="hour">
+              <option value="{{item}}" *ngFor="let item of hours; let i = index">{{item}}</option>
+            </select>
+            <mat-error *ngIf="hourFC.hasError('required')">
+              Hour is <strong>required</strong>
+            </mat-error>
+          </div>
+          <button [disabled]="!reservationFG.valid" [ngClass]="!reservationFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'" class="book-now-btn"  (click)="openDialog()">BOOK NOW</button>
       </form>
       </div>
     </div>

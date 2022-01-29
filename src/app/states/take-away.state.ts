@@ -5,8 +5,9 @@ import { Observable, tap } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
+import { CusReservation } from 'src/dtos/reservation/cus-reservation';
 import { TakeAwayServing } from 'src/dtos/serving/take-away-serving';
-import { CheckOutCart, GetTakeAwayProducts, UpdateCart, UpdatePickUpTime } from '../actions/take-away.action';
+import { CheckOutCart, ClearCart, GetTakeAwayProducts, UpdateCart, UpdatePickUpTime, UpdateReservationBookerInfo, UpdateReservationInfo } from '../actions/take-away.action';
 import { TakeAwayService } from '../services/take-away.service';
 
 export class TakeAwayStateModel {
@@ -14,6 +15,7 @@ export class TakeAwayStateModel {
     cart!: CartDetail;
     timePickUp!: string | null;
     actions!: string[];
+    reservationInfo!: CusReservation;
 }
 
 @State<TakeAwayStateModel>({
@@ -26,7 +28,8 @@ export class TakeAwayStateModel {
             totalPrice: 0,
         },
         timePickUp: null,
-        actions: []
+        actions: [],
+        reservationInfo: new CusReservation()
     }
 })
 
@@ -54,6 +57,11 @@ export class TakeAwayState {
     @Selector()
     static getActions(state: TakeAwayStateModel) {
         return state.actions;
+    }
+
+    @Selector()
+    static getReservationInfo(state: TakeAwayStateModel) {
+        return state.reservationInfo;
     }
 
     @Selector()
@@ -161,6 +169,61 @@ export class TakeAwayState {
             }
             let tempActions = [...state.actions];
             tempActions.splice( tempActions.findIndex(a => a == CheckOutCart.name), 1);
+            setState({
+                ...state,
+                actions: tempActions
+            });
+        }));
+    }
+
+    @Action(ClearCart)
+    clearCart({getState, setState}: StateContext<TakeAwayStateModel>) {
+        const state = getState();
+        setState({
+            ...state,
+           timePickUp: null,
+           cart: new CartDetail()
+        });
+    }
+
+    @Action(UpdateReservationInfo)
+    updateReservationInfo({getState, setState}: StateContext<TakeAwayStateModel>, payload: any) {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, UpdateReservationInfo.name],
+            reservationInfo: {
+                ...state.reservationInfo,
+                day: new Date(payload.reservationInfo.day),
+                hour: payload.reservationInfo.hour,
+                noOfPeople: parseInt(payload.reservationInfo.numberOfPeople),
+            }
+        });
+    }
+
+    @Action(UpdateReservationBookerInfo)
+    updateBookerReservationInfo({getState, setState}: StateContext<TakeAwayStateModel>, payload: any) {
+        const state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, UpdateReservationBookerInfo.name],
+            reservationInfo: {
+                ...state.reservationInfo,
+                email: payload.reservationBookerInfo.email,
+                lastName: payload.reservationBookerInfo.lastName,
+                firstName: payload.reservationBookerInfo.firstName,
+            }
+        });
+
+        const newState = getState();
+
+        return this.takeAwayService.bookReservation(newState.reservationInfo).pipe(tap((result) => {
+            if (result.success) {
+                console.log("success");
+            }
+            
+            let tempActions = [...state.actions];
+            tempActions.splice( tempActions.findIndex(a => a == UpdateReservationInfo.name), 1);
             setState({
                 ...state,
                 actions: tempActions

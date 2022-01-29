@@ -19,3 +19,21 @@ export class CheckOutCart {
     constructor(public paymentInfo: any) {
     }
 }
+
+export class ClearCart {
+    static readonly type = '[TAKEWAY] Clear Cart'
+    constructor() {
+    }
+}
+
+export class UpdateReservationInfo {
+    static readonly type = '[TAKEWAY] Update Reservation Info'
+    constructor(public reservationInfo: any) {
+    }
+}
+
+export class UpdateReservationBookerInfo {
+    static readonly type = '[TAKEWAY] Update Reservation Booker Info'
+    constructor(public reservationBookerInfo: any) {
+    }
+}

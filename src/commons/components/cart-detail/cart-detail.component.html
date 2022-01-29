@@ -34,7 +34,7 @@
     </div>
     <mat-divider class="section-divider"></mat-divider>
     <button *ngIf="titleBtn == 'CHECK OUT'" class="check-out-btn"
-    [disabled]="isCartEmpty()" [ngClass]="{'check-out-btn-active': !isCartEmpty()}"  routerLink="/checkout">{{titleBtn}}</button>
+      [disabled]="isCartEmpty()" [ngClass]="{'check-out-btn-active': !isCartEmpty()}"  routerLink="/checkout">{{titleBtn}}</button>
     <button *ngIf="titleBtn != 'CHECK OUT'" class="order-more-btn"  routerLink="/take-away">{{titleBtn}}</button>
   </div>
 </div>

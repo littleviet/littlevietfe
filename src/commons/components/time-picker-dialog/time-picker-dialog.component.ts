@@ -21,7 +21,7 @@ export class TimePickerDialogComponent implements OnInit {
             }
 
   pickUpTimeValuesDropdown = ['Hour*', '10:00', '10:15','10:30', '10:45','11:00', '11:15','11:30', '11:45','12:00', '12:15','12:30', '12:45'];
-
+  pickUpTimeValues = [];
   ngOnInit(): void {
     this.setUpTimeDropdown();
     this.hourFormControl.valueChanges.subscribe(v => {
@@ -33,13 +33,41 @@ export class TimePickerDialogComponent implements OnInit {
   
   setUpTimeDropdown() {
     var date = new Date();
-    console.log(
-      date.toLocaleString('es-ES', { hour: 'numeric', hour12: false })
-    );  
-    this.today = this.daysOfWeek[ date.getDay()];
+    this.today = this.daysOfWeek[date.getDay()];
+    this.generateTimeValues();
   }
 
   onSubmit() {
     this.store.dispatch(new UpdatePickUpTime(this.hourFormControl.value));
+  }
+
+  generateTimeValues() {
+    var date = new Date();
+    console.log("Date: ", date.setMinutes(date.getMinutes() + 30));
+    // TODO:
+    // let startMinute = 0;
+    // switch(true) { 
+    //   case (date.getMinutes() >= 45):
+    //     startMinute = 0;
+    //     date.setHours(date.getHours() + 1);
+    //     break; 
+    //   case (date.getMinutes() >= 30):
+    //     startMinute = 45;
+    //     break; 
+    //   case (date.getMinutes() >= 15):
+    //     startMinute = 30;
+    //     break; 
+    //   case (date.getMinutes() >= 0):
+    //     startMinute = 15;
+    //     break; 
+    //   default:
+    //     break;
+    // }
+    // date.setMinutes(startMinute);
+    // while (date.getHours() < 23) {
+    //   if ((date.getHours() >= 13 && date.getHours() < 16) || (date.getHours() >= 20 && date.getHours() < 23)) {
+    //     this.pickUpTimeValues.push();
+    //   }
+    // }
   }
 }
