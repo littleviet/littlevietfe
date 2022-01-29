@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-successful/check-out-successful.component';
 import { CheckoutComponent } from './customer/checkout/checkout.component';
+import { CouponComponent } from './customer/coupon/coupon.component';
 import { ReservationComponent } from './customer/reservation/reservation.component';
 import { TakeAwayComponent } from './customer/take-away/take-away.component';
 
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'order-canceled', data: { orderSuccess: false}, component: CheckOutSuccessfulComponent}
     ]},
     { path: 'reservation', component: ReservationComponent },
+    { path: 'coupon-gift', component: CouponComponent },
 ];
 
 @NgModule({

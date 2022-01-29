@@ -20,62 +20,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   menuOpen: boolean = false;
 
-  productsMenu: CustomerProductType[] = [
-    {
-      "name": "Pho",
-      "caName": "Pho",
-      "esName": "Pho",
-      "products": [
-        {
-          "name": "Pho Bo",
-          "esName": "Pho Bo",
-          "caName": "Pho Bo",
-          "price": 10
-        },
-        {
-          "name": "Pho Ga",
-          "esName": "Pho Ga",
-          "caName": "Pho Ga",
-          "price": 9
-        }
-      ]
-    },
-    {
-      "name": "Banh Mi",
-      "caName": "Banh Mi",
-      "esName": "Banh Mi",
-      "products": [
-        {
-          "name": "Banh Mi Sasiu de Cerdo",
-          "esName": "Banh mi sasiu",
-          "caName": "Sasiu Banh Mi",
-          "price": 6.5
-        },
-        {
-          "name": "Banh Mi cerdo a la plancha",
-          "esName": "Banh mi porc a la planxa",
-          "caName": "Grilled pork banh mi",
-          "price": 6.5
-        },
-        {
-          "name": "Banh Mi de Pollo 2",
-          "esName": "Banh mi porc d'pollastre 2",
-          "caName": "Chicken Banh Mi 2",
-          "price": 7
-        },
-        {
-          "name": "Banh Mi de Pollo",
-          "esName": "Banh mi porc d'pollastre",
-          "caName": "Chicken Banh Mi",
-          "price": 6.5
-        },
-        {
-          "name": "Banh Mi huevos y paté",
-          "esName": "Banh mi ous i paté",
-          "caName": "Egg Banh Mi with pate",
-          "price": 6.5
-        }
-      ]}];
+  productsMenu: CustomerProductType[] = [];
   carouselOptions: OwlOptions = {
     margin: 25,
     nav: true,
@@ -161,7 +106,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new GetProductMenu())
     this.productMenu.subscribe((result) => {
-      this.productsMenu = result;
+      this.productsMenu = result.filter(proType => proType.products != null && proType.products.length > 0);
     });
     this.setUpTittleColorBasedOnScreenSize();
   }

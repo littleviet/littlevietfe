@@ -187,6 +187,19 @@ $littlevietfe-theme: mat.define-light-theme((
   }
 }
 
+.owl-theme .owl-dots .owl-dot span {
+  width: 20px !important;
+  height: 20px !important;
+}
+
 .cdk-overlay-pane.my-dialog {
   position: relative!important;
+}
+
+.owl-prev {
+  background: none !important;
+}
+
+.owl-next {
+  background: none !important;
 }

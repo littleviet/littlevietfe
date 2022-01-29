@@ -13,6 +13,7 @@
 
 .wave-line {
     margin-top: 1%;
+    width: 100%;
 }
 
 .menu-item {
@@ -27,25 +28,26 @@
     font-weight: 600;
     font-size: 21px;
     width: 80%;
+
     @include breakpoint-lg-down() {
         font-size: 12px;
         width: 80%;
     }
-}
 
-.left-name {
-    float: left;
-}
-
-.right-name {
-    overflow: auto;
-    padding: 0 1%;
-    height: 100%;
-
-    .divider {
-        // width: 100%;
-        display: inline-block;
-        font-weight: 600;
+    .left-name {
+        float: left;
+    }
+    
+    .right-name {
+        overflow: auto;
+        padding: 0 1%;
+        height: 100%;
+    
+        .divider {
+            width: 100%;
+            display: inline-block;
+            font-weight: 600;
+        }
     }
 }
 
@@ -71,12 +73,15 @@
 
 .item-layout {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .product-item-layout {
-    margin: 0 16px 32px 16px;
-    max-width: 100%;
+    width: 50%;
+    max-width: 585px;
+
     @include breakpoint-lg-down() {
-        margin: 8px 0;
+        width: 100%;
     }
 }

@@ -1,0 +1,38 @@
+<div class="home" [ngClass]="{'noscroll': menuOpen}">
+  <!-- header -->
+  <div class="header">
+    <div class="menu-title">
+      <app-landing-title type="2" title="COUPON GIFT" color="#f3eacd"></app-landing-title>
+    </div>
+  </div>
+
+  <app-cart-button></app-cart-button>
+  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+
+  <div class="coupon-section">
+
+      <!-- Reservation introduction -->
+    <div class="galery-section">
+      <div class="back-btn-area">
+        <div class="back-button">
+          &lt;&lt; BACK
+        </div>
+        <img src="assets/imgs/coupon/wave-line.png" alt="">
+      </div>
+    </div>
+
+    <!-- Reservation booking detail -->
+    <div class="reservation-booking-section">
+      <div class="reservation-booking-bg">
+        <!-- <div class="reservation-title">Fill in the information to make a reservation</div> -->
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <app-footer [isDisplayLogo]="false"></app-footer>
+</div>
+
+<!-- <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner> -->
+
