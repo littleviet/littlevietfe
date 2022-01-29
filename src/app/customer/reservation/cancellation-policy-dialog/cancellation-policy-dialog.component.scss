@@ -1,0 +1,39 @@
+
+
+.close-btn-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(100%, -100%);
+    background:#7a7469;
+    color: #c9ac82;
+    border-radius: 50%;
+    padding: 10px;
+    line-height: 14px;
+    min-width: auto;
+    cursor: pointer;
+}
+
+.close-btn-area:hover {
+    background-color: white;
+}
+
+.policy-dialog {
+    padding-bottom: 10%;
+    padding-left: 10%;
+
+    .policy-title {
+        font-size: 22px;
+        padding-top: 8%;
+        font-weight: 600;
+    }
+
+    .content {
+        font-size: 17px;
+        line-height: 160%;
+    }
+}
+
+::ng-deep .mat-dialog-container {
+    background-color: #f3eacd;
+}

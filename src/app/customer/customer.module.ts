@@ -31,6 +31,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ReservationConfirmDialogComponent } from 'src/commons/components/reservation-confirm-dialog/reservation-confirm-dialog.component';
 import { CouponComponent } from './coupon/coupon.component';
 import { PageNotFoundComponent } from 'src/commons/components/page-not-found/page-not-found.component';
+import { CancellationPolicyDialogComponent } from './reservation/cancellation-policy-dialog/cancellation-policy-dialog.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { PageNotFoundComponent } from 'src/commons/components/page-not-found/pag
     SideProgressSpinnerComponent,
     CouponComponent,
     ReservationConfirmDialogComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CancellationPolicyDialogComponent
   ]
 })
 export class CustomerModule { }

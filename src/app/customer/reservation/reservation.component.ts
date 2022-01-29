@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ClearReservation, UpdateReservationInfo } from 'src/app/actions/take-away.action';
 import { TakeAwayState } from 'src/app/states/take-away.state';
 import { ReservationConfirmDialogComponent } from 'src/commons/components/reservation-confirm-dialog/reservation-confirm-dialog.component';
+import { CancellationPolicyDialogComponent } from './cancellation-policy-dialog/cancellation-policy-dialog.component';
 
 @Component({
   selector: 'app-reservation',
@@ -53,6 +54,13 @@ export class ReservationComponent implements OnInit {
       if (this.reservationSuccess != null) {
         this.store.dispatch(new ClearReservation());
       }
+    });
+  }
+
+  viewPolicy() {
+    const dialogRef = this.dialog.open(CancellationPolicyDialogComponent, {
+      width: '1000px',
+      panelClass: 'my-dialog',
     });
   }
 }

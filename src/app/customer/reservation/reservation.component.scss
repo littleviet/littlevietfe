@@ -163,6 +163,18 @@
                 width: 88%;
                 line-height: 160%;
             }
+
+            .line-7 {
+                width: 88%;
+                margin-top: 6%;
+                line-height: 160%;
+                font-weight: 600;
+                cursor: pointer;
+
+                span {
+                    border-bottom: 1px solid black;
+                }
+            }
         }
     }
 
