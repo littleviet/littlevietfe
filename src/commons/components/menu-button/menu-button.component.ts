@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -16,18 +17,24 @@ export class MenuButtonComponent implements OnInit {
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfo!: Observable<LoginAccountInfo>;
   loginInfo: LoginAccountInfo | null = null; 
   menuOpen: boolean = false;
-  constructor(private store: Store) { }
+  constructor(private store: Store,  private breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
+    this.loginAccountInfo.subscribe((result) => {
+      this.loginInfo = result;
+    });
   }
 
   clickBtn() {
     this.menuOpen = !this.menuOpen;
     this.isMenuOpen.emit(this.menuOpen);
+  }
 
-    this.loginAccountInfo.subscribe((result) => {
-      this.loginInfo = result;
-    });
+  menuClick() {
+    let width = window.innerWidth;
+    if (width <= 991 && this.menuOpen) {
+      this.menuOpen = false;
+    }
   }
 
   logout() {

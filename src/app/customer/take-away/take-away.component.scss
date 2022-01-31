@@ -310,7 +310,7 @@
 
 .noscroll { 
     @include breakpoint-lg-down() {
-        position: fixed;
-        overflow: hidden;
+        // position: fixed;
+        // overflow: hidden;
     }
 }

@@ -118,6 +118,7 @@
   
 .overlay-open {
     width: 30%;
+    
     @include breakpoint-lg-down() {
         height: 100%;
         width: 100%;

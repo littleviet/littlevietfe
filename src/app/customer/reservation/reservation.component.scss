@@ -36,8 +36,8 @@
 
 .noscroll { 
     @include breakpoint-lg-down() {
-        position: fixed;
-        overflow: hidden;
+        // position: fixed;
+        // overflow: hidden;
     }
 }
 
@@ -80,6 +80,10 @@
                 padding-left: 10%;
                 width: fit-content;
                 margin-bottom: 4%;
+            }
+
+            .wavy-line {
+                width: 100%;
             }
         }
 
@@ -134,6 +138,9 @@
 
             .middle-line {
                 margin-top: 7%;
+                float: right;
+                justify-self: end;
+                width: 100%;
             }
         }
 

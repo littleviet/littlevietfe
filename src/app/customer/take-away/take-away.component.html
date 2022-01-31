@@ -30,11 +30,11 @@
       <mat-expansion-panel [(expanded)]="isExpaned" hideToggle="true">
         <mat-expansion-panel-header>
           <mat-panel-title class="title">
-            {{'Banh mi' | uppercase}} <mat-icon>{{ isExpaned  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
+            {{displayProduct[selectedProductIndex].productType | uppercase}} <mat-icon>{{ isExpaned  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="product-type-list">
-          <div (click)="clickProductType(i)" class="product-type-item" [ngClass]="{'product-type-item-active': i == 2}" *ngFor="let productType of displayProduct; let i = index">
+          <div (click)="clickProductType(i)" class="product-type-item" [ngClass]="{'product-type-item-active': i == selectedProductIndex}" *ngFor="let productType of displayProduct; let i = index">
             {{productType.productType | uppercase}}
           </div>
         </div>
