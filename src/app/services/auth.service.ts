@@ -21,6 +21,7 @@ export class AuthService {
     }
 
     createAccount(accountInfo: any) : Observable<BaseResponse<object>> {
-        return this.http.post<BaseResponse<LoginAccountInfo>>(environment.apiUrl + 'account/register', accountInfo);
+        let account = {...accountInfo, accountType: 3}
+        return this.http.post<BaseResponse<LoginAccountInfo>>(environment.apiUrl + 'account/register', account);
     }
 }
