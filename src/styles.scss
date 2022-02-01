@@ -55,6 +55,10 @@ $littlevietfe-theme: mat.define-light-theme((
   scroll-behavior: smooth;
 }
 
+.mat-icon {
+  vertical-align: middle;
+}
+
 // app transitions
 .page-enter-active,
 .page-leave-active {
