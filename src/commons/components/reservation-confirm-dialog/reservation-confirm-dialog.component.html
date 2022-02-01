@@ -100,12 +100,12 @@
   <div class="title">SUCCESSFUL BOOKING</div>
 </div>
 
-<div *ngIf="(reservationSuccessObs | async) != null && (reservationSuccessObs | async) == false" class="f-modal-alert">
+<!-- <div *ngIf="(reservationSuccessObs | async) != null && (reservationSuccessObs | async) == false" class="f-modal-alert">
   <div class="f-modal-icon f-modal-warning scaleWarning">
     <span class="f-modal-body pulseWarningIns"></span>
     <span class="f-modal-dot pulseWarningIns"></span>
   </div>
   <div class="title">BOOKING FAIL!</div>
-</div>
+</div> -->
 
 <app-progress-spinner *ngIf="(takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>

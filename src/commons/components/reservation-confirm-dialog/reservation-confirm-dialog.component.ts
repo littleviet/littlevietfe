@@ -21,6 +21,7 @@ export class ReservationConfirmDialogComponent implements OnInit {
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
   reservationInfo!: CusReservation;
   userInfo!: LoginAccountInfo;
+  reservationSuccessful: boolean | null = null;
 
   emailFC = new FormControl("", [Validators.required,  Validators.email]);
   firstNameFC = new FormControl("", [Validators.required]);
@@ -49,6 +50,13 @@ export class ReservationConfirmDialogComponent implements OnInit {
   ngOnInit() {
     this.reservationInfoObs.subscribe((result) => {
       this.reservationInfo = result;
+    });
+
+    this.reservationSuccessObs.subscribe((result) => {
+      this.reservationSuccessful = result;
+      if (this.reservationSuccessful != null && this.reservationSuccessful == false) {
+        this.dialogRef.close();
+      }
     });
 
     this.userInfoObs.subscribe((result) => {
