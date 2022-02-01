@@ -6,7 +6,7 @@
 
 <div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
   <div class="overlay-content">
-    <div *ngIf="loginInfo" class="login-info-btn">
+    <div *ngIf="loginInfo != null && loginInfo.token != null" class="login-info-btn">
       <button mat-button #trigger="matMenuTrigger" class="name-info-btn" [matMenuTriggerFor]="beforeMenu">
         <div>{{ loginInfo.firstname }}</div>
         <mat-icon>{{ trigger.menuOpen  ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
