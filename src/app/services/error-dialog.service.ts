@@ -18,7 +18,7 @@ export class ErrorDialogService {
             width: '600px',
             data: { message: message },
             panelClass: 'my-dialog',
-            closeOnNavigation: true
+            maxHeight: '80%'
         });
 
         dialogRef.afterClosed().subscribe(result => {

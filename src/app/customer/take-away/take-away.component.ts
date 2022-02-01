@@ -104,6 +104,7 @@ export class TakeAwayComponent implements OnInit {
     const dialogRef = this.dialog.open(TimePickerDialogComponent, {
       width: '350px',
       panelClass: 'my-dialog',
+      maxHeight: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {

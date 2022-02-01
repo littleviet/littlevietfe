@@ -52,6 +52,7 @@ export class ReservationComponent implements OnInit {
     const dialogRef = this.dialog.open(ReservationConfirmDialogComponent, {
       width: '1200px',
       panelClass: 'my-dialog',
+      maxHeight: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -65,6 +66,7 @@ export class ReservationComponent implements OnInit {
     const dialogRef = this.dialog.open(CancellationPolicyDialogComponent, {
       width: '1000px',
       panelClass: 'my-dialog',
+      maxHeight: '80%'
     });
   }
 }
