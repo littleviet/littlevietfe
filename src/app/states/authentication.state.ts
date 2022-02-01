@@ -42,18 +42,27 @@ export class AuthenticationState {
             ...state,
             actions: [...state.actions, Login.name]
         });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(ac => ac == Login.name), 1);
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
             if (result.success) {
-                let tempActions = [...state.actions];
-                tempActions.splice( tempActions.findIndex(ac => ac == Login.name), 1);
                 setState({
                     ...state,
                     loggedinUser: result.payload,
                     actions: tempActions
                 });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
             }
-        },
-        ));
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
     }
 
     @Action(AutoLogin)
@@ -77,15 +86,21 @@ export class AuthenticationState {
             ...state,
             actions: [...state.actions, CreateAccount.name]
         });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == CreateAccount.name), 1);
         return this.authService.createAccount(payload.regAccountInfo).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new Login({email: payload.regAccountInfo.email, password: payload.regAccountInfo.password}));
             }
-            let tempActions = [...state.actions];
-            tempActions.splice( tempActions.findIndex(a => a == CreateAccount.name), 1);
+            
             setState({
                 ...state,
                 actions: tempActions
+            });
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
             });
         }));
     }

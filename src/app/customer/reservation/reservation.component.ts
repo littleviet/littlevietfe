@@ -23,7 +23,7 @@ export class ReservationComponent implements OnInit {
   "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30", "22:45", "23:00"];
 
   noPeopleFC = new FormControl("1", [Validators.required]);
-  dayFC = new FormControl("", [Validators.required]);
+  dayFC = new FormControl(new Date(), [Validators.required]);
   hourFC = new FormControl("13:00", [Validators.required]);
   today = new Date();
   disabledDate = (current: Date): boolean =>

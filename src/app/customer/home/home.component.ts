@@ -80,10 +80,10 @@ export class HomeComponent implements OnInit {
 
   @HostListener("window:resize", ['$event']) updateDays() {
     this.setUpTittleColorBasedOnScreenSize();
-    let anyService = this.carousel as any;
-    let carouselService = anyService.carouselService as CarouselService; 
-    carouselService.refresh();
-    carouselService.update();
+    // let anyService = this.carousel as any;
+    // let carouselService = anyService.carouselService as CarouselService; 
+    // carouselService.refresh();
+    // carouselService.update();
   }
 
   constructor(private store: Store, private titleService: Title, private route: ActivatedRoute,

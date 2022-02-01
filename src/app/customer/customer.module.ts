@@ -32,6 +32,7 @@ import { ReservationConfirmDialogComponent } from 'src/commons/components/reserv
 import { CouponComponent } from './coupon/coupon.component';
 import { PageNotFoundComponent } from 'src/commons/components/page-not-found/page-not-found.component';
 import { CancellationPolicyDialogComponent } from './reservation/cancellation-policy-dialog/cancellation-policy-dialog.component';
+import { GlobalErrorDialogComponent } from 'src/commons/components/global-error-dialog/global-error-dialog.component';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import { CancellationPolicyDialogComponent } from './reservation/cancellation-po
     MatBadgeModule,
     MatDialogModule,
     MatProgressSpinnerModule,
-    NzDatePickerModule
+    NzDatePickerModule,
   ],
   declarations: [
     HomeComponent,
@@ -70,7 +71,8 @@ import { CancellationPolicyDialogComponent } from './reservation/cancellation-po
     CouponComponent,
     ReservationConfirmDialogComponent,
     PageNotFoundComponent,
-    CancellationPolicyDialogComponent
+    CancellationPolicyDialogComponent,
+    GlobalErrorDialogComponent
   ]
 })
 export class CustomerModule { }

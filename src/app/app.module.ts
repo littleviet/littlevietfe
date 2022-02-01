@@ -29,13 +29,14 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-successful/check-out-successful.component';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { ErrorDialogService } from './services/error-dialog.service';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [		
     AppComponent,
-    CheckOutSuccessfulComponent
+    CheckOutSuccessfulComponent,
    ],
   imports: [
     BrowserModule,
@@ -69,6 +70,7 @@ registerLocaleData(en);
       multi: true
     },
     { provide: NZ_I18N, useValue: en_US },
+    ErrorDialogService
   ],
   bootstrap: [AppComponent]
 })

@@ -89,16 +89,26 @@ export class TakeAwayState {
             ...state,
             actions: [...state.actions, GetTakeAwayProducts.name]
         });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == GetTakeAwayProducts.name), 1);
         return this.takeAwayService.getTakeAwayProductMenu().pipe(tap((result) => {
-            let tempActions = [...state.actions];
-            tempActions.splice( tempActions.findIndex(a => a == GetTakeAwayProducts.name), 1);
             if (result.success) {
                 setState({
                     ...state,
                     products: result.payload,
                     actions: tempActions
                 });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
             }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
         }));
     }
 
@@ -170,15 +180,22 @@ export class TakeAwayState {
             ...state,
             actions: [...state.actions, CheckOutCart.name]
         });
+
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == CheckOutCart.name), 1);
+
         return this.takeAwayService.checkOutCart("", state.cart).pipe(tap((result) => {
             if (result.success) {
                 window.location.href = result.payload.url;
             }
-            let tempActions = [...state.actions];
-            tempActions.splice( tempActions.findIndex(a => a == CheckOutCart.name), 1);
             setState({
                 ...state,
                 actions: tempActions
+            });
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
             });
         }));
     }

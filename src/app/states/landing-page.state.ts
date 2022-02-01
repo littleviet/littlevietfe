@@ -42,16 +42,26 @@ export class LandingPageState {
             ...state,
             actions: [...state.actions, GetProductMenu.name]
         });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == GetProductMenu.name), 1);
         return this.landingPageService.getProductMenu().pipe(tap((result) => {
-            let tempActions = [...state.actions];
-            tempActions.splice( tempActions.findIndex(a => a == GetProductMenu.name), 1);
             if (result.success) {
                 setState({
                     ...state,
                     productTypes: result.payload,
                     actions: tempActions
                 });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
             }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
         }));
     }
 }
