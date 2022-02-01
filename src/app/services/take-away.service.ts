@@ -20,12 +20,13 @@ export class TakeAwayService {
         return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'take-away/menu');
     }
 
-    checkOutCart(pickupTime: string, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutCartResponse>> {
+    checkOutCart(pickupTime: any, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutCartResponse>> {
+        console.log("Date",pickupTime);
         return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'order',
             {
                 orderType: 1,
                 paymentType: 1,
-                pickupTime: "2022-01-25T15:29:15.935Z",
+                pickupTime: new Date(pickupTime.time),
                 totalPrice: cartDetail.totalPrice,
                 orderDetails: cartDetail.servings.map(serving => ({servingId: serving.id, quantity: serving.quantity}))
             }

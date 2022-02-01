@@ -10,7 +10,7 @@ export class UpdateCart {
 
 export class UpdatePickUpTime {
     static readonly type = '[TAKEWAY] Update Pick Up Time'
-    constructor(public time: string) {
+    constructor(public time: Date) {
     }
 }
 

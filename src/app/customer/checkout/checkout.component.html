@@ -172,7 +172,11 @@
           <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
           <div class="day-title">Today Wednesday</div>
           <div class="position-title">en: Little Viet Barcelona</div>
-          <div class="time-title">at: <span class="picking-hour-confirm">13AM</span></div>
+          <div *ngIf="pickUpTime != null" class="time-title">at:
+            <select [formControl]="hourFormControl" required name="hour" class="picking-hour-confirm">
+              <option *ngFor="let time of pickUpTimeValues" value="{{time}}">{{time.getHours()}}:{{time.getMinutes() == 0 ? '00': time.getMinutes()}}</option>
+            </select>
+          </div>
           <div class="diners-title">How many diners are you?*
             <input formControlName="dinners" class="diners-field" placeholder="No." type="text" name="" id="">
           </div>

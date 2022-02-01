@@ -13,7 +13,7 @@ import { TakeAwayService } from '../services/take-away.service';
 export class TakeAwayStateModel {
     products: TakeAwayProduct[] = [];
     cart!: CartDetail;
-    timePickUp!: string | null;
+    timePickUp!: Date | null;
     actions!: string[];
     reservationInfo!: CusReservation;
     reservationSuccess!: boolean | null;
@@ -165,7 +165,7 @@ export class TakeAwayState {
     }
 
     @Action(UpdatePickUpTime)
-    updatePickUpTime({getState, setState}: StateContext<TakeAwayStateModel>, payload: string) {
+    updatePickUpTime({getState, setState}: StateContext<TakeAwayStateModel>, payload: Date) {
         const state = getState();
         setState({
             ...state,
@@ -178,13 +178,12 @@ export class TakeAwayState {
         const state = getState();
         setState({
             ...state,
-            actions: [...state.actions, CheckOutCart.name]
+            actions: [...state.actions, CheckOutCart.name],
         });
 
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == CheckOutCart.name), 1);
-
-        return this.takeAwayService.checkOutCart("", state.cart).pipe(tap((result) => {
+        return this.takeAwayService.checkOutCart(state.timePickUp, state.cart).pipe(tap((result) => {
             if (result.success) {
                 window.location.href = result.payload.url;
             }

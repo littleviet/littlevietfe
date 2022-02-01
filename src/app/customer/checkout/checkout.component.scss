@@ -301,6 +301,10 @@
                         text-decoration: underline;
                         cursor: pointer;
                     }
+
+                    option {
+                        // background-color: #e1c7a1;
+                    }
                 }
 
                 .diners-title {
@@ -395,4 +399,13 @@
 
 ::ng-deep .mat-checkbox-label {
     white-space: initial;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none; /* If you want to remove the border as well */
+    background: none;
+    outline: none;
 }
