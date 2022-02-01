@@ -4,6 +4,7 @@
     max-width: 100%;
     position: relative;
     background-color: #f3eacd;
+    
     @include breakpoint-lg-down() {
         max-width: 100%;
     }

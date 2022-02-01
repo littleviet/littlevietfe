@@ -12,6 +12,12 @@
     line-height: 14px;
     min-width: auto;
     cursor: pointer;
+	width: 44px;
+    height: 44px;
+
+    @include breakpoint-lg-down() {
+        right: 10px;
+    }
 }
 
 .close-btn-area:hover {
