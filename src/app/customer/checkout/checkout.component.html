@@ -170,7 +170,7 @@
         <!-- Confirm order area -->
         <form class="order-detail-area" [formGroup]="submitPay" (submit)="onPaySubmit()">
           <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
-          <div class="day-title">Today Wednesday</div>
+          <div class="day-title">Today {{getDay()}}</div>
           <div class="position-title">en: Little Viet Barcelona</div>
           <div *ngIf="pickUpTime != null" class="time-title">at:
             <select [formControl]="hourFormControl" required name="hour" class="picking-hour-confirm">

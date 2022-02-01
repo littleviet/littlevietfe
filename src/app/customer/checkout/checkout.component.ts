@@ -16,6 +16,7 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
@@ -120,6 +121,11 @@ export class CheckoutComponent implements OnInit {
 
   onPaySubmit() {
     this.store.dispatch(new CheckOutCart(this.submitPay.value));
+  }
+
+  getDay() {
+    var date = new Date();
+    return this.daysOfWeek[date.getDay()];
   }
 
   generateTimeValues() {
