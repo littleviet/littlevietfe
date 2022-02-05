@@ -1,6 +1,8 @@
+import { Role } from "src/commons/enums/app-enum";
+
 export class LoginAccountInfo {
     email!: string;
-    accountType!: number;
+    accountType!: Role;
     firstname!: string;
     lastname!: string;
     address!: string;

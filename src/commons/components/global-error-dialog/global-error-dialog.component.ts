@@ -9,7 +9,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class GlobalErrorDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string },
-    public dialogRef: MatDialogRef<GlobalErrorDialogComponent>,  private ngZone: NgZone) { 
+    public dialogRef: MatDialogRef<GlobalErrorDialogComponent>, private ngZone: NgZone) { 
   }
 
   ngOnInit() {

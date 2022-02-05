@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { State, Action, StateContext, Selector, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { tap } from 'rxjs';
+import { Role } from 'src/commons/enums/app-enum';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 import { AutoLogin, CreateAccount, Login, Logout } from '../actions/authentication.action';
 import { AuthService } from '../services/auth.service';
@@ -22,8 +24,8 @@ export class AuthenticationStateModel {
 @Injectable()
 export class AuthenticationState {
 
-    constructor(private authService: AuthService, private store: Store) {
-    }
+    constructor(private authService: AuthService, private store: Store, private router: Router,
+        private ngZone: NgZone) { }
 
     @Selector()
     static getLoggedInAccountInfo(state: AuthenticationStateModel) {
@@ -46,6 +48,12 @@ export class AuthenticationState {
         tempActions.splice( tempActions.findIndex(ac => ac == Login.name), 1);
         return this.authService.login(payload.loginInfo.email, payload.loginInfo.password).pipe(tap((result) => {
             if (result.success) {
+                if (result.payload.accountType.toString() == Role[Role.ADMIN]
+                    || result.payload.accountType.toString() == Role[Role.MANAGER]) {
+                    this.ngZone.run(() => {
+                        this.router.navigate(['/admin/']);
+                    });
+                }
                 setState({
                     ...state,
                     loggedinUser: result.payload,

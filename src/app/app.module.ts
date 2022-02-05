@@ -30,6 +30,7 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-successful/check-out-successful.component';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ErrorDialogService } from './services/error-dialog.service';
+import { AdminState } from './states/admin.state';
 
 registerLocaleData(en);
 
@@ -47,7 +48,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     MatMenuModule,
     HttpClientModule,
-    NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState], {
+    NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState, AdminState], {
       developmentMode: !environment.production
     }),
     NgxsStoragePluginModule.forRoot({

@@ -67,21 +67,6 @@ export class TakeAwayComponent implements OnInit {
       } else {
         this.sticky = false;
       }
-      // let orderDetailTop = this.orderDetail.nativeElement.getBoundingClientRect().top;
-      // let orderDetailHeight = this.orderDetail.nativeElement.getBoundingClientRect().height;
-      // let orderDetailSectionHeight = this.orderDetailSection.nativeElement.getBoundingClientRect().height;
-      // let productListHeight = this.productList.nativeElement.getBoundingClientRect().height;
-      // let productListTop = this.productList.nativeElement.getBoundingClientRect().top;
-      // let productListAreaHeight = this.productList.nativeElement.getBoundingClientRect().height;
-      // console.log(`orderDetailTop: ${this.orderDetail.nativeElement.getBoundingClientRect().top},
-      //             orderDetailSectionHeight: ${this.orderDetailSection.nativeElement.getBoundingClientRect().height},
-      //             productListHeight: ${this.productList.nativeElement.getBoundingClientRect().height}`);
-      // if (productListTop < 0) {
-      //   console.log("Hello");
-      //   this.orderDetailSticky = true;
-      // } else {
-      //   this.orderDetailSticky = false;
-      // }
   }
 
   clickBtn() {

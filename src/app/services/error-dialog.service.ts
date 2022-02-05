@@ -23,7 +23,6 @@ export class ErrorDialogService {
 
         dialogRef.afterClosed().subscribe(result => {
             this.isDialogOpen = false;
-            console.log("Closed");
         });
     }
 }

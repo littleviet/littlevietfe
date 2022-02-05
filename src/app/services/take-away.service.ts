@@ -21,7 +21,6 @@ export class TakeAwayService {
     }
 
     checkOutCart(pickupTime: any, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutCartResponse>> {
-        console.log("Date",pickupTime);
         return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'order',
             {
                 orderType: 1,
@@ -37,7 +36,6 @@ export class TakeAwayService {
         let date = reservation.day;
         date.setHours(parseInt(reservation.hour.substring(0, 2)));
         date.setMinutes(parseInt(reservation.hour.substring(3)));
-        console.log("reservation:", reservation);
         return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'reservation',
             {
                 firstName: reservation.firstName,
