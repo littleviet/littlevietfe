@@ -8,9 +8,9 @@ export class AdminReservationQueryRequest {
     noOfPeople: number | null = null;
     bookingDateFrom: Date | null = null;
     bookingDateTo: Date | null = null;
-    status: ReservationStatus | null = null;
+    statuses: ReservationStatus[] | null = null;
     phoneNumber: string | null = null;
     pageNumber: number | null = 1;
-    pageSize: number | null = 2;
+    pageSize: number | null = 3;
     orderBy: string | null = null;
 }

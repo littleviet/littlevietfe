@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { Observable, tap } from "rxjs";
+import { BaseResponse } from "src/dtos/base-response";
 import { PaginationResponse } from "src/dtos/pagination-response";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminGetReservations } from "../actions/admin.action";
+import { AdminGetReservationById, AdminGetReservations } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
     reservations!: PaginationResponse<AdminReservation[]> | null;
+    reservation!: AdminReservation | null;
     reservationQuery!: AdminReservationQueryRequest;
     actions!: string[];
 }
@@ -18,6 +20,7 @@ export class AdminStateModel {
     defaults: {
         reservations: null,
         reservationQuery: new AdminReservationQueryRequest(),
+        reservation: null,
         actions: []
     }
 })
@@ -31,6 +34,11 @@ export class AdminState {
     @Selector()
     static getReservations(state: AdminStateModel) {
         return state.reservations;
+    }
+
+    @Selector()
+    static getReservation(state: AdminStateModel) {
+        return state.reservation;
     }
 
     @Selector()
@@ -60,6 +68,38 @@ export class AdminState {
                 setState({
                     ...state,
                     reservations: result,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminGetReservationById)
+    getReservationById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminReservation>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetReservationById.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetReservationById.name), 1);
+        state = getState();
+
+        return this.adminService.getReservationById(payload.id).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    reservation: result.payload,
                     actions: tempActions
                 });
             } else {

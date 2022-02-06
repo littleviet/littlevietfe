@@ -1,154 +1,165 @@
-<div *ngIf="reservations != null">
-  <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
-  (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
-  [nzPageSize]="reservations.pageSize" [nzPageIndex]="reservations.pageNumber" [nzTotal]="reservations.total"
-  [nzFrontPagination]="false">
-    <thead>
-      <tr>
-
-        <th
-        [(nzChecked)]="checked"
-        [nzIndeterminate]="indeterminate"
-        (nzCheckedChange)="onAllChecked($event)"
-        ></th>
-        <!-- name -->
-        <th
-          [nzSortOrder]="nameColumn.sortOrder || null"
-          [nzSortDirections]="nameColumn.sortDirections || []"
-          [nzSortFn]="true"
-          nzColumnKey="firstName"
-          nzCustomFilter
-        >
-          {{nameColumn.name}}
-          <nz-filter-trigger [(nzVisible)]="nameVisible" [nzActive]="nameSearchValue.length > 0" [nzDropdownMenu]="nameMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <!-- email -->
-        <th
-          [nzSortOrder]="emailColumn.sortOrder || null"
-          [nzSortDirections]="emailColumn.sortDirections || []"
-          [nzSortFn]="true"
-          nzCustomFilter
-          nzColumnKey="email"
-        >
-          {{emailColumn.name}}
-          <nz-filter-trigger [(nzVisible)]="emailVisible" [nzActive]="emailSearchValue.length > 0" [nzDropdownMenu]="emailMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <!-- phone -->
-        <th
-          nzCustomFilter
-          nzColumnKey="phone"
-        >
-          {{phoneColumn.name}}
-          <nz-filter-trigger [(nzVisible)]="phoneVisible" [nzActive]="phoneSearchValue.length > 0" [nzDropdownMenu]="phoneMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <!-- booking date -->
-        <th
-          [nzSortOrder]="bookingDateColumn.sortOrder || null"
-          [nzSortDirections]="bookingDateColumn.sortDirections || []"
-          [nzSortFn]="true"
-          nzColumnKey="bookingDate"
-        >
-          {{bookingDateColumn.name}}
-        </th>
-        <!-- no of people -->
-        <th
-          [nzSortOrder]="noOfPeopleColumn.sortOrder || null"
-          [nzSortDirections]="noOfPeopleColumn.sortDirections || []"
-          [nzSortFn]="true"
-          nzCustomFilter
-          nzColumnKey="noOfPeople"
-        >
-          {{noOfPeopleColumn.name}}
-          <nz-filter-trigger [(nzVisible)]="noPeopleVisible" [nzActive]="noPeopleSearchValue.length > 0" [nzDropdownMenu]="noPeopleMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <!-- further request -->
-        <th
-          nzCustomFilter
-          nzColumnKey="furtherRequest"
-        >
-          {{furtherRequestColumn.name}}
-          <nz-filter-trigger [(nzVisible)]="furtherRequestVisible" [nzActive]="furtherRequestSearchValue.length > 0" [nzDropdownMenu]="furtherRequestMenu">
-            <i nz-icon nzType="search"></i>
-          </nz-filter-trigger>
-        </th>
-        <!-- status -->
-        <th
-          nzColumnKey="status"
-        >
-          {{statusColumn.name}}
-        </th>
-  
-        <!-- action -->
-        <th>
-          Action
-        </th>
-  
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of filterTable.data">
-        <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-        <td>{{ data.firstName }} {{data.lastName}}</td>
-        <td>{{ data.email }}</td>
-        <td>{{ data.phoneNumber }}</td>
-        <td>{{ data.bookingDate }}</td>
-        <td>{{ data.noOfPeople }}</td>
-        <td>{{ data.furtherRequest }}</td>
-        <td>{{ data.status }}</td>
-      </tr>
-    </tbody>
-  </nz-table>
+<div *ngIf="reservation == null">
+  <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1"
+    class="action-btn" nz-button nzType="primary" routerLink="/admin/reservations/{{getCheckedItem()?.id}}"
+    (click)="viewClick(getCheckedItem()?.id || '')">
+    View
+  </button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'" class="action-btn" nz-button nzType="primary" nzDanger>Completed</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'" class="action-btn" nz-button nzType="primary" nzDanger>Cancelled</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="action-btn" nz-button nzType="primary" nzDanger>Reserved</button>
+  <div *ngIf="reservations != null">
+    <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
+    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
+    [nzPageSize]="reservations.pageSize" [nzPageIndex]="reservations.pageNumber" [nzTotal]="reservations.total"
+    [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
+      <thead>
+        <tr>
+          <th
+          [(nzChecked)]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+          <!-- name -->
+          <th
+            [nzSortOrder]="nameColumn.sortOrder || null"
+            [nzSortDirections]="nameColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzColumnKey="firstName"
+            nzCustomFilter
+          >
+            {{nameColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="nameVisible" [nzActive]="nameSearchValue.length > 0" [nzDropdownMenu]="nameMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- email -->
+          <th
+            [nzSortOrder]="emailColumn.sortOrder || null"
+            [nzSortDirections]="emailColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzCustomFilter
+            nzColumnKey="email"
+          >
+            {{emailColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="emailVisible" [nzActive]="emailSearchValue.length > 0" [nzDropdownMenu]="emailMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- phone -->
+          <th
+            nzCustomFilter
+            nzColumnKey="phone"
+          >
+            {{phoneColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="phoneVisible" [nzActive]="phoneSearchValue.length > 0" [nzDropdownMenu]="phoneMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- booking date -->
+          <th
+            [nzSortOrder]="bookingDateColumn.sortOrder || null"
+            [nzSortDirections]="bookingDateColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzColumnKey="bookingDate"
+          >
+            {{bookingDateColumn.name}}
+          </th>
+          <!-- no of people -->
+          <th
+            [nzSortOrder]="noOfPeopleColumn.sortOrder || null"
+            [nzSortDirections]="noOfPeopleColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzCustomFilter
+            nzColumnKey="noOfPeople"
+          >
+            {{noOfPeopleColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="noPeopleVisible" [nzActive]="noPeopleSearchValue.length > 0" [nzDropdownMenu]="noPeopleMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- further request -->
+          <th
+            nzCustomFilter
+            nzColumnKey="furtherRequest"
+          >
+            {{furtherRequestColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="furtherRequestVisible" [nzActive]="furtherRequestSearchValue.length > 0" [nzDropdownMenu]="furtherRequestMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- status -->
+          <th
+            [nzFilters]="statusColumn.listOfFilter || []"
+            [nzFilterFn]="statusColumn.filterFn || null"
+            nzColumnKey="statuses"
+          >
+            {{statusColumn.name}}
+          </th>
+    
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filterTable.data">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ data.firstName }} {{data.lastName}}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.phoneNumber }}</td>
+          <td>{{ data.bookingDate }}</td>
+          <td>{{ data.noOfPeople }}</td>
+          <td>{{ data.furtherRequest }}</td>
+          <td>{{ data.status }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <nz-dropdown-menu #nameMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="nameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchName()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #emailMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="emailSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchEmail()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #phoneMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="phoneSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchPhone()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchPhone()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #noPeopleMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="noPeopleSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchNoPeople()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchNoPeole()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #furtherRequestMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="furtherRequestSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchFurtherRequest()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchFurtherRequest()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
 </div>
-<nz-dropdown-menu #nameMenu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="nameSearchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">Search</button>
-      <button nz-button nzSize="small" (click)="resetSearchName()">Reset</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
-<nz-dropdown-menu #emailMenu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="emailSearchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()" class="search-button">Search</button>
-      <button nz-button nzSize="small" (click)="resetSearchEmail()">Reset</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
-<nz-dropdown-menu #phoneMenu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="phoneSearchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchPhone()" class="search-button">Search</button>
-      <button nz-button nzSize="small" (click)="resetSearchPhone()">Reset</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
-<nz-dropdown-menu #noPeopleMenu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="noPeopleSearchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchNoPeople()" class="search-button">Search</button>
-      <button nz-button nzSize="small" (click)="resetSearchNoPeole()">Reset</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
-<nz-dropdown-menu #furtherRequestMenu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input type="text" nz-input placeholder="Search name" [(ngModel)]="furtherRequestSearchValue" />
-      <button nz-button nzSize="small" nzType="primary" (click)="searchFurtherRequest()" class="search-button">Search</button>
-      <button nz-button nzSize="small" (click)="resetSearchFurtherRequest()">Reset</button>
-    </div>
-  </div>
-</nz-dropdown-menu>
+
+<div>
+  <router-outlet></router-outlet>
+</div>

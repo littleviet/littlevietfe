@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
 
 
 @NgModule({
@@ -25,11 +27,13 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
     CommonModule,
     NzPaginationModule,
     NzDropDownModule,
-    NzBreadCrumbModule
+    NzBreadCrumbModule,
+    NzButtonModule
   ],
   declarations: [
     WelcomeComponent,
     ReservationManagementComponent,
+    ReservationDetailComponent
   ],
   exports: [WelcomeComponent]
 })

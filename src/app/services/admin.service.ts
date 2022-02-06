@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PaginationResponse } from 'src/dtos/pagination-response';
 import { AdminReservation } from 'src/dtos/reservation/admin-reservation';
 import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reservation-query-request';
+import { BaseResponse } from 'src/dtos/base-response';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,13 @@ export class AdminService {
             if (value == null) {
                 return;
             }
+
+            if (key == 'statuses' && Array.isArray(value)) {
+                value.forEach((e: any) => {
+                    queryString += ('&' + key + '=' + e.toString());
+                });
+                return;
+            }
             
             if (first) {
                 queryString += (key + '=' + value)
@@ -30,5 +38,9 @@ export class AdminService {
             }
         })
         return this.http.get<PaginationResponse<AdminReservation[]>>(environment.apiUrl + 'reservation?' + queryString);
+    }
+
+    getReservationById(id: string) : Observable<BaseResponse<AdminReservation>> {
+        return this.http.get<BaseResponse<AdminReservation>>(environment.apiUrl + 'reservation/' + id + '/details');
     }
 }

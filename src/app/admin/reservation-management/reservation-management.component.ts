@@ -34,6 +34,7 @@ export class ReservationManagementComponent implements OnInit {
   @Select(AdminState.getReservations) reservationsObs!: Observable<PaginationResponse<AdminReservation[]>>;
   @Select(AdminState.getReservationQuery) reservationsQueryObs!: Observable<AdminReservationQueryRequest>;
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
+  @Select(AdminState.getReservation) reservationObs!: Observable<AdminReservation>;
   nameColumn: ColumnItem<AdminReservation> = {
       name: 'Name',
       sortOrder: null,
@@ -68,38 +69,65 @@ export class ReservationManagementComponent implements OnInit {
 
   statusColumn: ColumnItem<AdminReservation> = {
     name: 'Status',
-    filterMultiple: true,
+    filterMultiple: false,
     listOfFilter: [
       { text: 'Reserved', value: 'Reserved' },
       { text: 'Completed', value: 'Completed' },
       { text: 'Cancelled', value: 'Cancelled' }
     ],
-    filterFn: null,
+    filterFn: () => {
+      return true
+    },
   }
 
   reservations!: PaginationResponse<AdminReservation[]>;
+  reservation!: AdminReservation;
   reservationQuery!: AdminReservationQueryRequest;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    console.log('init ne');
     this.reservationsObs.subscribe((result) => {
       this.reservations = result;
     });
+
+    this.reservationObs.subscribe((result) => {
+      this.reservation = result;
+    });
+
     this.reservationsQueryObs.subscribe((result) => {
       this.reservationQuery = result;
+      this.nameSearchValue = this.reservationQuery.fullName || '';
+      this.emailSearchValue = this.reservationQuery.email || '';
+      this.phoneSearchValue = this.reservationQuery.phoneNumber || '';
+      this.noPeopleSearchValue = this.reservationQuery.noOfPeople?.toString() || '';
+      this.furtherRequestSearchValue = this.reservationQuery.furtherRequest || '';
+      if (this.statusColumn.listOfFilter != null &&  this.statusColumn.listOfFilter.length > 0) {
+        this.statusColumn.listOfFilter.forEach((v) => {
+          this.reservationQuery.statuses?.forEach((status) => {
+            if (status == v.value) {
+              v.byDefault = true;
+            }
+          });
+        });
+      }
     });
 
     this.route.queryParams
       .subscribe(params => {
+        console.log("do");
         let query: AdminReservationQueryRequest = JSON.parse(JSON.stringify(params));
+        if (query.pageNumber == null || query.pageNumber == undefined) {
+          query.pageNumber = 1;
+        }
+        query.pageSize = 3;
         this.store.dispatch(new AdminGetReservations(query));
       }
     );
   }
 
   onQueryParamsChange(params: NzTableQueryParams): void {
-    console.log(params);
     const { pageSize, pageIndex, sort, filter } = params;
     const currentSort = sort.find(item => item.value !== null);
     const sortField = (currentSort && currentSort.key) || null;
@@ -109,6 +137,12 @@ export class ReservationManagementComponent implements OnInit {
 
     if (sortField != null && sortOrder != null) {
       query.orderBy = sortField.toString() + " " + (sortOrder.toString() == 'descend' ? 'desc' : 'asc');
+      query.pageNumber = 1;
+    }
+
+    if (filter != null && filter.length > 0 && filter[0].value.length > 0) {
+      query.statuses = filter[0].value;
+      query.pageNumber = 1;
     }
 
     this.router.navigate(['/admin/reservations'], { queryParams: query });
@@ -123,6 +157,7 @@ export class ReservationManagementComponent implements OnInit {
     this.nameVisible = false;
     let query = _.clone(this.reservationQuery);
     query.fullName = this.nameSearchValue;
+    query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -135,6 +170,7 @@ export class ReservationManagementComponent implements OnInit {
     this.emailVisible = false;
     let query = _.clone(this.reservationQuery);
     query.email = this.emailSearchValue;
+    query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -147,6 +183,7 @@ export class ReservationManagementComponent implements OnInit {
     this.phoneVisible = false;
     let query = _.clone(this.reservationQuery);
     query.phoneNumber = this.phoneSearchValue;
+    query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -159,6 +196,7 @@ export class ReservationManagementComponent implements OnInit {
     this.noPeopleVisible = false;
     let query = _.clone(this.reservationQuery);
     query.noOfPeople = Number.parseInt(this.noPeopleSearchValue);
+    query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -171,6 +209,7 @@ export class ReservationManagementComponent implements OnInit {
     this.furtherRequestVisible = false;
     let query = _.clone(this.reservationQuery);
     query.furtherRequest = this.furtherRequestSearchValue;
+    query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -192,9 +231,22 @@ export class ReservationManagementComponent implements OnInit {
     }
   }
 
+  getCheckedItem() : AdminReservation | null | undefined {
+    if (this.setOfCheckedId == null || this.setOfCheckedId.size != 1
+        || this.reservations == null || this.reservations.payload == null ||  this.reservations.payload.length == 0) {
+      return null;
+    }
+    return this.reservations.payload.find(res => this.setOfCheckedId.has(res.id));
+  }
+
   refreshCheckedStatus(): void {
     this.checked = this.reservations.payload.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.reservations.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
+  }
+
+  viewClick(id: string) {
+    if (id == '') return;
+    // 
   }
 }
 
