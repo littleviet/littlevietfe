@@ -91,7 +91,7 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
   ngOnInit() {
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        if (this.router.url.split('/').length < 4 && this.route.parent?.snapshot.url[2].path == 'reservations') {
+        if (this.router.url.split('/').length < 4 && this.route.parent?.snapshot.url[2]?.path == 'reservations') {
           let query = _.clone(this.reservationQuery);
           this.router.navigate(['/admin/reservations'], { queryParams: query });
         }
