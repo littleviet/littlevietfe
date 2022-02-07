@@ -9,9 +9,9 @@
   <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="reserved-btn" nz-button nzType="primary">Reserved</button>
   <div *ngIf="reservations != null">
     <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
-    (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
-    [nzPageSize]="reservations.pageSize" [nzPageIndex]="reservations.pageNumber" [nzTotal]="reservations.total"
-    [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
+      (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
+      [nzPageSize]="reservations.pageSize" [nzPageIndex]="reservations.pageNumber" [nzTotal]="reservations.total"
+      [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
       <thead>
         <tr>
           <th
@@ -107,7 +107,11 @@
           <td>{{ data.bookingDate }}</td>
           <td>{{ data.noOfPeople }}</td>
           <td>{{ data.furtherRequest }}</td>
-          <td>{{ data.status }}</td>
+          <td>
+            <nz-tag *ngIf="data.status == 'Completed'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>
+            <nz-tag *ngIf="data.status == 'Reserved'" class="tag-status" nzColor="processing">{{data.status}}</nz-tag>
+            <nz-tag *ngIf="data.status == 'Cancelled'" class="tag-status" nzColor="error">{{data.status}}</nz-tag>
+          </td>
         </tr>
       </tbody>
     </nz-table>
