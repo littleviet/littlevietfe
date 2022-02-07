@@ -105,7 +105,7 @@
           <td>{{ data.firstName }} {{data.lastName}}</td>
           <td>{{ data.email }}</td>
           <td>{{ data.phoneNumber }}</td>
-          <td>{{ data.bookingDate }}</td>
+          <td>{{ data.bookingDate.toString() | customDate }}</td>
           <td>{{ data.noOfPeople }}</td>
           <td>{{ data.furtherRequest }}</td>
           <td>
