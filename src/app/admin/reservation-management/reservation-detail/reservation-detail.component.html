@@ -1,3 +1,122 @@
-<p *ngIf="reservation != null">
-  reservation-detail works!
-</p>
+<div *ngIf="reservation != null">
+  <div>Booking information:</div>
+  <form nz-form [formGroup]="validateForm">
+
+    <!-- First name -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>First name</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="firstNameErrorTpl">
+        <input nz-input formControlName="firstName" placeholder="Cusomter's first name" type="text"/>
+        <ng-template #firstNameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please input customer's first name!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Last name -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Last name</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="lastNameErrorTpl">
+        <input nz-input formControlName="lastName" placeholder="Cusomter's last name" type="text" />
+        <ng-template #lastNameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please input customer's last name!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Email -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>E-mail</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+        <input nz-input formControlName="email" placeholder="email" type="email" />
+        <ng-template #emailErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('email')">The input is not valid E-mail!</ng-container>
+          <ng-container *ngIf="control.hasError('required')">Please input customer's E-mail!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Phone number -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Phone number</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="phoneNumberErrorTpl">
+        <input nz-input formControlName="phoneNumber" placeholder="Cusomter's phone number" type="text" />
+        <ng-template #phoneNumberErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Please input customer's phone number!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Booking date -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>Booking date</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-date-picker nzShowTime formControlName="bookingDate"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- No of people -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired>No of people</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="Please write number of people!">
+        <nz-input-number formControlName="noOfPeople" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Further request -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">Further request</nz-form-label>
+      <nz-form-control [nzSpan]="12" nzErrorTip="Please write something here!">
+        <textarea formControlName="furtherRequest" nz-input rows="2" placeholder="Write customer's additional request"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Status -->
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">Status</nz-form-label>
+      <nz-tag *ngIf="reservation.status == 'Completed'" class="tag-status" nzColor="success">{{reservation.status}}</nz-tag>
+      <nz-tag *ngIf="reservation.status == 'Reserved'" class="tag-status" nzColor="processing">{{reservation.status}}</nz-tag>
+      <nz-tag *ngIf="reservation.status == 'Cancelled'" class="tag-status" nzColor="error">{{reservation.status}}</nz-tag>
+
+      <button *ngIf="reservation.status != 'Completed'" class="completed-btn" 
+        nz-button nzType="primary" [nzLoading]="(adminActionsObs | async)!.length > 0"
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure complete this reservation?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="onUpdateStatus('Completed')">
+        Completed
+      </button>
+      <button *ngIf="reservation.status != 'Cancelled'" class="cancelled-btn"
+        nz-button nzType="primary" nzDanger [nzLoading]="(adminActionsObs | async)!.length > 0"
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure cancel this reservation?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="onUpdateStatus('Cancelled')">
+        Cancelled
+      </button>
+      <button *ngIf="reservation.status != 'Reserved'" class="reserved-btn"
+        nz-button nzType="primary" [nzLoading]="(adminActionsObs | async)!.length > 0"
+        nz-popconfirm
+        nzPopconfirmTitle="Are you sure reserve this reservation?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="onUpdateStatus('Reserved')">
+        Reserved
+      </button>
+    </nz-form-item>
+
+    <!-- Submit button -->
+    <nz-form-item>
+      <nz-form-control [nzOffset]="7" [nzSpan]="5">
+        <button
+          nz-button [nzLoading]="(adminActionsObs | async)!.length > 0"
+          nzType="primary" [disabled]="!validateForm.valid || !validateForm.dirty"
+          nz-popconfirm
+          nzPopconfirmTitle="Are you sure save this reservation?"
+          nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="submitForm()"
+          >Save</button>
+        <button class="reset-button" [hidden]="!validateForm.dirty" nz-button (click)="resetForm($event)">Reset</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { AdminGetReservations } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { ColumnItem } from 'src/dtos/column-item';
@@ -17,7 +17,8 @@ import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reserva
   templateUrl: './reservation-management.component.html',
   styleUrls: ['./reservation-management.component.scss']
 })
-export class ReservationManagementComponent implements OnInit {
+export class ReservationManagementComponent implements OnInit, AfterContentChecked {
+  private routeSub!: Subscription;
   setOfCheckedId = new Set<string>();
   checked = false;
   indeterminate = false;
@@ -84,10 +85,18 @@ export class ReservationManagementComponent implements OnInit {
   reservation!: AdminReservation;
   reservationQuery!: AdminReservationQueryRequest;
 
-  constructor(private store: Store, private route: ActivatedRoute, private router: Router) { }
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router,
+    private cdRef : ChangeDetectorRef) { }
 
   ngOnInit() {
-    console.log('init ne');
+    this.router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd) {
+        if (this.router.url.split('/').length < 4 && this.route.parent?.snapshot.url[2].path == 'reservations') {
+          let query = _.clone(this.reservationQuery);
+          this.router.navigate(['/admin/reservations'], { queryParams: query });
+        }
+      }
+    });
     this.reservationsObs.subscribe((result) => {
       this.reservations = result;
     });
@@ -114,15 +123,18 @@ export class ReservationManagementComponent implements OnInit {
       }
     });
 
-    this.route.queryParams
+    this.routeSub = this.route.queryParams
       .subscribe(params => {
-        console.log("do");
+        if ( this.router.url.split('/').length >= 4) {
+          return;
+        }
         let query: AdminReservationQueryRequest = JSON.parse(JSON.stringify(params));
         if (query.pageNumber == null || query.pageNumber == undefined) {
           query.pageNumber = 1;
         }
         query.pageSize = 3;
         this.store.dispatch(new AdminGetReservations(query));
+        this.setOfCheckedId.clear();
       }
     );
   }
@@ -133,18 +145,24 @@ export class ReservationManagementComponent implements OnInit {
     const sortField = (currentSort && currentSort.key) || null;
     const sortOrder = (currentSort && currentSort.value) || null;
     let query = _.clone(this.reservationQuery);
-    query.pageNumber = pageIndex;
+    if (query.pageNumber != pageIndex) {
+      query.pageNumber = pageIndex;
+    } else {
+      query.pageNumber = 1;
+    }
 
     if (sortField != null && sortOrder != null) {
       query.orderBy = sortField.toString() + " " + (sortOrder.toString() == 'descend' ? 'desc' : 'asc');
-      query.pageNumber = 1;
+    } else {
+      query.orderBy = null;
     }
 
-    if (filter != null && filter.length > 0 && filter[0].value.length > 0) {
+    if (filter != null && filter.length > 0) {
       query.statuses = filter[0].value;
-      query.pageNumber = 1;
+    } else {
+      query.statuses = [];
     }
-
+    
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
 
@@ -195,7 +213,7 @@ export class ReservationManagementComponent implements OnInit {
   searchNoPeople(): void {
     this.noPeopleVisible = false;
     let query = _.clone(this.reservationQuery);
-    query.noOfPeople = Number.parseInt(this.noPeopleSearchValue);
+    query.noOfPeople = Number.parseInt(this.noPeopleSearchValue) || null;
     query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }
@@ -246,7 +264,16 @@ export class ReservationManagementComponent implements OnInit {
 
   viewClick(id: string) {
     if (id == '') return;
-    // 
+  }
+
+  ngOnDestroy() {
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+  }
+
+  ngAfterContentChecked() : void {
+    this.cdRef.detectChanges();
   }
 }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { IconsProviderModule } from 'src/app/icons-provider.module';
@@ -14,6 +14,14 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+
 
 
 @NgModule({
@@ -28,12 +36,22 @@ import { ReservationDetailComponent } from './reservation-management/reservation
     NzPaginationModule,
     NzDropDownModule,
     NzBreadCrumbModule,
-    NzButtonModule
+    NzButtonModule,
+    NzFormModule,
+    ReactiveFormsModule,
+    NzInputNumberModule,
+    NzDatePickerModule,
+    NzInputModule,
+    NzTagModule,
+    NzPopconfirmModule,
+    NzMessageModule
   ],
   declarations: [
     WelcomeComponent,
     ReservationManagementComponent,
     ReservationDetailComponent
+  ],
+  providers: [
   ],
   exports: [WelcomeComponent]
 })

@@ -1,6 +1,26 @@
-.action-btn {
-  float: right;
+.completed-btn {
+  background-color: #87d068;
+  border-color: #87d068;
   margin-left: 12px;
+  float: right;
+  margin-bottom: 24px;
+}
+
+.cancelled-btn {
+  margin-left: 12px;
+  float: right;
+  margin-bottom: 24px;
+}
+
+.reserved-btn {
+  margin-left: 12px;
+  float: right;
+  margin-bottom: 24px;
+}
+
+.view-btn {
+  margin-left: 12px;
+  float: right;
   margin-bottom: 24px;
 }
 

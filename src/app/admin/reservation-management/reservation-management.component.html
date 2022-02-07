@@ -1,12 +1,12 @@
 <div *ngIf="reservation == null">
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1"
-    class="action-btn" nz-button nzType="primary" routerLink="/admin/reservations/{{getCheckedItem()?.id}}"
+    class="view-btn" nz-button nzType="primary" routerLink="/admin/reservations/{{getCheckedItem()?.id}}"
     (click)="viewClick(getCheckedItem()?.id || '')">
     View
   </button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'" class="action-btn" nz-button nzType="primary" nzDanger>Completed</button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'" class="action-btn" nz-button nzType="primary" nzDanger>Cancelled</button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="action-btn" nz-button nzType="primary" nzDanger>Reserved</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'" class="completed-btn" nz-button nzType="primary">Completed</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'" class="cancelled-btn" nz-button nzType="primary" nzDanger>Cancelled</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="reserved-btn" nz-button nzType="primary">Reserved</button>
   <div *ngIf="reservations != null">
     <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
     (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
@@ -24,7 +24,7 @@
             [nzSortOrder]="nameColumn.sortOrder || null"
             [nzSortDirections]="nameColumn.sortDirections || []"
             [nzSortFn]="true"
-            nzColumnKey="firstName"
+            nzColumnKey="firstname"
             nzCustomFilter
           >
             {{nameColumn.name}}

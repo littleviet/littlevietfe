@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
+import { NzMessageService } from "ng-zorro-antd/message";
 import { Observable, tap } from "rxjs";
 import { BaseResponse } from "src/dtos/base-response";
 import { PaginationResponse } from "src/dtos/pagination-response";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminGetReservationById, AdminGetReservations } from "../actions/admin.action";
+import { AdminClearReservation, AdminGetReservationById, AdminGetReservations, AdminUpdateReservation } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -114,5 +115,46 @@ export class AdminState {
                 actions: tempActions,
             });
         }));
+    }
+
+    @Action(AdminUpdateReservation)
+    updateReservation({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetReservationById.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetReservationById.name), 1);
+        return this.adminService.updateReservation(payload.reservation).pipe(tap((result) => {
+            if (result.success) {
+                this.store.dispatch(new AdminGetReservationById(state.reservation?.id || ''));
+                // this.message.create('success', 'Update successful!');
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    
+    @Action(AdminClearReservation)
+    clearCart({getState, setState}: StateContext<AdminStateModel>) {
+        const state = getState();
+        setState({
+            ...state,
+           reservation: null
+        });
     }
 }

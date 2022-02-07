@@ -43,4 +43,8 @@ export class AdminService {
     getReservationById(id: string) : Observable<BaseResponse<AdminReservation>> {
         return this.http.get<BaseResponse<AdminReservation>>(environment.apiUrl + 'reservation/' + id + '/details');
     }
+
+    updateReservation(reservation: AdminReservation) : Observable<BaseResponse<string>> {
+        return this.http.put<BaseResponse<string>>(environment.apiUrl + 'reservation/' + reservation.id, reservation);
+    }
 }

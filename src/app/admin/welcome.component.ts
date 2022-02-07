@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
   isCollapsed = false;
-  constructor() { }
+  constructor(private store: Store, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    
   }
 
 }
