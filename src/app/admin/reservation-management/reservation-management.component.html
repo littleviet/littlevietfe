@@ -11,7 +11,8 @@
     <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
       (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
       [nzPageSize]="reservations.pageSize" [nzPageIndex]="reservations.pageNumber" [nzTotal]="reservations.total"
-      [nzFrontPagination]="false" [nzShowTotal]="totalTemplate">
+      [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" [nzShowSizeChanger]="true" 
+      [nzShowQuickJumper]="true" [nzTableLayout]="'auto'" [nzNoResult]="''">
       <thead>
         <tr>
           <th

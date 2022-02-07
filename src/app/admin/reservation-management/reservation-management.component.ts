@@ -132,7 +132,6 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
         if (query.pageNumber == null || query.pageNumber == undefined) {
           query.pageNumber = 1;
         }
-        query.pageSize = 3;
         this.store.dispatch(new AdminGetReservations(query));
         this.setOfCheckedId.clear();
       }
@@ -156,6 +155,8 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
     } else {
       query.orderBy = null;
     }
+
+    query.pageSize = pageSize;
 
     if (filter != null && filter.length > 0) {
       query.statuses = filter[0].value;

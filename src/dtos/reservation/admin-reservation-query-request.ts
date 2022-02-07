@@ -11,6 +11,6 @@ export class AdminReservationQueryRequest {
     statuses: ReservationStatus[] | null = null;
     phoneNumber: string | null = null;
     pageNumber: number | null = 1;
-    pageSize: number | null = 3;
+    pageSize: number | null = 10;
     orderBy: string | null = null;
 }
