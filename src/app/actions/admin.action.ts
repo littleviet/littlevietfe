@@ -1,3 +1,4 @@
+import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
 
@@ -19,4 +20,9 @@ export class AdminClearReservation {
 export class AdminUpdateReservation {
     static readonly type = '[ADMIN] Admin Update Reservation';
     constructor(public reservation: AdminReservation) {};
+}
+
+export class AdminGetOrders {
+    static readonly type = '[ADMIN] Admin Get Orders';
+    constructor(public query: AdminOrderQueryRequest) {}
 }

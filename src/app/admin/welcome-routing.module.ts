@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
 import { ReservationManagementComponent } from './reservation-management/reservation-management.component';
+import { TakeAwayManagementComponent } from './take-away-management/take-away-management.component';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
@@ -27,6 +28,22 @@ const routes: Routes = [
             }
           }
         ]
+      },
+      { 
+        path: 'orders',
+        component: TakeAwayManagementComponent,
+        data: {
+          breadcrumb: 'Take away'
+        },
+        // children: [
+        //   {
+        //     path: ':id',
+        //     component: ReservationDetailComponent,
+        //     data: {
+        //       breadcrumb: 'Detail'
+        //     }
+        //   }
+        // ]
       }
     ]
   },

@@ -1,0 +1,117 @@
+<div *ngIf="order == null">
+  <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1"
+    class="view-btn" nz-button nzType="primary" routerLink="/admin/orders/{{getCheckedItem()?.id}}"
+    (click)="viewClick(getCheckedItem()?.id || '')">
+    View
+  </button>
+  <!-- <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'" class="completed-btn" nz-button nzType="primary">Completed</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'" class="cancelled-btn" nz-button nzType="primary" nzDanger>Cancelled</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="reserved-btn" nz-button nzType="primary">Reserved</button> -->
+  <div *ngIf="orders != null">
+    <nz-table #filterTable [nzData]="orders.payload" nzTableLayout="fixed"
+      (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
+      [nzPageSize]="orders.pageSize" [nzPageIndex]="orders.pageNumber" [nzTotal]="orders.total"
+      [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" [nzShowSizeChanger]="true" 
+      [nzShowQuickJumper]="true" [nzTableLayout]="'auto'" [nzNoResult]="''">
+      <thead>
+        <tr>
+          <th
+          [(nzChecked)]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+          <!-- name -->
+          <th
+            [nzSortOrder]="nameColumn.sortOrder || null"
+            [nzSortDirections]="nameColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzColumnKey="firstname"
+            nzCustomFilter
+          >
+            {{nameColumn.name}}
+          </th>
+          <!-- phone -->
+          <th
+            nzCustomFilter
+            nzColumnKey="phone"
+          >
+            {{phoneColumn.name}}
+           
+          <!-- pick up time -->
+          <th
+            [nzSortOrder]="pickUpDateColumn.sortOrder || null"
+            [nzSortDirections]="pickUpDateColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzColumnKey="pickUpDate"
+          >
+            {{pickUpDateColumn.name}}
+          </th>
+          <!-- price -->
+          <th
+            [nzSortOrder]="priceColumn.sortOrder || null"
+            [nzSortDirections]="priceColumn.sortDirections || []"
+            [nzSortFn]="true"
+            nzCustomFilter
+            nzColumnKey="price"
+          >
+            {{priceColumn.name}}
+            <!-- <nz-filter-trigger [(nzVisible)]="priceVisible" [nzActive]="noPeopleSearchValue.length > 0" [nzDropdownMenu]="noPeopleMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger> -->
+          </th>
+          <!-- payment type -->
+          <th
+            [nzFilters]="paymentTypeColumn.listOfFilter || []"
+            [nzFilterFn]="paymentTypeColumn.filterFn || null"
+            nzColumnKey="paymentTypes"
+          >
+            {{paymentTypeColumn.name}}
+          </th>
+          <!-- order type -->
+          <th
+            [nzFilters]="orderTypeColumn.listOfFilter || []"
+            [nzFilterFn]="orderTypeColumn.filterFn || null"
+            nzColumnKey="orderTypes"
+          >
+            {{orderTypeColumn.name}}
+          </th>
+    
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filterTable.data">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ data.account.firstname }} {{data.account.lastname}}</td>
+          <td>{{ data.account.phoneNumber1 }}</td>
+          <td>{{ data.pickupTime.toString() | customDate }}</td>
+          <td>{{ data.totalPrice }}</td>
+          <td>{{ data.paymentType }}</td>
+          <td>{{ data.orderType }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <nz-dropdown-menu #priceMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <!-- <input type="text" nz-input placeholder="Search name" [(ngModel)]="nameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchName()">Reset</button> -->
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #pickUpDateMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <!-- <input type="text" nz-input placeholder="Search email" [(ngModel)]="emailSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchEmail()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchEmail()">Reset</button> -->
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div>

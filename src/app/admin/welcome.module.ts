@@ -22,6 +22,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { DateFormatPipe } from 'src/commons/pipes/date-format.pipe';
+import { TakeAwayManagementComponent } from './take-away-management/take-away-management.component';
 
 
 
@@ -51,6 +52,7 @@ import { DateFormatPipe } from 'src/commons/pipes/date-format.pipe';
     WelcomeComponent,
     ReservationManagementComponent,
     ReservationDetailComponent,
+    TakeAwayManagementComponent,
     DateFormatPipe
   ],
   providers: [

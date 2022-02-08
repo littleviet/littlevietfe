@@ -6,6 +6,8 @@ import { PaginationResponse } from 'src/dtos/pagination-response';
 import { AdminReservation } from 'src/dtos/reservation/admin-reservation';
 import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reservation-query-request';
 import { BaseResponse } from 'src/dtos/base-response';
+import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
+import { AdminOrder } from 'src/dtos/order/admin-order';
 
 @Injectable({
     providedIn: 'root'
@@ -47,4 +49,30 @@ export class AdminService {
     updateReservation(reservation: AdminReservation) : Observable<BaseResponse<string>> {
         return this.http.put<BaseResponse<string>>(environment.apiUrl + 'reservation/' + reservation.id, reservation);
     }
+
+    getTakeAwayOrders(query: AdminOrderQueryRequest) : Observable<PaginationResponse<AdminOrder[]>> {
+        let queryString = "";
+        let first = true;
+        Object.entries(query).forEach(([key, value]) => {
+            if (value == null) {
+                return;
+            }
+
+            if (key == 'orderTypes' && Array.isArray(value)) {
+                value.forEach((e: any) => {
+                    queryString += ('&' + key + '=' + e.toString());
+                });
+                return;
+            }
+            
+            if (first) {
+                queryString += (key + '=' + value)
+                first = false;
+            } else {
+                queryString += ('&' + key + '=' + value)
+            }
+        })
+        return this.http.get<PaginationResponse<AdminOrder[]>>(environment.apiUrl + 'order?' + queryString);
+    }
+    
 }

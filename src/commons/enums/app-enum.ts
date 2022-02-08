@@ -11,3 +11,14 @@ export enum Role
     AUTHORIZED = 3,
     UNAUTHORIZED = 4
 }
+
+export enum OrderType
+{
+    EatIn = 1,
+    TakeAway = 2,
+}
+
+export enum PaymentType
+{
+    Stripe = 1,
+}

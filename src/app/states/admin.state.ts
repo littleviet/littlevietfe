@@ -3,16 +3,20 @@ import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { Observable, tap } from "rxjs";
 import { BaseResponse } from "src/dtos/base-response";
+import { AdminOrder } from "src/dtos/order/admin-order";
+import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { PaginationResponse } from "src/dtos/pagination-response";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminClearReservation, AdminGetReservationById, AdminGetReservations, AdminUpdateReservation } from "../actions/admin.action";
+import { AdminClearReservation, AdminGetOrders, AdminGetReservationById, AdminGetReservations, AdminUpdateReservation } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
     reservations!: PaginationResponse<AdminReservation[]> | null;
     reservation!: AdminReservation | null;
     reservationQuery!: AdminReservationQueryRequest;
+    orders!: PaginationResponse<AdminOrder[]> | null;
+    orderQuery!: AdminOrderQueryRequest;
     actions!: string[];
 }
 
@@ -22,6 +26,8 @@ export class AdminStateModel {
         reservations: null,
         reservationQuery: new AdminReservationQueryRequest(),
         reservation: null,
+        orders: null,
+        orderQuery: new AdminOrderQueryRequest(),
         actions: []
     }
 })
@@ -50,6 +56,16 @@ export class AdminState {
     @Selector()
     static getReservationQuery(state: AdminStateModel) {
         return state.reservationQuery;
+    }
+
+    @Selector()
+    static getOrders(state: AdminStateModel) {
+        return state.orders;
+    }
+
+    @Selector()
+    static getOrderQuery(state: AdminStateModel) {
+        return state.orderQuery;
     }
 
     @Action(AdminGetReservations)
@@ -156,5 +172,38 @@ export class AdminState {
             ...state,
            reservation: null
         });
+    }
+
+    @Action(AdminGetOrders)
+    getOrders({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminOrder[]>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetOrders.name],
+            reservationQuery: payload.query
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetOrders.name), 1);
+        state = getState();
+
+        return this.adminService.getTakeAwayOrders(state.orderQuery).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    orders: result,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
     }
 }
