@@ -15,7 +15,10 @@
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="products">Products</a>
+            <a routerLink="/admin/products" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Products</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/admin/product-types" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Product types</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/admin/reservations" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Reservations</a>
@@ -57,4 +60,3 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-  

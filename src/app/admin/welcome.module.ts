@@ -23,6 +23,10 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { DateFormatPipe } from 'src/commons/pipes/date-format.pipe';
 import { TakeAwayManagementComponent } from './take-away-management/take-away-management.component';
+import { ProductManagementComponent } from './product-managment/product-management.component';
+import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
+import { ProductTypeManagementComponent } from './product-type-managment/product-type-management.component';
+import { ProductTypeDetailComponent } from './product-type-managment/product-type-detail/product-type-detail.component';
 
 
 
@@ -53,6 +57,10 @@ import { TakeAwayManagementComponent } from './take-away-management/take-away-ma
     ReservationManagementComponent,
     ReservationDetailComponent,
     TakeAwayManagementComponent,
+    ProductManagementComponent,
+    ProductDetailComponent,
+    ProductTypeManagementComponent,
+    ProductTypeDetailComponent,
     DateFormatPipe
   ],
   providers: [

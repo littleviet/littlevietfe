@@ -8,71 +8,140 @@ import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reserva
 import { BaseResponse } from 'src/dtos/base-response';
 import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
 import { AdminOrder } from 'src/dtos/order/admin-order';
+import { AdminProduct } from 'src/dtos/product/admin-product';
+import { AdminProductQueryRequest } from 'src/dtos/product/admin-product-query-request';
+import { AdminProductTypeQueryRequest } from 'src/dtos/product-type/admin-product-type-query-request';
+import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AdminService {
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    getReservations(query: AdminReservationQueryRequest) : Observable<PaginationResponse<AdminReservation[]>> {
-        let queryString = "";
-        let first = true;
-        Object.entries(query).forEach(([key, value]) => {
-            if (value == null) {
-                return;
-            }
+  getReservations(query: AdminReservationQueryRequest): Observable<PaginationResponse<AdminReservation[]>> {
+    let queryString = "";
+    let first = true;
+    Object.entries(query).forEach(([key, value]) => {
+      if (value == null) {
+        return;
+      }
 
-            if (key == 'statuses' && Array.isArray(value)) {
-                value.forEach((e: any) => {
-                    queryString += ('&' + key + '=' + e.toString());
-                });
-                return;
-            }
-            
-            if (first) {
-                queryString += (key + '=' + value)
-                first = false;
-            } else {
-                queryString += ('&' + key + '=' + value)
-            }
-        })
-        return this.http.get<PaginationResponse<AdminReservation[]>>(environment.apiUrl + 'reservation?' + queryString);
-    }
+      if (key == 'statuses' && Array.isArray(value)) {
+        value.forEach((e: any) => {
+          queryString += ('&' + key + '=' + e.toString());
+        });
+        return;
+      }
 
-    getReservationById(id: string) : Observable<BaseResponse<AdminReservation>> {
-        return this.http.get<BaseResponse<AdminReservation>>(environment.apiUrl + 'reservation/' + id + '/details');
-    }
+      if (first) {
+        queryString += (key + '=' + value)
+        first = false;
+      } else {
+        queryString += ('&' + key + '=' + value)
+      }
+    })
+    return this.http.get<PaginationResponse<AdminReservation[]>>(environment.apiUrl + 'reservation?' + queryString);
+  }
 
-    updateReservation(reservation: AdminReservation) : Observable<BaseResponse<string>> {
-        return this.http.put<BaseResponse<string>>(environment.apiUrl + 'reservation/' + reservation.id, reservation);
-    }
+  getReservationById(id: string): Observable<BaseResponse<AdminReservation>> {
+    return this.http.get<BaseResponse<AdminReservation>>(environment.apiUrl + 'reservation/' + id);
+  }
 
-    getTakeAwayOrders(query: AdminOrderQueryRequest) : Observable<PaginationResponse<AdminOrder[]>> {
-        let queryString = "";
-        let first = true;
-        Object.entries(query).forEach(([key, value]) => {
-            if (value == null) {
-                return;
-            }
+  updateReservation(reservation: AdminReservation): Observable<BaseResponse<string>> {
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'reservation/' + reservation.id, reservation);
+  }
 
-            if (key == 'orderTypes' && Array.isArray(value)) {
-                value.forEach((e: any) => {
-                    queryString += ('&' + key + '=' + e.toString());
-                });
-                return;
-            }
-            
-            if (first) {
-                queryString += (key + '=' + value)
-                first = false;
-            } else {
-                queryString += ('&' + key + '=' + value)
-            }
-        })
-        return this.http.get<PaginationResponse<AdminOrder[]>>(environment.apiUrl + 'order?' + queryString);
-    }
-    
+  getTakeAwayOrders(query: AdminOrderQueryRequest): Observable<PaginationResponse<AdminOrder[]>> {
+    let queryString = "";
+    let first = true;
+    Object.entries(query).forEach(([key, value]) => {
+      if (value == null) {
+        return;
+      }
+
+      if (key == 'orderTypes' && Array.isArray(value)) {
+        value.forEach((e: any) => {
+          queryString += ('&' + key + '=' + e.toString());
+        });
+        return;
+      }
+
+      if (first) {
+        queryString += (key + '=' + value)
+        first = false;
+      } else {
+        queryString += ('&' + key + '=' + value)
+      }
+    })
+    return this.http.get<PaginationResponse<AdminOrder[]>>(environment.apiUrl + 'order?' + queryString);
+  }
+
+  getProducts(query: AdminProductQueryRequest): Observable<PaginationResponse<AdminProduct[]>> {
+    let queryString = "";
+    let first = true;
+    Object.entries(query).forEach(([key, value]) => {
+      if (value == null) {
+        return;
+      }
+
+      if (key == 'statuses' && Array.isArray(value)) {
+        value.forEach((e: any) => {
+          queryString += ('&' + key + '=' + e.toString());
+        });
+        return;
+      }
+
+      if (first) {
+        queryString += (key + '=' + value)
+        first = false;
+      } else {
+        queryString += ('&' + key + '=' + value)
+      }
+    })
+    return this.http.get<PaginationResponse<AdminProduct[]>>(environment.apiUrl + 'product?' + queryString);
+  }
+
+  getProductById(id: string): Observable<BaseResponse<AdminProduct>> {
+    return this.http.get<BaseResponse<AdminProduct>>(environment.apiUrl + 'product/' + id);
+  }
+
+  updateProduct(product: AdminProduct): Observable<BaseResponse<string>> {
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'product/' + product.id, product);
+  }
+
+  getProductTypes(query: AdminProductTypeQueryRequest): Observable<PaginationResponse<AdminProductType[]>> {
+    let queryString = "";
+    let first = true;
+    Object.entries(query).forEach(([key, value]) => {
+      if (value == null) {
+        return;
+      }
+
+      if (key == 'statuses' && Array.isArray(value)) {
+        value.forEach((e: any) => {
+          queryString += ('&' + key + '=' + e.toString());
+        });
+        return;
+      }
+
+      if (first) {
+        queryString += (key + '=' + value)
+        first = false;
+      } else {
+        queryString += ('&' + key + '=' + value)
+      }
+    })
+    return this.http.get<PaginationResponse<AdminProductType[]>>(environment.apiUrl + 'product-type?' + queryString);
+  }
+
+  getProductTypeById(id: string): Observable<BaseResponse<AdminProductType>> {
+    return this.http.get<BaseResponse<AdminProductType>>(environment.apiUrl + 'product-type/' + id);
+  }
+
+  updateProductType(productType: AdminProductType): Observable<BaseResponse<string>> {
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'product-type/' + productType.id, productType);
+  }
 }
