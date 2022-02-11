@@ -22,3 +22,8 @@ export enum PaymentType
 {
     Stripe = 1,
 }
+
+export enum ProductStatus {
+  INSTOCK = 1,
+  OUTOFSTOCK = 2
+}

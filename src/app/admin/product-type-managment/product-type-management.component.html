@@ -1,0 +1,108 @@
+<div *ngIf="productType == null">
+  <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1" class="view-btn"
+    nz-button nzType="primary" routerLink="/admin/product-types/{{getCheckedItem()?.id}}"
+    (click)="viewClick(getCheckedItem()?.id || '')">
+    View
+  </button>
+  <div *ngIf="productTypes != null">
+    <nz-table #filterTable [nzData]="productTypes.payload" nzTableLayout="fixed"
+      (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
+      [nzPageSize]="productTypes.pageSize" [nzPageIndex]="productTypes.pageNumber" [nzTotal]="productTypes.total"
+      [nzFrontPagination]="false" [nzShowTotal]="totalTemplate" [nzShowSizeChanger]="true" [nzShowQuickJumper]="true"
+      [nzTableLayout]="'auto'" [nzNoResult]="''">
+      <thead>
+        <tr>
+          <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+          <!-- name -->
+          <th [nzSortOrder]="nameColumn.sortOrder || null" [nzSortDirections]="nameColumn.sortDirections || []"
+            [nzSortFn]="true" nzColumnKey="firstname" nzCustomFilter>
+            {{nameColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="nameVisible" [nzActive]="nameSearchValue.length > 0"
+              [nzDropdownMenu]="nameMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- esName -->
+          <th [nzSortOrder]="esNameColumn.sortOrder || null" [nzSortDirections]="esNameColumn.sortDirections || []"
+            [nzSortFn]="true" nzCustomFilter nzColumnKey="esName">
+            {{esNameColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="esNameVisible" [nzActive]="esNameSearchValue.length > 0"
+              [nzDropdownMenu]="esNameMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- caName -->
+          <th [nzSortOrder]="caNameColumn.sortOrder || null" [nzSortDirections]="caNameColumn.sortDirections || []"
+            [nzSortFn]="true" nzCustomFilter nzColumnKey="caName">
+            {{caNameColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="caNameVisible" [nzActive]="caNameSearchValue.length > 0"
+              [nzDropdownMenu]="caNameMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+          <!-- description -->
+          <th [nzSortOrder]="descriptionColumn.sortOrder || null"
+            [nzSortDirections]="descriptionColumn.sortDirections || []" [nzSortFn]="true" nzCustomFilter
+            nzColumnKey="description">
+            {{descriptionColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="descriptionVisible" [nzActive]="descriptionSearchValue.length > 0"
+              [nzDropdownMenu]="descriptionMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of filterTable.data">
+          <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.esName }}</td>
+          <td>{{ data.caName }}</td>
+          <td>{{ data.description }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <nz-dropdown-menu #nameMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search name" [(ngModel)]="nameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchName()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchName()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #esNameMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search email" [(ngModel)]="esNameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchEsName()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchEsName()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #caNameMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search phone" [(ngModel)]="caNameSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchCaName()" class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchCaName()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #descriptionMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Search no of people" [(ngModel)]="descriptionSearchValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchDescription()"
+          class="search-button">Search</button>
+        <button nz-button nzSize="small" (click)="resetSearchDescription()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
+</div>
+
+<div>
+  <router-outlet></router-outlet>
+</div>
