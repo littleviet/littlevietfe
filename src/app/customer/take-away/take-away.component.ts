@@ -17,10 +17,6 @@ import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 })
 export class TakeAwayComponent implements OnInit {
   @ViewChild("productTypeNav") productTypeNav!: ElementRef;
-  @ViewChild("orderDetail") orderDetail!: ElementRef;
-  @ViewChild("orderDetailSection") orderDetailSection!: ElementRef;
-  @ViewChild("productList") productList!: ElementRef;
-  @ViewChild("productListArea") productListArea!: ElementRef;
   @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
   @Select(TakeAwayState.getTimePickUp) timePickUpObs!: Observable<string>;

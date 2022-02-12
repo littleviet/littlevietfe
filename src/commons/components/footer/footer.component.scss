@@ -1,6 +1,5 @@
 @import '../../../assets/breakpoint/breakpoints.scss';
 
-// Footer
 .footer-section {
     display: flex;
     height: auto;
@@ -79,6 +78,7 @@
             @include breakpoint-lg-down {
                 width: 100%;
                 text-align: center;
+                border-right: none;
             }
 
             img {

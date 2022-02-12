@@ -3,7 +3,6 @@
 .home {
     max-width: 100%;
     position: relative;
-    height: 276px;
     background-color: #f3eacd;
     @include breakpoint-lg-down() {
         max-width: 100%;
@@ -20,7 +19,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: 276px;
     top: 0;
     z-index: 1;
 
@@ -64,7 +63,7 @@
         }
 
         .back-btn-area {
-            padding-top: 15%;
+            padding-top: 25%;
             padding-bottom: 5%;
             padding-left: 45%;
 
@@ -81,115 +80,25 @@
             }
         }
 
-        .reservation-time-info {
-            display: flex;
-            padding-top: 2%;
-            padding-bottom: 5%;
-            flex-wrap: wrap;
-
-            .time-open {
-                width: 30%;
-                margin-right: 3%;
-                padding-left: 10%;
-
-                
-                .open-title {
-                    font-weight: 600;
-                    margin-bottom: 10px;
-                }
-
-                .open-time {
-                    margin-bottom: 10px;
-                }
-            }
-
-            .day-of-week {
-                display: flex;
-                width: 15%;
-                align-content: space-between;
-                flex-wrap: wrap;
-                margin-right: 5%;
-
-                .week-day {
-                    width: 50%;
-                } 
-            }
-
-            .time-close {
-                display: flex;
-                width: 30%;
-                flex-direction: column;
-                align-content: space-between;
-
-                .close-title {
-                    font-weight: 600;
-                    margin-bottom: 10px;
-                }
-            }
-
-            .middle-line {
-                margin-top: 7%;
-            }
-        }
-
-        .reservation-policy {
-            padding-bottom: 10%;
-            padding-top: 3%;
-
-            .line-1 {
-                width: 75%;
-                line-height: 160%;
-
-                .time-title {
-                    font-weight: 600;
-                }
-            }
-
-            .line-2 {
-                width: 75%;
-                line-height: 160%;
-            }
-
-            .line-3 {
-                width: 75%;
-                line-height: 160%;
-            }
-
-            .line-4 {
-                width: 88%;
-                margin-top: 4%;
-                line-height: 160%;
-            }
-
-            .line-5 {
-                width: 88%;
-                line-height: 160%;
-            }
-
-            .line-6 {
-                width: 88%;
-                line-height: 160%;
-            }
-        }
     }
 
-    .reservation-booking-section {
+    .coupon-buying-section {
         width: 55%;
         background-color: #f3eacd;
+        padding-top: 7%;
 
         @include breakpoint-lg-down() {
             width: 100%;
         }
-    }
 
-    .reservation-policy {
-        padding-left: 10%;
-    }
+        .coupon-buying-bg {
+            padding-left: 7%;
 
-    .order-detail-sticky {
-        position: fixed;
-        top: 0;
-        right: 0;
+            .coupon-title {
+                font-size: 2rem;
+                font-weight: 600;
+            }
+        }
     }
 }
 

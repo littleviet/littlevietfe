@@ -1,6 +1,6 @@
-<div class="home" [ngClass]="{'noscroll': menuOpen}">
+<div class="home" [ngClass]="{'noscroll': menuOpen}" #full>
   <!-- header -->
-  <div class="header">
+  <div id="header" class="header" #header>
     <div class="menu-title">
       <app-landing-title type="2" title="LITTLE VIET" color="#f3eacd"></app-landing-title>
     </div>
@@ -9,7 +9,7 @@
   <app-cart-button></app-cart-button>
   <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
 
-  <div class="login-section">
+  <div class="login-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
     <div class="login-area-title">SIGN IN</div>
     <form class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
       <div class="registered-title">I'M ALREADY REGISTERED</div>
@@ -36,7 +36,9 @@
   </div>
 
   <!-- Footer -->
-  <app-footer [isDisplayLogo]="false"></app-footer>
+  <div  #footer>
+    <app-footer [isDisplayLogo]="false"></app-footer>
+  </div>
 </div>
 
 <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner>
