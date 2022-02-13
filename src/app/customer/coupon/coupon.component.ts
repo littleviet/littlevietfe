@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
@@ -14,6 +14,10 @@ import { CouponConfirmDialogComponent } from './coupon-confirm-dialog/coupon-con
   styleUrls: ['./coupon.component.scss']
 })
 export class CouponComponent implements OnInit {
+  @ViewChild('header') headerEl!: ElementRef;
+  @ViewChild('footer') footerEl!: ElementRef;
+  @ViewChild('full') fullEl!: ElementRef;
+  scrHeight: number = 0;
   @Select(CouponState.getCouponTypes) couponTypesObs!: Observable<CustomerCouponType[]>;
   @Select(CouponState.isCouponBuyingSuccess) couponBuyingSuccessObs!: Observable<boolean | null>;
   couponBuyingSuccess: boolean | null = null;
@@ -26,7 +30,8 @@ export class CouponComponent implements OnInit {
     unit: this.unitFC,
   });
   menuOpen: boolean = false;
-  constructor(private store: Store, public dialog: MatDialog) { }
+  constructor(private store: Store, public dialog: MatDialog,
+    private cdRef : ChangeDetectorRef) { }
 
   ngOnInit() {
     this.store.dispatch(new GetCouponTypes());
@@ -58,4 +63,21 @@ export class CouponComponent implements OnInit {
     });
   }
 
+  ngAfterViewInit() {
+    this.getScreenSize();
+    this.cdRef.detectChanges();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    if (this.headerEl != null) {
+      if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
+        return;
+      } else {
+        this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
+        - this.footerEl.nativeElement.getBoundingClientRect().height;
+      }
+      
+    }
+  }
 }

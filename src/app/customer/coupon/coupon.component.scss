@@ -94,10 +94,18 @@
         .coupon-buying-bg {
             padding-left: 7%;
 
+            @include breakpoint-lg-down() {
+                padding-right: 7%;
+            }
+
             .coupon-title {
                 font-size: 2rem;
                 font-weight: 600;
                 margin-bottom: 5%;
+
+                @include breakpoint-lg-down() {
+                    text-align: center;
+                }
             }
 
             .coupon-form {
@@ -112,7 +120,7 @@
                     flex-direction: column;
 
                     @include breakpoint-lg-down() {
-                        width: 80%;
+                        width: 100%;
                     }
 
                     label {
@@ -127,34 +135,51 @@
                         border: 1px solid black;
                         border-radius: 0px;
                         outline: none;
+
+                        @include breakpoint-lg-down() {
+                            width: 100%;
+                        }
                     }
                 }
                 
                 .coupon-introduction {
                     margin-top: 3%;
                     width: 60%;
+
+                    @include breakpoint-lg-down() {
+                        width: 100%;
+                    }
                 }
 
-                .book-now-btn {
-                    margin-top: 13%;
-                    background-color: #f3eacd;
-                    padding: 8px 40px;
-                    font-weight: 600;
-                    font-size: 17px;
-                    border: 1px solid black;
-                }
+                .buy-now-btn-frame {
+                    display: flex;
 
-                .book-now-btn-inactive {
-                    opacity: 0.6;
-                }
-        
-                .book-now-btn-active {
-                    cursor: pointer;
-                }
-        
-                .book-now-btn-active:hover {
-                    background-color: white;
-                    color: #c9ac82;
+                    @include breakpoint-lg-down() {
+                        justify-content: center;
+                        margin-bottom: 2rem;
+                    }
+
+                    .book-now-btn {
+                        margin-top: 13%;
+                        background-color: #f3eacd;
+                        padding: 8px 40px;
+                        font-weight: 600;
+                        font-size: 17px;
+                        border: 1px solid black;
+                    }
+    
+                    .book-now-btn-inactive {
+                        opacity: 0.6;
+                    }
+            
+                    .book-now-btn-active {
+                        cursor: pointer;
+                    }
+            
+                    .book-now-btn-active:hover {
+                        background-color: white;
+                        color: #c9ac82;
+                    }
                 }
             }
         }
