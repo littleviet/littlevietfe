@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
@@ -17,6 +17,10 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 })
 export class CheckoutComponent implements OnInit {
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  scrHeight: number = 0;
+  @ViewChild('header') headerEl!: ElementRef;
+  @ViewChild('footer') footerEl!: ElementRef;
+  @ViewChild('full') fullEl!: ElementRef;
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
@@ -79,7 +83,8 @@ export class CheckoutComponent implements OnInit {
     additionalRequest: this.additionalRequestFormControl,
   });
 
-  constructor(private store: Store, private titleService: Title, private router: Router) {
+  constructor(private store: Store, private titleService: Title, private router: Router,
+    private cdRef : ChangeDetectorRef) {
     this.titleService.setTitle("Little Viet - Checkout");
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -93,7 +98,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetTakeAwayProducts());
+    // this.store.dispatch(new GetTakeAwayProducts());
     this.loggedInAccountObs.subscribe((result) => {
       this.loggedInAccountInfo = result;
     });
@@ -109,9 +114,6 @@ export class CheckoutComponent implements OnInit {
       }
     });
     this.generateTimeValues();
-    this.submitPay.valueChanges.subscribe((v) => {
-      console.log(this.submitPay.value);
-    })
   }
 
   onLoginSubmit() {
@@ -160,6 +162,23 @@ export class CheckoutComponent implements OnInit {
         this.pickUpTimeValues.push(new Date(date));
       }
       date.setMinutes(date.getMinutes() + 15);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.getScreenSize();
+    this.cdRef.detectChanges();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    if (this.headerEl != null && this.fullEl != null && this.footerEl != null) {
+      if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
+        return;
+      } else {
+        this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
+        - this.footerEl.nativeElement.getBoundingClientRect().height;
+      }
     }
   }
 }

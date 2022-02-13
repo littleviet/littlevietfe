@@ -217,7 +217,6 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
 
   onAllChecked(value: boolean): void {
     this.products.payload.forEach(item => this.updateCheckedSet(item.id, value));
-    console.log(this.products.payload);
     this.refreshCheckedStatus();
   }
 

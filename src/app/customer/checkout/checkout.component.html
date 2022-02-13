@@ -1,6 +1,6 @@
-<div class="home" [ngClass]="{'noscroll': menuOpen}">
+<div class="home" [ngClass]="{'noscroll': menuOpen}" #full>
   <!-- header -->
-  <div class="header">
+  <div class="header" #header>
     <div class="menu-title">
       <app-landing-title type="2" title="TAKE AWAY" color="#f3eacd"></app-landing-title>
     </div>
@@ -9,7 +9,7 @@
   <app-cart-button></app-cart-button>
   <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
 
-  <div class="checkout-section">
+  <div class="checkout-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
 
     <!-- Back button -->
     <div class="back-button-section">
@@ -199,7 +199,9 @@
   </div>
 
   <!-- Footer -->
-  <app-footer [isDisplayLogo]="false"></app-footer>
+  <div #footer>
+    <app-footer [isDisplayLogo]="false"></app-footer>
+  </div>
 </div>
 
 <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0 || (takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>

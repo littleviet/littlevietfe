@@ -49,17 +49,13 @@ export class LoginComponent implements OnInit {
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
     if (this.headerEl != null) {
-      console.log("Height view port: ", window.innerHeight);
       if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
-        console.log("vao ne: ", this.scrHeight);
         return;
       } else {
         this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
         - this.footerEl.nativeElement.getBoundingClientRect().height;
-        console.log("Height: ", this.scrHeight);
       }
       
     }
   }
-
 }
