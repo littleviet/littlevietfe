@@ -72,5 +72,4 @@ export class ReservationConfirmDialogComponent implements OnInit {
   onSubmit() {
     this.store.dispatch(new UpdateReservationBookerInfo(this.bookReservationFG.value));
   }
-
 }

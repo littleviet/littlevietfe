@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
 import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
-import { CheckoutCartResponse } from 'src/dtos/cart/check-out-cart-response';
+import { CheckoutPaymentResponse } from 'src/dtos/cart/check-out-payment-response';
 import { CartDetail } from 'src/dtos/cart/cart-detail';
 import { CusReservation } from 'src/dtos/reservation/cus-reservation';
 
@@ -20,8 +20,8 @@ export class TakeAwayService {
         return this.http.get<BaseResponse<TakeAwayProduct[]>>(environment.apiUrl + 'take-away/menu');
     }
 
-    checkOutCart(pickupTime: any, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutCartResponse>> {
-        return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'order',
+    checkOutCart(pickupTime: any, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutPaymentResponse>> {
+        return this.http.post<BaseResponse<CheckoutPaymentResponse>>(environment.apiUrl + 'order',
             {
                 orderType: 1,
                 paymentType: 1,
@@ -32,11 +32,11 @@ export class TakeAwayService {
         );
     }
 
-    bookReservation(reservation: CusReservation) : Observable<BaseResponse<CheckoutCartResponse>> {
+    bookReservation(reservation: CusReservation) : Observable<BaseResponse<CheckoutPaymentResponse>> {
         let date = reservation.day;
         date.setHours(parseInt(reservation.hour.substring(0, 2)));
         date.setMinutes(parseInt(reservation.hour.substring(3)));
-        return this.http.post<BaseResponse<CheckoutCartResponse>>(environment.apiUrl + 'reservation',
+        return this.http.post<BaseResponse<CheckoutPaymentResponse>>(environment.apiUrl + 'reservation',
             {
                 firstName: reservation.firstName,
                 lastName: reservation.lastName,

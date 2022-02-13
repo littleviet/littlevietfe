@@ -31,6 +31,7 @@ import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-su
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { ErrorDialogService } from './services/error-dialog.service';
 import { AdminState } from './states/admin.state';
+import { CouponState } from './states/coupon.state';
 
 registerLocaleData(en);
 
@@ -48,7 +49,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     MatMenuModule,
     HttpClientModule,
-    NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState, AdminState], {
+    NgxsModule.forRoot([LandingPageState, TakeAwayState, AuthenticationState, AdminState, CouponState], {
       developmentMode: !environment.production
     }),
     NgxsStoragePluginModule.forRoot({

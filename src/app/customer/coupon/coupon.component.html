@@ -25,7 +25,46 @@
     <div class="coupon-buying-section">
       <div class="coupon-buying-bg">
         <div class="coupon-title">BUY COUPON GIFT</div>
-        
+        <form [formGroup]="couponFG" class="coupon-form" name="message">
+          <div class="coupon-field">
+            <label>Coupons</label>
+            <select formControlName="couponTypeId" class="input-field" required>
+              <option value="{{item.id}}" *ngFor="let item of couponTypes; let i = index">{{item.name}}</option>
+            </select>
+            <mat-error *ngIf="couponTypeFC.hasError('required') && couponTypeFC.dirty">
+              Coupon is <strong>required</strong>
+            </mat-error>
+          </div>
+
+          <div class="coupon-field">
+            <label>Unit</label>
+            <select formControlName="unit" class="input-field" required>
+              <option value="{{i + 1}}" [selected]="i == 0" *ngFor="let item of numberOfUnit; let i = index">{{i + 1}}</option>
+            </select>
+            <mat-error *ngIf="unitFC.hasError('required') && unitFC.dirty">
+              Unit is <strong>required</strong>
+            </mat-error>
+          </div>
+
+          <div class="coupon-introduction">
+            <div>
+              You loved visiting us and want somebody special to enjoy in Little Viet? 
+            </div>
+            <div>
+              Your guest could activate the Coupon Gift whenever desired, make a reservation and pay all or a part of the bill in Little Viet.
+            </div>
+            <div>
+              Buy online our coupon gift and receive it instantly by email.
+            </div>
+
+            <button
+            [disabled]="!couponFG.valid"
+            [ngClass]="!couponFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'"
+            class="book-now-btn" (click)="openDialog()">BUY NOW</button>
+          </div>
+
+          
+        </form>
       </div>
     </div>
   </div>
@@ -33,6 +72,3 @@
   <!-- Footer -->
   <app-footer [isDisplayLogo]="false"></app-footer>
 </div>
-
-<!-- <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner> -->
-

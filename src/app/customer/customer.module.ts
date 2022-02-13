@@ -34,6 +34,7 @@ import { PageNotFoundComponent } from 'src/commons/components/page-not-found/pag
 import { CancellationPolicyDialogComponent } from './reservation/cancellation-policy-dialog/cancellation-policy-dialog.component';
 import { GlobalErrorDialogComponent } from 'src/commons/components/global-error-dialog/global-error-dialog.component';
 import { LoginComponent } from './login/login.component';
+import { CouponConfirmDialogComponent } from './coupon/coupon-confirm-dialog/coupon-confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import { LoginComponent } from './login/login.component';
     PageNotFoundComponent,
     CancellationPolicyDialogComponent,
     GlobalErrorDialogComponent,
-    LoginComponent
+    LoginComponent,
+    CouponConfirmDialogComponent
   ]
 })
 export class CustomerModule { }
