@@ -69,7 +69,7 @@ export class CheckoutComponent implements OnInit {
   // payment form control
   hourFormControl = new FormControl('', [Validators.required]);
   dinnersFormControl = new FormControl('', [Validators.required]);
-  paymentMethodFormControl = new FormControl('', [Validators.required]);
+  paymentMethodFormControl = new FormControl(true, [Validators.required]);
   additionalRequestFormControl = new FormControl('');
 
   submitPay = new FormGroup({
@@ -109,6 +109,9 @@ export class CheckoutComponent implements OnInit {
       }
     });
     this.generateTimeValues();
+    this.submitPay.valueChanges.subscribe((v) => {
+      console.log(this.submitPay.value);
+    })
   }
 
   onLoginSubmit() {

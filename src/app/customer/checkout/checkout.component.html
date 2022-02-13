@@ -172,7 +172,7 @@
           <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
           <div class="day-title">Today {{getDay()}}</div>
           <div class="position-title">en: Little Viet Barcelona</div>
-          <div *ngIf="pickUpTime != null" class="time-title">at:
+          <div class="time-title">at:
             <select [formControl]="hourFormControl" required name="hour" class="picking-hour-confirm">
               <option *ngFor="let time of pickUpTimeValues" value="{{time}}">{{time.getHours()}}:{{time.getMinutes() == 0 ? '00': time.getMinutes()}}</option>
             </select>
@@ -181,10 +181,13 @@
             <input formControlName="dinners" class="diners-field" placeholder="No." type="text" name="" id="">
           </div>
           <div class="payment-method-title">Payment method:
-            <mat-checkbox formControlName="paymentMethod" [checked]="true" class="payment-method-checkbox">Credit card</mat-checkbox>
+            <mat-checkbox required formControlName="paymentMethod" name="paymentMethod" class="payment-method-checkbox">Credit card</mat-checkbox>
           </div>
           <textarea formControlName="additionalRequest" class="additional-info-field" placeholder="Additional information"></textarea>
-          <button [disabled]="submitPay.invalid || (isCartEmptyObs | async)" [ngClass]="{'pay-btn-active': !submitPay.invalid && !(isCartEmptyObs | async)}" class="pay-btn">PAY</button>
+          <button [disabled]="submitPay.invalid || (isCartEmptyObs | async)"
+            [ngClass]="!submitPay.invalid && !(isCartEmptyObs | async) ? 'pay-btn-active': 'pay-btn-inactive'" class="pay-btn">
+            PAY
+          </button>
         </form>
       </div>
     </div>
