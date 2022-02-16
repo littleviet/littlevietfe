@@ -144,4 +144,8 @@ export class AdminService {
   updateProductType(productType: AdminProductType): Observable<BaseResponse<string>> {
     return this.http.put<BaseResponse<string>>(environment.apiUrl + 'product-type/' + productType.id, productType);
   }
+
+  createProductType(productType: AdminProductType): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'product-type', productType);
+  }
 }

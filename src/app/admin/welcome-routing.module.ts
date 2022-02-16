@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
 import { ProductManagementComponent } from './product-managment/product-management.component';
+import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
 import { ProductTypeDetailComponent } from './product-type-managment/product-type-detail/product-type-detail.component';
 import { ProductTypeManagementComponent } from './product-type-managment/product-type-management.component';
 import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
@@ -79,7 +80,21 @@ const routes: Routes = [
               breadcrumb: 'Detail'
             }
           }
+          // {
+          //   path: 'create',
+          //   component: ProductTypeCreateComponent,
+          //   data: {
+          //     breadcrumb: 'Create'
+          //   }
+          // }
         ]
+      },
+      {
+        path: 'product-type/create',
+        component: ProductTypeCreateComponent,
+        data: {
+          breadcrumb: 'Create'
+        },
       },
     ]
   },

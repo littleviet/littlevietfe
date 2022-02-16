@@ -1,4 +1,7 @@
 <div *ngIf="productType == null">
+  <button class="completed-btn" nzType="primary" nz-button routerLink="/admin/product-type/create">
+    Create
+  </button>
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1" class="view-btn"
     nz-button nzType="primary" routerLink="/admin/product-types/{{getCheckedItem()?.id}}"
     (click)="viewClick(getCheckedItem()?.id || '')">
