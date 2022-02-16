@@ -102,12 +102,14 @@ export class CheckoutComponent implements OnInit {
     this.loggedInAccountObs.subscribe((result) => {
       this.loggedInAccountInfo = result;
     });
+
     this.pickUptimeObs.subscribe((result) => {
       if (result != null) {
         this.pickUpTime = new Date(result.time);
         this.hourFormControl.setValue(this.pickUpTime);
       }
     });
+    
     this.hourFormControl.valueChanges.subscribe((v) => {
       if (v != this.pickUpTime) {
         this.store.dispatch(new UpdatePickUpTime(v));

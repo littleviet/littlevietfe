@@ -35,6 +35,7 @@ import { CancellationPolicyDialogComponent } from './reservation/cancellation-po
 import { GlobalErrorDialogComponent } from 'src/commons/components/global-error-dialog/global-error-dialog.component';
 import { LoginComponent } from './login/login.component';
 import { CouponConfirmDialogComponent } from './coupon/coupon-confirm-dialog/coupon-confirm-dialog.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { CouponConfirmDialogComponent } from './coupon/coupon-confirm-dialog/cou
     CancellationPolicyDialogComponent,
     GlobalErrorDialogComponent,
     LoginComponent,
-    CouponConfirmDialogComponent
+    CouponConfirmDialogComponent,
+    SignUpComponent
   ]
 })
 export class CustomerModule { }

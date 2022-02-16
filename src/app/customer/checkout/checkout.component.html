@@ -143,7 +143,7 @@
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Password</mat-label>
               <input type="password" matInput formControlName="password" placeholder="Ex. 123456">
-              <mat-error *ngIf="emailFormControl.hasError('required')">
+              <mat-error *ngIf="regPasswordFormControl.hasError('required')">
                 Password is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -158,7 +158,7 @@
               <mat-checkbox class="news-checkbox" formControlName="newsLetter">Sign up for our newsletter.</mat-checkbox>
             </div>
             
-            <button [disabled]="registerFormGroup.invalid"  [ngClass]="{'register-btn-active': !registerFormGroup.invalid}" class="register-btn">REGISTER</button>
+            <button [disabled]="registerFormGroup.invalid" [ngClass]="{'register-btn-active': !registerFormGroup.invalid}" class="register-btn">REGISTER</button>
           </form>
         </div>
       </div>

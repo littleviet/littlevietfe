@@ -6,6 +6,7 @@ import { CheckoutComponent } from './customer/checkout/checkout.component';
 import { CouponComponent } from './customer/coupon/coupon.component';
 import { LoginComponent } from './customer/login/login.component';
 import { ReservationComponent } from './customer/reservation/reservation.component';
+import { SignUpComponent } from './customer/sign-up/sign-up.component';
 import { TakeAwayComponent } from './customer/take-away/take-away.component';
 import { AuthGuard } from './helper/auth.guard';
 
@@ -19,6 +20,7 @@ const routes: Routes = [
   ]},
   { path: 'reservation', component: ReservationComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent },
   { path: 'coupon-gift', component: CouponComponent },
   {path: 'not-found', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/not-found'}

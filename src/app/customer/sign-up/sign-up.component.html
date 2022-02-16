@@ -1,0 +1,136 @@
+<div class="home" [ngClass]="{'noscroll': menuOpen}" #full>
+  <!-- header -->
+  <div class="header" #header>
+    <div class="menu-title">
+      <app-landing-title type="2" title="LITTLE VIET" color="#f3eacd"></app-landing-title>
+    </div>
+  </div>
+
+  <app-cart-button></app-cart-button>
+  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+
+  <div class="register-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
+    <div class="register-area-title">SIGN UP</div>
+    <form *ngIf="!loginInfo" class="register-form" [formGroup]="registerFormGroup" (submit)="onRegisterSubmit()">
+      <div class="registered-title">YOU'RE THE NEW CUSTOMER?</div>
+      <!-- First name -->
+      <mat-form-field class="email-field" appearance="fill">
+        <mat-label>First name</mat-label>
+        <input type="text" matInput formControlName="firstName" placeholder="Ex. Viet">
+        <mat-error *ngIf="firstNameFormControl.hasError('required')">
+          First name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Last name -->
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Last name</mat-label>
+        <input type="text" matInput formControlName="lastName" placeholder="Ex. Little">
+        <mat-error *ngIf="lastNameFormControl.hasError('required')">
+          Last name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Address -->
+      <mat-form-field class="email-field" appearance="fill">
+        <mat-label>Address</mat-label>
+        <input type="text" matInput formControlName="address" placeholder="Ex. Barcelona">
+        <mat-error *ngIf="addressFormControl.hasError('required')">
+          Address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Number -->
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Number</mat-label>
+        <input type="text" matInput formControlName="number" placeholder="Ex. 123">
+        <mat-error *ngIf="numberFormControl.hasError('required')">
+          Number is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Flat door -->
+      <mat-form-field class="email-field" appearance="fill">
+        <mat-label>Flat-Door</mat-label>
+        <input type="text" matInput formControlName="flatDoor" placeholder="Ex. A20">
+        <mat-error *ngIf="flatDoorFormControl.hasError('required')">
+          Flat-Door is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+       <!-- Zip code -->
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Zip/Postal code</mat-label>
+        <input type="text" matInput formControlName="zipCode" placeholder="Ex. 70000">
+        
+        <mat-error *ngIf="zipCodeFormControl.hasError('required')">
+          Zip code is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Telephone 1 -->
+      <mat-form-field class="email-field" appearance="fill">
+        <mat-label>Telephone 1</mat-label>
+        <input type="text" matInput formControlName="phoneNumber1" placeholder="Ex. 036 289 2891">
+        
+        <mat-error *ngIf="phone1FormControl.hasError('required')">
+          Phone number 1 is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Telephone 2 -->
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Telephone 2</mat-label>
+        <input type="text" matInput formControlName="phoneNumber2" placeholder="Ex. 036 289 2892">
+      </mat-form-field>
+
+      <!-- Email -->
+      <mat-form-field class="email-field" appearance="fill">
+        <mat-label>Email address</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        <mat-error *ngIf="regEmailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+       <!-- Password -->
+      <mat-form-field class="password-field" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" placeholder="Ex. 123456">
+        <mat-error *ngIf="regPasswordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="policy">PRIVACY POLICY*</div>
+
+      <div class="policy-frame">
+        <mat-checkbox required class="policy-checkbox" formControlName="policy">I agree to the terms and conditions and the privacy policy.</mat-checkbox>
+      </div>
+
+      <div class="news-frame">
+        <mat-checkbox class="news-checkbox" formControlName="newsLetter">Sign up for our newsletter.</mat-checkbox>
+      </div>
+      
+      <button [disabled]="registerFormGroup.invalid"  [ngClass]="registerFormGroup.invalid ? 'register-btn-inactive' : 'register-btn-active'" class="register-btn">REGISTER</button>
+    </form>
+
+    <div *ngIf="loginInfo && loginInfo.token" class="f-modal-alert">
+      <div class="f-modal-icon f-modal-success animate">
+        <span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+        <span class="f-modal-line f-modal-long animateSuccessLong"></span>
+        <div class="f-modal-placeholder"></div>
+        <div class="f-modal-fix"></div>
+      </div>
+      <div class="title">WELCOME TO LITTLE VIET, {{loginInfo.firstname | uppercase}}!</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div #footer>
+    <app-footer [isDisplayLogo]="false"></app-footer>
+  </div>
+</div>
+
+<app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner>
+
