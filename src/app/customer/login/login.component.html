@@ -11,7 +11,7 @@
 
   <div class="login-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
     <div class="login-area-title">SIGN IN</div>
-    <form class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
+    <form *ngIf="!loginInfo" class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
       <div class="registered-title">I'M ALREADY REGISTERED</div>
       <mat-form-field class="email-field" appearance="fill">
         <mat-label>Email address</mat-label>
@@ -31,8 +31,21 @@
         </mat-error>
       </mat-form-field>
       <div class="forgot-password">Forgot your password?</div>
-      <button type="submit" [disabled]="loginFormGroup.invalid" [ngClass]="{'login-btn-active': !loginFormGroup.invalid}" class="login-btn">SIGN IN</button>
+      <button type="submit" [disabled]="loginFormGroup.invalid"
+        [ngClass]="loginFormGroup.invalid ? 'login-btn-inactive': 'login-btn-active'" class="login-btn">
+        SIGN IN
+      </button>
     </form>
+
+    <div *ngIf="loginInfo && loginInfo.token" class="f-modal-alert">
+      <div class="f-modal-icon f-modal-success animate">
+        <span class="f-modal-line f-modal-tip animateSuccessTip"></span>
+        <span class="f-modal-line f-modal-long animateSuccessLong"></span>
+        <div class="f-modal-placeholder"></div>
+        <div class="f-modal-fix"></div>
+      </div>
+      <div class="title">WELCOME TO LITTLE VIET, {{loginInfo.firstname | uppercase}}!</div>
+    </div>
   </div>
 
   <!-- Footer -->

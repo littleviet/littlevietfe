@@ -85,6 +85,10 @@ export class AuthenticationState {
             ...state,
             loggedinUser: null,
         });
+        
+        this.ngZone.run(() => {
+            this.router.navigate(['/login']);
+        });
     }
 
     @Action(CreateAccount)

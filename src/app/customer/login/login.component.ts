@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginAccountInfo.subscribe((result) => {
+      if (this.loginInfo != result) {
+        this.getScreenSize();
+      }
       this.loginInfo = result;
     });
   }
