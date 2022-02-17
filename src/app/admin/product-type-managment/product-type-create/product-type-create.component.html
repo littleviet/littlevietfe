@@ -1,11 +1,11 @@
 <div>
-  <div>Booking information:</div>
+  <div>Product type information:</div>
   <form nz-form [formGroup]="validateForm">
     <!-- Name -->
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nameErrorTpl">
-        <input nz-input formControlName="name" placeholder="Product's name" type="text" />
+        <input nz-input formControlName="name" placeholder="Product type's name" type="text" />
         <ng-template #nameErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">Please input product type's name!</ng-container>
         </ng-template>
@@ -16,7 +16,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Es name</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="esNameErrorTpl">
-        <input nz-input formControlName="esName" placeholder="Product's es name" type="text" />
+        <input nz-input formControlName="esName" placeholder="Product tupe's es name" type="text" />
         <ng-template #esNameErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">Please input product type's es name!</ng-container>
         </ng-template>
@@ -27,7 +27,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Ca name</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="caNameErrorTpl">
-        <input nz-input formControlName="caName" placeholder="Product's ca name" type="text" />
+        <input nz-input formControlName="caName" placeholder="Product type's ca name" type="text" />
         <ng-template #caNameErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">Please input product type's ca name!</ng-container>
         </ng-template>
@@ -38,7 +38,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
-        <input nz-input formControlName="description" placeholder="Product's description" type="text" />
+        <input nz-input formControlName="description" placeholder="Product type's description" type="text" />
         <ng-template #descriptionErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">Please input product type's description!</ng-container>
         </ng-template>

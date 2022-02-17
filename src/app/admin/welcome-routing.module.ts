@@ -74,27 +74,21 @@ const routes: Routes = [
         },
         children: [
           {
+            path: 'create',
+            component: ProductTypeCreateComponent,
+            data: {
+              breadcrumb: 'Create'
+            }
+          },
+          {
             path: ':id',
             component: ProductTypeDetailComponent,
             data: {
               breadcrumb: 'Detail'
             }
           }
-          // {
-          //   path: 'create',
-          //   component: ProductTypeCreateComponent,
-          //   data: {
-          //     breadcrumb: 'Create'
-          //   }
-          // }
+
         ]
-      },
-      {
-        path: 'product-type/create',
-        component: ProductTypeCreateComponent,
-        data: {
-          breadcrumb: 'Create'
-        },
       },
     ]
   },
