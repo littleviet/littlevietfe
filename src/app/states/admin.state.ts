@@ -473,19 +473,6 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProductType.name), 1);
         return this.adminService.createProductType(payload.productType).pipe(tap((result) => {
-            if (result.success) {
-                // this.store.dispatch(new AdminGetProductTypeById(state.productType?.id || ''));
-                // this.message.create('success', 'Update successful!');
-                setState({
-                    ...state,
-                    actions: tempActions
-                });
-            } else {
-                setState({
-                    ...state,
-                    actions: tempActions
-                });
-            }
         }, error => {
             setState({
                 ...state,

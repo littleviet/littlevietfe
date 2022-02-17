@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { AdminClearProductType, AdminCreateProductType} from 'src/app/actions/admin.action';
+import { AdminClearProductType, AdminCreateProductType } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 
@@ -30,7 +30,7 @@ export class ProductTypeCreateComponent implements OnInit {
     description: this.descriptionFC,
   });
 
-  constructor(private store: Store) { }
+  constructor(private router: Router, private store: Store) { }
 
   ngOnInit() {
     this.productTypeObs.subscribe((result) => {
@@ -40,6 +40,7 @@ export class ProductTypeCreateComponent implements OnInit {
 
   submitForm(): void {
     this.store.dispatch(new AdminCreateProductType(this.validateForm.value));
+    this.router.navigate(['/admin/product-types']);
   }
 
   resetForm(e: MouseEvent): void {
