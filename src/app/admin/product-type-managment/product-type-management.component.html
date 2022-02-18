@@ -1,4 +1,7 @@
-<div *ngIf="productType == null">
+<div *ngIf="route.children.length === 0 && productType == null">
+  <button class="completed-btn" nzType="primary" nz-button routerLink="/admin/product-types/create">
+    Create
+  </button>
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1" class="view-btn"
     nz-button nzType="primary" routerLink="/admin/product-types/{{getCheckedItem()?.id}}"
     (click)="viewClick(getCheckedItem()?.id || '')">
@@ -102,7 +105,6 @@
   </nz-dropdown-menu>
   <ng-template #totalTemplate let-total>Total {{ total }} items</ng-template>
 </div>
-
 <div>
   <router-outlet></router-outlet>
 </div>

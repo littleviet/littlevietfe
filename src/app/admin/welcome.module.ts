@@ -27,6 +27,7 @@ import { ProductManagementComponent } from './product-managment/product-manageme
 import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
 import { ProductTypeManagementComponent } from './product-type-managment/product-type-management.component';
 import { ProductTypeDetailComponent } from './product-type-managment/product-type-detail/product-type-detail.component';
+import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
 
 
 
@@ -61,6 +62,7 @@ import { ProductTypeDetailComponent } from './product-type-managment/product-typ
     ProductDetailComponent,
     ProductTypeManagementComponent,
     ProductTypeDetailComponent,
+    ProductTypeCreateComponent,
     DateFormatPipe
   ],
   providers: [

@@ -12,7 +12,7 @@ import { AdminProduct } from "src/dtos/product/admin-product";
 import { AdminProductQueryRequest } from "src/dtos/product/admin-product-query-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes, AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation } from "../actions/admin.action";
+import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminCreateProductType, AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes, AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -461,5 +461,23 @@ export class AdminState {
             ...state,
            productType: null
         });
+    }
+
+    @Action(AdminCreateProductType)
+    createProductType({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminCreateProductType.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminCreateProductType.name), 1);
+        return this.adminService.createProductType(payload.productType).pipe(tap((result) => {
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
     }
 }

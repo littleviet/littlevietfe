@@ -1,0 +1,27 @@
+.tag-status {
+    line-height: 32px;
+}
+
+.completed-btn {
+    background-color: #87d068;
+    border-color: #87d068;
+    margin-left: 12px;
+}
+
+.cancelled-btn {
+    margin-left: 12px;
+}
+
+.reserved-btn {
+    margin-left: 12px;
+}
+
+.reset-button {
+    margin-left: 12px;
+}
+
+.completed-btn:hover {
+    background-color: rgba(135, 208, 104, 0.6);
+    border-color: #87d068;
+}
+
