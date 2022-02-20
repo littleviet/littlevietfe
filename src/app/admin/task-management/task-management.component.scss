@@ -1,0 +1,31 @@
+.menu-layout {
+    display: flex;
+    flex-wrap: wrap;
+
+    .item-layout {
+        width: 45%;
+        height: 250px;
+        background-color: #f3eacd;
+        border-radius: 25px;
+        border: 3px solid rgb(235, 141, 33);
+        display: flex;
+        flex-direction: column;
+        margin: 12px 2%;
+        cursor: pointer;
+
+        .item-icon {
+            height: 200px;
+        }
+
+        .item-title {
+            text-align: center;
+            font-weight: 600;
+            font-size: 20px;
+            padding-top: 10px;
+        }
+    }
+
+    .item-layout:hover {
+        box-shadow: 5px -5px #e69429;
+    }
+}

@@ -11,7 +11,7 @@
 
   <div class="login-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
     <div class="login-area-title">SIGN IN</div>
-    <form *ngIf="loginInfo == null || loginInfo.token == null" class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
+    <form *ngIf="!loginInfo || loginInfo.token == null" class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
       <div class="registered-title">I'M ALREADY REGISTERED</div>
       <mat-form-field class="email-field" appearance="fill">
         <mat-label>Email address</mat-label>

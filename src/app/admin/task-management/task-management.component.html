@@ -1,0 +1,20 @@
+<div *ngIf="isDisplay" class="menu-layout">
+  <div class="item-layout" routerLink="pick-up-task">
+    <div class="item-icon"></div>
+    <div class="item-title">PICK UP ORDER</div>
+  </div>
+
+  <div class="item-layout">
+    <div class="item-icon"></div>
+    <div class="item-title">USE COUPON</div>
+  </div>
+
+  <div class="item-layout">
+    <div class="item-icon"></div>
+    <div class="item-title">CHECK IN RESERVATION</div>
+  </div>
+</div>
+
+<div *ngIf="!isDisplay">
+  <router-outlet></router-outlet>
+</div>

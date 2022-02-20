@@ -27,8 +27,13 @@ import { ProductManagementComponent } from './product-managment/product-manageme
 import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
 import { ProductTypeManagementComponent } from './product-type-managment/product-type-management.component';
 import { ProductTypeDetailComponent } from './product-type-managment/product-type-detail/product-type-detail.component';
-
-
+import { TaskManagementComponent } from './task-management/task-management.component';
+import { PickUpOrderComponent } from './task-management/pick-up-order/pick-up-order.component';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 @NgModule({
   imports: [
@@ -50,7 +55,12 @@ import { ProductTypeDetailComponent } from './product-type-managment/product-typ
     NzInputModule,
     NzTagModule,
     NzPopconfirmModule,
-    NzMessageModule
+    NzMessageModule,
+    NzCollapseModule,
+    NzIconModule,
+    NzListModule,
+    ScrollingModule,
+    NzSkeletonModule
   ],
   declarations: [
     WelcomeComponent,
@@ -61,7 +71,9 @@ import { ProductTypeDetailComponent } from './product-type-managment/product-typ
     ProductDetailComponent,
     ProductTypeManagementComponent,
     ProductTypeDetailComponent,
-    DateFormatPipe
+    TaskManagementComponent,
+    PickUpOrderComponent,
+    DateFormatPipe,
   ],
   providers: [
   ],

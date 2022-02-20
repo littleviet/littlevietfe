@@ -70,3 +70,8 @@ export class AdminUpdateProductType {
   static readonly type = '[ADMIN] Admin Update Product Type';
   constructor(public productType: AdminProductType) {};
 }
+
+export class SearchPickUpOrders {
+  static readonly type = '[ADMIN] Search Pick Up Orders';
+  constructor(public query: AdminOrderQueryRequest) {}
+}
