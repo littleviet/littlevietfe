@@ -34,6 +34,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
   imports: [
@@ -60,7 +61,8 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
     NzIconModule,
     NzListModule,
     ScrollingModule,
-    NzSkeletonModule
+    NzSkeletonModule,
+    NzSpinModule
   ],
   declarations: [
     WelcomeComponent,

@@ -48,18 +48,18 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <div *ngIf="adminOrders">
-      <cdk-virtual-scroll-viewport style="height: 500px;" itemSize="73" (scrolledIndexChange)="handler($event)">
+    <!-- Search result -->
+    <div *ngIf="adminOrders" class="search-result-area">
+      <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
-          <nz-list-item *cdkVirtualFor="let order of adminOrders.payload">
+          <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}" *cdkVirtualFor="let order of adminOrders.payload; let index = index">
             <nz-skeleton *ngIf="!order" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
-            <nz-list-item-meta
-              *ngIf="order"
+            <nz-list-item-meta *ngIf="order" (click)="itemClick(order.id)"
               nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
               [nzDescription]="order.account.firstname"
             >
-              <nz-list-item-meta-title>
-                {{ order.account.firstname }}
+              <nz-list-item-meta-title class="">
+                {{ order.account.firstname }} - {{index}}
               </nz-list-item-meta-title>
             </nz-list-item-meta>
           </nz-list-item>
@@ -67,5 +67,34 @@
       </cdk-virtual-scroll-viewport>
     </div>
   </div>
-  <div class="right-layout"></div>
+  <div class="right-layout">
+    <div class="title">Order Information</div>
+    <div *ngIf="pickUpOder" class="order-detail">
+      <div class="cus-info">
+        <div>Customer:  {{pickUpOder.account.firstname + ' ' + pickUpOder.account.lastname}}</div>
+        <div>Phone:  {{pickUpOder.account.phoneNumber1}}</div>
+        <div>Pick-up time:  {{pickUpOder.pickupTime | customDate}}</div>
+      </div>
+      <div class="order-item-list">
+        <div class="order-item-header">
+          <div class="item-name-header">Name</div>
+          <div class="item-quantity-header">Quantity</div>
+          <div class="price-header">Price</div>
+        </div>
+        <div class="order-item" *ngFor="let item of pickUpOder.orderDetails; last as isLast">
+          <div class="item-name">{{item.productName + ' ' + item.servingName}}</div>
+          <div class="item-quantity">{{item.quantity}}</div>
+          <div class="price">{{item.price * item.quantity}} &#8364;</div>
+        </div>
+      </div>
+      <div class="total">
+        <div class="total-title">Total</div>
+        <div class="price">{{pickUpOder.totalPrice}} &#8364;</div>
+      </div>
+    </div>
+
+    <div *ngIf="isDiplayLoading()" class="loading">
+      <nz-spin [nzSize]="'large'" nzSimple></nz-spin>
+    </div>
+  </div>
 </div>

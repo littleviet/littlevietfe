@@ -75,3 +75,8 @@ export class SearchPickUpOrders {
   static readonly type = '[ADMIN] Search Pick Up Orders';
   constructor(public query: AdminOrderQueryRequest) {}
 }
+
+export class SearchPickUpOrderById {
+  static readonly type = '[ADMIN] Search Pick Up Order By Id';
+  constructor(public id: string) {}
+}

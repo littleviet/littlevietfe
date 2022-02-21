@@ -12,6 +12,7 @@ import { AdminProduct } from 'src/dtos/product/admin-product';
 import { AdminProductQueryRequest } from 'src/dtos/product/admin-product-query-request';
 import { AdminProductTypeQueryRequest } from 'src/dtos/product-type/admin-product-type-query-request';
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
+import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,10 @@ export class AdminService {
       }
     })
     return this.http.get<PaginationResponse<AdminOrder[]>>(environment.apiUrl + 'order?' + queryString);
+  }
+  
+  getTakeAwayOrderById(id: string): Observable<BaseResponse<AdminOrderInfo>> {
+    return this.http.get<BaseResponse<AdminOrderInfo>>(environment.apiUrl + 'order/' + id);
   }
 
   getProducts(query: AdminProductQueryRequest): Observable<PaginationResponse<AdminProduct[]>> {

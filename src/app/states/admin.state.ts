@@ -4,6 +4,7 @@ import { Observable, tap } from "rxjs";
 import { BaseResponse } from "src/dtos/base-response";
 import { AdminOrder } from "src/dtos/order/admin-order";
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
+import { AdminOrderInfo } from "src/dtos/order/admin-order.info";
 import { PaginationResponse } from "src/dtos/pagination-response";
 import { AdminProductType } from "src/dtos/product-type/admin-product-type";
 import { AdminProductTypeQueryRequest } from "src/dtos/product-type/admin-product-type-query-request";
@@ -11,7 +12,7 @@ import { AdminProduct } from "src/dtos/product/admin-product";
 import { AdminProductQueryRequest } from "src/dtos/product/admin-product-query-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes, AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation, SearchPickUpOrders } from "../actions/admin.action";
+import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes, AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation, SearchPickUpOrderById, SearchPickUpOrders } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -27,6 +28,7 @@ export class AdminStateModel {
     productType!: AdminProductType | null;
     productTypeQuery!: AdminProductTypeQueryRequest;
     pickUpOrders!: PaginationResponse<AdminOrder[]> | null;
+    pickUpOrder!: AdminOrderInfo | null;
     pickUpOderQuery!: AdminOrderQueryRequest;
     actions!: string[];
 }
@@ -47,6 +49,7 @@ export class AdminStateModel {
         productType: null,
         pickUpOrders: null,
         pickUpOderQuery: new AdminOrderQueryRequest(),
+        pickUpOrder: null,
         actions: []
     }
 })
@@ -125,6 +128,11 @@ export class AdminState {
     @Selector()
     static getPickUpOderQuery(state: AdminStateModel) {
         return state.pickUpOderQuery;
+    }
+
+    @Selector()
+    static getPickUpOrder(state: AdminStateModel) {
+        return state.pickUpOrder;
     }
 
     @Action(AdminGetReservations)
@@ -493,10 +501,41 @@ export class AdminState {
                 if (state.pickUpOrders != null) {
                     result.payload = [...result.payload, ...state.pickUpOrders.payload]
                 }
-                
+
                 setState({
                     ...state,
                     pickUpOrders: result,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(SearchPickUpOrderById)
+    searchPickUpOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, SearchPickUpOrderById.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == SearchPickUpOrderById.name), 1);
+
+        return this.adminService.getTakeAwayOrderById(payload.id).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    pickUpOrder: result.payload,
                     actions: tempActions
                 });
             } else {
