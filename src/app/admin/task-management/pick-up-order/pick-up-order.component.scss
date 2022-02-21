@@ -1,14 +1,40 @@
+@import '../../../../assets/breakpoint/breakpoints.scss';
+
 .pick-up-layout {
     width: 100%;
     display: flex;
+
+    @include breakpoint-lg-down() {
+        flex-direction: column;
+    }
 
     .left-layout {
         width: 50%;
         padding-right: 12px;
 
+        @include breakpoint-lg-down() {
+            width: 100%;
+            padding-right: 0;
+        }
+
+        .filter-form {
+            @include breakpoint-lg-down() {
+                width: 100%;
+            }
+
+            .search-btn-area {
+                text-align: end;
+            }
+        }
+
         .search-result-area {
             width: 100%;
             height: 500px;
+            overflow: hidden;
+
+            @include breakpoint-lg-down() {
+                height: 250px;
+            }
 
             .search-result-viewport {
                 height: 100%;
@@ -35,14 +61,29 @@
         position: relative;
         overflow: auto;
 
+        @include breakpoint-lg-down() {
+            width: 100%;
+            padding-left: 6px;
+            padding-right: 6px;
+            margin-top: 12px;
+        }
+
         .title {
             font-weight: 500;
             font-size: 22px;
             text-align: center;
+
+            @include breakpoint-lg-down() {
+                font-size: 20px;
+            }
         }
 
         .order-detail {
             padding: 25px;
+
+            @include breakpoint-lg-down() {
+                padding: 0px;
+            }
 
             .cus-info {
                 padding-bottom: 6px;
@@ -68,16 +109,28 @@
     
                     .item-name-header {
                         width: 70%;
+
+                        @include breakpoint-lg-down() {
+                            width: 50%;
+                        }
                     }
     
                     .item-quantity-header {
                         width: 15%;
                         text-align: end;
+
+                        @include breakpoint-lg-down() {
+                            width: 30%;
+                        }
                     }
 
                     .price-header {
                         width: 15%;    
-                        text-align: end;                    
+                        text-align: end;  
+                        
+                        @include breakpoint-lg-down() {
+                            width: 20%;
+                        }
                     }
                 }
     
@@ -91,16 +144,28 @@
     
                     .item-name {
                         width: 70%;
+
+                        @include breakpoint-lg-down() {
+                            width: 50%;
+                        }
                     }
     
                     .item-quantity {
                         width: 15%;
                         text-align: end;
+
+                        @include breakpoint-lg-down() {
+                            width: 30%;
+                        }
                     }
 
                     .price {
                         width: 15%;
-                        text-align: end;                      
+                        text-align: end;   
+                        
+                        @include breakpoint-lg-down() {
+                            width: 20%;
+                        }
                     }
                 }
             }
@@ -123,5 +188,12 @@
             nz-spin {
             }
         }
+    }
+}
+
+
+::ng-deep .ant-collapse-content>.ant-collapse-content-box {
+    @include breakpoint-lg-down() {
+        padding: 4px 8px;
     }
 }

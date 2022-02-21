@@ -6,10 +6,10 @@
         nzHeader="Filter"
         [nzActive]="true"
         [ngStyle]="{
-          background: '#f7f7f7',
+          'background': '#f7f7f7',
           'border-radius': '4px',
           'margin-bottom': '24px',
-          border: '0px'
+          'border': '0px'
         }"
         [nzExpandedIcon]="'double-right'"
       >
@@ -17,21 +17,22 @@
           <form class="filter-form" [formGroup]="filterFG" (submit)="onFilter()">
             <!-- Full name -->
             <nz-form-item>
-              <nz-form-label [nzSpan]="7">Full name</nz-form-label>
-              <nz-form-control [nzSpan]="12" nzHasFeedback>
+              <nz-form-label [nzXl]="{span: 4}" [nzXs]="{span: 7}">Name</nz-form-label>
+              <nz-form-control [nzXl]="{span: 14}" [nzXs]="{span: 17}" nzHasFeedback>
                 <input nz-input formControlName="fullName" placeholder="Cusomter's name" type="text"/>
               </nz-form-control>
             </nz-form-item>
 
             <!-- Phone number -->
             <nz-form-item>
-              <nz-form-label [nzSpan]="7">Phone number</nz-form-label>
-              <nz-form-control [nzSpan]="12" nzHasFeedback>
+              <nz-form-label [nzXl]="{span: 4}" [nzXs]="{span: 7}">Phone</nz-form-label>
+              <nz-form-control [nzXl]="{span: 14}" [nzXs]="{span: 17}" nzHasFeedback>
                 <input nz-input formControlName="phoneNumber" placeholder="Cusomter's phone number" type="text" />
               </nz-form-control>
             </nz-form-item>
+
             <nz-form-item>
-              <nz-form-control [nzOffset]="16" [nzSpan]="5">
+              <nz-form-control class="search-btn-area" [nzXl]="{span: 18}" [nzXs]="{span: 24}">
                 <button
                   nz-button [nzLoading]="(adminActionsObs | async)!.length > 0"
                   nzType="primary" [disabled]="!filterFG.valid || !filterFG.dirty"
@@ -50,6 +51,7 @@
 
     <!-- Search result -->
     <div *ngIf="adminOrders" class="search-result-area">
+      <div style="text-align: center; font-weight: 500; margin-bottom: 16px;">LIST PICK UP ORDER</div>
       <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
           <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}" *cdkVirtualFor="let order of adminOrders.payload; let index = index">

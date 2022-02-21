@@ -1,3 +1,5 @@
+@import '../../assets/breakpoint/breakpoints.scss';
+
 :host {
     display: flex;
     text-rendering: optimizeLegibility;
@@ -78,6 +80,10 @@ nz-content {
   background: #fff;
   height: 100%;
   margin-top: 12px;
+
+  @include breakpoint-lg-down() {
+    padding: 0px;
+  }
 }
 
 .logout-item {
