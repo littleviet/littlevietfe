@@ -35,6 +35,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     TaskManagementComponent,
     PickUpOrderComponent,
     DateFormatPipe,
+    ProductTypeCreateComponent,
   ],
   providers: [
   ],

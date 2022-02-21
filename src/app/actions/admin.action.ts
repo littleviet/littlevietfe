@@ -80,3 +80,8 @@ export class SearchPickUpOrderById {
   static readonly type = '[ADMIN] Search Pick Up Order By Id';
   constructor(public id: string) {}
 }
+
+export class AdminCreateProductType {
+  static readonly type = '[ADMIN] Admin Create Product Type';
+  constructor(public productType: AdminProductType) {};
+}
