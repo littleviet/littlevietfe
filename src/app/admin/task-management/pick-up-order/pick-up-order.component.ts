@@ -41,6 +41,7 @@ export class PickUpOrderComponent implements OnInit {
   ngOnInit() {
     let query = new AdminOrderQueryRequest();
     query.pageNumber = 1;
+    query.orderBy = "pickupTime desc"
     this.store.dispatch(new SearchPickUpOrders(query));
     this.pickUpOdersObs.subscribe((result) => {
       this.adminOrders = result;
@@ -64,11 +65,18 @@ export class PickUpOrderComponent implements OnInit {
   }
 
   onFilter() {
-
+    let query = _.clone(this.orderQuery);
+    if (this.nameFC.value != null && this.nameFC.value != '') {
+      query.fullName = this.nameFC.value;
+    }
+    if (this.phoneFC.value != null && this.phoneFC.value != '') {
+      query.phoneNumber = this.phoneFC.value;
+    }
+    query.pageNumber = 1;
+    this.store.dispatch(new SearchPickUpOrders(query));
   }
 
   handler(e: any) {
-    console.log("E ne:", e, this.viewPort.getDataLength());
     const total = this.viewPort.getDataLength();
     if (e == (total - 7) && this.adminOrders.pageNumber < Math.ceil(this.adminOrders.total / this.adminOrders.pageSize)) {
       let query = _.cloneDeep(this.orderQuery)

@@ -498,8 +498,8 @@ export class AdminState {
 
         return this.adminService.getTakeAwayOrders(state.pickUpOderQuery).pipe(tap((result) => {
             if (result.success) {
-                if (state.pickUpOrders != null) {
-                    result.payload = [...result.payload, ...state.pickUpOrders.payload]
+                if (state.pickUpOrders != null && state.pickUpOderQuery.pageNumber != 1) {
+                    result.payload = [...state.pickUpOrders.payload, ...result.payload]
                 }
 
                 setState({
