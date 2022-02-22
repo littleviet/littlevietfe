@@ -195,7 +195,14 @@ $littlevietfe-theme: mat.define-light-theme((
 
 .owl-theme .owl-dots .owl-dot span {
   width: 20px !important;
-  height: 20px !important;
+  height: 30px !important;
+  background-color: #c7a67a !important;
+  border-radius: 0px !important;
+  font-size: 18px !important;
+}
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+  border-bottom: 3px double black !important;
 }
 
 .cdk-overlay-pane.my-dialog {
