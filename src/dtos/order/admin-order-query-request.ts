@@ -1,4 +1,4 @@
-import { OrderType } from "src/commons/enums/app-enum";
+import { OrderStatus, OrderType } from "src/commons/enums/app-enum";
 
 export class AdminOrderQueryRequest {
     orderTypes: OrderType[] | null = null;
@@ -12,4 +12,5 @@ export class AdminOrderQueryRequest {
     orderBy: string | null = null;
     fullName: string | null = null;
     phoneNumber: string | null = null;
+    statuses: OrderStatus[] | null = null;
 }

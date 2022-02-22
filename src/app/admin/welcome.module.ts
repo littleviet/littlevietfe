@@ -36,6 +36,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
+import { CheckInReservationComponent } from './task-management/check-in-reservation/check-in-reservation.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { ProductTypeCreateComponent } from './product-type-managment/product-typ
     PickUpOrderComponent,
     DateFormatPipe,
     ProductTypeCreateComponent,
+    CheckInReservationComponent
   ],
   providers: [
   ],

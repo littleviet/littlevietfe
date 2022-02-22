@@ -50,3 +50,13 @@
 tr:nth-child(2n) {
   background: #fbfbfb;
 }
+
+.date-picker-dropdown {
+  display: flex;
+  flex-direction: column;
+
+  .buttons {
+    text-align: end;
+    margin-top: 6px;
+  }
+}

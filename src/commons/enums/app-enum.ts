@@ -27,3 +27,10 @@ export enum ProductStatus {
   INSTOCK = 1,
   OUTOFSTOCK = 2
 }
+
+export enum OrderStatus {
+    Ordered = 1,
+    Paid = 2,
+    Cancelled = 3,
+    Expired = 4,
+}

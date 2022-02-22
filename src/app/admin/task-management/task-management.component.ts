@@ -15,14 +15,16 @@ export class TaskManagementComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.route);
-    if (this.route.snapshot.children[0]?.url[0]?.path == 'pick-up-task') {
+    if (this.route.snapshot.children[0]?.url[0]?.path == 'pick-up-task'
+        || this.router.url.split('/')[3] == 'check-in-reservation-task') {
       this.isDisplay = false;
     }
 
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
         console.log(val);
-        if (this.router.url.split('/').length < 5 && this.router.url.split('/')[3] == 'pick-up-task') {
+        if (this.router.url.split('/').length < 5 &&
+          (this.router.url.split('/')[3] == 'pick-up-task' || this.router.url.split('/')[3] == 'check-in-reservation-task')) {
           this.isDisplay = false;
         } else {
           this.isDisplay = true;
@@ -30,5 +32,4 @@ export class TaskManagementComponent implements OnInit {
       }
     });
   }
-
 }

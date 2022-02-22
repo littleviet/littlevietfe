@@ -1,6 +1,6 @@
-<div class="pick-up-layout">
-  <!-- left layout -->
-  <div class="left-layout">
+<div class="check-in-layout">
+  <!-- filter layout -->
+  <div class="filter-layout">
     <nz-collapse [nzBordered]="false">
       <nz-collapse-panel
         #header
@@ -50,10 +50,14 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <!-- Search result -->
-    <div *ngIf="adminOrders" class="search-result-area">
+    
+  </div>
+
+  <!-- Search result -->
+  <div class="result-layout">
+    <div class="search-result-area">
       <div style="text-align: center; font-weight: 500; margin-bottom: 16px;">LIST PICK UP ORDER</div>
-      <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
+      <!-- <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
           <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}" *cdkVirtualFor="let order of adminOrders.payload; let index = index">
             <nz-skeleton *ngIf="!order" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
@@ -67,14 +71,14 @@
             </nz-list-item-meta>
           </nz-list-item>
         </nz-list>
-      </cdk-virtual-scroll-viewport>
+      </cdk-virtual-scroll-viewport> -->
     </div>
   </div>
 
-  <!-- right layout -->
-  <div class="right-layout">
+  <!-- detail layout -->
+  <div class="detail-layout">
     <div class="title">ORDER INFORMATION</div>
-    <div *ngIf="pickUpOder" class="order-detail">
+    <!-- <div *ngIf="pickUpOder" class="order-detail">
       <div class="cus-info">
         <div>Customer: {{pickUpOder.account.firstname + ' ' + pickUpOder.account.lastname}}</div>
         <div>Phone: {{pickUpOder.account.phoneNumber1}}</div>
@@ -99,10 +103,10 @@
       <div class="completed-btn">
         <button *ngIf="pickUpOder" (click)="updateStatus()" nz-button nzType="primary">Completed</button>
       </div>
-    </div>
+    </div> -->
     
-    <div *ngIf="isDiplayLoading()" class="loading">
+    <!-- <div *ngIf="isDiplayLoading()" class="loading">
       <nz-spin [nzSize]="'large'" nzSimple></nz-spin>
-    </div>
+    </div> -->
   </div>
 </div>

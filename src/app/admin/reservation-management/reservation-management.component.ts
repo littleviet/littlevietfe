@@ -10,6 +10,7 @@ import { ColumnItem } from 'src/dtos/column-item';
 import { PaginationResponse } from 'src/dtos/pagination-response';
 import { AdminReservation } from 'src/dtos/reservation/admin-reservation';
 import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reservation-query-request';
+import {formatDate} from '@angular/common';
 
 
 @Component({
@@ -18,16 +19,21 @@ import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reserva
   styleUrls: ['./reservation-management.component.scss']
 })
 export class ReservationManagementComponent implements OnInit, AfterContentChecked {
+  dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+  bookingDate = null;
   private routeSub!: Subscription;
   setOfCheckedId = new Set<string>();
   checked = false;
   indeterminate = false;
   nameSearchValue = '';
+  bookingDateFromSearchValue: string | null = null;
+  bookingDateToSearchValue: string | null = null;
   emailSearchValue = '';
   phoneSearchValue = '';
   noPeopleSearchValue = '';
   furtherRequestSearchValue = '';
   nameVisible = false;
+  bookingDateVisible = false;
   emailVisible = false;
   phoneVisible = false;
   furtherRequestVisible = false;
@@ -108,6 +114,8 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
     this.reservationsQueryObs.subscribe((result) => {
       this.reservationQuery = result;
       this.nameSearchValue = this.reservationQuery.fullName || '';
+      this.bookingDateFromSearchValue = this.reservationQuery.bookingDateFrom;
+      this.bookingDateToSearchValue = this.reservationQuery.bookingDateTo;
       this.emailSearchValue = this.reservationQuery.email || '';
       this.phoneSearchValue = this.reservationQuery.phoneNumber || '';
       this.noPeopleSearchValue = this.reservationQuery.noOfPeople?.toString() || '';
@@ -176,6 +184,31 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
     this.nameVisible = false;
     let query = _.clone(this.reservationQuery);
     query.fullName = this.nameSearchValue;
+    query.pageNumber = 1;
+    this.router.navigate(['/admin/reservations'], { queryParams: query });
+  }
+
+  resetSearchBookingDate(): void {
+    this.bookingDate = null;
+    this.searchBookingDate();
+  }
+
+  searchBookingDate(): void {
+    let query = _.clone(this.reservationQuery);
+    if (this.bookingDate == null) {
+      query.bookingDateTo = null;
+      query.bookingDateFrom = null;
+    } else {
+      let dateTo = new Date(this.bookingDate[1]);
+      let utcMilTo = formatDate(dateTo,this.dateFormat,'en-US');
+      let dateFrom = new Date(this.bookingDate[0]);
+      let utcMilFrom = formatDate(dateFrom,this.dateFormat,'en-US');
+      
+      query.bookingDateTo = utcMilTo;
+      query.bookingDateFrom = utcMilFrom;
+    }
+
+    this.bookingDateVisible = false;
     query.pageNumber = 1;
     this.router.navigate(['/admin/reservations'], { queryParams: query });
   }

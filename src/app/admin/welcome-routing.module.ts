@@ -8,6 +8,7 @@ import { ProductTypeManagementComponent } from './product-type-managment/product
 import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
 import { ReservationManagementComponent } from './reservation-management/reservation-management.component';
 import { TakeAwayManagementComponent } from './take-away-management/take-away-management.component';
+import { CheckInReservationComponent } from './task-management/check-in-reservation/check-in-reservation.component';
 import { PickUpOrderComponent } from './task-management/pick-up-order/pick-up-order.component';
 import { TaskManagementComponent } from './task-management/task-management.component';
 import { WelcomeComponent } from './welcome.component';
@@ -104,6 +105,13 @@ const routes: Routes = [
             component: PickUpOrderComponent,
             data: {
               breadcrumb: 'Pick up'
+            }
+          },
+          {
+            path: 'check-in-reservation-task',
+            component: CheckInReservationComponent,
+            data: {
+              breadcrumb: 'Check in reservation'
             }
           }
         ]

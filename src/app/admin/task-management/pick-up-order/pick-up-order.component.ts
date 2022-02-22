@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { SearchPickUpOrderById, SearchPickUpOrders } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
+import { OrderStatus } from 'src/commons/enums/app-enum';
 import { AdminOrder } from 'src/dtos/order/admin-order';
 import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
 import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
@@ -41,7 +42,8 @@ export class PickUpOrderComponent implements OnInit {
   ngOnInit() {
     let query = new AdminOrderQueryRequest();
     query.pageNumber = 1;
-    query.orderBy = "pickupTime desc"
+    query.orderBy = "pickupTime desc";
+    query.statuses = [OrderStatus.Paid];
     this.store.dispatch(new SearchPickUpOrders(query));
     this.pickUpOdersObs.subscribe((result) => {
       this.adminOrders = result;
@@ -97,6 +99,10 @@ export class PickUpOrderComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  updateStatus() {
+
   }
 
 }

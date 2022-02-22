@@ -61,9 +61,15 @@
             [nzSortOrder]="bookingDateColumn.sortOrder || null"
             [nzSortDirections]="bookingDateColumn.sortDirections || []"
             [nzSortFn]="true"
+            nzCustomFilter
             nzColumnKey="bookingDate"
           >
             {{bookingDateColumn.name}}
+            <nz-filter-trigger [(nzVisible)]="bookingDateVisible"
+              [nzActive]="bookingDateFromSearchValue != null || bookingDateToSearchValue != null"
+              [nzDropdownMenu]="bookingDateMenu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
           </th>
           <!-- no of people -->
           <th
@@ -159,6 +165,17 @@
         <input type="text" nz-input placeholder="Search request" [(ngModel)]="furtherRequestSearchValue" />
         <button nz-button nzSize="small" nzType="primary" (click)="searchFurtherRequest()" class="search-button">Search</button>
         <button nz-button nzSize="small" (click)="resetSearchFurtherRequest()">Reset</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  <nz-dropdown-menu #bookingDateMenu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box date-picker-dropdown">
+        <nz-range-picker [nzSize]="'small'" [nzFormat]="dateFormat" nzShowTime [(ngModel)]="bookingDate"></nz-range-picker>
+        <div class="buttons">
+          <button nz-button nzSize="small" nzType="primary" (click)="searchBookingDate()" class="search-button">Search</button>
+          <button nz-button nzSize="small" (click)="resetSearchBookingDate()">Reset</button>
+        </div>
       </div>
     </div>
   </nz-dropdown-menu>

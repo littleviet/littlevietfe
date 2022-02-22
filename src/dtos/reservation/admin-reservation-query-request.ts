@@ -6,8 +6,8 @@ export class AdminReservationQueryRequest {
     email: string | null = null;
     furtherRequest: string | null = null;
     noOfPeople: number | null = null;
-    bookingDateFrom: Date | null = null;
-    bookingDateTo: Date | null = null;
+    bookingDateFrom: string | null = null;
+    bookingDateTo: string | null = null;
     statuses: ReservationStatus[] | null = null;
     phoneNumber: string | null = null;
     pageNumber: number | null = 1;
