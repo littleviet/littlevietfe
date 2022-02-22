@@ -27,14 +27,13 @@ export class AuthGuard implements CanActivate {
           if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
             return true;
           }
+          return this.router.createUrlTree(['']);
         } else {
           if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
             return this.router.createUrlTree(['/admin']);
           }
+          return true;
         }
-        
-        
-        return this.router.createUrlTree(['']);
       })
     );
   }
