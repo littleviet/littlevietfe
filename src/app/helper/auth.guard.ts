@@ -3,7 +3,8 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
-  UrlTree
+  UrlTree,
+  ActivatedRoute
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,13 +19,20 @@ export class AuthGuard implements CanActivate {
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
   constructor(private router: Router, private store: Store) {}
 
-  canActivate() : boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) : boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.loggedInAccountObs.pipe(
       take(1),
       map(loginInfo => {
-        if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
-          return true;
+        if (state.url.includes('admin')) {
+          if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
+            return true;
+          }
+        } else {
+          if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
+            return this.router.createUrlTree(['/admin']);
+          }
         }
+        
         
         return this.router.createUrlTree(['']);
       })

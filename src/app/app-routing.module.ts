@@ -11,19 +11,20 @@ import { TakeAwayComponent } from './customer/take-away/take-away.component';
 import { AuthGuard } from './helper/auth.guard';
 
 const routes: Routes = [
-  { path: 'admin',  canActivate: [AuthGuard], loadChildren: () => import('./admin/welcome.module').then(m => m.WelcomeModule), data: { breadcrumb: 'Home' } },
-  { path: '', pathMatch: 'full', loadChildren: () => import('./customer/customer.module').then((m) => m.CustomerModule) },
-  { path: 'take-away', component: TakeAwayComponent },
-  { path: 'checkout', component: CheckoutComponent, children: [
-    { path: 'order-successful', data: { orderSuccess: true}, component: CheckOutSuccessfulComponent},
-    { path: 'order-canceled', data: { orderSuccess: false}, component: CheckOutSuccessfulComponent}
-  ]},
-  { path: 'reservation', component: ReservationComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'sign-up', component: SignUpComponent },
-  { path: 'coupon-gift', component: CouponComponent },
-  {path: 'not-found', component: PageNotFoundComponent},
-  {path: '**', redirectTo: '/not-found'}
+  { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/welcome.module').then(m => m.WelcomeModule), data: { breadcrumb: 'Home' } },
+  { path: '', canActivate: [AuthGuard], pathMatch: 'full', loadChildren: () => import('./customer/customer.module').then((m) => m.CustomerModule) },
+  { path: 'take-away', canActivate: [AuthGuard], component: TakeAwayComponent },
+  { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent, children: [
+      { path: 'order-successful', data: { orderSuccess: true}, component: CheckOutSuccessfulComponent},
+      { path: 'order-canceled', data: { orderSuccess: false}, component: CheckOutSuccessfulComponent}
+    ]
+  },
+  { path: 'reservation', canActivate: [AuthGuard], component: ReservationComponent },
+  { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
+  { path: 'sign-up', canActivate: [AuthGuard], component: SignUpComponent },
+  { path: 'coupon-gift', canActivate: [AuthGuard], component: CouponComponent },
+  { path: 'not-found', component: PageNotFoundComponent},
+  { path: '**', redirectTo: '/not-found'}
 ];
 
 @NgModule({
