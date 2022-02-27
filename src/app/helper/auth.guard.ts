@@ -24,12 +24,12 @@ export class AuthGuard implements CanActivate {
       take(1),
       map(loginInfo => {
         if (state.url.includes('admin')) {
-          if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
+          if (loginInfo != null && loginInfo.accountType != null  && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
             return true;
           }
           return this.router.createUrlTree(['']);
         } else {
-          if (loginInfo != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
+          if (loginInfo != null && loginInfo.accountType != null && (loginInfo.accountType.toString() == Role[Role.ADMIN] || loginInfo.accountType.toString()  == Role[Role.MANAGER])) {
             return this.router.createUrlTree(['/admin']);
           }
           return true;

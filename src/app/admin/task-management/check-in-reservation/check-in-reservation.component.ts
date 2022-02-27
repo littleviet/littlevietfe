@@ -13,6 +13,7 @@ export class CheckInReservationComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   nameFC = new FormControl('');
   phoneFC = new FormControl('');
+  noOfPeople = new FormControl('');
 
   filterFG = new FormGroup({
     fullName: this.nameFC,

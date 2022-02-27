@@ -19,8 +19,35 @@
         }
 
         .filter-form {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
             @include breakpoint-lg-down() {
                 width: 100%;
+            }
+
+            .name-item {
+                width: 30%;
+                margin-right: 3%;
+            }
+
+            .phone-item {
+                width: 30%;
+                margin-right: 3%;
+            }
+
+            .email-item {
+                width: 30%;
+                margin-right: 3%;
+            }
+
+            .no-people-item {
+                width: 33%;
+            }
+
+            .booking-date-item {
+                margin-right: 3%;
             }
 
             .search-btn-area {
