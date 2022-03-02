@@ -38,6 +38,18 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
 import { CheckInReservationComponent } from './task-management/check-in-reservation/check-in-reservation.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+
+export class CustomHammerConfig extends HammerGestureConfig {
+  override overrides = {
+     pinch: { enable: false},
+     rotate: { enable: false}
+  };
+}
 
 @NgModule({
   imports: [
@@ -66,7 +78,11 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     ScrollingModule,
     NzSkeletonModule,
     NzSpinModule,
-    NzGridModule
+    NzGridModule,
+    NzCarouselModule,
+    NgxGalleryModule,
+    NzEmptyModule,
+    NzTabsModule
   ],
   declarations: [
     WelcomeComponent,
@@ -84,6 +100,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
     CheckInReservationComponent
   ],
   providers: [
+    { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig}
   ],
   exports: [WelcomeComponent]
 })

@@ -1,9 +1,10 @@
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -85,7 +86,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
       multi: true
     },
     { provide: NZ_I18N, useValue: en_US },
-    ErrorDialogService
+    ErrorDialogService,
   ],
   bootstrap: [AppComponent]
 })

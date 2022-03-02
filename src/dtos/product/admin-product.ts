@@ -1,3 +1,4 @@
+import { AdminProductImage } from "../product-image/admin-product-image";
 import { AdminProductType } from "../product-type/admin-product-type";
 import { AdminServing } from "../serving/admin-serving";
 
@@ -9,5 +10,10 @@ export interface AdminProduct {
   description: string;
   producType: AdminProductType;
   servings: AdminServing[];
+  createdDate: Date;
+  createdBy: string;
+  updatedDate: Date;
+  updatedBy: string;
   status: string;
+  productImages: AdminProductImage[];
 }

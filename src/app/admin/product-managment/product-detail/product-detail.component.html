@@ -1,80 +1,152 @@
-<div *ngIf="product != null">
-  <div>Booking information:</div>
-  <form nz-form [formGroup]="validateForm">
+<div *ngIf="product != null" class="main-frame">
+  <div class="title">Product information:</div>
+  <div class="left-layout">
 
-    <!-- Name -->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nameErrorTpl">
-        <input nz-input formControlName="name" placeholder="Product's name" type="text" />
-        <ng-template #nameErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">Please input product's name!</ng-container>
+    <!-- Empty images -->
+    <div *ngIf="galleryImages == null || galleryImages.length == 0">
+      <nz-empty
+      nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+      [nzNotFoundContent]="contentTpl"
+      [nzNotFoundFooter]="footerTpl"
+    >
+      <ng-template #contentTpl>
+        <span>
+          This product haven't had any image yet
+        </span>
+      </ng-template>
+      <ng-template #footerTpl>
+        <button nz-button nzType="primary">Add images</button>
+      </ng-template>
+    </nz-empty>
+    </div>
+
+    <!-- Having images -->
+    <nz-tabset *ngIf="galleryImages != null && galleryImages.length > 0">
+      <nz-tab [nzTitle]="titleTemplate">
+        <ng-template #titleTemplate>
+          <i nz-icon nzType="file-image"></i>
+          Images
         </ng-template>
-      </nz-form-control>
-    </nz-form-item>
-
-    <!-- Es name -->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>Es name</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="esNameErrorTpl">
-        <input nz-input formControlName="esName" placeholder="Product's es name" type="text" />
-        <ng-template #esNameErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">Please input product's es name!</ng-container>
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+      </nz-tab>
+      <nz-tab [nzTitle]="editTemplate">
+        <ng-template #editTemplate>
+          <i nz-icon nzType="edit"></i>
+          Edit
         </ng-template>
-      </nz-form-control>
-    </nz-form-item>
+        <div class="edit-frame">
+          <div style="width: fit-content;" *ngFor="let photo of product.productImages">
+            <img src="{{photo.url}}" class="img-thumbnail" alt="">
+            <div style="width: fit-content;">
+              <button type="button" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'"
+                [disabled]="photo.isMain">Main
+              </button>
+              <button type="button"
+                [disabled]="photo.isMain"><i class="fa fa-trash-o"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+    
+  </div>
+  <div class="right-layout">
+    <form nz-form [formGroup]="validateForm">
+      <!-- Name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nameErrorTpl">
+          <input nz-input formControlName="name" placeholder="Product's name" type="text" />
+          <ng-template #nameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Es name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Es name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="esNameErrorTpl">
+          <input nz-input formControlName="esName" placeholder="Product's es name" type="text" />
+          <ng-template #esNameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's es name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Ca name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Ca name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="caNameErrorTpl">
+          <input nz-input formControlName="caName" placeholder="Product's ca name" type="text" />
+          <ng-template #caNameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's ca name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Description -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
+          <input nz-input formControlName="description" placeholder="Product's description" type="text" />
+          <ng-template #descriptionErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's description!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Status -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7">Status</nz-form-label>
+        <nz-tag *ngIf="product.status == 'InStock'" class="tag-status" nzColor="success">{{product.status}}</nz-tag>
+        <nz-tag *ngIf="product.status == 'OutOfStock'" class="tag-status" nzColor="error">{{product.status}}</nz-tag>
+  
+        <button *ngIf="product.status != 'InStock'" class="completed-btn" nz-button nzType="primary"
+          [nzLoading]="(adminActionsObs | async)!.length > 0" nz-popconfirm
+          nzPopconfirmTitle="Are you sure this product is in stock?" nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="onUpdateStatus('InStock')">
+          In stock
+        </button>
+        <button *ngIf="product.status != 'OutOfStock'" class="cancelled-btn" nz-button nzType="primary" nzDanger
+          [nzLoading]="(adminActionsObs | async)!.length > 0" nz-popconfirm
+          nzPopconfirmTitle="Are you sure this product is out of stock?" nzPopconfirmPlacement="bottom"
+          (nzOnConfirm)="onUpdateStatus('OutOfStock')">
+          Out of stock
+        </button>
+      </nz-form-item>
 
-    <!-- Ca name -->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>Ca name</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="caNameErrorTpl">
-        <input nz-input formControlName="caName" placeholder="Product's ca name" type="text" />
-        <ng-template #caNameErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">Please input product's ca name!</ng-container>
-        </ng-template>
-      </nz-form-control>
-    </nz-form-item>
-
-    <!-- Description -->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
-      <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
-        <input nz-input formControlName="description" placeholder="Product's description" type="text" />
-        <ng-template #descriptionErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">Please input product's description!</ng-container>
-        </ng-template>
-      </nz-form-control>
-    </nz-form-item>
-
-    <!-- Status -->
-    <nz-form-item>
-      <nz-form-label [nzSpan]="7">Status</nz-form-label>
-      <nz-tag *ngIf="product.status == 'InStock'" class="tag-status" nzColor="success">{{product.status}}</nz-tag>
-      <nz-tag *ngIf="product.status == 'OutOfStock'" class="tag-status" nzColor="error">{{product.status}}</nz-tag>
-
-      <button *ngIf="product.status != 'InStock'" class="completed-btn" nz-button nzType="primary"
-        [nzLoading]="(adminActionsObs | async)!.length > 0" nz-popconfirm
-        nzPopconfirmTitle="Are you sure this product is in stock?" nzPopconfirmPlacement="bottom"
-        (nzOnConfirm)="onUpdateStatus('InStock')">
-        In stock
-      </button>
-      <button *ngIf="product.status != 'OutOfStock'" class="cancelled-btn" nz-button nzType="primary" nzDanger
-        [nzLoading]="(adminActionsObs | async)!.length > 0" nz-popconfirm
-        nzPopconfirmTitle="Are you sure this product is out of stock?" nzPopconfirmPlacement="bottom"
-        (nzOnConfirm)="onUpdateStatus('OutOfStock')">
-        Out of stock
-      </button>
-    </nz-form-item>
-
-    <!-- Submit button -->
-    <nz-form-item>
-      <nz-form-control [nzOffset]="7" [nzSpan]="5">
-        <button nz-button [nzLoading]="(adminActionsObs | async)!.length > 0" nzType="primary"
-          [disabled]="!validateForm.valid || !validateForm.dirty" nz-popconfirm
-          nzPopconfirmTitle="Are you sure save this product?" nzPopconfirmPlacement="bottom"
-          (nzOnConfirm)="submitForm()">Save</button>
-        <button class="reset-button" [hidden]="!validateForm.dirty" nz-button (click)="resetForm($event)">Reset</button>
-      </nz-form-control>
-    </nz-form-item>
-  </form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7">Servings</nz-form-label>
+        <div nz-col [nzSpan]="17" *ngIf="product.servings && product.servings.length > 0">
+          <div nz-row [nzGutter]="[16, 16]" style="display: flex;" *ngFor="let serving of product.servings">
+            <nz-form-control [nzSpan]="15">
+              <input [disabled]="true" nz-input type="text" value="{{serving.name}}" />
+            </nz-form-control>
+            <nz-form-control [nzSpan]="5">
+              <input [disabled]="true" style="text-align: end;" nz-input type="text" value="{{serving.price}} &#8364;"/>
+            </nz-form-control>
+            <nz-form-control [nzSpan]="3">
+              <button nz-button nzType="primary">
+                <i nz-icon nzType="edit" nzTheme="outline"></i>
+              </button>
+            </nz-form-control>
+          </div>
+        </div>
+      </nz-form-item>
+  
+      <!-- Submit button -->
+      <nz-form-item>
+        <nz-form-control style="display: flex;" [nzOffset]="7" [nzSpan]="7">
+          <button nz-button [nzLoading]="(adminActionsObs | async)!.length > 0" nzType="primary"
+            [disabled]="!validateForm.valid || !validateForm.dirty" nz-popconfirm
+            nzPopconfirmTitle="Are you sure save this product?" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="submitForm()">Save</button>
+          <button class="reset-button" [hidden]="!validateForm.dirty" nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  
 </div>

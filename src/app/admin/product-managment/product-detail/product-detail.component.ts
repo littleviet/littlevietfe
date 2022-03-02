@@ -6,8 +6,10 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { AdminClearProduct, AdminGetProductById, AdminUpdateProduct } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
-import { ProductStatus } from 'src/commons/enums/app-enum';
 import { AdminProduct } from 'src/dtos/product/admin-product';
+import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { NgxGalleryImage } from '@kolkov/ngx-gallery';
+import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 
 @Component({
   selector: 'app-product-detail',
@@ -17,13 +19,16 @@ import { AdminProduct } from 'src/dtos/product/admin-product';
 export class ProductDetailComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getProduct) productObs!: Observable<AdminProduct>;
+  formatterDollar = (value: number): string => `${value} $`;
+  parserDollar = (value: string): string => value.replace('$ ', '');
   product!: AdminProduct;
   nameFC = new FormControl("", [Validators.required]);
   esNameFC = new FormControl("", [Validators.required]);
   caNameFC = new FormControl("", [Validators.required]);
   descriptionFC = new FormControl("", [Validators.required]);
   statusFC = new FormControl("", [Validators.required]);
-
+  galleryOptions!: NgxGalleryOptions[];
+  galleryImages!: NgxGalleryImage[];
 
   validateForm: FormGroup = new FormGroup({
     name: this.nameFC,
@@ -43,12 +48,39 @@ export class ProductDetailComponent implements OnInit {
         this.caNameFC.setValue(this.product.caName);
         this.esNameFC.setValue(this.product.esName);
         this.descriptionFC.setValue(this.product.description);
+        this.galleryImages = this.getImages();
       }
     });
     const id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.store.dispatch(new AdminGetProductById(id));
     }
+
+    this.galleryOptions = [
+      {
+        width: '500px',
+        height: '500px',
+        imagePercent: 100,
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: false
+      },
+      { "imageArrowsAutoHide": true, "thumbnailsArrowsAutoHide": true },
+      { "breakpoint": 500, "width": "300px", "height": "300px", "thumbnailsColumns": 3 },
+      { "breakpoint": 300, "width": "100%", "height": "200px", "thumbnailsColumns": 2 },
+    ];
+  }
+
+  getImages() {
+    const imageUrls = [];
+    for (const photo of this.product.productImages) {
+      imageUrls.push({
+        small: photo.url,
+        medium: photo.url,
+        big: photo.url,
+      });
+    }
+    return imageUrls;
   }
 
   submitForm(): void {
@@ -86,5 +118,4 @@ export class ProductDetailComponent implements OnInit {
   ngOnDestroy() {
     this.store.dispatch(new AdminClearProduct());
   }
-
 }
