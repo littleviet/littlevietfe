@@ -4,12 +4,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { AdminClearProduct, AdminGetProductById, AdminUpdateProduct } from 'src/app/actions/admin.action';
+import { AdminClearProduct, AdminDeleteProductImage, AdminGetProductById,
+  AdminUpdateMainProductImage, AdminUpdateProduct, AdminUploadProductImage }
+  from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { AdminProduct } from 'src/dtos/product/admin-product';
 import { NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
 
 @Component({
   selector: 'app-product-detail',
@@ -28,14 +32,20 @@ export class ProductDetailComponent implements OnInit {
   descriptionFC = new FormControl("", [Validators.required]);
   statusFC = new FormControl("", [Validators.required]);
   galleryOptions!: NgxGalleryOptions[];
-  galleryImages!: NgxGalleryImage[];
+  galleryImages: NgxGalleryImage[] = [];
+  listImgs: NzUploadFile[] = [];
 
-  validateForm: FormGroup = new FormGroup({
+  productFG: FormGroup = new FormGroup({
     name: this.nameFC,
     caName: this.caNameFC,
     esName: this.esNameFC,
     description: this.descriptionFC,
   });
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.listImgs = this.listImgs.concat(file);
+    return false;
+  };
 
   constructor(private route: ActivatedRoute, private store: Store) { }
 
@@ -43,7 +53,7 @@ export class ProductDetailComponent implements OnInit {
     this.productObs.subscribe((result) => {
       this.product = result;
       if (this.product != null) {
-        this.validateForm.reset();
+        this.productFG.reset();
         this.nameFC.setValue(this.product.name);
         this.caNameFC.setValue(this.product.caName);
         this.esNameFC.setValue(this.product.esName);
@@ -63,7 +73,7 @@ export class ProductDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
+        preview: true
       },
       { "imageArrowsAutoHide": true, "thumbnailsArrowsAutoHide": true },
       { "breakpoint": 500, "width": "300px", "height": "300px", "thumbnailsColumns": 3 },
@@ -78,41 +88,61 @@ export class ProductDetailComponent implements OnInit {
         small: photo.url,
         medium: photo.url,
         big: photo.url,
+        thumbUrl: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
       });
     }
     return imageUrls;
   }
 
   submitForm(): void {
-    let product = _.clone(this.product);
-    product.name = this.nameFC.value;
-    product.caName = this.caNameFC.value;
-    product.esName = this.esNameFC.value;
-    product.description = this.descriptionFC.value;
-    this.store.dispatch(new AdminUpdateProduct(product));
+    let updateRequest = new AdminUpdateProductRequest(this.product);
+    updateRequest.name = this.nameFC.value;
+    updateRequest.caName = this.caNameFC.value;
+    updateRequest.esName = this.esNameFC.value;
+    updateRequest.description = this.descriptionFC.value;
+    this.store.dispatch(new AdminUpdateProduct(updateRequest));
   }
 
   resetForm(e: MouseEvent): void {
     e.preventDefault();
-    this.validateForm.reset();
+    this.productFG.reset();
+    
     if (this.product != null) {
       this.nameFC.setValue(this.product.name);
       this.caNameFC.setValue(this.product.caName);
       this.esNameFC.setValue(this.product.esName);
       this.descriptionFC.setValue(this.product.description);
     }
-    for (const key in this.validateForm.controls) {
-      if (this.validateForm.controls.hasOwnProperty(key)) {
-        this.validateForm.controls[key].markAsPristine();
-        this.validateForm.controls[key].updateValueAndValidity();
+
+    for (const key in this.productFG.controls) {
+      if (this.productFG.controls.hasOwnProperty(key)) {
+        this.productFG.controls[key].markAsPristine();
+        this.productFG.controls[key].updateValueAndValidity();
       }
     }
   }
 
   onUpdateStatus(status: string) {
-    let product = _.clone(this.product);
-    product.status = status;
-    this.store.dispatch(new AdminUpdateProduct(product));
+    let updateRequest = new AdminUpdateProductRequest(this.product);
+    updateRequest.status = status;
+    this.store.dispatch(new AdminUpdateProduct(updateRequest));
+  }
+
+  setMainImage(imageId: string) {
+    this.store.dispatch(new AdminUpdateMainProductImage(imageId));
+  }
+
+  deleteImage(imageId: string) {
+    this.store.dispatch(new AdminDeleteProductImage(imageId));
+  }
+
+  uploadImage() {
+    const formData = new FormData();
+    this.listImgs.forEach((file: any) => {
+      formData.append('productImages', file);
+    });
+    this.store.dispatch(new AdminUploadProductImage(formData));
+    this.listImgs = [];
   }
 
   ngOnDestroy() {

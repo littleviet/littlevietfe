@@ -13,6 +13,7 @@ import { AdminProductQueryRequest } from 'src/dtos/product/admin-product-query-r
 import { AdminProductTypeQueryRequest } from 'src/dtos/product-type/admin-product-type-query-request';
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
+import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
 
 @Injectable({
   providedIn: 'root'
@@ -113,8 +114,28 @@ export class AdminService {
     return this.http.get<BaseResponse<AdminProduct>>(environment.apiUrl + 'product/' + id);
   }
 
-  updateProduct(product: AdminProduct): Observable<BaseResponse<string>> {
-    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'product/' + product.id, product);
+  updateProduct(product: AdminUpdateProductRequest): Observable<BaseResponse<string>> {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('caName', product.caName);
+    formData.append('esName', product.esName);
+    formData.append('imageChange', "false");
+    formData.append('status', product.status);
+    formData.append('productTypeId', product.productTypeId);
+    formData.append('description', product.description);
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'product/' + product.id, formData);
+  }
+
+  updateMainImage(productId: string, imageId: string): Observable<BaseResponse<string>> {
+    return this.http.get<BaseResponse<string>>(environment.apiUrl + 'product/' + productId + '/image/' + imageId + '/make-main');
+  }
+
+  uploadProductImages(productId: string, formData: FormData): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'product/' + productId + '/image', formData);
+  }
+
+  deleteProductImage(productId: string, imageId: string): Observable<BaseResponse<string>> {
+    return this.http.delete<BaseResponse<string>>(environment.apiUrl + 'product/' + productId + '/image/' + imageId );
   }
 
   getProductTypes(query: AdminProductTypeQueryRequest): Observable<PaginationResponse<AdminProductType[]>> {

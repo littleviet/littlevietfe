@@ -227,4 +227,3 @@ export class ProductTypeManagementComponent implements OnInit, AfterContentCheck
     this.cdRef.detectChanges();
   }
 }
-

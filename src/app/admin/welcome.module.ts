@@ -43,6 +43,10 @@ import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-br
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { ProductCreateComponent } from './product-managment/product-create/product-create.component';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   override overrides = {
@@ -82,7 +86,10 @@ export class CustomHammerConfig extends HammerGestureConfig {
     NzCarouselModule,
     NgxGalleryModule,
     NzEmptyModule,
-    NzTabsModule
+    NzTabsModule,
+    NzUploadModule,
+    NzRadioModule,
+    NzSelectModule
   ],
   declarations: [
     WelcomeComponent,
@@ -97,7 +104,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
     PickUpOrderComponent,
     DateFormatPipe,
     ProductTypeCreateComponent,
-    CheckInReservationComponent
+    CheckInReservationComponent,
+    ProductCreateComponent
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig}

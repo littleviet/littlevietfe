@@ -1,0 +1,151 @@
+<div class="main-frame">
+  <div class="title">Product information:</div>
+  <div class="left-layout">
+    <!-- Having images -->
+    <div class="edit-frame">
+      <div class="edit-section">
+        <!-- <div class="existed-photos" *ngFor="let photo of product.productImages">
+          <img src="{{photo.url}}" class="img-thumbnail" alt="">
+          <div class="action-bar">
+            <button nz-button nzType="primary" [nzLoading]="false" [disabled]="photo.isMain"
+              [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'">
+              Main
+            </button>
+            <button nzDanger class="btn-delete" nz-button nzType="primary" [disabled]="photo.isMain">
+              <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </button>
+          </div>
+        </div> -->
+      </div>
+      <div class="upload-title">Add Images</div>
+      <nz-upload class="upload-action"
+          nzType="drag"
+          nzMultiple="true"
+          nzListType="picture"
+          [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+          [nzAccept]="'image/png,image/jpeg,image/gif,image/bmp'"
+          [(nzFileList)]="listImgs"
+          [nzBeforeUpload]="beforeUpload"
+        >
+          <p class="ant-upload-drag-icon">
+            <i nz-icon nzType="inbox"></i>
+          </p>
+          <p >Click or drag file to this area to upload</p>
+          <p >
+            Support for a single or bulk upload.
+          </p>
+        </nz-upload>
+    </div>
+    
+  </div>
+  <div class="right-layout">
+    <form nz-form [formGroup]="productFG">
+      <!-- Name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="nameErrorTpl">
+          <input nz-input formControlName="name" placeholder="Product's name" type="text" />
+          <ng-template #nameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Es name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Es name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="esNameErrorTpl">
+          <input nz-input formControlName="esName" placeholder="Product's es name" type="text" />
+          <ng-template #esNameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's es name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Ca name -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Ca name</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="caNameErrorTpl">
+          <input nz-input formControlName="caName" placeholder="Product's ca name" type="text" />
+          <ng-template #caNameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's ca name!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <!-- Description -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Description</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="descriptionErrorTpl">
+          <input nz-input formControlName="description" placeholder="Product's description" type="text" />
+          <ng-template #descriptionErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">Please input product's description!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Product type -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Product type</nz-form-label>
+        <nz-select *ngIf="allProductTypes && allProductTypes.length > 0" nz-col [nzSpan]="12" nzShowSearch nzAllowClear nzPlaceHolder="Select a product type" formControlName="productTypeId">
+          <nz-option *ngFor="let productType of allProductTypes" nzLabel="{{productType.name}}" nzValue="{{productType.id}}"></nz-option>
+        </nz-select>
+      </nz-form-item>
+  
+      <!-- Status -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Status</nz-form-label>
+        <nz-radio-group formControlName="status" nzButtonStyle="solid">
+          <label nz-radio-button nzValue="InStock">In Stock</label>
+          <label nz-radio-button nzValue="OutOfStock">Out of Stock</label>
+        </nz-radio-group>
+      </nz-form-item>
+
+      <!-- Servings -->
+      <ng-container formArrayName="servings">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7">Servings</nz-form-label>
+          <nz-form-item nz-col [nzPush]="i == 0 ? 0 : 7" [nzSpan]="17" *ngFor="let serving of servings.controls; let i = index">
+            <div [formGroupName]="i" nz-row [nzGutter]="[16, 16]" class="serving-item">
+              <nz-form-control [nzSpan]="9" nzErrorTip="Required!">
+                <input formControlName="name" nz-input placeholder="Name"/>
+              </nz-form-control>
+              <nz-form-control [nzSpan]="8" nzErrorTip="Required!">
+                <input formControlName="numberOfPeople" nz-input placeholder="Number of people"/>
+              </nz-form-control>
+              <nz-form-control [nzSpan]="5" nzErrorTip="Required!">
+                <input formControlName="price" nz-input placeholder="Price"/>
+                
+              </nz-form-control>
+              <nz-form-control [nzSpan]="2">
+                <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i)"></i>
+              </nz-form-control>
+            </div>
+          </nz-form-item>
+          <nz-form-item nz-col [nzSpan]="24">
+            <nz-form-control [nzOffset]="7" [nzSpan]="17" >
+              <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+                <i nz-icon nzType="plus"></i>
+                Add field
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-form-item>
+      </ng-container>
+  
+      <!-- Submit button -->
+      <nz-form-item>
+        <nz-form-control style="display: flex;" [nzOffset]="7" [nzSpan]="7">
+          <button nz-button [nzLoading]="(adminActionsObs | async)!.length > 0" nzType="primary"
+            [disabled]="!productFG.valid || !productFG.dirty" nz-popconfirm
+            nzPopconfirmTitle="Are you sure save this product?" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="submitForm()">Save</button>
+          <button class="reset-button" [hidden]="!productFG.dirty && (!listImgs || listImgs.length <= 0)"
+            nz-button (click)="resetForm($event)">
+            Reset
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

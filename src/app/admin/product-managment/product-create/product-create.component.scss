@@ -9,19 +9,11 @@
     }
 
     .left-layout {
-        min-width: 50%;
-        max-width: 50%;
+        min-width: 40%;
+        max-width: 40%;
         height: 100% !important;
 
-        [nz-carousel-content] {
-            text-align: center;
-            height: 160px;
-            line-height: 160px;
-            background: #364d79;
-            color: #fff;
-            overflow: hidden;
-        }
-
+        
         .edit-frame {
             display: flex;
             flex-wrap: wrap;
@@ -59,15 +51,9 @@
 
             .upload-title {
                 margin-top: 24px;
+                font-weight: 500;
+                font-size: 22px;
                 padding-bottom: 8px;
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-
-                .title {
-                    font-weight: 500;
-                    font-size: 22px;
-                }
             }
             
             .upload-action {
@@ -80,49 +66,35 @@
     }
 
     .right-layout {
-        width: 50%;
+        width: 60%;
         padding-top: 50px;
         padding-bottom: 200px;
-
-        .tag-status {
-            line-height: 32px;
-        }
-        
-        .completed-btn {
-            background-color: #87d068;
-            border-color: #87d068;
-            margin-left: 12px;
-        }
-        
-        .cancelled-btn {
-            margin-left: 12px;
-        }
-        
-        .reserved-btn {
-            margin-left: 12px;
-        }
         
         .reset-button {
             margin-left: 12px; 
         }
         
-        .completed-btn:hover {
-            background-color: rgba(135, 208, 104, 0.6);
-            border-color: #87d068;
+        .serving-item {
+            display: flex;
+            width: 100%;
+
+            .dynamic-delete-button {
+                cursor: pointer;
+                position: relative;
+                top: 4px;
+                font-size: 24px;
+                color: #999;
+                transition: all 0.3s;
+            }
+        
+            .dynamic-delete-button:hover {
+                color: #777;
+            }
+        }
+
+        .add-button {
+            width: 40%;
+            margin-top: 12px;
         }
     }
-}
-
-::ng-deep .ant-tabs-content-holder {
-    
-    // max-height: 100vw;
-}
-
-::ng-deep .ant-tabs-content {
-    // min-height: 100vw;
-    // max-height: 100vw;
-}
-
-::ng-deep .ngx-gallery-layout {
-    height: 500px !important;
 }

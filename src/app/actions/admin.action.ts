@@ -1,8 +1,9 @@
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { AdminProductType } from "src/dtos/product-type/admin-product-type";
 import { AdminProductTypeQueryRequest } from "src/dtos/product-type/admin-product-type-query-request";
-import { AdminProduct } from "src/dtos/product/admin-product";
+import { AdminCreateProductRequest } from "src/dtos/product/admin-create-product-request";
 import { AdminProductQueryRequest } from "src/dtos/product/admin-product-query-request";
+import { AdminUpdateProductRequest } from "src/dtos/product/admin-update-product-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
 
@@ -48,7 +49,33 @@ export class AdminClearProduct {
 
 export class AdminUpdateProduct {
   static readonly type = '[ADMIN] Admin Update Product';
-  constructor(public product: AdminProduct) {};
+  constructor(public product: AdminUpdateProductRequest) {};
+}
+
+export class AdminUpdateMainProductImage {
+  static readonly type = '[ADMIN] Admin Update Main Product Image';
+  constructor(public imageId: string) {};
+}
+
+export class AdminUploadProductImage {
+  static readonly type = '[ADMIN] Admin Upload Product Image';
+  constructor(public data: FormData) {};
+}
+
+export class AdminDeleteProductImage {
+  static readonly type = '[ADMIN] Admin Delete Product Image';
+  constructor(public imageId: string) {};
+}
+
+export class AdminCreateProduct {
+  static readonly type = '[ADMIN] Admin Create Product';
+  constructor(public product: AdminCreateProductRequest) {};
+}
+
+// For dropdown value in create new product
+export class AdminGetAllProductTypes {
+  static readonly type = '[ADMIN] Admin Get All ProductTypes';
+  constructor() {}
 }
 
 export class AdminGetProductTypes {

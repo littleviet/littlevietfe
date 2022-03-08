@@ -5,19 +5,19 @@
     <!-- Empty images -->
     <div *ngIf="galleryImages == null || galleryImages.length == 0">
       <nz-empty
-      nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
-      [nzNotFoundContent]="contentTpl"
-      [nzNotFoundFooter]="footerTpl"
-    >
-      <ng-template #contentTpl>
-        <span>
-          This product haven't had any image yet
-        </span>
-      </ng-template>
-      <ng-template #footerTpl>
-        <button nz-button nzType="primary">Add images</button>
-      </ng-template>
-    </nz-empty>
+        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        [nzNotFoundContent]="contentTpl"
+        [nzNotFoundFooter]="footerTpl"
+      >
+        <ng-template #contentTpl>
+          <span>
+            This product haven't had any image yet
+          </span>
+        </ng-template>
+        <ng-template #footerTpl>
+          <button nz-button nzType="primary">Add images</button>
+        </ng-template>
+      </nz-empty>
     </div>
 
     <!-- Having images -->
@@ -35,24 +35,54 @@
           Edit
         </ng-template>
         <div class="edit-frame">
-          <div style="width: fit-content;" *ngFor="let photo of product.productImages">
-            <img src="{{photo.url}}" class="img-thumbnail" alt="">
-            <div style="width: fit-content;">
-              <button type="button" [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'"
-                [disabled]="photo.isMain">Main
-              </button>
-              <button type="button"
-                [disabled]="photo.isMain"><i class="fa fa-trash-o"></i>
-              </button>
+          <div class="edit-section">
+            <div class="existed-photos" *ngFor="let photo of product.productImages">
+              <img src="{{photo.url}}" class="img-thumbnail" alt="">
+              <div class="action-bar">
+                <button nz-button nzType="primary" [nzLoading]="false" [disabled]="photo.isMain"
+                  [ngClass]="photo.isMain ? 'btn-success active' : 'btn-secondary'"
+                  [nzLoading]="(adminActionsObs | async)!.length > 0"
+                  (click)="setMainImage(photo.id)">
+                  Main
+                </button>
+                <button nzDanger class="btn-delete" nz-button nzType="primary" [disabled]="photo.isMain"
+                  (click)="deleteImage(photo.id)">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </div>
             </div>
           </div>
+          <div class="upload-title">
+            <div class="title">Add Images</div>
+            <button nz-button nzType="primary" [disabled]="listImgs.length <= 0"
+              [nzLoading]="(adminActionsObs | async)!.length > 0"
+              (click)="uploadImage()">
+              Upload
+            </button>
+          </div>
+          <nz-upload class="upload-action"
+            nzType="drag"
+            nzMultiple="true"
+            nzListType="picture"
+            [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [nzAccept]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [(nzFileList)]="listImgs"
+            [nzBeforeUpload]="beforeUpload"
+          >
+            <p class="ant-upload-drag-icon">
+              <i nz-icon nzType="inbox"></i>
+            </p>
+            <p >Click or drag file to this area to upload</p>
+            <p >
+              Support for a single or bulk upload.
+            </p>
+          </nz-upload>
         </div>
       </nz-tab>
     </nz-tabset>
-    
   </div>
   <div class="right-layout">
-    <form nz-form [formGroup]="validateForm">
+    <form nz-form [formGroup]="productFG">
       <!-- Name -->
       <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Name</nz-form-label>
@@ -117,12 +147,16 @@
         </button>
       </nz-form-item>
 
+      <!-- Servings -->
       <nz-form-item>
         <nz-form-label [nzSpan]="7">Servings</nz-form-label>
         <div nz-col [nzSpan]="17" *ngIf="product.servings && product.servings.length > 0">
           <div nz-row [nzGutter]="[16, 16]" style="display: flex;" *ngFor="let serving of product.servings">
             <nz-form-control [nzSpan]="15">
               <input [disabled]="true" nz-input type="text" value="{{serving.name}}" />
+            </nz-form-control>
+            <nz-form-control [nzSpan]="5">
+              <input [disabled]="true" style="text-align: end;" nz-input type="text" value="{{serving.numberOfPeople}} Pip"/>
             </nz-form-control>
             <nz-form-control [nzSpan]="5">
               <input [disabled]="true" style="text-align: end;" nz-input type="text" value="{{serving.price}} &#8364;"/>
@@ -140,13 +174,12 @@
       <nz-form-item>
         <nz-form-control style="display: flex;" [nzOffset]="7" [nzSpan]="7">
           <button nz-button [nzLoading]="(adminActionsObs | async)!.length > 0" nzType="primary"
-            [disabled]="!validateForm.valid || !validateForm.dirty" nz-popconfirm
+            [disabled]="!productFG.valid || !productFG.dirty" nz-popconfirm
             nzPopconfirmTitle="Are you sure save this product?" nzPopconfirmPlacement="bottom"
             (nzOnConfirm)="submitForm()">Save</button>
-          <button class="reset-button" [hidden]="!validateForm.dirty" nz-button (click)="resetForm($event)">Reset</button>
+          <button class="reset-button" [hidden]="!productFG.dirty" nz-button (click)="resetForm($event)">Reset</button>
         </nz-form-control>
       </nz-form-item>
     </form>
   </div>
-  
 </div>

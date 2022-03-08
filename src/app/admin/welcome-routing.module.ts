@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProductCreateComponent } from './product-managment/product-create/product-create.component';
 import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
 import { ProductManagementComponent } from './product-managment/product-management.component';
 import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
@@ -60,6 +61,13 @@ const routes: Routes = [
           breadcrumb: 'Products'
         },
         children: [
+          {
+            path: 'create',
+            component: ProductCreateComponent,
+            data: {
+              breadcrumb: 'Create'
+            }
+          },
           {
             path: ':id',
             component: ProductDetailComponent,

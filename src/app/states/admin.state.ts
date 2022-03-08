@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
+import * as _ from "lodash";
 import { Observable, tap } from "rxjs";
 import { BaseResponse } from "src/dtos/base-response";
 import { AdminOrder } from "src/dtos/order/admin-order";
@@ -12,7 +13,10 @@ import { AdminProduct } from "src/dtos/product/admin-product";
 import { AdminProductQueryRequest } from "src/dtos/product/admin-product-query-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
 import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reservation-query-request";
-import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminCreateProductType, AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes, AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation, SearchPickUpOrderById, SearchPickUpOrders } from "../actions/admin.action";
+import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminCreateProductType,
+    AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
+    AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
+    SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage, AdminDeleteProductImage } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -24,6 +28,7 @@ export class AdminStateModel {
     products!: PaginationResponse<AdminProduct[]> | null;
     product!: AdminProduct | null;
     productQuery!: AdminProductQueryRequest;
+    allProductTypes!: AdminProductType[] | null;
     productTypes!: PaginationResponse<AdminProductType[]> | null;
     productType!: AdminProductType | null;
     productTypeQuery!: AdminProductTypeQueryRequest;
@@ -50,6 +55,7 @@ export class AdminStateModel {
         pickUpOrders: null,
         pickUpOderQuery: new AdminOrderQueryRequest(),
         pickUpOrder: null,
+        allProductTypes: null,
         actions: []
     }
 })
@@ -103,6 +109,11 @@ export class AdminState {
     @Selector()
     static getProductQuery(state: AdminStateModel) {
         return state.productQuery;
+    }
+
+    @Selector()
+    static getAllProductTypes(state: AdminStateModel) {
+        return state.allProductTypes;
     }
 
     @Selector()
@@ -351,11 +362,113 @@ export class AdminState {
         return this.adminService.updateProduct(payload.product).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
-                // this.message.create('success', 'Update successful!');
                 setState({
                     ...state,
                     actions: tempActions
                 });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminUpdateMainProductImage)
+    updateMainProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminUpdateMainProductImage.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice(tempActions.findIndex(a => a == AdminUpdateMainProductImage.name), 1);
+        return this.adminService.updateMainImage(state.product?.id || '', payload.imageId).pipe(tap((result) => {
+            if (result.success) {
+                let product = _.cloneDeep(state.product);
+                product?.productImages.forEach(img => {
+                    if (img.id == payload.imageId) {
+                        img.isMain = true;
+                        return;
+                    }
+                    if (img.isMain == true) {
+                        img.isMain = false;
+                    }
+                });
+                setState({
+                    ...state,
+                    actions: tempActions,
+                    product: product
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminDeleteProductImage)
+    deleteProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminDeleteProductImage.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminDeleteProductImage.name), 1);
+        return this.adminService.deleteProductImage(state.product?.id || '', payload.imageId).pipe(tap((result) => {
+            if (result.success) {
+                let product = _.cloneDeep(state.product);
+                product?.productImages.splice(product?.productImages.findIndex(img => img.id == payload.imageId), 1);
+                setState({
+                    ...state,
+                    actions: tempActions,
+                    product: product
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminUploadProductImage)
+    uploadProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminUploadProductImage.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminUploadProductImage.name), 1);
+        return this.adminService.uploadProductImages(state.product?.id || '', payload.data).pipe(tap((result) => {
+
+            if (result.success) {
+                setState({
+                    ...state,
+                    actions: tempActions,
+                });
+                this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
             } else {
                 setState({
                     ...state,
@@ -379,6 +492,39 @@ export class AdminState {
         });
     }
 
+    @Action(AdminGetAllProductTypes)
+    getAllProductTypes({getState, setState}: StateContext<AdminStateModel>) : Observable<PaginationResponse<AdminProductType[]>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetAllProductTypes.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetAllProductTypes.name), 1);
+        state = getState();
+        let productTypeQuery = new AdminProductTypeQueryRequest();
+        productTypeQuery.pageSize = 50;
+        return this.adminService.getProductTypes(productTypeQuery).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    allProductTypes: result.payload,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
     @Action(AdminGetProductTypes)
     getProductTypes({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminProductType[]>> {
         let state = getState();
@@ -391,7 +537,7 @@ export class AdminState {
         tempActions.splice( tempActions.findIndex(a => a == AdminGetProductTypes.name), 1);
         state = getState();
 
-        return this.adminService.getProductTypes(state.productQuery).pipe(tap((result) => {
+        return this.adminService.getProductTypes(state.productTypeQuery).pipe(tap((result) => {
             if (result.success) {
                 setState({
                     ...state,
@@ -456,7 +602,6 @@ export class AdminState {
         return this.adminService.updateProductType(payload.productType).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetProductTypeById(state.productType?.id || ''));
-                // this.message.create('success', 'Update successful!');
                 setState({
                     ...state,
                     actions: tempActions

@@ -8,7 +8,7 @@ export interface AdminProduct {
   esName: string;
   caName: string;
   description: string;
-  producType: AdminProductType;
+  productType: AdminProductType;
   servings: AdminServing[];
   createdDate: Date;
   createdBy: string;

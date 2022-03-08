@@ -14,7 +14,6 @@ export class TaskManagementComponent implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.route);
     if (this.route.snapshot.children[0]?.url[0]?.path == 'pick-up-task'
         || this.router.url.split('/')[3] == 'check-in-reservation-task') {
       this.isDisplay = false;
@@ -22,7 +21,6 @@ export class TaskManagementComponent implements OnInit {
 
     this.router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
-        console.log(val);
         if (this.router.url.split('/').length < 5 &&
           (this.router.url.split('/')[3] == 'pick-up-task' || this.router.url.split('/')[3] == 'check-in-reservation-task')) {
           this.isDisplay = false;

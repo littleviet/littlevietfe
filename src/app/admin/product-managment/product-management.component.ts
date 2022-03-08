@@ -82,7 +82,7 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
   product!: AdminProduct;
   productQuery!: AdminProductQueryRequest;
 
-  constructor(private store: Store, private route: ActivatedRoute, private router: Router,
+  constructor(private store: Store, public route: ActivatedRoute, private router: Router,
     private cdRef : ChangeDetectorRef) { }
 
   ngOnInit() {
