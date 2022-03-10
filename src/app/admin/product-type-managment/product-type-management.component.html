@@ -18,7 +18,7 @@
           <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
           <!-- name -->
           <th [nzSortOrder]="nameColumn.sortOrder || null" [nzSortDirections]="nameColumn.sortDirections || []"
-            [nzSortFn]="true" nzColumnKey="firstname" nzCustomFilter>
+            [nzSortFn]="true" nzColumnKey="name" nzCustomFilter>
             {{nameColumn.name}}
             <nz-filter-trigger [(nzVisible)]="nameVisible" [nzActive]="nameSearchValue.length > 0"
               [nzDropdownMenu]="nameMenu">

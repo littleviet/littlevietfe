@@ -16,7 +16,7 @@ import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reserva
 import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminCreateProductType,
     AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
     AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
-    SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage, AdminDeleteProductImage } from "../actions/admin.action";
+    SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage, AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -35,6 +35,9 @@ export class AdminStateModel {
     pickUpOrders!: PaginationResponse<AdminOrder[]> | null;
     pickUpOrder!: AdminOrderInfo | null;
     pickUpOderQuery!: AdminOrderQueryRequest;
+    reservationOrders!:  PaginationResponse<AdminReservation[]> | null;
+    reservationOrder!: AdminReservation | null;
+    reservationOderQuery!: AdminReservationQueryRequest;
     actions!: string[];
 }
 
@@ -56,6 +59,9 @@ export class AdminStateModel {
         pickUpOderQuery: new AdminOrderQueryRequest(),
         pickUpOrder: null,
         allProductTypes: null,
+        reservationOrders: null,
+        reservationOrder: null,
+        reservationOderQuery: new AdminReservationQueryRequest(),
         actions: []
     }
 })
@@ -144,6 +150,21 @@ export class AdminState {
     @Selector()
     static getPickUpOrder(state: AdminStateModel) {
         return state.pickUpOrder;
+    }
+
+    @Selector()
+    static getReservationOders(state: AdminStateModel) {
+        return state.reservationOrders;
+    }
+
+    @Selector()
+    static getReservationOder(state: AdminStateModel) {
+        return state.reservationOrder;
+    }
+
+    @Selector()
+    static getReservationOderQuery(state: AdminStateModel) {
+        return state.reservationOderQuery;
     }
 
     @Action(AdminGetReservations)
@@ -696,6 +717,75 @@ export class AdminState {
             });
         }));
     }
+
+    @Action(SearchReservationOrders)
+    searchReservationOrders({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminReservation[]>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, SearchReservationOrders.name],
+            reservationOderQuery: payload.query
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == SearchReservationOrders.name), 1);
+        state = getState();
+
+        return this.adminService.getReservations(state.reservationOderQuery).pipe(tap((result) => {
+            if (result.success) {
+                if (state.reservationOrders != null && state.reservationOderQuery.pageNumber != 1) {
+                    result.payload = [...state.reservationOrders.payload, ...result.payload]
+                }
+
+                setState({
+                    ...state,
+                    reservationOrders: result,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(SearchReservationOrderById)
+    searchReservationOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminReservation>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, SearchReservationOrderById.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == SearchReservationOrderById.name), 1);
+
+        return this.adminService.getReservationById(payload.id).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    reservationOrder: result.payload,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
             
     @Action(AdminCreateProductType)
     createProductType({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {

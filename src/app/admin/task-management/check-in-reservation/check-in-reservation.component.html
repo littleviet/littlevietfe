@@ -43,7 +43,7 @@
             <!-- Booking date -->
             <nz-form-item class="booking-date-item">
               <nz-form-label>Booking date</nz-form-label>
-              <nz-range-picker 
+              <nz-range-picker formControlName="dateFromTo"
                 [nzShowTime]="{ nzFormat: 'HH:mm' }"
                 nzFormat="yyyy-MM-dd HH:mm"
               ></nz-range-picker>
@@ -80,59 +80,50 @@
   </div>
 
   <!-- Search result -->
-  <div class="result-layout">
+  <div *ngIf="adminReservations" class="result-layout">
     <div class="search-result-area">
-      <div style="text-align: center; font-weight: 500; margin-bottom: 16px;">LIST PICK UP ORDER</div>
-      <!-- <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
+      <div class="list-reservation-title">LIST CUSTOMER RESERVATION</div>
+      <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
-          <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}" *cdkVirtualFor="let order of adminOrders.payload; let index = index">
-            <nz-skeleton *ngIf="!order" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
-            <nz-list-item-meta *ngIf="order && order.account" (click)="itemClick(order.id)"
+          <nz-list-item class="list-item" [ngClass]="{'item-selected': reservation.id == selectedId}"
+            *cdkVirtualFor="let reservation of adminReservations.payload; let index = index"
+          >
+            <nz-skeleton *ngIf="!reservation" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
+            <nz-list-item-meta *ngIf="reservation" (click)="itemClick(reservation.id)"
               nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              [nzDescription]="(order.pickupTime | customDate) + ' - ' + order.totalPrice"
+              [nzDescription]="(reservation.bookingDate | customDate) + ' - ' + reservation.noOfPeople"
             >
               <nz-list-item-meta-title>
-                {{(order.account.firstname || '') + ' - ' + order.account.phoneNumber1 || ''}}
+                {{reservation.firstName + ' ' + reservation.lastName + ' - ' + reservation.phoneNumber}}
               </nz-list-item-meta-title>
             </nz-list-item-meta>
           </nz-list-item>
         </nz-list>
-      </cdk-virtual-scroll-viewport> -->
+      </cdk-virtual-scroll-viewport>
     </div>
   </div>
 
   <!-- detail layout -->
   <div class="detail-layout">
-    <div class="title">ORDER INFORMATION</div>
-    <!-- <div *ngIf="pickUpOder" class="order-detail">
+    <div class="title">RESERVATION INFORMATION</div>
+    <div *ngIf="reservationOrder" class="order-detail">
       <div class="cus-info">
-        <div>Customer: {{pickUpOder.account.firstname + ' ' + pickUpOder.account.lastname}}</div>
-        <div>Phone: {{pickUpOder.account.phoneNumber1}}</div>
-        <div>Pick-up time:  {{pickUpOder.pickupTime | customDate}}</div>
+        <div><span class="info-title">Customer: </span> {{reservationOrder.firstName + ' ' + reservationOrder.lastName}}</div>
+        <div><span class="info-title">Phone: </span> {{reservationOrder.phoneNumber}}</div>
+        <div><span class="info-title">Email: </span> {{reservationOrder.email}}</div>
       </div>
       <div class="order-item-list">
-        <div class="order-item-header">
-          <div class="item-name-header">Name</div>
-          <div class="item-quantity-header">Quantity</div>
-          <div class="price-header">Price</div>
-        </div>
-        <div class="order-item" *ngFor="let item of pickUpOder.orderDetails; last as isLast">
-          <div class="item-name">{{item.productName + ' ' + item.servingName}}</div>
-          <div class="item-quantity">{{item.quantity}}</div>
-          <div class="price">{{item.price * item.quantity}} &#8364;</div>
-        </div>
-      </div>
-      <div class="total">
-        <div class="total-title">Total</div>
-        <div class="price">{{pickUpOder.totalPrice}} &#8364;</div>
+        <div><span class="info-title">Booking time: </span> {{reservationOrder.bookingDate | customDate}}</div>
+        <div><span class="info-title">Number of people: </span> {{reservationOrder.noOfPeople}}</div>
+        <div><span class="info-title">Further request: </span> {{reservationOrder.furtherRequest}}</div>
       </div>
       <div class="completed-btn">
-        <button *ngIf="pickUpOder" (click)="updateStatus()" nz-button nzType="primary">Completed</button>
+        <button *ngIf="reservationOrder" (click)="updateStatus()" nz-button nzType="primary">Completed</button>
       </div>
-    </div> -->
+    </div>
     
-    <!-- <div *ngIf="isDiplayLoading()" class="loading">
+    <div *ngIf="isDiplayLoading()" class="loading">
       <nz-spin [nzSize]="'large'" nzSimple></nz-spin>
-    </div> -->
+    </div>
   </div>
 </div>

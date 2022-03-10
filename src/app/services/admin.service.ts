@@ -33,7 +33,12 @@ export class AdminService {
 
       if (key == 'statuses' && Array.isArray(value)) {
         value.forEach((e: any) => {
-          queryString += ('&' + key + '=' + e.toString());
+          if (first) {
+            first = false;
+            queryString += (key + '=' + e.toString());
+          } else {
+            queryString += ('&' + key + '=' + e.toString());
+          }
         });
         return;
       }

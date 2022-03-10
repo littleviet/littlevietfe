@@ -15,7 +15,22 @@
           </span>
         </ng-template>
         <ng-template #footerTpl>
-          <button nz-button nzType="primary">Add images</button>
+          <nz-upload
+            nzType="drag"
+            nzMultiple="true"
+            nzListType="picture"
+            [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [nzAccept]="'image/png,image/jpeg,image/gif,image/bmp'"
+            [(nzFileList)]="listImgs"
+            [nzBeforeUpload]="beforeUpload"
+          >
+            <p class="ant-upload-drag-icon">
+              <i nz-icon nzType="inbox"></i>
+            </p>
+            <p>Click or drag file to this area to upload</p>
+            <p>Support for a single or bulk upload.</p>
+          </nz-upload>
+          <button (click)="uploadImage()" class="upload-btn" [hidden]="!listImgs || listImgs.length <= 0" nz-button nzType="primary">Upload</button>
         </ng-template>
       </nz-empty>
     </div>

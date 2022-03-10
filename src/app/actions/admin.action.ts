@@ -108,6 +108,16 @@ export class SearchPickUpOrderById {
   constructor(public id: string) {}
 }
 
+export class SearchReservationOrders {
+  static readonly type = '[ADMIN] Search Reservation Orders';
+  constructor(public query: AdminReservationQueryRequest) {}
+}
+
+export class SearchReservationOrderById {
+  static readonly type = '[ADMIN] Search Reservation Order By Id';
+  constructor(public id: string) {}
+}
+
 export class AdminCreateProductType {
   static readonly type = '[ADMIN] Admin Create Product Type';
   constructor(public productType: AdminProductType) {};
