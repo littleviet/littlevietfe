@@ -8,6 +8,6 @@ export interface TakeAwayProduct {
     caName: string;
     price: number;
     productType: any;
-    images: ProductImage[];
+    imageUrl: string;
     servings: TakeAwayServing[];
 }

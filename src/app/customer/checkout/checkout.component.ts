@@ -98,7 +98,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.store.dispatch(new GetTakeAwayProducts());
     this.loggedInAccountObs.subscribe((result) => {
       this.loggedInAccountInfo = result;
     });

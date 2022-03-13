@@ -47,7 +47,7 @@
         <div *ngIf="displayProduct && displayProduct.length > 0" class="product-list-area" #productListArea>
           <div *ngFor="let product of displayProduct[selectedProductIndex].products; let i = index; last as isLast" class="product-item">
             <div class="product-item-img">
-              <img src="assets/imgs/take-away/product-example.jpg" alt="">
+              <img [src]="product.imageUrl || 'assets/imgs/take-away/product-example.jpg'" alt="">
             </div>
             <div class="product-item-name">
               <div class="product-item-esName">{{product.esName}}</div>
