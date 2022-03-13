@@ -46,15 +46,19 @@ export class ProductCreateComponent implements OnInit {
 
   submitForm() {
     const formData = new FormData();
-    this.listImgs.forEach((file: any) => {
-      formData.append('productImages', file);
-    });
+    if (this.listImgs != null && this.listImgs.length > 0) {
+      this.listImgs.forEach((file: any) => {
+        formData.append('productImages', file);
+      });
+      formData.append('mainImage', '0');
+    }
     formData.append('name', this.productFG.value['name']);
     formData.append('caName', this.productFG.value['caName']);
     formData.append('esName', this.productFG.value['esName']);
     formData.append('status', this.productFG.value['status']);
     formData.append('productTypeId', this.productFG.value['productTypeId']);
     formData.append('description', this.productFG.value['description']);
+    
     this.listImgs = [];
     this.store.dispatch(new AdminCreateProduct(formData));
     this.router.navigate(['/admin/products']);
