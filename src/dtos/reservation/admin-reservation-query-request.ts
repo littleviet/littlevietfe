@@ -2,7 +2,6 @@ import { ReservationStatus } from "src/commons/enums/app-enum";
 
 export class AdminReservationQueryRequest {
     fullName: string | null = null;
-    lastName: string | null = null;
     email: string | null = null;
     furtherRequest: string | null = null;
     noOfPeople: number | null = null;

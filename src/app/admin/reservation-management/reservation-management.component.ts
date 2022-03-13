@@ -200,9 +200,9 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
       query.bookingDateFrom = null;
     } else {
       let dateTo = new Date(this.bookingDate[1]);
-      let utcMilTo = formatDate(dateTo,this.dateFormat,'en-US');
+      let utcMilTo = formatDate(dateTo, this.dateFormat,'en-US');
       let dateFrom = new Date(this.bookingDate[0]);
-      let utcMilFrom = formatDate(dateFrom,this.dateFormat,'en-US');
+      let utcMilFrom = formatDate(dateFrom, this.dateFormat,'en-US');
       
       query.bookingDateTo = utcMilTo;
       query.bookingDateFrom = utcMilFrom;

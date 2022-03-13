@@ -1,4 +1,5 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
@@ -17,6 +18,7 @@ import { AdminReservationQueryRequest } from 'src/dtos/reservation/admin-reserva
   styleUrls: ['./check-in-reservation.component.scss']
 })
 export class CheckInReservationComponent implements OnInit {
+  dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
   @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getReservationOders) reservationOdersObs!: Observable<PaginationResponse<AdminReservation[]>>;
@@ -86,15 +88,26 @@ export class CheckInReservationComponent implements OnInit {
   }
 
   onFilter() {
-    // let query = _.clone(this.orderQuery);
-    // if (this.nameFC.value != null && this.nameFC.value != '') {
-    //   query.fullName = this.nameFC.value;
-    // }
-    // if (this.phoneFC.value != null && this.phoneFC.value != '') {
-    //   query.phoneNumber = this.phoneFC.value;
-    // }
-    // query.pageNumber = 1;
-    // this.store.dispatch(new SearchPickUpOrders(query));
+    let query = _.clone(this.reservationQuery);
+    query.fullName = this.filterFG.value['fullName'];
+    query.phoneNumber = this.filterFG.value['phoneNumber'];
+    query.email = this.filterFG.value['email'];
+    query.noOfPeople = this.filterFG.value['noOfPeople'];
+
+    if (this.filterFG.value['dateFromTo'] != null) {
+      let dateFrom = new Date(this.filterFG.value['dateFromTo'][0]);
+      let dateTo = new Date(this.filterFG.value['dateFromTo'][1]);
+      let utcMilTo = formatDate(dateTo, this.dateFormat, 'en-US');
+      let utcMilFrom = formatDate(dateFrom, this.dateFormat, 'en-US');
+      query.bookingDateFrom = utcMilFrom;
+      query.bookingDateTo = utcMilTo;
+    } else {
+      query.bookingDateFrom = null;
+      query.bookingDateTo = null;
+    }
+
+    query.pageNumber = 1;
+    this.store.dispatch(new SearchReservationOrders(query));
   }
 
   isDiplayLoading() {
