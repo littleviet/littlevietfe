@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Observable } from 'rxjs';
-import { AdminGetAllProductTypes } from 'src/app/actions/admin.action';
+import { AdminCreateProduct, AdminGetAllProductTypes } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 
@@ -18,7 +19,7 @@ export class ProductCreateComponent implements OnInit {
   allProductTypes: AdminProductType[] = [];
   listImgs: NzUploadFile[] = [];
 
-  constructor(private store: Store, private _fb: FormBuilder) { }
+  constructor(private store: Store, private _fb: FormBuilder, private router: Router) { }
 
   productFG: FormGroup = this._fb.group({
     'name': ['', [Validators.required]],
@@ -26,8 +27,7 @@ export class ProductCreateComponent implements OnInit {
     'esName': ['', [Validators.required]],
     'description': ['', [Validators.required]],
     'status': ['InStock', [Validators.required]],
-    'productTypeId': ['', [Validators.required]],
-    'servings': this._fb.array([])
+    'productTypeId': ['', [Validators.required]]
   });
 
   beforeUpload = (file: NzUploadFile): boolean => {
@@ -42,12 +42,22 @@ export class ProductCreateComponent implements OnInit {
     this.allProductTypesObs.subscribe((result) => {
       this.allProductTypes = result;
     });
-
-    this.addField();
   }
 
   submitForm() {
-    console.log(this.productFG.value);
+    const formData = new FormData();
+    this.listImgs.forEach((file: any) => {
+      formData.append('productImages', file);
+    });
+    formData.append('name', this.productFG.value['name']);
+    formData.append('caName', this.productFG.value['caName']);
+    formData.append('esName', this.productFG.value['esName']);
+    formData.append('status', this.productFG.value['status']);
+    formData.append('productTypeId', this.productFG.value['productTypeId']);
+    formData.append('description', this.productFG.value['description']);
+    this.listImgs = [];
+    this.store.dispatch(new AdminCreateProduct(formData));
+    this.router.navigate(['/admin/products']);
   }
 
   resetForm(e: MouseEvent) {
@@ -62,29 +72,5 @@ export class ProductCreateComponent implements OnInit {
     }
     this.productFG.controls['status'].setValue("InStock");
     this.listImgs = [];
-  }
-
-  removeField(index: number): void {
-    if (this.servings.length > 1) {
-      this.servings.removeAt(index);
-    }
-  }
-
-  addField(e?: MouseEvent): void {
-    if (e) {
-      e.preventDefault();
-    }
-
-    const control = this._fb.group({
-      'name': ['', Validators.required],
-      'numberOfPeople': [1, Validators.required],
-      'price': [0, Validators.required]
-    });
-
-    this.servings.push(control);;
-  }
-
-  get servings() {
-    return this.productFG.controls["servings"] as FormArray;
   }
 }

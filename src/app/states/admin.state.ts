@@ -16,7 +16,9 @@ import { AdminReservationQueryRequest } from "src/dtos/reservation/admin-reserva
 import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminCreateProductType,
     AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
     AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
-    SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage, AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById } from "../actions/admin.action";
+    SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
+    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing,
+    } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
 export class AdminStateModel {
@@ -785,7 +787,6 @@ export class AdminState {
             });
         }));
     }
-
             
     @Action(AdminCreateProductType)
     createProductType({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
@@ -797,6 +798,107 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProductType.name), 1);
         return this.adminService.createProductType(payload.productType).pipe(tap((result) => {
+            setState({
+                ...state,
+                actions: tempActions
+            });
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminCreateProduct)
+    createProduct({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminCreateProduct.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminCreateProduct.name), 1);
+        return this.adminService.createProduct(payload.data).pipe(tap((result) => {
+            setState({
+                ...state,
+                actions: tempActions
+            });
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminUpdateServing)
+    updateServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminUpdateServing.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminUpdateServing.name), 1);
+        return this.adminService.updateServing(payload.data).pipe(tap((result) => {
+            setState({
+                ...state,
+                actions: tempActions
+            });
+            if (result.success) {
+                this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminDeleteServing)
+    deleteServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminDeleteServing.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminDeleteServing.name), 1);
+        return this.adminService.deleteServing(payload.servingId).pipe(tap((result) => {
+            setState({
+                ...state,
+                actions: tempActions
+            });
+            if (result.success) {
+                this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminAddServing)
+    addServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminAddServing.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminAddServing.name), 1);
+        return this.adminService.createServing(payload.data).pipe(tap((result) => {
+            setState({
+                ...state,
+                actions: tempActions
+            });
+            if (result.success) {
+                this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
+            }
         }, error => {
             setState({
                 ...state,

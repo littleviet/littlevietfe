@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { AdminClearProduct, AdminDeleteProductImage, AdminGetProductById,
-  AdminUpdateMainProductImage, AdminUpdateProduct, AdminUploadProductImage }
+import { AdminAddServing, AdminClearProduct, AdminDeleteProductImage, AdminDeleteServing, AdminGetProductById,
+  AdminUpdateMainProductImage, AdminUpdateProduct, AdminUpdateServing, AdminUploadProductImage }
   from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { AdminProduct } from 'src/dtos/product/admin-product';
@@ -23,23 +23,21 @@ import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product
 export class ProductDetailComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getProduct) productObs!: Observable<AdminProduct>;
-  formatterDollar = (value: number): string => `${value} $`;
-  parserDollar = (value: string): string => value.replace('$ ', '');
+  formatterPeople = (value: number): string => `${value} Pip`;
+  parserPeople = (value: string): string => value.replace(' Pip', '');
+  formatterEuro = (value: number): string => `${value} €`;
+  parserEuro = (value: string): string => value.replace(' €', '');
   product!: AdminProduct;
-  nameFC = new FormControl("", [Validators.required]);
-  esNameFC = new FormControl("", [Validators.required]);
-  caNameFC = new FormControl("", [Validators.required]);
-  descriptionFC = new FormControl("", [Validators.required]);
-  statusFC = new FormControl("", [Validators.required]);
   galleryOptions!: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[] = [];
   listImgs: NzUploadFile[] = [];
 
-  productFG: FormGroup = new FormGroup({
-    name: this.nameFC,
-    caName: this.caNameFC,
-    esName: this.esNameFC,
-    description: this.descriptionFC,
+  productFG: FormGroup = this._fb.group({
+    'name': ['', [Validators.required]],
+    'caName': ['', [Validators.required]],
+    'esName': ['', [Validators.required]],
+    'description': ['', [Validators.required]],
+    'servings': this._fb.array([]),
   });
 
   beforeUpload = (file: NzUploadFile): boolean => {
@@ -47,17 +45,32 @@ export class ProductDetailComponent implements OnInit {
     return false;
   };
 
-  constructor(private route: ActivatedRoute, private store: Store) { }
+  constructor(private route: ActivatedRoute, private store: Store,
+    private _fb: FormBuilder) { }
 
   ngOnInit() {
     this.productObs.subscribe((result) => {
       this.product = result;
       if (this.product != null) {
         this.productFG.reset();
-        this.nameFC.setValue(this.product.name);
-        this.caNameFC.setValue(this.product.caName);
-        this.esNameFC.setValue(this.product.esName);
-        this.descriptionFC.setValue(this.product.description);
+        this.productFG.controls['name'].setValue(this.product.name);
+        this.productFG.controls['caName'].setValue(this.product.caName);
+        this.productFG.controls['esName'].setValue(this.product.esName);
+        this.productFG.controls['description'].setValue(this.product.description);
+
+        if (this.product.servings && this.product.servings.length >= 0) {
+          this.servings.clear();
+          this.product.servings.forEach((v, i) => {
+            const control = this._fb.group({
+              'name': [{value: v.name, disabled: true}, Validators.required],
+              'numberOfPeople': [{value: v.numberOfPeople, disabled: true}, Validators.required],
+              'price': [{value: v.price, disabled: true}, Validators.required],
+              'id': [v.id],
+            });
+            this.servings.push(control);
+          })
+        }
+
         this.galleryImages = this.getImages();
       }
     });
@@ -96,22 +109,21 @@ export class ProductDetailComponent implements OnInit {
 
   submitForm(): void {
     let updateRequest = new AdminUpdateProductRequest(this.product);
-    updateRequest.name = this.nameFC.value;
-    updateRequest.caName = this.caNameFC.value;
-    updateRequest.esName = this.esNameFC.value;
-    updateRequest.description = this.descriptionFC.value;
+    updateRequest.name = this.productFG.controls['name'].value;
+    updateRequest.caName = this.productFG.controls['caName'].value;
+    updateRequest.esName = this.productFG.controls['esName'].value;
+    updateRequest.description = this.productFG.controls['description'].value;
     this.store.dispatch(new AdminUpdateProduct(updateRequest));
   }
 
   resetForm(e: MouseEvent): void {
     e.preventDefault();
-    this.productFG.reset();
     
     if (this.product != null) {
-      this.nameFC.setValue(this.product.name);
-      this.caNameFC.setValue(this.product.caName);
-      this.esNameFC.setValue(this.product.esName);
-      this.descriptionFC.setValue(this.product.description);
+      this.productFG.controls['name'].setValue(this.product.name);
+      this.productFG.controls['caName'].setValue(this.product.caName);
+      this.productFG.controls['esName'].setValue(this.product.esName);
+      this.productFG.controls['description'].setValue(this.product.description);
     }
 
     for (const key in this.productFG.controls) {
@@ -143,6 +155,95 @@ export class ProductDetailComponent implements OnInit {
     });
     this.store.dispatch(new AdminUploadProductImage(formData));
     this.listImgs = [];
+  }
+
+  removeField(index: number): void {
+    if (this.servings.length > 1) {
+      this.servings.removeAt(index);
+    }
+  }
+
+  addField(e?: MouseEvent): void {
+    if (e) {
+      e.preventDefault();
+    }
+
+    const control = this._fb.group({
+      'name': ['', Validators.required],
+      'numberOfPeople': ['', Validators.required],
+      'price': ['', Validators.required]
+    });
+
+    this.servings.push(control);;
+  }
+
+  enable(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    if (group.controls['id'] != null) {
+      group.controls['name'].enable();
+      group.controls['numberOfPeople'].enable();
+      group.controls['price'].enable();
+    }
+  }
+
+  resetAServing(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+
+    this.product.servings.forEach((v, i) => {
+      if (i == index) {
+        group.controls['name'].setValue(v.name);
+        group.controls['numberOfPeople'].setValue(v.numberOfPeople);
+        group.controls['price'].setValue(v.price);
+      }
+    });
+
+    if (group.controls['id'] != null) {
+      group.controls['name'].disable();
+      group.controls['numberOfPeople'].disable();
+      group.controls['price'].disable();
+    }
+  }
+
+  isEditMode(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    return group.controls['name'].enabled;
+  }
+
+  isNewServing(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    return group.value['id'] == null;
+  }
+
+  updateServing(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    this.store.dispatch(new AdminUpdateServing({
+      id: group.value['id'],
+      name: group.value['name'],
+      numberOfPeople: group.value['numberOfPeople'],
+      price: group.value['price'],
+      description: group.value['name'],
+      productId: this.product.id
+    }));
+  }
+
+  deleteServing(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    this.store.dispatch(new AdminDeleteServing(group.value['id']));
+  }
+
+  addNewServing(index: number) {
+    let group = this.servings.controls[index] as FormGroup;
+    this.store.dispatch(new AdminAddServing({
+      name: group.value['name'],
+      numberOfPeople: group.value['numberOfPeople'],
+      price: group.value['price'],
+      description: group.value['name'],
+      productId: this.product.id
+    }));
+  }
+
+  get servings() {
+    return this.productFG.controls["servings"] as FormArray;
   }
 
   ngOnDestroy() {

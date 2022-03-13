@@ -1,7 +1,6 @@
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { AdminProductType } from "src/dtos/product-type/admin-product-type";
 import { AdminProductTypeQueryRequest } from "src/dtos/product-type/admin-product-type-query-request";
-import { AdminCreateProductRequest } from "src/dtos/product/admin-create-product-request";
 import { AdminProductQueryRequest } from "src/dtos/product/admin-product-query-request";
 import { AdminUpdateProductRequest } from "src/dtos/product/admin-update-product-request";
 import { AdminReservation } from "src/dtos/reservation/admin-reservation";
@@ -69,7 +68,7 @@ export class AdminDeleteProductImage {
 
 export class AdminCreateProduct {
   static readonly type = '[ADMIN] Admin Create Product';
-  constructor(public product: AdminCreateProductRequest) {};
+  constructor(public data: any) {};
 }
 
 // For dropdown value in create new product
@@ -121,4 +120,19 @@ export class SearchReservationOrderById {
 export class AdminCreateProductType {
   static readonly type = '[ADMIN] Admin Create Product Type';
   constructor(public productType: AdminProductType) {};
+}
+
+export class AdminUpdateServing {
+  static readonly type = '[ADMIN] Admin Update Serving';
+  constructor(public data: any) {};
+}
+
+export class AdminAddServing {
+  static readonly type = '[ADMIN] Admin Add Serving';
+  constructor(public data: any) {};
+}
+
+export class AdminDeleteServing {
+  static readonly type = '[ADMIN] Admin Delete Serving';
+  constructor(public servingId: string) {};
 }

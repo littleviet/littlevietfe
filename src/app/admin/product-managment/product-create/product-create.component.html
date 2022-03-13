@@ -101,38 +101,6 @@
         </nz-radio-group>
       </nz-form-item>
 
-      <!-- Servings -->
-      <ng-container formArrayName="servings">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="7">Servings</nz-form-label>
-          <nz-form-item nz-col [nzPush]="i == 0 ? 0 : 7" [nzSpan]="17" *ngFor="let serving of servings.controls; let i = index">
-            <div [formGroupName]="i" nz-row [nzGutter]="[16, 16]" class="serving-item">
-              <nz-form-control [nzSpan]="9" nzErrorTip="Required!">
-                <input formControlName="name" nz-input placeholder="Name"/>
-              </nz-form-control>
-              <nz-form-control [nzSpan]="8" nzErrorTip="Required!">
-                <input formControlName="numberOfPeople" nz-input placeholder="Number of people"/>
-              </nz-form-control>
-              <nz-form-control [nzSpan]="5" nzErrorTip="Required!">
-                <input formControlName="price" nz-input placeholder="Price"/>
-                
-              </nz-form-control>
-              <nz-form-control [nzSpan]="2">
-                <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i)"></i>
-              </nz-form-control>
-            </div>
-          </nz-form-item>
-          <nz-form-item nz-col [nzSpan]="24">
-            <nz-form-control [nzOffset]="7" [nzSpan]="17" >
-              <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
-                <i nz-icon nzType="plus"></i>
-                Add field
-              </button>
-            </nz-form-control>
-          </nz-form-item>
-        </nz-form-item>
-      </ng-container>
-  
       <!-- Submit button -->
       <nz-form-item>
         <nz-form-control style="display: flex;" [nzOffset]="7" [nzSpan]="7">

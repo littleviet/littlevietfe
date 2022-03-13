@@ -115,12 +115,25 @@
             background-color: rgba(135, 208, 104, 0.6);
             border-color: #87d068;
         }
+
+        .product-servings {
+            display: flex;
+
+            .serving-no-people {
+                margin-right: 8px;
+                margin-left: 8px;
+            }
+
+            .serving-price {
+                margin-right: 8px;
+            }
+        }
     }
 }
 
-::ng-deep .ant-tabs-content-holder {
-    
-    // max-height: 100vw;
+::ng-deep .ant-input-number-input {
+    text-align: end !important;
+    padding-right: 24px;
 }
 
 ::ng-deep .ant-tabs-content {

@@ -179,4 +179,20 @@ export class AdminService {
   createProductType(productType: AdminProductType): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(environment.apiUrl + 'product-type', productType);
   }
+
+  createProduct(data: FormData): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'product', data);
+  }
+
+  updateServing(data: any): Observable<BaseResponse<string>> {
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'serving/' + data.id, data);
+  }
+
+  createServing(data: any): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'serving', data);
+  }
+
+  deleteServing(id: string): Observable<BaseResponse<string>> {
+    return this.http.delete<BaseResponse<string>>(environment.apiUrl + 'serving/' + id);
+  }
 }

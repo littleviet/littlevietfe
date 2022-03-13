@@ -165,24 +165,112 @@
       <!-- Servings -->
       <nz-form-item>
         <nz-form-label [nzSpan]="7">Servings</nz-form-label>
-        <div nz-col [nzSpan]="17" *ngIf="product.servings && product.servings.length > 0">
-          <div nz-row [nzGutter]="[16, 16]" style="display: flex;" *ngFor="let serving of product.servings">
-            <nz-form-control [nzSpan]="15">
-              <input [disabled]="true" nz-input type="text" value="{{serving.name}}" />
+        <div formArrayName="servings" nz-row [nzGutter]="[0, 16]" [nzPush]="i == 0 ? 0 : 7" nz-col [nzSpan]="17"
+          *ngFor="let serving of servings.controls; let i = index">
+          <div class="product-servings" [formGroupName]="i">
+            <!-- Name -->
+            <nz-form-control [nzSpan]="10" [nzErrorTip]="nameErrorTpl">
+              <input nz-input type="text" formControlName="name" placeholder="Name"/>
+              <ng-template #nameErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Required!</ng-container>
+              </ng-template>
             </nz-form-control>
-            <nz-form-control [nzSpan]="5">
-              <input [disabled]="true" style="text-align: end;" nz-input type="text" value="{{serving.numberOfPeople}} Pip"/>
+
+            <!-- No of people -->
+            <nz-form-control [nzSpan]="5" class="serving-no-people" [nzErrorTip]="noPeopleErrorTpl">
+              <nz-input-number
+                formControlName="numberOfPeople"
+                nzPlaceHolder="No people"
+                [nzMin]="1"
+                [nzMax]="10"
+                [nzStep]="1"
+                [nzFormatter]="formatterPeople"
+                [nzParser]="parserPeople"
+              ></nz-input-number>
+              <ng-template #noPeopleErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Required!</ng-container>
+              </ng-template>
             </nz-form-control>
-            <nz-form-control [nzSpan]="5">
-              <input [disabled]="true" style="text-align: end;" nz-input type="text" value="{{serving.price}} &#8364;"/>
+
+            <!-- Price -->
+            <nz-form-control [nzSpan]="5" class="serving-price" [nzErrorTip]="priceErrorTpl">
+              <nz-input-number
+                formControlName="price"
+                nzPlaceHolder="Price"
+                [nzMin]="1"
+                [nzMax]="1000"
+                [nzStep]="1"
+                [nzFormatter]="formatterEuro"
+                [nzParser]="parserEuro"
+              ></nz-input-number>
+              <ng-template #priceErrorTpl let-control>
+                <ng-container *ngIf="control.hasError('required')">Required!</ng-container>
+              </ng-template>
             </nz-form-control>
-            <nz-form-control [nzSpan]="3">
-              <button nz-button nzType="primary">
-                <i nz-icon nzType="edit" nzTheme="outline"></i>
-              </button>
-            </nz-form-control>
+
+            <!-- Action -->
+            
+            <ng-container *ngIf="!isNewServing(i)">
+              <!-- Edit btn -->
+              <nz-form-control [nzSpan]="2" [hidden]="isEditMode(i)">
+                <button nz-button nzType="primary" (click)="enable(i)">
+                  <i nz-icon nzType="edit" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+
+               <!-- Save btn -->
+              <nz-form-control [nzSpan]="2" [hidden]="!isEditMode(i)">
+                <button nz-button nzShape="circle" [nzLoading]="(adminActionsObs | async)!.length > 0"
+                  (click)="updateServing(i)">
+                  <i style="color: green;" nz-icon nzType="check" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+
+              <!-- Cancel edit btn -->
+              <nz-form-control [nzSpan]="2" [hidden]="!isEditMode(i)">
+                <button nzDanger nz-button (click)="resetAServing(i)" nzShape="circle">
+                  <i nz-icon nzType="close" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+
+              <!-- Delete btn -->
+              <nz-form-control [nzSpan]="2" [hidden]="isEditMode(i)">
+                <button nz-button nzDanger nzType="primary" nz-popconfirm
+                  nzPopconfirmTitle="Are you sure delete this serving?" nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="deleteServing(i)" [nzLoading]="(adminActionsObs | async)!.length > 0">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+            </ng-container>
+
+            <ng-container *ngIf="isNewServing(i)">
+              <!-- Create new btn -->
+              <nz-form-control [nzSpan]="2" >
+                <button style="background-color: green;" nz-button nzType="primary"
+                  [nzLoading]="(adminActionsObs | async)!.length > 0" (click)="addNewServing(i)">
+                  <i nz-icon nzType="save" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+
+              <!-- Delete btn -->
+              <nz-form-control [nzSpan]="2" >
+                <button nz-button nzDanger nzType="primary" (click)="removeField(i)">
+                  <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
+              </nz-form-control>
+            </ng-container>
+            
           </div>
         </div>
+
+        <nz-form-item nz-col [nzSpan]="24">
+          <nz-form-control [nzOffset]="7" [nzSpan]="17" >
+            <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+              <i nz-icon nzType="plus"></i>
+              Add field
+            </button>
+          </nz-form-control>
+        </nz-form-item>
       </nz-form-item>
   
       <!-- Submit button -->
