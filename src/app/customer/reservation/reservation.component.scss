@@ -3,9 +3,22 @@
 .home {
     max-width: 100%;
     position: relative;
-    background-color: #f3eacd;
+
     @include breakpoint-lg-down() {
         max-width: 100%;
+    }
+
+    .footer-place-holder {
+        background: transparent;
+    }
+    
+    .footer-area {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        background: transparent;
     }
 }
 
@@ -58,7 +71,6 @@
         background-color: #f3eacd;
         border-right: 1px solid #c79e4f;
         overflow: hidden;
-        // padding: 6% 4% 8% 5%;
         
         @include breakpoint-lg-down() {
             width: 100%;

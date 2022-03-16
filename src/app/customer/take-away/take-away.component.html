@@ -77,9 +77,12 @@
       <app-cart-detail></app-cart-detail>
     </div>
   </div>
-
+  
   <!-- Footer -->
-  <app-footer [isDisplayLogo]="false"></app-footer>
+  <div #footerPlaceHolder [style.height]="footerHeight > 0 ? footerHeight + 'px' : 'auto'" class="footer-place-holder"></div>
+  <div #footer class="footer-area">
+    <app-footer [isDisplayLogo]="false"></app-footer>
+  </div>
 </div>
 
 <app-progress-spinner *ngIf="(takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>

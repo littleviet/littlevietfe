@@ -3,11 +3,23 @@
 .home {
     max-width: 100%;
     position: relative;
-    background-color: #f3eacd;
 	
     @include breakpoint-lg-down() {
         max-width: 100%;
     }
+
+	.footer-place-holder {
+		background: transparent;
+	}
+	
+	.footer-area {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+		background: transparent;
+	}
 }
 
 .header {
@@ -156,6 +168,7 @@
     }
 
 }
+
 
 ::ng-deep .mat-form-field-flex {
     border-radius: 0 !important;

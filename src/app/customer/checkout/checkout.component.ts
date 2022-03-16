@@ -18,6 +18,7 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 export class CheckoutComponent implements OnInit {
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   scrHeight: number = 0;
+  footerHeight: number = 0;
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
@@ -168,6 +169,11 @@ export class CheckoutComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getScreenSize();
+    this.cdRef.detectChanges();
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
   }
 

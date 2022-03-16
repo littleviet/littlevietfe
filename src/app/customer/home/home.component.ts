@@ -1,9 +1,8 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
-import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
 import { Observable } from 'rxjs';
 import { GetProductMenu } from 'src/app/actions/landing-page.action';
 import { LandingPageState } from 'src/app/states/landing-page.state';
@@ -18,7 +17,9 @@ export class HomeComponent implements OnInit {
   @Select(LandingPageState.getProductMenu) productMenu!: Observable<CustomerProductType[]>;
   @Select(LandingPageState.getActions) landingActionsObs!: Observable<string[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
+  @ViewChild('footer') footerEl!: ElementRef;
   menuOpen: boolean = false;
+  footerHeight: number = 0;
 
   productsMenu: CustomerProductType[] = [];
   carouselOptions: OwlOptions = {
@@ -80,14 +81,10 @@ export class HomeComponent implements OnInit {
 
   @HostListener("window:resize", ['$event']) updateDays() {
     this.setUpTittleColorBasedOnScreenSize();
-    // let anyService = this.carousel as any;
-    // let carouselService = anyService.carouselService as CarouselService; 
-    // carouselService.refresh();
-    // carouselService.update();
   }
 
   constructor(private store: Store, private titleService: Title, private route: ActivatedRoute,
-    router: Router) {
+    router: Router, private cdRef : ChangeDetectorRef) {
     this.titleService.setTitle("Little Viet - Homepage");
     router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
@@ -100,7 +97,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
+    this.cdRef.detectChanges();
   }
 
   ngOnInit() {

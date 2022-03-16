@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
@@ -16,7 +16,9 @@ import { CancellationPolicyDialogComponent } from './cancellation-policy-dialog/
 })
 export class ReservationComponent implements OnInit {
   @Select(TakeAwayState.isReservationSuccess) reservationSuccessObs!: Observable<boolean>;
+  @ViewChild('footer') footerEl!: ElementRef;
   menuOpen: boolean = false;
+  footerHeight: number = 0;
   numberOfPeople = Array(15).fill(0);
   reservationSuccess: boolean | null = null;
   hours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00",
@@ -35,7 +37,8 @@ export class ReservationComponent implements OnInit {
     hour: this.hourFC
   });
 
-  constructor(public dialog: MatDialog, private store: Store) { }
+  constructor(public dialog: MatDialog, private store: Store,
+    private cdRef : ChangeDetectorRef) { }
 
   ngOnInit() {
     this.reservationSuccessObs.subscribe((result) => {
@@ -60,6 +63,11 @@ export class ReservationComponent implements OnInit {
         this.store.dispatch(new ClearReservation());
       }
     });
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
+    this.cdRef.detectChanges();
   }
 
   viewPolicy() {

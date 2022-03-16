@@ -3,7 +3,6 @@
 .home {
     max-width: 100%;
     position: relative;
-    background-color: #f3eacd;
     
     @include breakpoint-lg-down() {
         max-width: 100%;
@@ -33,6 +32,7 @@
 
 .top-background {
     padding: 0px;    
+    background-color: #f3eacd;
 }
 
 .landing-page-1 {
@@ -66,11 +66,13 @@
     }
 }
 
+// Reservation
 .reservation-section {
     padding: 6% 0;
     height: auto;
     align-items: center;
     position: relative;
+    background-color: #f3eacd;
 
     .content {
         display: flex;
@@ -187,7 +189,9 @@
 .take-away-section {
     display: flex;
     height: auto;
+    background-color: #f3eacd;
     padding-bottom: 6%;
+
     @include breakpoint-lg-down() {
         padding-bottom: 0;
     }
@@ -350,6 +354,7 @@
     padding: 10% 0 7% 0;
     align-items: center;
     flex-direction: column;
+    background-color: #f3eacd;
 
     .product-list {
         margin-top: 5%;
@@ -395,4 +400,18 @@
             }
         }
     }
+}
+
+// Footer
+.footer-place-holder {
+	background: transparent;
+}
+
+.footer-area {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: -1;
+	background: transparent;
 }

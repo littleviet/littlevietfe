@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
   scrHeight: number = 0;
+  footerHeight: number = 0;
 
   loginFormGroup = new FormGroup({
     email: this.emailFormControl,
@@ -42,6 +43,11 @@ export class LoginComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getScreenSize();
+    this.cdRef.detectChanges();
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
   }
 

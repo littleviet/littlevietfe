@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Select, Store } from '@ngxs/store';
@@ -17,10 +17,12 @@ import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 })
 export class TakeAwayComponent implements OnInit {
   @ViewChild("productTypeNav") productTypeNav!: ElementRef;
+  @ViewChild('footer') footerEl!: ElementRef;
   @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
   @Select(TakeAwayState.getTimePickUp) timePickUpObs!: Observable<string>;
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
+  footerHeight: number = 0;
   cartDetail!: CartDetail;
   menuOpen: boolean = false;
   sticky: boolean = false;
@@ -31,7 +33,8 @@ export class TakeAwayComponent implements OnInit {
   timePickUp: string = '';
   products: TakeAwayProduct[] = [];
 
-  constructor(private store: Store, private titleService: Title, public dialog: MatDialog) {
+  constructor(private store: Store, private titleService: Title, public dialog: MatDialog,
+    private cdRef : ChangeDetectorRef) {
     this.titleService.setTitle("Little Viet - Take Away");
   }
 
@@ -79,6 +82,11 @@ export class TakeAwayComponent implements OnInit {
     } else {
       this.store.dispatch(new UpdateCart(quanity, servingId));
     }
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
+    this.cdRef.detectChanges();
   }
 
   openDialog(quantity: number, productId: string): void {

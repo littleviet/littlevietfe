@@ -18,6 +18,7 @@ export class CouponComponent implements OnInit {
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
   scrHeight: number = 0;
+  footerHeight: number = 0;
   @Select(CouponState.getCouponTypes) couponTypesObs!: Observable<CustomerCouponType[]>;
   @Select(CouponState.isCouponBuyingSuccess) couponBuyingSuccessObs!: Observable<boolean | null>;
   couponBuyingSuccess: boolean | null = null;
@@ -65,6 +66,11 @@ export class CouponComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getScreenSize();
+    this.cdRef.detectChanges();
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
   }
 

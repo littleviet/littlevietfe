@@ -3,10 +3,23 @@
 .home {
     max-width: 100%;
     position: relative;
-    background-color: #f3eacd;
+
     @include breakpoint-lg-down() {
         max-width: 100%;
     }
+
+	.footer-place-holder {
+		background: transparent;
+	}
+	
+	.footer-area {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: -1;
+		background: transparent;
+	}
 }
 
 .header {
@@ -48,8 +61,6 @@
     width: 100%;
     border-bottom: 1px solid #c79e4f;
     align-items: center;
-    // align-content: center;
-    // justify-items: center;
 
     @include breakpoint-lg-down() {
         padding: 5% 0 0 0;

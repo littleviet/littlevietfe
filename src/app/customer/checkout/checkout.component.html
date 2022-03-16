@@ -199,7 +199,8 @@
   </div>
 
   <!-- Footer -->
-  <div #footer>
+  <div #footerPlaceHolder [style.height]="footerHeight > 0 ? footerHeight + 'px' : 'auto'" class="footer-place-holder"></div>
+  <div #footer class="footer-area">
     <app-footer [isDisplayLogo]="false"></app-footer>
   </div>
 </div>

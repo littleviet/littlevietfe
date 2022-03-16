@@ -13,6 +13,7 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 })
 export class SignUpComponent implements OnInit {
   scrHeight: number = 0;
+  footerHeight: number = 0;
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
@@ -63,6 +64,10 @@ export class SignUpComponent implements OnInit {
 
   ngAfterViewInit() {
     this.getScreenSize();
+  }
+
+  ngAfterViewChecked() {
+    this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
   }
 
@@ -77,5 +82,4 @@ export class SignUpComponent implements OnInit {
       }
     }
   }
-
 }
