@@ -4,9 +4,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { SearchPickUpOrderById, SearchPickUpOrders } from 'src/app/actions/admin.action';
+import { AdminCompletePickUpOrder, SearchPickUpOrderById, SearchPickUpOrders } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
-import { OrderStatus } from 'src/commons/enums/app-enum';
+import { OrderStatus, OrderType } from 'src/commons/enums/app-enum';
 import { AdminOrder } from 'src/dtos/order/admin-order';
 import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
 import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
@@ -21,11 +21,11 @@ import { PaginationResponse } from 'src/dtos/pagination-response';
 export class PickUpOrderComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport) viewPort!: CdkVirtualScrollViewport;
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
-  @Select(AdminState.getPickUpOders) pickUpOdersObs!: Observable<PaginationResponse<AdminOrder[]>>;
+  @Select(AdminState.getPickUpOders) pickUpOrdersObs!: Observable<PaginationResponse<AdminOrder[]>>;
   @Select(AdminState.getPickUpOderQuery) pickUpOderQueryObs!: Observable<AdminOrderQueryRequest>;
-  @Select(AdminState.getPickUpOrder) pickUpOderObs!: Observable<AdminOrderInfo>;
+  @Select(AdminState.getPickUpOrder) pickUpOrderObs!: Observable<AdminOrderInfo>;
   orderQuery!: AdminOrderQueryRequest;
-  pickUpOder!: AdminOrderInfo;
+  pickUpOrder!: AdminOrderInfo;
   adminOrders!: PaginationResponse<AdminOrder[]>;
   adminActions!: string[];
   selectedId!: string;
@@ -44,8 +44,9 @@ export class PickUpOrderComponent implements OnInit {
     query.pageNumber = 1;
     query.orderBy = "pickupTime desc";
     query.statuses = [OrderStatus.Paid];
+    query.orderTypes = [OrderType.TakeAway];
     this.store.dispatch(new SearchPickUpOrders(query));
-    this.pickUpOdersObs.subscribe((result) => {
+    this.pickUpOrdersObs.subscribe((result) => {
       this.adminOrders = result;
       if (this.selectedId == null && this.adminOrders != null && this.adminOrders.payload.length > 0) {
         this.selectedId = this.adminOrders.payload[0].id;
@@ -57,8 +58,8 @@ export class PickUpOrderComponent implements OnInit {
       this.orderQuery = result;
     });
 
-    this.pickUpOderObs.subscribe((result) => {
-      this.pickUpOder = result;
+    this.pickUpOrderObs.subscribe((result) => {
+      this.pickUpOrder = result;
     });
 
     this.adminActionsObs.subscribe((result) => {
@@ -94,15 +95,14 @@ export class PickUpOrderComponent implements OnInit {
     this.store.dispatch(new SearchPickUpOrderById(id));
   }
 
+  completePickUpOrder() {
+    this.store.dispatch(new AdminCompletePickUpOrder(this.selectedId));
+  }
+
   isDiplayLoading() {
     if (this.adminActions && this.adminActions.findIndex(ac => ac == SearchPickUpOrderById.name) >= 0) {
       return true;
     }
     return false;
   }
-
-  updateStatus() {
-
-  }
-
 }

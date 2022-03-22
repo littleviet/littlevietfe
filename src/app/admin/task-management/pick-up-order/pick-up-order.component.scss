@@ -180,6 +180,13 @@
                 text-align: end;
                 margin-top: 24px;
                 margin-bottom: 12px;
+
+                .succcess-message {
+                    text-align: center;
+                    background-color: #f6ffed;
+                    padding: 10px 0;
+                    border: 1px solid #b7eb8f
+                }
             }
         }
 
@@ -192,8 +199,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            nz-spin {
-            }
         }
     }
 }

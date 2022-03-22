@@ -1,4 +1,4 @@
-import { OrderType, PaymentType } from "src/commons/enums/app-enum";
+import { OrderStatus, OrderType, PaymentType } from "src/commons/enums/app-enum";
 import { AdminAccount } from "../account/admin-account";
 import { AdminOrderDetail } from "../order-detail/admin-order-detail";
 
@@ -13,4 +13,5 @@ export interface AdminOrderInfo {
     updatedDate: Date;
     account: AdminAccount;
     orderDetails: AdminOrderDetail[];
+    orderStatus: string
 }

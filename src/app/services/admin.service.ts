@@ -71,7 +71,12 @@ export class AdminService {
 
       if (key == 'orderTypes' && Array.isArray(value)) {
         value.forEach((e: any) => {
-          queryString += ('&' + key + '=' + e.toString());
+          if (first) {
+            first = false;
+            queryString += (key + '=' + e.toString());
+          } else {
+            queryString += ('&' + key + '=' + e.toString());
+          }
         });
         return;
       }
@@ -194,5 +199,13 @@ export class AdminService {
 
   deleteServing(id: string): Observable<BaseResponse<string>> {
     return this.http.delete<BaseResponse<string>>(environment.apiUrl + 'serving/' + id);
+  }
+
+  completePickUpOrder(id: string): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'task/pickup-takeaway?orderId=' + id, {});
+  }
+
+  checkinReservation(id: string): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'task/check-in-reservation?reservationId=' + id, {});
   }
 }

@@ -74,11 +74,11 @@
   <!-- right layout -->
   <div class="right-layout">
     <div class="title">ORDER INFORMATION</div>
-    <div *ngIf="pickUpOder" class="order-detail">
+    <div *ngIf="pickUpOrder" class="order-detail">
       <div class="cus-info">
-        <div>Customer: {{pickUpOder.account.firstname + ' ' + pickUpOder.account.lastname}}</div>
-        <div>Phone: {{pickUpOder.account.phoneNumber1}}</div>
-        <div>Pick-up time:  {{pickUpOder.pickupTime | customDate}}</div>
+        <div>Customer: {{pickUpOrder.account.firstname + ' ' + pickUpOrder.account.lastname}}</div>
+        <div>Phone: {{pickUpOrder.account.phoneNumber1}}</div>
+        <div>Pick-up time:  {{pickUpOrder.pickupTime | customDate}}</div>
       </div>
       <div class="order-item-list">
         <div class="order-item-header">
@@ -86,7 +86,7 @@
           <div class="item-quantity-header">Quantity</div>
           <div class="price-header">Price</div>
         </div>
-        <div class="order-item" *ngFor="let item of pickUpOder.orderDetails; last as isLast">
+        <div class="order-item" *ngFor="let item of pickUpOrder.orderDetails; last as isLast">
           <div class="item-name">{{item.productName + ' ' + item.servingName}}</div>
           <div class="item-quantity">{{item.quantity}}</div>
           <div class="price">{{item.price * item.quantity}} &#8364;</div>
@@ -94,10 +94,16 @@
       </div>
       <div class="total">
         <div class="total-title">Total</div>
-        <div class="price">{{pickUpOder.totalPrice}} &#8364;</div>
+        <div class="price">{{pickUpOrder.totalPrice}} &#8364;</div>
       </div>
       <div class="completed-btn">
-        <button *ngIf="pickUpOder" (click)="updateStatus()" nz-button nzType="primary">Completed</button>
+        <button *ngIf="pickUpOrder && pickUpOrder.orderStatus != 'PickedUp'"
+          (click)="completePickUpOrder()" nz-button nzType="primary"
+          [nzLoading]="(adminActionsObs | async)!.length > 0"
+        >
+          Completed
+        </button>
+        <div class="succcess-message" *ngIf="pickUpOrder && pickUpOrder.orderStatus == 'PickedUp'">This order is picked up!</div>
       </div>
     </div>
     

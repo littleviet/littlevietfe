@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { SearchReservationOrderById, SearchReservationOrders } from 'src/app/actions/admin.action';
+import { AdminCheckInReservation, SearchReservationOrderById, SearchReservationOrders } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { ReservationStatus } from 'src/commons/enums/app-enum';
 import { PaginationResponse } from 'src/dtos/pagination-response';
@@ -83,10 +83,6 @@ export class CheckInReservationComponent implements OnInit {
     this.store.dispatch(new SearchReservationOrderById(id));
   }
 
-  updateStatus() {
-
-  }
-
   onFilter() {
     let query = _.clone(this.reservationQuery);
     query.fullName = this.filterFG.value['fullName'];
@@ -117,4 +113,7 @@ export class CheckInReservationComponent implements OnInit {
     return false;
   }
 
+  checkInReservation() {
+    this.store.dispatch(new AdminCheckInReservation(this.selectedId));
+  }
 }

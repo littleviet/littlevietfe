@@ -136,3 +136,13 @@ export class AdminDeleteServing {
   static readonly type = '[ADMIN] Admin Delete Serving';
   constructor(public servingId: string) {};
 }
+
+export class AdminCompletePickUpOrder {
+  static readonly type = '[ADMIN] Admin Complete Pick Up Order';
+  constructor(public orderId: string) {};
+}
+
+export class AdminCheckInReservation {
+  static readonly type = '[ADMIN] Admin Check In Reservation';
+  constructor(public reservationId: string) {};
+}

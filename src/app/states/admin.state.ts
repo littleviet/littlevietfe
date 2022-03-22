@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import * as _ from "lodash";
 import { Observable, tap } from "rxjs";
+import { OrderStatus } from "src/commons/enums/app-enum";
 import { BaseResponse } from "src/dtos/base-response";
 import { AdminOrder } from "src/dtos/order/admin-order";
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
@@ -17,7 +18,7 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
     AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
     SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
-    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing,
+    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation,
     } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
@@ -840,7 +841,7 @@ export class AdminState {
             actions: [...state.actions, AdminUpdateServing.name],
         });
         let tempActions = [...state.actions];
-        tempActions.splice( tempActions.findIndex(a => a == AdminUpdateServing.name), 1);
+        tempActions.splice(tempActions.findIndex(a => a == AdminUpdateServing.name), 1);
         return this.adminService.updateServing(payload.data).pipe(tap((result) => {
             setState({
                 ...state,
@@ -865,7 +866,7 @@ export class AdminState {
             actions: [...state.actions, AdminDeleteServing.name],
         });
         let tempActions = [...state.actions];
-        tempActions.splice( tempActions.findIndex(a => a == AdminDeleteServing.name), 1);
+        tempActions.splice(tempActions.findIndex(a => a == AdminDeleteServing.name), 1);
         return this.adminService.deleteServing(payload.servingId).pipe(tap((result) => {
             setState({
                 ...state,
@@ -890,7 +891,7 @@ export class AdminState {
             actions: [...state.actions, AdminAddServing.name],
         });
         let tempActions = [...state.actions];
-        tempActions.splice( tempActions.findIndex(a => a == AdminAddServing.name), 1);
+        tempActions.splice(tempActions.findIndex(a => a == AdminAddServing.name), 1);
         return this.adminService.createServing(payload.data).pipe(tap((result) => {
             setState({
                 ...state,
@@ -898,6 +899,74 @@ export class AdminState {
             });
             if (result.success) {
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminCompletePickUpOrder)
+    completePickUpOrder({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminCompletePickUpOrder.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice(tempActions.findIndex(a => a == AdminCompletePickUpOrder.name), 1);
+        return this.adminService.completePickUpOrder(payload.orderId).pipe(tap((result) => {
+            if (result.success) {
+                let pickUpOrder = _.cloneDeep(state.pickUpOrder);
+                if (pickUpOrder != null) {
+                    pickUpOrder.orderStatus = "PickedUp";
+                }
+                setState({
+                    ...state,
+                    actions: tempActions,
+                    pickUpOrder: pickUpOrder
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminCheckInReservation)
+    adminCheckUpReservation({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminCheckInReservation.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice(tempActions.findIndex(a => a == AdminCheckInReservation.name), 1);
+        return this.adminService.checkinReservation(payload.reservationId).pipe(tap((result) => {
+            if (result.success) {
+                let reservationOrder = _.cloneDeep(state.reservationOrder);
+                if (reservationOrder != null) {
+                    reservationOrder.status = "Completed";
+                }
+                setState({
+                    ...state,
+                    actions: tempActions,
+                    reservationOrder: reservationOrder
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
             }
         }, error => {
             setState({

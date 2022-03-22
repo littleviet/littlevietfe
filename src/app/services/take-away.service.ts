@@ -23,7 +23,7 @@ export class TakeAwayService {
     checkOutCart(pickupTime: any, cartDetail: CartDetail) : Observable<BaseResponse<CheckoutPaymentResponse>> {
         return this.http.post<BaseResponse<CheckoutPaymentResponse>>(environment.apiUrl + 'order',
             {
-                orderType: 1,
+                orderType: 2,
                 paymentType: 1,
                 pickupTime: new Date(pickupTime.time),
                 totalPrice: cartDetail.totalPrice,
