@@ -1,3 +1,4 @@
+import { CouponQueryRequest } from "src/dtos/coupon/coupon-query-request";
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { AdminProductType } from "src/dtos/product-type/admin-product-type";
 import { AdminProductTypeQueryRequest } from "src/dtos/product-type/admin-product-type-query-request";
@@ -100,6 +101,11 @@ export class AdminUpdateProductType {
 export class SearchPickUpOrders {
   static readonly type = '[ADMIN] Search Pick Up Orders';
   constructor(public query: AdminOrderQueryRequest) {}
+}
+
+export class SearchUseCoupons {
+  static readonly type = '[ADMIN] Search Use Coupons';
+  constructor(public query: CouponQueryRequest) {}
 }
 
 export class SearchPickUpOrderById {

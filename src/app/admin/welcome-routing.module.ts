@@ -9,10 +9,10 @@ import { ProductTypeManagementComponent } from './product-type-managment/product
 import { ReservationDetailComponent } from './reservation-management/reservation-detail/reservation-detail.component';
 import { ReservationManagementComponent } from './reservation-management/reservation-management.component';
 import { TakeAwayManagementComponent } from './take-away-management/take-away-management.component';
-import { CheckInReservationComponent } from './task-management/check-in-reservation/check-in-reservation.component';
-import { PickUpOrderComponent } from './task-management/pick-up-order/pick-up-order.component';
-import { TaskManagementComponent } from './task-management/task-management.component';
+import { CheckInReservationComponent } from './check-in-reservation/check-in-reservation.component';
+import { PickUpOrderComponent } from './pick-up-order/pick-up-order.component';
 import { WelcomeComponent } from './welcome.component';
+import { UseCouponComponent } from './use-coupon/use-coupon.component';
 
 const routes: Routes = [
   {
@@ -102,27 +102,25 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tasks',
-        component: TaskManagementComponent,
+        path: 'pick-up-task',
+        component: PickUpOrderComponent,
         data: {
-          breadcrumb: 'Tasks'
+          breadcrumb: 'Pick up task'
+        }
+      },
+      {
+        path: 'check-in-reservation-task',
+        component: CheckInReservationComponent,
+        data: {
+          breadcrumb: 'Check in reservation'
         },
-        children: [
-          {
-            path: 'pick-up-task',
-            component: PickUpOrderComponent,
-            data: {
-              breadcrumb: 'Pick up'
-            }
-          },
-          {
-            path: 'check-in-reservation-task',
-            component: CheckInReservationComponent,
-            data: {
-              breadcrumb: 'Check in reservation'
-            }
-          }
-        ]
+      },
+      {
+        path: 'use-coupon-task',
+        component: UseCouponComponent,
+        data: {
+          breadcrumb: 'Use coupon'
+        },
       },
     ]
   },

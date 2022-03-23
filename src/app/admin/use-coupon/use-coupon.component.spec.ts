@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { TaskManagementComponent } from './task-management.component';
+import { UseCouponComponent } from './use-coupon.component';
 
-describe('TaskManagementComponent', () => {
-  let component: TaskManagementComponent;
-  let fixture: ComponentFixture<TaskManagementComponent>;
+describe('UseCouponComponent', () => {
+  let component: UseCouponComponent;
+  let fixture: ComponentFixture<UseCouponComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TaskManagementComponent ]
+      declarations: [ UseCouponComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TaskManagementComponent);
+    fixture = TestBed.createComponent(UseCouponComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

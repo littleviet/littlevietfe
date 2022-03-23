@@ -2,8 +2,9 @@ import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import * as _ from "lodash";
 import { Observable, tap } from "rxjs";
-import { OrderStatus } from "src/commons/enums/app-enum";
 import { BaseResponse } from "src/dtos/base-response";
+import { AdminUseCouponInfo } from "src/dtos/coupon/admin-use-coupon-info";
+import { CouponQueryRequest } from "src/dtos/coupon/coupon-query-request";
 import { AdminOrder } from "src/dtos/order/admin-order";
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
 import { AdminOrderInfo } from "src/dtos/order/admin-order.info";
@@ -18,7 +19,7 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
     AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
     SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
-    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation,
+    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons,
     } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
@@ -41,6 +42,8 @@ export class AdminStateModel {
     reservationOrders!:  PaginationResponse<AdminReservation[]> | null;
     reservationOrder!: AdminReservation | null;
     reservationOderQuery!: AdminReservationQueryRequest;
+    useCouponQuery!: CouponQueryRequest;
+    useCoupons!: PaginationResponse<AdminUseCouponInfo[]> | null;
     actions!: string[];
 }
 
@@ -65,6 +68,8 @@ export class AdminStateModel {
         reservationOrders: null,
         reservationOrder: null,
         reservationOderQuery: new AdminReservationQueryRequest(),
+        useCouponQuery: new CouponQueryRequest(),
+        useCoupons: null,
         actions: []
     }
 })
@@ -168,6 +173,16 @@ export class AdminState {
     @Selector()
     static getReservationOderQuery(state: AdminStateModel) {
         return state.reservationOderQuery;
+    }
+
+    @Selector()
+    static getCouponQuery(state: AdminStateModel) {
+        return state.useCouponQuery;
+    }
+
+    @Selector()
+    static getUseCoupons(state: AdminStateModel) {
+        return state.useCoupons;
     }
 
     @Action(AdminGetReservations)
@@ -674,6 +689,43 @@ export class AdminState {
                 setState({
                     ...state,
                     pickUpOrders: result,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(SearchUseCoupons)
+    searchUseCoupons({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminUseCouponInfo[]>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, SearchUseCoupons.name],
+            useCouponQuery: payload.query
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == SearchUseCoupons.name), 1);
+        state = getState();
+
+        return this.adminService.getUseCoupons(state.useCouponQuery).pipe(tap((result) => {
+            if (result.success) {
+                if (state.useCoupons != null && state.pickUpOderQuery.pageNumber != 1) {
+                    result.payload = [...state.useCoupons.payload, ...result.payload]
+                }
+
+                setState({
+                    ...state,
+                    useCoupons: result,
                     actions: tempActions
                 });
             } else {

@@ -27,8 +27,7 @@ import { ProductManagementComponent } from './product-managment/product-manageme
 import { ProductDetailComponent } from './product-managment/product-detail/product-detail.component';
 import { ProductTypeManagementComponent } from './product-type-managment/product-type-management.component';
 import { ProductTypeDetailComponent } from './product-type-managment/product-type-detail/product-type-detail.component';
-import { TaskManagementComponent } from './task-management/task-management.component';
-import { PickUpOrderComponent } from './task-management/pick-up-order/pick-up-order.component';
+import { PickUpOrderComponent } from './pick-up-order/pick-up-order.component';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzListModule } from 'ng-zorro-antd/list';
@@ -36,7 +35,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ProductTypeCreateComponent } from './product-type-managment/product-type-create/product-type-create.component';
-import { CheckInReservationComponent } from './task-management/check-in-reservation/check-in-reservation.component';
+import { CheckInReservationComponent } from './check-in-reservation/check-in-reservation.component';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
@@ -47,6 +46,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { ProductCreateComponent } from './product-managment/product-create/product-create.component';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { UseCouponComponent } from './use-coupon/use-coupon.component';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   override overrides = {
@@ -100,12 +100,12 @@ export class CustomHammerConfig extends HammerGestureConfig {
     ProductDetailComponent,
     ProductTypeManagementComponent,
     ProductTypeDetailComponent,
-    TaskManagementComponent,
     PickUpOrderComponent,
     DateFormatPipe,
     ProductTypeCreateComponent,
     CheckInReservationComponent,
-    ProductCreateComponent
+    ProductCreateComponent,
+    UseCouponComponent
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig}

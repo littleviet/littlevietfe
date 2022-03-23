@@ -14,6 +14,8 @@ import { AdminProductTypeQueryRequest } from 'src/dtos/product-type/admin-produc
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
 import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
+import { CouponQueryRequest } from 'src/dtos/coupon/coupon-query-request';
+import { AdminUseCouponInfo } from 'src/dtos/coupon/admin-use-coupon-info';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +91,24 @@ export class AdminService {
       }
     })
     return this.http.get<PaginationResponse<AdminOrder[]>>(environment.apiUrl + 'order?' + queryString);
+  }
+
+  getUseCoupons(query: CouponQueryRequest): Observable<PaginationResponse<AdminUseCouponInfo[]>> {
+    let queryString = "";
+    let first = true;
+    Object.entries(query).forEach(([key, value]) => {
+      if (value == null) {
+        return;
+      }
+
+      if (first) {
+        queryString += (key + '=' + value)
+        first = false;
+      } else {
+        queryString += ('&' + key + '=' + value)
+      }
+    })
+    return this.http.get<PaginationResponse<AdminUseCouponInfo[]>>(environment.apiUrl + 'coupon/search?' + queryString);
   }
   
   getTakeAwayOrderById(id: string): Observable<BaseResponse<AdminOrderInfo>> {

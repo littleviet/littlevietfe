@@ -1,0 +1,94 @@
+<div class="use-coupon-layout">
+  <!-- left layout -->
+  <div class="left-layout">
+    <nz-collapse [nzBordered]="false">
+      <nz-collapse-panel
+        #header
+        nzHeader="Filter"
+        [nzActive]="true"
+        [ngStyle]="{
+          'background': '#f7f7f7',
+          'border-radius': '4px',
+          'margin-bottom': '24px',
+          'border': '0px'
+        }"
+        [nzExpandedIcon]="'double-right'"
+      >
+        <div>
+          <form class="filter-form" [formGroup]="filterFG" (submit)="onFilter()">
+            <!-- Coupon code -->
+            <nz-form-item>
+              <nz-form-label [nzXl]="{span: 6}" [nzXs]="{span: 7}">Coupon code</nz-form-label>
+              <nz-form-control [nzXl]="{span: 14}" [nzXs]="{span: 17}" nzHasFeedback>
+                <input nz-input formControlName="keyword" placeholder="Coupon code" type="text" />
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-control class="search-btn-area" [nzXl]="{span: 20}" [nzXs]="{span: 24}">
+                <button
+                  nz-button [nzLoading]="(adminActionsObs | async)!.length > 0"
+                  nzType="primary" [disabled]="!filterFG.valid || !filterFG.dirty"
+                >
+                  Search
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </div>
+        <ng-template #expandedIcon let-active>
+          {{ active }}
+          <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="header.nzActive ? 90 : -90"></i>
+        </ng-template>
+      </nz-collapse-panel>
+    </nz-collapse>
+
+    <!-- Search result -->
+    <div *ngIf="adminCoupons" class="search-result-area">
+      <div class="search-result-title">LIST COUPON</div>
+      <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
+        <nz-list>
+          <nz-list-item class="list-item" [ngClass]="{'item-selected': coupon.id == couponInfo.id}" *cdkVirtualFor="let coupon of adminCoupons.payload; let index = index">
+            <nz-skeleton *ngIf="!coupon" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
+            <nz-list-item-meta *ngIf="coupon && coupon.id" (click)="itemClick(coupon.id)"
+              nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              [nzDescription]="coupon.email + ' - ' + coupon.phoneNumber"
+            >
+              <nz-list-item-meta-title>
+                {{(coupon.couponCode || '') + ' - Remaining: ' + (coupon.currentQuantity || '0') + '/' + (coupon.initialQuantity || '0')}}
+              </nz-list-item-meta-title>
+            </nz-list-item-meta>
+          </nz-list-item>
+        </nz-list>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>
+
+  <!-- right layout -->
+  <div class="right-layout">
+    <div class="title">COUPON INFORMATION</div>
+    <div *ngIf="couponInfo" class="order-detail">
+      <div class="order-item-list">
+        <div>
+          <span class="info-title">Coupon code:</span>
+          <span style="font-size: 20px; text-align: center;">{{couponInfo.couponCode}}</span>
+        </div>
+        <div><span class="info-title">Inital quantity:</span> {{couponInfo.initialQuantity}}</div>
+        <div><span class="info-title">Current quantity:</span> {{couponInfo.currentQuantity}}</div>
+      </div>
+      <div class="cus-info">
+        <div><span class="info-title">Customer:</span> {{couponInfo.email}}</div>
+        <div><span class="info-title">Phone:</span> {{couponInfo.phoneNumber}}</div>
+      </div>
+      <div class="completed-btn">
+        <button *ngIf="couponInfo.currentQuantity > 0"
+          (click)="completePickUpOrder()" nz-button nzType="primary"
+          [nzLoading]="(adminActionsObs | async)!.length > 0"
+        >
+          Completed
+        </button>
+        <!-- <div class="succcess-message" *ngIf="pickUpOrder && pickUpOrder.orderStatus == 'PickedUp'">This order is picked up!</div> -->
+      </div>
+    </div>
+  </div>
+</div>
