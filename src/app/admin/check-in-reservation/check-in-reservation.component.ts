@@ -53,7 +53,7 @@ export class CheckInReservationComponent implements OnInit {
         this.store.dispatch(new SearchReservationOrderById(this.selectedId));
       }
 
-      if (this.adminReservations != null && this.adminReservations.payload.length > 0) {
+      if (this.adminReservations == null || this.adminReservations.payload == null || this.adminReservations.payload.length <= 0) {
         this.reservationOrder = null;
       }
     });

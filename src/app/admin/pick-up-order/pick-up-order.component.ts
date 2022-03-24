@@ -25,7 +25,7 @@ export class PickUpOrderComponent implements OnInit {
   @Select(AdminState.getPickUpOderQuery) pickUpOderQueryObs!: Observable<AdminOrderQueryRequest>;
   @Select(AdminState.getPickUpOrder) pickUpOrderObs!: Observable<AdminOrderInfo>;
   orderQuery!: AdminOrderQueryRequest;
-  pickUpOrder!: AdminOrderInfo;
+  pickUpOrder!: AdminOrderInfo | null;
   adminOrders!: PaginationResponse<AdminOrder[]>;
   adminActions!: string[];
   selectedId!: string;
@@ -51,6 +51,10 @@ export class PickUpOrderComponent implements OnInit {
       if (this.selectedId == null && this.adminOrders != null && this.adminOrders.payload.length > 0) {
         this.selectedId = this.adminOrders.payload[0].id;
         this.store.dispatch(new SearchPickUpOrderById(this.selectedId));
+      }
+
+      if (this.adminOrders == null || this.adminOrders.payload.length <= 0) {
+        this.pickUpOrder = null;
       }
     });
 

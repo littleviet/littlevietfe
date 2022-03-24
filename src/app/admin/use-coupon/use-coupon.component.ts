@@ -49,6 +49,8 @@ export class UseCouponComponent implements OnInit {
         } else if (this.couponInfo == null) {
           this.couponInfo = this.adminCoupons.payload[0];
         }
+      } else {
+        this.couponInfo = null;
       }
 
       if (this.couponInfo != null) {
