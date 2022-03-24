@@ -19,7 +19,8 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     AdminGetOrders, AdminGetProductById, AdminGetProducts, AdminGetProductTypeById, AdminGetProductTypes,
     AdminGetReservationById, AdminGetReservations, AdminUpdateProduct, AdminUpdateProductType, AdminUpdateReservation,
     SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
-    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing, AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons,
+    AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing,
+    AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons, AdminUseCoupon,
     } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 
@@ -1013,6 +1014,44 @@ export class AdminState {
                     ...state,
                     actions: tempActions,
                     reservationOrder: reservationOrder
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminUseCoupon)
+    adminUseCoupon({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminUseCoupon.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice(tempActions.findIndex(a => a == AdminUseCoupon.name), 1);
+        return this.adminService.useCoupon(payload.useCouponInfo).pipe(tap((result) => {
+            if (result.success) {
+                let useCoupons = _.cloneDeep(state.useCoupons);
+                if (useCoupons != null) {
+                    useCoupons.payload.forEach(cp => {
+                        if (cp.couponCode == payload.useCouponInfo.couponCode) {
+                            cp.currentQuantity = cp.currentQuantity - payload.useCouponInfo.usage;
+                        }
+                    })
+                }
+                setState({
+                    ...state,
+                    actions: tempActions,
+                    useCoupons: useCoupons
                 });
             } else {
                 setState({

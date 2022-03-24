@@ -18,8 +18,13 @@
         }
 
         .filter-form {
+
             @include breakpoint-lg-down() {
                 width: 100%;
+            }
+
+            .coupon-input {
+                text-transform: uppercase;
             }
 
             .search-btn-area {
@@ -105,6 +110,11 @@
                     display: inline-block;
                     width: 24%;
                 }
+
+                .coupon-code-value {
+                    font-size: 20px;
+                    text-align: center;
+                }
             }
 
             .cus-info {
@@ -119,16 +129,23 @@
                 }
             }
 
-            .completed-btn {
-                text-align: end;
+            .use-coupon-form {
                 margin-top: 24px;
-                margin-bottom: 12px;
 
-                .succcess-message {
-                    text-align: center;
-                    background-color: #f6ffed;
-                    padding: 10px 0;
-                    border: 1px solid #b7eb8f
+                .usage-input {
+                    text-align: right;
+                }
+                
+                .completed-btn {
+                    text-align: end;
+                    margin-bottom: 12px;
+    
+                    .succcess-message {
+                        text-align: center;
+                        background-color: #f6ffed;
+                        padding: 10px 0;
+                        border: 1px solid #b7eb8f
+                    }
                 }
             }
         }
@@ -141,3 +158,19 @@
         padding: 4px 8px;
     }
 }
+
+::-webkit-input-placeholder {
+    text-transform: initial;
+ }
+ 
+ :-moz-placeholder { 
+    text-transform: initial;
+ }
+ 
+ ::-moz-placeholder {  
+    text-transform: initial;
+ }
+ 
+ :-ms-input-placeholder { 
+    text-transform: initial;
+ }

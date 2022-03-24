@@ -228,4 +228,8 @@ export class AdminService {
   checkinReservation(id: string): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(environment.apiUrl + 'task/check-in-reservation?reservationId=' + id, {});
   }
+
+  useCoupon(data: any): Observable<BaseResponse<string>> {
+    return this.http.post<BaseResponse<string>>(environment.apiUrl + 'task/use-coupon', data);
+  }
 }

@@ -20,7 +20,9 @@
             <nz-form-item>
               <nz-form-label [nzXl]="{span: 6}" [nzXs]="{span: 7}">Coupon code</nz-form-label>
               <nz-form-control [nzXl]="{span: 14}" [nzXs]="{span: 17}" nzHasFeedback>
-                <input nz-input formControlName="keyword" placeholder="Coupon code" type="text" />
+                <input class="coupon-input" nz-input formControlName="keyword"
+                  placeholder="Coupon code" type="text" 
+                />
               </nz-form-control>
             </nz-form-item>
 
@@ -48,7 +50,8 @@
       <div class="search-result-title">LIST COUPON</div>
       <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
-          <nz-list-item class="list-item" [ngClass]="{'item-selected': coupon.id == couponInfo.id}" *cdkVirtualFor="let coupon of adminCoupons.payload; let index = index">
+          <nz-list-item class="list-item" [ngClass]="{'item-selected': coupon.id == couponInfo?.id}"
+            *cdkVirtualFor="let coupon of adminCoupons.payload; let index = index">
             <nz-skeleton *ngIf="!coupon" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
             <nz-list-item-meta *ngIf="coupon && coupon.id" (click)="itemClick(coupon.id)"
               nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
@@ -71,7 +74,7 @@
       <div class="order-item-list">
         <div>
           <span class="info-title">Coupon code:</span>
-          <span style="font-size: 20px; text-align: center;">{{couponInfo.couponCode}}</span>
+          <span class="coupon-code-value">{{couponInfo.couponCode}}</span>
         </div>
         <div><span class="info-title">Inital quantity:</span> {{couponInfo.initialQuantity}}</div>
         <div><span class="info-title">Current quantity:</span> {{couponInfo.currentQuantity}}</div>
@@ -80,15 +83,25 @@
         <div><span class="info-title">Customer:</span> {{couponInfo.email}}</div>
         <div><span class="info-title">Phone:</span> {{couponInfo.phoneNumber}}</div>
       </div>
-      <div class="completed-btn">
-        <button *ngIf="couponInfo.currentQuantity > 0"
-          (click)="completePickUpOrder()" nz-button nzType="primary"
-          [nzLoading]="(adminActionsObs | async)!.length > 0"
-        >
-          Completed
-        </button>
-        <!-- <div class="succcess-message" *ngIf="pickUpOrder && pickUpOrder.orderStatus == 'PickedUp'">This order is picked up!</div> -->
-      </div>
+      <form *ngIf="couponInfo.currentQuantity > 0" class="use-coupon-form" [formGroup]="useCouponFG" (submit)="useCoupon()">
+        <nz-form-item>
+          <nz-form-label [nzXl]="{span: 10}" [nzXs]="{span: 7}">Usage amount</nz-form-label>
+          <nz-form-control [nzXl]="{span: 4}" [nzXs]="{span: 17}" nzHasFeedback>
+            <input class="usage-input" nz-input formControlName="usage" placeholder="Amount" type="text" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control class="completed-btn" [nzXl]="{span: 13}" [nzXs]="{span: 24}">
+            <button nz-button nzType="primary"
+              [nzLoading]="(adminActionsObs | async)!.length > 0"
+              [disabled]="!useCouponFG.valid"
+            >
+              Use coupon
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
     </div>
   </div>
 </div>

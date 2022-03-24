@@ -152,3 +152,8 @@ export class AdminCheckInReservation {
   static readonly type = '[ADMIN] Admin Check In Reservation';
   constructor(public reservationId: string) {};
 }
+
+export class AdminUseCoupon {
+  static readonly type = '[ADMIN] Admin Use Coupon';
+  constructor(public useCouponInfo: any) {};
+}
