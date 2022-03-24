@@ -45,7 +45,7 @@
        <!-- Phone number -->
        <mat-form-field class="right-field" appearance="fill">
         <mat-label>Phone</mat-label>
-        <input type="email" matInput formControlName="phoneNumber" placeholder="Phone number">
+        <input type="email" matInput formControlName="phoneNumber" appPhoneMask placeholder="Phone number">
         <mat-error *ngIf="emailFC.hasError('required')">
           Phone number is <strong>required</strong>
         </mat-error>

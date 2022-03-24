@@ -25,7 +25,7 @@ export class CheckInReservationComponent implements OnInit {
   @Select(AdminState.getReservationOder) reservationOderObs!: Observable<AdminReservation>;
   @Select(AdminState.getReservationOderQuery) reservationOderQueryObs!: Observable<AdminReservationQueryRequest>;
   reservationQuery!: AdminReservationQueryRequest;
-  reservationOrder!: AdminReservation;
+  reservationOrder!: AdminReservation | null;
   adminReservations!: PaginationResponse<AdminReservation[]>;
   adminActions!: string[];
   selectedId!: string;
@@ -51,6 +51,10 @@ export class CheckInReservationComponent implements OnInit {
       if (this.selectedId == null && this.adminReservations != null && this.adminReservations.payload.length > 0) {
         this.selectedId = this.adminReservations.payload[0].id;
         this.store.dispatch(new SearchReservationOrderById(this.selectedId));
+      }
+
+      if (this.adminReservations != null && this.adminReservations.payload.length > 0) {
+        this.reservationOrder = null;
       }
     });
 
@@ -90,7 +94,7 @@ export class CheckInReservationComponent implements OnInit {
     query.email = this.filterFG.value['email'];
     query.noOfPeople = this.filterFG.value['noOfPeople'];
 
-    if (this.filterFG.value['dateFromTo'] != null) {
+    if (this.filterFG.value['dateFromTo'] != null && this.filterFG.value['dateFromTo'].length > 0) {
       let dateFrom = new Date(this.filterFG.value['dateFromTo'][0]);
       let dateTo = new Date(this.filterFG.value['dateFromTo'][1]);
       let utcMilTo = formatDate(dateTo, this.dateFormat, 'en-US');

@@ -32,7 +32,6 @@ export class ProductCreateComponent implements OnInit {
 
   beforeUpload = (file: NzUploadFile): boolean => {
     this.listImgs = this.listImgs.concat(file);
-    console.log("Imgs:", this.listImgs);
     return false;
   };
 

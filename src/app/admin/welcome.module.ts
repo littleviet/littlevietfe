@@ -47,6 +47,7 @@ import { ProductCreateComponent } from './product-managment/product-create/produ
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { UseCouponComponent } from './use-coupon/use-coupon.component';
+import { SharedModule } from 'src/commons/shared.module';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   override overrides = {
@@ -89,7 +90,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
     NzTabsModule,
     NzUploadModule,
     NzRadioModule,
-    NzSelectModule
+    NzSelectModule,
+    SharedModule
   ],
   declarations: [
     WelcomeComponent,
@@ -105,7 +107,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     ProductTypeCreateComponent,
     CheckInReservationComponent,
     ProductCreateComponent,
-    UseCouponComponent
+    UseCouponComponent,
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig}

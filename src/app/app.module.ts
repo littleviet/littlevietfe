@@ -88,6 +88,8 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     { provide: NZ_I18N, useValue: en_US },
     ErrorDialogService,
   ],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

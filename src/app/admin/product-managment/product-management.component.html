@@ -108,7 +108,7 @@
   <nz-dropdown-menu #caNameMenu="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">
       <div class="search-box">
-        <input type="text" nz-input placeholder="Search phone" [(ngModel)]="caNameSearchValue" />
+        <input type="text" nz-input appPhoneMask placeholder="Search phone" [(ngModel)]="caNameSearchValue" />
         <button nz-button nzSize="small" nzType="primary" (click)="searchCaName()" class="search-button">Search</button>
         <button nz-button nzSize="small" (click)="resetSearchCaName()">Reset</button>
       </div>

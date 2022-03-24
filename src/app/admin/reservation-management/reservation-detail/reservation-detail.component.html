@@ -40,7 +40,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="7" nzRequired>Phone number</nz-form-label>
       <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="phoneNumberErrorTpl">
-        <input nz-input formControlName="phoneNumber" placeholder="Cusomter's phone number" type="text" />
+        <input nz-input formControlName="phoneNumber" appPhoneMask placeholder="Customer's phone number" type="text" />
         <ng-template #phoneNumberErrorTpl let-control>
           <ng-container *ngIf="control.hasError('required')">Please input customer's phone number!</ng-container>
         </ng-template>

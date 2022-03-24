@@ -71,7 +71,7 @@
       <!-- Telephone 1 -->
       <mat-form-field class="email-field" appearance="fill">
         <mat-label>Telephone 1</mat-label>
-        <input type="text" matInput formControlName="phoneNumber1" placeholder="Ex. 036 289 2891">
+        <input type="text" matInput formControlName="phoneNumber1" appPhoneMask placeholder="Ex. 0362892891">
         
         <mat-error *ngIf="phone1FormControl.hasError('required')">
           Phone number 1 is <strong>required</strong>
@@ -81,7 +81,7 @@
       <!-- Telephone 2 -->
       <mat-form-field class="password-field" appearance="fill">
         <mat-label>Telephone 2</mat-label>
-        <input type="text" matInput formControlName="phoneNumber2" placeholder="Ex. 036 289 2892">
+        <input type="text" matInput formControlName="phoneNumber2" appPhoneMask placeholder="Ex. 0362892892">
       </mat-form-field>
 
       <!-- Email -->

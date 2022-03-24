@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { PhoneMaskDirective } from './directives/phone-mask.directive';
 
 @NgModule({
   declarations: [
-    // LandingTitleComponent,
+    PhoneMaskDirective
   ],
   imports: [
     CommonModule,
   ],
   exports: [
-    // LandingTitleComponent,
+    PhoneMaskDirective
   ],
 })
 export class SharedModule {

@@ -105,7 +105,7 @@
       <nz-form-item>
         <nz-form-control style="display: flex;" [nzOffset]="7" [nzSpan]="7">
           <button nz-button [nzLoading]="(adminActionsObs | async)!.length > 0" nzType="primary"
-            [disabled]="!productFG.valid || !productFG.dirty" nz-popconfirm
+            [disabled]="!productFG.valid || !productFG.dirty || listImgs == null || listImgs.length == 0" nz-popconfirm
             nzPopconfirmTitle="Are you sure save this product?" nzPopconfirmPlacement="bottom"
             (nzOnConfirm)="submitForm()">Save</button>
           <button class="reset-button" [hidden]="!productFG.dirty && (!listImgs || listImgs.length <= 0)"
