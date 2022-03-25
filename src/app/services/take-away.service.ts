@@ -36,6 +36,8 @@ export class TakeAwayService {
         let date = reservation.day;
         date.setHours(parseInt(reservation.hour.substring(0, 2)));
         date.setMinutes(parseInt(reservation.hour.substring(3)));
+        date.setSeconds(0);
+        date.setMilliseconds(0);
         return this.http.post<BaseResponse<CheckoutPaymentResponse>>(environment.apiUrl + 'reservation',
             {
                 firstName: reservation.firstName,
@@ -44,7 +46,7 @@ export class TakeAwayService {
                 furtherRequest: reservation.furtherRequest,
                 noOfPeople: reservation.noOfPeople,
                 bookingDate: date,
-                phoneNumber: "036 289 2891"
+                phoneNumber: "0362892891"
             }
         );
     }

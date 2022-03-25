@@ -55,7 +55,8 @@
       <div style="text-align: center; font-weight: 500; margin-bottom: 16px;">LIST PICK UP ORDER</div>
       <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
-          <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}" *cdkVirtualFor="let order of adminOrders.payload; let index = index">
+          <nz-list-item class="list-item" [ngClass]="{'item-selected': order.id == selectedId}"
+            *cdkVirtualFor="let order of adminOrders.payload; let index = index">
             <nz-skeleton *ngIf="!order" [nzAvatar]="true" [nzParagraph]="{ rows: 1 }"></nz-skeleton>
             <nz-list-item-meta *ngIf="order && order.account" (click)="itemClick(order.id)"
               nzAvatar="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"

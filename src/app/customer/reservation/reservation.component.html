@@ -45,7 +45,9 @@
       </div>
 
       <div class="reservation-policy">
-        <div class="line-1">Little Viet Barcelona is open every day, except on Tuesdays from <span class="time-title">13:00 to 16:00</span> & <span class="time-title">20:00 to 23:00</span>.</div>
+        <div class="line-1">Little Viet Barcelona is open every day, except on Tuesdays from
+          <span class="time-title">13:00 to 16:00</span> & <span class="time-title">20:00 to 23:00</span>.
+        </div>
         <div class="line-2">Make a reservation and come to enjoy a unique food.</div>
         <div class="line-3">Carrer de Cartagena, 328, 08025</div>
         <div class="line-4">Your reservation will be annuled because of delay without informing us, after 15 minutes.</div>
@@ -72,7 +74,8 @@
     
           <div class="reservation-field">
             <label>Day</label>
-            <nz-date-picker [nzDisabledDate]="disabledDate" nzFormat='dd-MM-yyyy' formControlName="day" [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
+            <nz-date-picker [nzDisabledDate]="disabledDate" nzFormat='dd-MM-yyyy' formControlName="day"
+              [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
             <mat-error *ngIf="dayFC.hasError('required') && !dayFC.pristine">
               Day is <strong>required</strong>
             </mat-error>
@@ -87,7 +90,11 @@
               Hour is <strong>required</strong>
             </mat-error>
           </div>
-          <button [disabled]="!reservationFG.valid" [ngClass]="!reservationFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'" class="book-now-btn"  (click)="openDialog()">BOOK NOW</button>
+          <button [disabled]="!reservationFG.valid"
+            [ngClass]="!reservationFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'"
+            class="book-now-btn" (click)="openDialog()">
+            BOOK NOW
+          </button>
       </form>
       </div>
     </div>

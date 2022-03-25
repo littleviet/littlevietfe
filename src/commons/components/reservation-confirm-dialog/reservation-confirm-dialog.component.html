@@ -3,8 +3,20 @@
 </div>
 <div *ngIf="(reservationSuccessObs | async) == null" class="reservation-confirm-dialog">
   <h1 mat-dialog-title class="reservation-confirm-title">ONLINE RESERVATION</h1>
-  <div class="info-reservation">DATE <span class="dotted">{{reservationInfo.day.getDate()}}/{{reservationInfo.day.getMonth() + 1}}/{{reservationInfo.day.getFullYear()}}</span>
-      TIME <span class="dotted">{{reservationInfo.hour}}</span>  NUMBER OF PEOPLE <span class="dotted">{{reservationInfo.noOfPeople}}</span></div>
+  <div class="info-reservation">
+      DATE
+      <span class="dotted">
+        {{reservationInfo.day.getDate()}}/{{reservationInfo.day.getMonth() + 1}}/{{reservationInfo.day.getFullYear()}}
+      </span>
+      TIME
+      <span class="dotted">
+        {{reservationInfo.hour}}
+      </span>
+      NUMBER OF PEOPLE
+      <span class="dotted">
+        {{reservationInfo.noOfPeople}}
+      </span>
+    </div>
   <div mat-dialog-content>
     <form (ngSubmit)="onSubmit()" [formGroup]="bookReservationFG" class="reservation-form" name="hour-form">
       <!-- First name -->
@@ -53,18 +65,25 @@
       <textarea formControlName="specificRequest" class="specific-request-field" placeholder="Additional information"></textarea>
 
       <div class="condition-frame">
-        <mat-checkbox required class="condition-checkbox" formControlName="acceptCondition">I accept the conditions of use, privacy policy and legal notice.</mat-checkbox>
+        <mat-checkbox required class="condition-checkbox" formControlName="acceptCondition">
+          I accept the conditions of use, privacy policy and legal notice.
+        </mat-checkbox>
       </div>
 
       <div class="data-frame">
-        <mat-checkbox required class="data-checkbox" formControlName="consentInfoConidtion">I consent to the processing of personal data.</mat-checkbox>
+        <mat-checkbox required class="data-checkbox" formControlName="consentInfoConidtion">
+          I consent to the processing of personal data.
+        </mat-checkbox>
       </div>
 
       <div class="sms-frame">
-        <mat-checkbox class="sms-checkbox">I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.</mat-checkbox>
+        <mat-checkbox class="sms-checkbox">
+          I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.
+        </mat-checkbox>
       </div>
 
-      <button [disabled]="!bookReservationFG.valid" [ngClass]="!bookReservationFG.invalid ? 'reserve-btn-active': 'reserve-btn-inactive'" type="submit" class="reserve-btn">
+      <button [disabled]="!bookReservationFG.valid" type="submit" class="reserve-btn"
+        [ngClass]="!bookReservationFG.invalid ? 'reserve-btn-active': 'reserve-btn-inactive'">
         RESERVE
       </button>
     </form>
@@ -72,7 +91,10 @@
     <div class="reservation-policy">
       <div class="redeem">DO YOU HAVE A CODE TO REDEEM?</div>
       <div class="bold">Basic information about protection of personal data</div>
-      <div>In compliance with the General Regulation of Protection of Personal Data, the interested party is informed of the following:</div>
+      <div>
+        In compliance with the General Regulation of Protection of Personal Data,
+        the interested party is informed of the following:
+      </div>
       <div><span class="bold">Responsible:</span> Little Viet <span class="see-more">(See more)</span></div>
       <div><span class="bold">Purposes:</span> The attention of requests made by users about reservations.</div>
       <div>The inclusion in the contact list.</div>
@@ -85,7 +107,10 @@
       <div class="bold">Assignments:</div>
       <div>Data transfers may be made for statistical purposes. <span class="see-more">(See more)</span></div>
       <div class="bold">Assignments:</div>
-      <div>Rights Access, rectify and delete the data, request the portability of the same, oppose the treatment and request the limitation of it. <span class="see-more">(See more)</span></div>
+      <div>
+        Rights Access, rectify and delete the data, request the portability of the same, 
+        oppose the treatment and request the limitation of it. <span class="see-more">(See more)</span>
+      </div>
     </div>
   </div>
 </div>
@@ -99,13 +124,5 @@
   </div>
   <div class="title">SUCCESSFUL BOOKING</div>
 </div>
-
-<!-- <div *ngIf="(reservationSuccessObs | async) != null && (reservationSuccessObs | async) == false" class="f-modal-alert">
-  <div class="f-modal-icon f-modal-warning scaleWarning">
-    <span class="f-modal-body pulseWarningIns"></span>
-    <span class="f-modal-dot pulseWarningIns"></span>
-  </div>
-  <div class="title">BOOKING FAIL!</div>
-</div> -->
 
 <app-progress-spinner *ngIf="(takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>

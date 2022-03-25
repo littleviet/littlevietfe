@@ -47,7 +47,10 @@
               </mat-error>
             </mat-form-field>
             <div class="forgot-password">Forgot your password?</div>
-            <button type="submit" [disabled]="loginFormGroup.invalid" [ngClass]="{'login-btn-active': !loginFormGroup.invalid}" class="login-btn">SIGN IN</button>
+            <button type="submit" [disabled]="loginFormGroup.invalid" class="login-btn"
+              [ngClass]="{'login-btn-active': !loginFormGroup.invalid}">
+              SIGN IN
+            </button>
           </form>
         </div>
 
@@ -151,14 +154,19 @@
             <div class="policy">PRIVACY POLICY*</div>
 
             <div class="policy-frame">
-              <mat-checkbox required class="policy-checkbox" formControlName="policy">I agree to the terms and conditions and the privacy policy.</mat-checkbox>
+              <mat-checkbox required class="policy-checkbox" formControlName="policy">
+                I agree to the terms and conditions and the privacy policy.
+              </mat-checkbox>
             </div>
 
             <div class="news-frame">
               <mat-checkbox class="news-checkbox" formControlName="newsLetter">Sign up for our newsletter.</mat-checkbox>
             </div>
             
-            <button [disabled]="registerFormGroup.invalid" [ngClass]="{'register-btn-active': !registerFormGroup.invalid}" class="register-btn">REGISTER</button>
+            <button [disabled]="registerFormGroup.invalid" class="register-btn"
+              [ngClass]="{'register-btn-active': !registerFormGroup.invalid}">
+              REGISTER
+            </button>
           </form>
         </div>
       </div>
@@ -174,14 +182,19 @@
           <div class="position-title">en: Little Viet Barcelona</div>
           <div class="time-title">at:
             <select [formControl]="hourFormControl" required name="hour" class="picking-hour-confirm">
-              <option *ngFor="let time of pickUpTimeValues" value="{{time}}">{{time.getHours()}}:{{time.getMinutes() == 0 ? '00': time.getMinutes()}}</option>
+              <option *ngFor="let time of pickUpTimeValues" value="{{time}}">
+                {{time.getHours()}}:{{time.getMinutes() == 0 ? '00': time.getMinutes()}}
+              </option>
             </select>
           </div>
           <div class="diners-title">How many diners are you?*
             <input formControlName="dinners" class="diners-field" placeholder="No." type="text" name="" id="">
           </div>
           <div class="payment-method-title">Payment method:
-            <mat-checkbox required formControlName="paymentMethod" name="paymentMethod" class="payment-method-checkbox">Credit card</mat-checkbox>
+            <mat-checkbox required formControlName="paymentMethod" name="paymentMethod"
+              class="payment-method-checkbox">
+              Credit card
+            </mat-checkbox>
           </div>
           <textarea formControlName="additionalRequest" class="additional-info-field" placeholder="Additional information"></textarea>
           <button [disabled]="submitPay.invalid || (isCartEmptyObs | async)"

@@ -83,7 +83,7 @@ export class CouponState {
     }
 
     @Action(UpdateCouponBuyingInfo)
-    updateReservationInfo({getState, setState}: StateContext<CouponStateModel>, payload: any) {
+    updateCouponBuyingInfo({getState, setState}: StateContext<CouponStateModel>, payload: any) {
         const state = getState();
         setState({
             ...state,
