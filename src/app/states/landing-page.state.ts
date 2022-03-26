@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { Observable, tap } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
+import { LandingPageModel } from 'src/dtos/landing-page/landing-page-model';
 import { CustomerProductType } from 'src/dtos/product-type/customer-product-type';
 import { GetProductMenu } from '../actions/landing-page.action';
 import { LandingPageService } from '../services/landing-page.service';
 
 export class LandingPageStateModel {
-    productTypes: CustomerProductType[] = [];
+    landingPageModel!: LandingPageModel | null;
     actions!: string[];
 }
 
 @State<LandingPageStateModel>({
     name: 'landingpage',
     defaults: {
-        productTypes: [],
+        landingPageModel: null,
         actions: []
     }
 })
@@ -26,8 +27,8 @@ export class LandingPageState {
     }
 
     @Selector()
-    static getProductMenu(state: LandingPageStateModel) {
-        return state.productTypes
+    static getLandingPageModel(state: LandingPageStateModel) {
+        return state.landingPageModel
     }
 
     @Selector()
@@ -36,7 +37,7 @@ export class LandingPageState {
     }
 
     @Action(GetProductMenu)
-    getProductMenu({getState, setState}: StateContext<LandingPageStateModel>) : Observable<BaseResponse<CustomerProductType[]>> {
+    getProductMenu({getState, setState}: StateContext<LandingPageStateModel>) : Observable<BaseResponse<LandingPageModel>> {
         const state = getState();
         setState({
             ...state,
@@ -44,11 +45,11 @@ export class LandingPageState {
         });
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == GetProductMenu.name), 1);
-        return this.landingPageService.getProductMenu().pipe(tap((result) => {
+        return this.landingPageService.getLandingPageProduct().pipe(tap((result) => {
             if (result.success) {
                 setState({
                     ...state,
-                    productTypes: result.payload,
+                    landingPageModel: result.payload,
                     actions: tempActions
                 });
             } else {

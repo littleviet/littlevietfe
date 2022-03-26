@@ -61,12 +61,13 @@
       <owl-carousel-o #owlElement [options]="carouselOptions">
         <ng-container *ngFor="let productType of productsMenu; let i= index;">
           <ng-template [dotContent]="(i + 1).toString()" carouselSlide >
-            <app-menu-slide class="menu-slide" [productType]="productType.esName + ' / ' + productType.name" [products]="productType.products"></app-menu-slide>
+            <app-menu-slide class="menu-slide" [products]="productType.products"
+              [productType]="productType.esName + ' / ' + productType.name">
+            </app-menu-slide>
           </ng-template>
         </ng-container>
       </owl-carousel-o>
     </div>
-    <!-- <app-side-progress-spinner></app-side-progress-spinner> -->
   </div>
 
   <!-- Take away -->
@@ -116,9 +117,9 @@
     </div>
     <div class="product-list">
       <div class="item-layout" fxLayout="row wrap" fxLayoutAlign="center">
-        <div class="product-item-layout" *ngFor="let product of products" fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-sm="0 1 calc(100%)" >
+        <div class="product-item-layout" *ngFor="let product of packagedProducts" fxFlex="0 1 calc(33% - 32px)" fxFlex.lt-sm="0 1 calc(100%)" >
           <div class="product-item">
-            <img src="{{product.imageUrl}}" alt="">
+            <img src="{{product.imageUrl || 'assets/imgs/landing-page/landing-page-5.jpg'}}" alt="">
             <div class="name">{{product.name}}</div>
             <div class="other-name">{{product.esName}}</div>
             <div class="other-name">{{product.caName}}</div>

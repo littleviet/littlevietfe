@@ -6,7 +6,9 @@ import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
 import { GetProductMenu } from 'src/app/actions/landing-page.action';
 import { LandingPageState } from 'src/app/states/landing-page.state';
+import { LandingPageModel } from 'src/dtos/landing-page/landing-page-model';
 import { CustomerProductType } from 'src/dtos/product-type/customer-product-type';
+import { CusPackagedProduct } from 'src/dtos/product/cus-packaged-product';
 
 @Component({
   selector: 'app-home',
@@ -14,14 +16,15 @@ import { CustomerProductType } from 'src/dtos/product-type/customer-product-type
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @Select(LandingPageState.getProductMenu) productMenu!: Observable<CustomerProductType[]>;
+  @Select(LandingPageState.getLandingPageModel) landingPageModelObs!: Observable<LandingPageModel>;
   @Select(LandingPageState.getActions) landingActionsObs!: Observable<string[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   @ViewChild('footer') footerEl!: ElementRef;
   menuOpen: boolean = false;
   footerHeight: number = 0;
-
+  landingPageModel: LandingPageModel | null = null;
   productsMenu: CustomerProductType[] = [];
+  packagedProducts: CusPackagedProduct[] = []
   carouselOptions: OwlOptions = {
     margin: 25,
     nav: true,
@@ -55,27 +58,6 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
-  products = [
-    {
-      name: "Yogur con argoz negro",
-      esName: "Iogurt amb arròs negre",
-      caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page/landing-page-5.jpg"
-    },
-    {
-      name: "Yogur con argoz negro",
-      esName: "Iogurt amb arròs negre",
-      caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page/landing-page-6.jpg"
-    },
-    {
-      name: "Yogur con argoz negro",
-      esName: "Iogurt amb arròs negre",
-      caName: "Yogurt with black rice",
-      imageUrl: "assets/imgs/landing-page/landing-page-7.jpg"
-    }
-  ];
   
   takeAwayTitleType = '1';
 
@@ -103,9 +85,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new GetProductMenu())
-    this.productMenu.subscribe((result) => {
-      this.productsMenu = result.filter(proType => proType.products != null && proType.products.length > 0);
+    this.store.dispatch(new GetProductMenu());
+    this.landingPageModelObs.subscribe((result) => {
+      this.landingPageModel = result;
+      if (this.landingPageModel != null) {
+        this.productsMenu = this.landingPageModel.menuProducts.filter(proType => proType.products != null && proType.products.length > 0);
+        this.packagedProducts = this.landingPageModel.packagedProducts;
+      } else {
+        this.productsMenu = [];
+        this.packagedProducts = [];
+      }
     });
     this.setUpTittleColorBasedOnScreenSize();
   }
