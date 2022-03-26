@@ -32,7 +32,11 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (error.error instanceof ErrorEvent) {  // client-side error
           this.errorDialogService.openDialog(error.error.message);
         } else { // server-side error
-          this.errorDialogService.openDialog("Something went wrong");
+          var errorMsg = "";
+          Object.entries(error.error.errors).forEach(([key, value]) => {
+            errorMsg += value + '\n';
+          })
+          this.errorDialogService.openDialog(errorMsg);
         }
         return throwError(error);
       })

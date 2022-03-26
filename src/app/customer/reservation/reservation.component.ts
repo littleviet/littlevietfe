@@ -77,4 +77,19 @@ export class ReservationComponent implements OnInit {
       maxHeight: '80%'
     });
   }
+
+  isValidDate(): boolean {
+    if (this.dayFC.value != null && this.hourFC.value != null) {
+      let bookingDate = new Date(this.dayFC.value);
+      bookingDate.setHours(parseInt(this.hourFC.value.substring(0, 2)));
+      bookingDate.setMinutes(parseInt(this.hourFC.value.substring(3)));
+      var currentDate = new Date();
+      
+      if (bookingDate > currentDate) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

@@ -29,7 +29,6 @@
 
         .search-result-area {
             width: 100%;
-            height: 500px;
             overflow: hidden;
 
             @include breakpoint-lg-down() {
@@ -37,7 +36,7 @@
             }
 
             .search-result-viewport {
-                height: 100%;
+                height: 511px;
 
                 .list-item {
                     cursor: pointer;

@@ -90,8 +90,8 @@
               Hour is <strong>required</strong>
             </mat-error>
           </div>
-          <button [disabled]="!reservationFG.valid"
-            [ngClass]="!reservationFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'"
+          <button [disabled]="reservationFG.invalid || !isValidDate()"
+            [ngClass]="reservationFG.valid && isValidDate() ? 'book-now-btn-active': 'book-now-btn-inactive'"
             class="book-now-btn" (click)="openDialog()">
             BOOK NOW
           </button>
@@ -106,6 +106,3 @@
     <app-footer [isDisplayLogo]="false"></app-footer>
   </div>
 </div>
-
-<!-- <app-progress-spinner *ngIf="(authActionsObs | async)!.length > 0"></app-progress-spinner> -->
-
