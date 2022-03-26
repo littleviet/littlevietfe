@@ -22,16 +22,19 @@
           <th [(nzChecked)]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
           <!-- name -->
           <th [nzSortOrder]="nameColumn.sortOrder || null" [nzSortDirections]="nameColumn.sortDirections || []"
-            [nzSortFn]="true" nzColumnKey="firstname" nzCustomFilter>
+            [nzSortFn]="true" nzColumnKey="name" nzCustomFilter
+          >
             {{nameColumn.name}}
             <nz-filter-trigger [(nzVisible)]="nameVisible" [nzActive]="nameSearchValue.length > 0"
-              [nzDropdownMenu]="nameMenu">
+              [nzDropdownMenu]="nameMenu"
+            >
               <i nz-icon nzType="search"></i>
             </nz-filter-trigger>
           </th>
           <!-- esName -->
           <th [nzSortOrder]="esNameColumn.sortOrder || null" [nzSortDirections]="esNameColumn.sortDirections || []"
-            [nzSortFn]="true" nzCustomFilter nzColumnKey="esName">
+            [nzSortFn]="true" nzCustomFilter nzColumnKey="esName" class="mobile-col"
+          >
             {{esNameColumn.name}}
             <nz-filter-trigger [(nzVisible)]="esNameVisible" [nzActive]="esNameSearchValue.length > 0"
               [nzDropdownMenu]="esNameMenu">
@@ -40,7 +43,8 @@
           </th>
           <!-- caName -->
           <th [nzSortOrder]="caNameColumn.sortOrder || null" [nzSortDirections]="caNameColumn.sortDirections || []"
-            [nzSortFn]="true" nzCustomFilter nzColumnKey="caName">
+            [nzSortFn]="true" nzCustomFilter nzColumnKey="caName"  class="mobile-col"
+          >
             {{caNameColumn.name}}
             <nz-filter-trigger [(nzVisible)]="caNameVisible" [nzActive]="caNameSearchValue.length > 0"
               [nzDropdownMenu]="caNameMenu">
@@ -50,7 +54,8 @@
           <!-- description -->
           <th [nzSortOrder]="descriptionColumn.sortOrder || null"
             [nzSortDirections]="descriptionColumn.sortDirections || []" [nzSortFn]="true" nzCustomFilter
-            nzColumnKey="description">
+            nzColumnKey="description"  class="mobile-col"
+          >
             {{descriptionColumn.name}}
             <nz-filter-trigger [(nzVisible)]="descriptionVisible" [nzActive]="descriptionSearchValue.length > 0"
               [nzDropdownMenu]="descriptionMenu">
@@ -75,9 +80,9 @@
         <tr *ngFor="let data of filterTable.data">
           <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
           <td>{{ data.name }}</td>
-          <td>{{ data.esName }}</td>
-          <td>{{ data.caName }}</td>
-          <td>{{ data.description }}</td>
+          <td class="mobile-col">{{ data.esName }}</td>
+          <td class="mobile-col">{{ data.caName }}</td>
+          <td class="mobile-col">{{ data.description }}</td>
           <!-- <td>{{ data.producType.name }}</td> -->
           <td>
             <nz-tag *ngIf="data.status == 'InStock'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>

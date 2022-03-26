@@ -9,7 +9,7 @@ import { AdminState } from 'src/app/states/admin.state';
 import { OrderStatus, OrderType } from 'src/commons/enums/app-enum';
 import { AdminOrder } from 'src/dtos/order/admin-order';
 import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
-import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
+import { AdminOrderInfo } from 'src/dtos/order/admin-order-info';
 import { PaginationResponse } from 'src/dtos/pagination-response';
 
 @Component({

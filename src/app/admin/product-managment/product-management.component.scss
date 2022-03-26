@@ -1,3 +1,5 @@
+@import '../../../assets/breakpoint/breakpoints.scss';
+
 .completed-btn {
   background-color: #87d068;
   border-color: #87d068;
@@ -53,6 +55,12 @@
 
 .search-button {
   margin-right: 8px;
+}
+
+.mobile-col {
+  @include breakpoint-lg-down() {
+    display: none;
+  }
 }
 
 tr:nth-child(2n) {

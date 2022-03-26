@@ -17,6 +17,10 @@ export class AdminGetReservationById {
     constructor(public id: string) {}
 }
 
+export class AdminClearOrder {
+    static readonly type = '[ADMIN] Admin Clear Order';
+}
+
 export class AdminClearReservation {
     static readonly type = '[ADMIN] Admin Clear Reservation';
     constructor() {};
@@ -30,6 +34,11 @@ export class AdminUpdateReservation {
 export class AdminGetOrders {
     static readonly type = '[ADMIN] Admin Get Orders';
     constructor(public query: AdminOrderQueryRequest) {}
+}
+
+export class AdminGetOrderById {
+  static readonly type = '[ADMIN] Admin Get Order By Id';
+  constructor(public id: string) {}
 }
 
 export class AdminGetProducts {

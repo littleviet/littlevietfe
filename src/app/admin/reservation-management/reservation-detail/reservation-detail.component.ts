@@ -6,7 +6,6 @@ import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { AdminClearReservation, AdminGetReservationById, AdminUpdateReservation } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
-import { ReservationStatus } from 'src/commons/enums/app-enum';
 import { AdminReservation } from 'src/dtos/reservation/admin-reservation';
 
 @Component({
@@ -100,5 +99,4 @@ export class ReservationDetailComponent implements OnInit {
   ngOnDestroy() {
     this.store.dispatch(new AdminClearReservation());
   }
-
 }

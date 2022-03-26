@@ -1,0 +1,123 @@
+@import '../../../../assets/breakpoint/breakpoints.scss';
+
+.order-detail {
+    padding: 25px;
+    width: 50%;
+    height: 100%;
+    margin: auto;
+    border: solid 1px rgb(124, 122, 122);
+    background-color: rgb(243, 243, 239);
+
+    @include breakpoint-lg-down() {
+        padding: 12px;
+        width: 100%;
+    }
+
+    .order-status {
+        float: right;
+    }
+
+    .cus-info {
+        padding-bottom: 6px;
+        border-bottom: 1px dashed black;
+        margin-bottom: 12px;
+    }
+
+    .order-info {
+        padding-bottom: 6px;
+        border-bottom: 1px dashed black;
+        margin-bottom: 12px;
+    }
+
+    .order-item-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 12px;
+        border-bottom: 1px dashed black;
+
+        .order-item-header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 3%;
+            font-weight: 600;
+
+            .item-name-header {
+                width: 70%;
+
+                @include breakpoint-lg-down() {
+                    width: 50%;
+                }
+            }
+
+            .item-quantity-header {
+                width: 15%;
+                text-align: end;
+
+                @include breakpoint-lg-down() {
+                    width: 30%;
+                }
+            }
+
+            .price-header {
+                width: 15%;    
+                text-align: end;  
+                
+                @include breakpoint-lg-down() {
+                    width: 20%;
+                }
+            }
+        }
+
+        .order-item {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 3%;
+
+            .item-name {
+                width: 70%;
+
+                @include breakpoint-lg-down() {
+                    width: 50%;
+                }
+            }
+
+            .item-quantity {
+                width: 15%;
+                text-align: end;
+
+                @include breakpoint-lg-down() {
+                    width: 30%;
+                }
+            }
+
+            .price {
+                width: 15%;
+                text-align: end;   
+                
+                @include breakpoint-lg-down() {
+                    width: 20%;
+                }
+            }
+        }
+    }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+
+        .total-title {
+            font-weight: 600;
+        }
+    }
+
+    .info-title {
+        font-weight: 600;
+    }
+}

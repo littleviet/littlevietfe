@@ -1,0 +1,33 @@
+<div *ngIf="order != null">
+  <div>Order information:</div>
+  <div class="order-detail">
+    <div class="order-status"><nz-tag [nzColor]="getColor()">{{ order.orderStatus }}</nz-tag></div>
+    <div class="cus-info">
+      <div><span class="info-title">Customer:</span> {{ order.account.firstname + ' ' + order.account.lastname }}</div>
+      <div><span class="info-title">Phone:</span> {{ order.account.phoneNumber1 }}</div>
+      <div><span class="info-title">Email:</span> {{ order.account.email }}</div>
+    </div>
+    <div class="order-info">
+      <div><span class="info-title">Pick-up time:</span>  {{ order.pickupTime | customDate}}</div>
+      <div><span class="info-title">Payment method:</span>  {{ order.paymentType }}</div>
+      <div><span class="info-title">Order type:</span>  {{ order.orderType }}</div>
+      <div><span class="info-title">Created time:</span>  {{ order.createdDate | customDate}}</div>
+    </div>
+    <div class="order-item-list">
+      <div class="order-item-header">
+        <div class="item-name-header">Name</div>
+        <div class="item-quantity-header">Quantity</div>
+        <div class="price-header">Price</div>
+      </div>
+      <div class="order-item" *ngFor="let item of order.orderDetails; last as isLast">
+        <div class="item-name">{{item.productName + ' ' + item.servingName}}</div>
+        <div class="item-quantity">{{item.quantity}}</div>
+        <div class="price">{{item.price * item.quantity}} &#8364;</div>
+      </div>
+    </div>
+    <div class="total">
+      <div class="total-title">Total</div>
+      <div class="price">{{order.totalPrice}} &#8364;</div>
+    </div>
+  </div>
+</div>

@@ -82,7 +82,7 @@ nz-content {
   margin-top: 12px;
 
   @include breakpoint-lg-down() {
-    padding: 0px;
+    padding: 12px;
   }
 }
 
@@ -91,5 +91,11 @@ nz-content {
   text-align: center;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.ant-layout-content {
+  @include breakpoint-lg-down() {
+    margin: 12px !important;
+  }
 }
   

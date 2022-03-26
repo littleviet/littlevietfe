@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -8,6 +9,7 @@ import { AdminGetOrders } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { ColumnItem } from 'src/dtos/column-item';
 import { AdminOrder } from 'src/dtos/order/admin-order';
+import { AdminOrderInfo } from 'src/dtos/order/admin-order-info';
 import { AdminOrderQueryRequest } from 'src/dtos/order/admin-order-query-request';
 import { PaginationResponse } from 'src/dtos/pagination-response';
 
@@ -17,24 +19,33 @@ import { PaginationResponse } from 'src/dtos/pagination-response';
   styleUrls: ['./take-away-management.component.scss']
 })
 export class TakeAwayManagementComponent implements OnInit, AfterContentChecked {
+  dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+  pickUpTime = null;
   private routeSub!: Subscription;
   setOfCheckedId = new Set<string>();
   checked = false;
   indeterminate = false;
+  fullNameSearchValue = '';
+  phoneNumberSearchValue = '';
   priceFromSearchValue = '';
   priceToSearchValue = '';
-  pickUpTimeFromSearchValue = '';
-  pickUpTimeToSearchValue = '';
+  pickUpTimeFromSearchValue: string | null = null;
+  pickUpTimeToSearchValue: string | null = null;
   priceVisible = false;
   pickUpTimeVisible = false;
+  fullNameVisible = false;
+  phoneNumberVisible = false;
   @Select(AdminState.getOrders) ordersObs!: Observable<PaginationResponse<AdminOrder[]>>;
+  @Select(AdminState.getOrder) orderObs!: Observable<AdminOrderInfo>;
   @Select(AdminState.getOrderQuery) orderQueryObs!: Observable<AdminOrderQueryRequest>;
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
+  
+  orders!: PaginationResponse<AdminOrder[]>;
+  order!: AdminOrder;
+  orderQuery!: AdminOrderQueryRequest;
 
   nameColumn: ColumnItem<AdminOrder> = {
     name: 'Name',
-    sortOrder: null,
-    sortDirections: ['descend', 'ascend', null],
   }
 
   phoneColumn: ColumnItem<AdminOrder> = {
@@ -57,9 +68,7 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
     name: 'Payment Type',
     filterMultiple: false,
     listOfFilter: [
-      { text: 'Reserved', value: 'Reserved' },
-      { text: 'Completed', value: 'Completed' },
-      { text: 'Cancelled', value: 'Cancelled' }
+      { text: 'Stripe', value: 'Stripe' }
     ],
     filterFn: () => {
       return true
@@ -70,17 +79,13 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
     name: 'Order Type',
     filterMultiple: false,
     listOfFilter: [
-      { text: 'Eat in', value: 'Eat in' },
-      { text: 'Take away', value: 'Take away' },
+      { text: 'Eat in', value: 'EatIn' },
+      { text: 'Take away', value: 'TakeAway' },
     ],
     filterFn: () => {
       return true
     },
 };
-
-  orders!: PaginationResponse<AdminOrder[]>;
-  order!: AdminOrder;
-  orderQuery!: AdminOrderQueryRequest;
 
   constructor(private store: Store, private route: ActivatedRoute, private router: Router,
     private cdRef : ChangeDetectorRef) { }
@@ -94,26 +99,41 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
         }
       }
     });
+
     this.ordersObs.subscribe((result) => {
       this.orders = result;
     });
 
+    this.orderObs.subscribe((result) => {
+      this.order = result;
+    });
+
     this.orderQueryObs.subscribe((result) => {
       this.orderQuery = result;
-      // this.nameSearchValue = this.reservationQuery.fullName || '';
-      // this.emailSearchValue = this.reservationQuery.email || '';
-      // this.phoneSearchValue = this.reservationQuery.phoneNumber || '';
-      // this.noPeopleSearchValue = this.reservationQuery.noOfPeople?.toString() || '';
-      // this.furtherRequestSearchValue = this.reservationQuery.furtherRequest || '';
-      // if (this.statusColumn.listOfFilter != null &&  this.statusColumn.listOfFilter.length > 0) {
-      //   this.statusColumn.listOfFilter.forEach((v) => {
-      //     this.reservationQuery.statuses?.forEach((status) => {
-      //       if (status == v.value) {
-      //         v.byDefault = true;
-      //       }
-      //     });
-      //   });
-      // }
+      this.fullNameSearchValue = this.orderQuery.fullName || '';
+      this.phoneNumberSearchValue = this.orderQuery.phoneNumber || '';
+      this.pickUpTimeFromSearchValue = this.orderQuery.pickupTimeFrom;
+      this.pickUpTimeToSearchValue = this.orderQuery.pickupTimeTo;
+
+      if (this.orderTypeColumn.listOfFilter != null &&  this.orderTypeColumn.listOfFilter.length > 0) {
+        this.orderTypeColumn.listOfFilter.forEach((v) => {
+          this.orderQuery.statuses?.forEach((orderType) => {
+            if (orderType == v.value) {
+              v.byDefault = true;
+            }
+          });
+        });
+      }
+
+      if (this.paymentTypeColumn.listOfFilter != null &&  this.paymentTypeColumn.listOfFilter.length > 0) {
+        this.paymentTypeColumn.listOfFilter.forEach((v) => {
+          this.orderQuery.statuses?.forEach((paymentType) => {
+            if (paymentType == v.value) {
+              v.byDefault = true;
+            }
+          });
+        });
+      }
     });
 
     this.routeSub = this.route.queryParams
@@ -151,12 +171,45 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
 
     query.pageSize = pageSize;
 
-    // if (filter != null && filter.length > 0) {
-    //   query.statuses = filter[0].value;
-    // } else {
-    //   query.statuses = [];
-    // }
+    if (filter != null && filter.length > 0) {
+      filter.forEach(v => {
+        if (v.key == 'paymentTypes') {
+          query.paymentTypes = v.value;
+        } else if (v.key == 'orderTypes') {
+          query.orderTypes = v.value;
+        }
+      })
+    } else {
+      query.paymentTypes = [];
+      query.orderTypes = [];
+    }
     
+    this.router.navigate(['/admin/orders'], { queryParams: query });
+  }
+
+  resetSearchName(): void {
+    this.fullNameSearchValue = '';
+    this.searchName();
+  }
+
+  searchName(): void {
+    this.fullNameVisible = false;
+    let query = _.clone(this.orderQuery);
+    query.fullName = this.fullNameSearchValue;
+    query.pageNumber = 1;
+    this.router.navigate(['/admin/orders'], { queryParams: query });
+  }
+
+  resetSearchPhone(): void {
+    this.phoneNumberSearchValue = '';
+    this.searchPhone();
+  }
+
+  searchPhone(): void {
+    this.phoneNumberVisible = false;
+    let query = _.clone(this.orderQuery);
+    query.phoneNumber = this.phoneNumberSearchValue;
+    query.pageNumber = 1;
     this.router.navigate(['/admin/orders'], { queryParams: query });
   }
 
@@ -175,15 +228,26 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
   }
 
   resetSearchPickUpTime(): void {
-    this.pickUpTimeFromSearchValue = '';
-    this.pickUpTimeToSearchValue = '';
+    this.pickUpTime = null;
     this.searchPickUpTime();
   }
 
   searchPickUpTime(): void {
-    this.pickUpTimeVisible = false;
     let query = _.clone(this.orderQuery);
-    // query.email = this.emailSearchValue;
+    if (this.pickUpTime == null) {
+      query.pickupTimeFrom = null;
+      query.pickupTimeTo = null;
+    } else {
+      let dateTo = new Date(this.pickUpTime[1]);
+      let utcMilTo = formatDate(dateTo, this.dateFormat,'en-US');
+      let dateFrom = new Date(this.pickUpTime[0]);
+      let utcMilFrom = formatDate(dateFrom, this.dateFormat,'en-US');
+      
+      query.pickupTimeTo = utcMilTo;
+      query.pickupTimeFrom = utcMilFrom;
+    }
+
+    this.pickUpTimeVisible = false;
     query.pageNumber = 1;
     this.router.navigate(['/admin/orders'], { queryParams: query });
   }

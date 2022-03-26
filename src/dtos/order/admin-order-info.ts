@@ -1,4 +1,4 @@
-import { OrderStatus, OrderType, PaymentType } from "src/commons/enums/app-enum";
+import { OrderType, PaymentType } from "src/commons/enums/app-enum";
 import { AdminAccount } from "../account/admin-account";
 import { AdminOrderDetail } from "../order-detail/admin-order-detail";
 

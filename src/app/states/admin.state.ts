@@ -7,7 +7,7 @@ import { AdminUseCouponInfo } from "src/dtos/coupon/admin-use-coupon-info";
 import { CouponQueryRequest } from "src/dtos/coupon/coupon-query-request";
 import { AdminOrder } from "src/dtos/order/admin-order";
 import { AdminOrderQueryRequest } from "src/dtos/order/admin-order-query-request";
-import { AdminOrderInfo } from "src/dtos/order/admin-order.info";
+import { AdminOrderInfo } from "src/dtos/order/admin-order-info";
 import { PaginationResponse } from "src/dtos/pagination-response";
 import { AdminProductType } from "src/dtos/product-type/admin-product-type";
 import { AdminProductTypeQueryRequest } from "src/dtos/product-type/admin-product-type-query-request";
@@ -21,14 +21,17 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
     AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing,
     AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons, AdminUseCoupon,
-    } from "../actions/admin.action";
+    AdminGetOrderById, AdminClearOrder,
+} from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
+import { Router } from "@angular/router";
 
 export class AdminStateModel {
     reservations!: PaginationResponse<AdminReservation[]> | null;
     reservation!: AdminReservation | null;
     reservationQuery!: AdminReservationQueryRequest;
     orders!: PaginationResponse<AdminOrder[]> | null;
+    order!: AdminOrderInfo | null;
     orderQuery!: AdminOrderQueryRequest;
     products!: PaginationResponse<AdminProduct[]> | null;
     product!: AdminProduct | null;
@@ -55,6 +58,7 @@ export class AdminStateModel {
         reservationQuery: new AdminReservationQueryRequest(),
         reservation: null,
         orders: null,
+        order: null,
         orderQuery: new AdminOrderQueryRequest(),
         products: null,
         productQuery: new AdminProductQueryRequest(),
@@ -78,7 +82,7 @@ export class AdminStateModel {
 @Injectable()
 export class AdminState {
 
-    constructor(private store: Store, private adminService: AdminService) {
+    constructor(private store: Store, private adminService: AdminService, private router: Router) {
     }
 
     @Selector()
@@ -104,6 +108,11 @@ export class AdminState {
     @Selector()
     static getOrders(state: AdminStateModel) {
         return state.orders;
+    }
+
+    @Selector()
+    static getOrder(state: AdminStateModel) {
+        return state.order;
     }
 
     @Selector()
@@ -256,14 +265,13 @@ export class AdminState {
         let state = getState();
         setState({
             ...state,
-            actions: [...state.actions, AdminGetReservationById.name],
+            actions: [...state.actions, AdminUpdateReservation.name],
         });
         let tempActions = [...state.actions];
-        tempActions.splice( tempActions.findIndex(a => a == AdminGetReservationById.name), 1);
+        tempActions.splice( tempActions.findIndex(a => a == AdminUpdateReservation.name), 1);
         return this.adminService.updateReservation(payload.reservation).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetReservationById(state.reservation?.id || ''));
-                // this.message.create('success', 'Update successful!');
                 setState({
                     ...state,
                     actions: tempActions
@@ -284,7 +292,7 @@ export class AdminState {
 
 
     @Action(AdminClearReservation)
-    clearCart({getState, setState}: StateContext<AdminStateModel>) {
+    clearReservation({getState, setState}: StateContext<AdminStateModel>) {
         const state = getState();
         setState({
             ...state,
@@ -323,6 +331,47 @@ export class AdminState {
                 actions: tempActions,
             });
         }));
+    }
+
+    @Action(AdminGetOrderById)
+    getOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetOrderById.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetOrderById.name), 1);
+        state = getState();
+
+        return this.adminService.getTakeAwayOrderById(payload.id).pipe(tap((result) => {
+            if (result.success) {
+                setState({
+                    ...state,
+                    order: result.payload,
+                    actions: tempActions
+                });
+            } else {
+                setState({
+                    ...state,
+                    actions: tempActions
+                });
+            }
+        }, error => {
+            setState({
+                ...state,
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminClearOrder)
+    cleareOrder({getState, setState}: StateContext<AdminStateModel>) {
+        const state = getState();
+        setState({
+            ...state,
+           order: null
+        });
     }
 
     @Action(AdminGetProducts)
@@ -852,6 +901,9 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProductType.name), 1);
         return this.adminService.createProductType(payload.productType).pipe(tap((result) => {
+            if (result.success) {
+                this.router.navigate(['/admin/product-types']);
+            }
             setState({
                 ...state,
                 actions: tempActions
@@ -874,6 +926,9 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProduct.name), 1);
         return this.adminService.createProduct(payload.data).pipe(tap((result) => {
+            if (result.success) {
+                this.router.navigate(['/admin/products']);
+            }
             setState({
                 ...state,
                 actions: tempActions

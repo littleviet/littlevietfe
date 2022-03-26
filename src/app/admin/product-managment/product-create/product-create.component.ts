@@ -19,7 +19,7 @@ export class ProductCreateComponent implements OnInit {
   allProductTypes: AdminProductType[] = [];
   listImgs: NzUploadFile[] = [];
 
-  constructor(private store: Store, private _fb: FormBuilder, private router: Router) { }
+  constructor(private store: Store, private _fb: FormBuilder) { }
 
   productFG: FormGroup = this._fb.group({
     'name': ['', [Validators.required]],
@@ -60,7 +60,6 @@ export class ProductCreateComponent implements OnInit {
     
     this.listImgs = [];
     this.store.dispatch(new AdminCreateProduct(formData));
-    this.router.navigate(['/admin/products']);
   }
 
   resetForm(e: MouseEvent) {

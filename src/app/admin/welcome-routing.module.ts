@@ -13,6 +13,7 @@ import { CheckInReservationComponent } from './check-in-reservation/check-in-res
 import { PickUpOrderComponent } from './pick-up-order/pick-up-order.component';
 import { WelcomeComponent } from './welcome.component';
 import { UseCouponComponent } from './use-coupon/use-coupon.component';
+import { TakeAwayDetailComponent } from './take-away-management/take-away-detail/take-away-detail.component';
 
 const routes: Routes = [
   {
@@ -44,15 +45,15 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Take away'
         },
-        // children: [
-        //   {
-        //     path: ':id',
-        //     component: ReservationDetailComponent,
-        //     data: {
-        //       breadcrumb: 'Detail'
-        //     }
-        //   }
-        // ]
+        children: [
+          {
+            path: ':id',
+            component: TakeAwayDetailComponent,
+            data: {
+              breadcrumb: 'Detail'
+            }
+          }
+        ]
       },
       {
         path: 'products',

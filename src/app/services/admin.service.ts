@@ -12,7 +12,7 @@ import { AdminProduct } from 'src/dtos/product/admin-product';
 import { AdminProductQueryRequest } from 'src/dtos/product/admin-product-query-request';
 import { AdminProductTypeQueryRequest } from 'src/dtos/product-type/admin-product-type-query-request';
 import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
-import { AdminOrderInfo } from 'src/dtos/order/admin-order.info';
+import { AdminOrderInfo } from 'src/dtos/order/admin-order-info';
 import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
 import { CouponQueryRequest } from 'src/dtos/coupon/coupon-query-request';
 import { AdminUseCouponInfo } from 'src/dtos/coupon/admin-use-coupon-info';
@@ -72,6 +72,18 @@ export class AdminService {
       }
 
       if (key == 'orderTypes' && Array.isArray(value)) {
+        value.forEach((e: any) => {
+          if (first) {
+            first = false;
+            queryString += (key + '=' + e.toString());
+          } else {
+            queryString += ('&' + key + '=' + e.toString());
+          }
+        });
+        return;
+      }
+
+      if (key == 'paymentTypes' && Array.isArray(value)) {
         value.forEach((e: any) => {
           if (first) {
             first = false;

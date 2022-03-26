@@ -3,6 +3,7 @@
             nzCollapsible
             nzWidth="256px"
             nzBreakpoint="md"
+            [hidden]="isCollapsed"
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
@@ -11,7 +12,7 @@
         <h1 *ngIf="loginInfo != null">Little Viet - {{loginInfo.firstname}}</h1>
       </a>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="false">
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
           <li nz-menu-item nzMatchRouter>

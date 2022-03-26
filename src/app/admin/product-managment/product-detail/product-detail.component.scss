@@ -1,3 +1,5 @@
+@import '../../../../assets/breakpoint/breakpoints.scss';
+
 .main-frame {
     display: flex;
     flex-wrap: wrap;
@@ -12,6 +14,11 @@
         min-width: 50%;
         max-width: 50%;
         height: 100% !important;
+
+        @include breakpoint-lg-down() {
+            min-width: 100%;
+            max-width: 100%;
+        }
 
         .upload-btn {
             float: right;
@@ -88,6 +95,10 @@
         width: 50%;
         padding-top: 50px;
         padding-bottom: 200px;
+
+        @include breakpoint-lg-down() {
+            width: 100%;
+        }
 
         .tag-status {
             line-height: 32px;

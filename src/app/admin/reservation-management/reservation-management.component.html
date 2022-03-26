@@ -4,9 +4,18 @@
     (click)="viewClick(getCheckedItem()?.id || '')">
     View
   </button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'" class="completed-btn" nz-button nzType="primary">Completed</button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'" class="cancelled-btn" nz-button nzType="primary" nzDanger>Cancelled</button>
-  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'" class="reserved-btn" nz-button nzType="primary">Reserved</button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'"
+    class="completed-btn" nz-button nzType="primary">
+    Completed
+  </button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Cancelled'"
+    class="cancelled-btn" nz-button nzType="primary" nzDanger>
+    Cancelled
+  </button>
+  <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Reserved'"
+    class="reserved-btn" nz-button nzType="primary">
+    Reserved
+  </button>
   <div *ngIf="reservations != null">
     <nz-table #filterTable [nzData]="reservations.payload" nzTableLayout="fixed"
       (nzQueryParams)="onQueryParamsChange($event)" [nzLoading]="(adminActionsObs | async)!.length > 0"
@@ -67,7 +76,8 @@
             {{bookingDateColumn.name}}
             <nz-filter-trigger [(nzVisible)]="bookingDateVisible"
               [nzActive]="bookingDateFromSearchValue != null || bookingDateToSearchValue != null"
-              [nzDropdownMenu]="bookingDateMenu">
+              [nzDropdownMenu]="bookingDateMenu"
+            >
               <i nz-icon nzType="search"></i>
             </nz-filter-trigger>
           </th>
@@ -90,7 +100,9 @@
             nzColumnKey="furtherRequest"
           >
             {{furtherRequestColumn.name}}
-            <nz-filter-trigger [(nzVisible)]="furtherRequestVisible" [nzActive]="furtherRequestSearchValue.length > 0" [nzDropdownMenu]="furtherRequestMenu">
+            <nz-filter-trigger [(nzVisible)]="furtherRequestVisible" [nzActive]="furtherRequestSearchValue.length > 0"
+              [nzDropdownMenu]="furtherRequestMenu"
+            >
               <i nz-icon nzType="search"></i>
             </nz-filter-trigger>
           </th>
@@ -102,7 +114,6 @@
           >
             {{statusColumn.name}}
           </th>
-    
         </tr>
       </thead>
       <tbody>
