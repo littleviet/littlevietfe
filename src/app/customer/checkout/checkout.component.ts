@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -16,6 +17,8 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
+  hide = true;
+  matcher = new MyErrorStateMatcher();
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   scrHeight: number = 0;
   footerHeight: number = 0;
@@ -48,7 +51,8 @@ export class CheckoutComponent implements OnInit {
   phone1FormControl = new FormControl('', [Validators.required]);
   phone2FormControl = new FormControl('', [Validators.required]);
   regEmailFormControl = new FormControl('', [Validators.required]);
-  regPasswordFormControl = new FormControl('', [Validators.required]);
+  regPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  regConfirmPasswordFormControl = new FormControl('');
   newsLetterFormControl = new FormControl();
 
   loginFormGroup = new FormGroup({
@@ -56,20 +60,28 @@ export class CheckoutComponent implements OnInit {
     password: this.passwordFormControl,
   });
 
+  
+  checkPasswords: ValidatorFn = (group: AbstractControl):  ValidationErrors | null => { 
+    let pass = group.get('password')?.value;
+    let confirmPass = group.get('confirmPassword')?.value;
+    return pass === confirmPass ? null : { notSame: true }
+  }
+
   registerFormGroup = new FormGroup({
     policy: this.policyFormControl,
     newsLetter: this.newsLetterFormControl,
     firstName: this.firstNameFormControl,
     lastName: this.lastNameFormControl,
-    address: this.addressFormControl,
-    number: this.numberFormControl,
-    flatDoor: this.flatDoorFormControl,
-    zipCode: this.zipCodeFormControl,
+    // address: this.addressFormControl,
+    // number: this.numberFormControl,
+    // flatDoor: this.flatDoorFormControl,
+    // zipCode: this.zipCodeFormControl,
     phoneNumber1: this.phone1FormControl,
-    phoneNumber2: this.phone2FormControl,
+    // phoneNumber2: this.phone2FormControl,
     email: this.regEmailFormControl,
     password: this.regPasswordFormControl,
-  });
+    confirmPassword: this.regConfirmPasswordFormControl,
+  }, {validators: this.checkPasswords});
 
   // payment form control
   hourFormControl = new FormControl('', [Validators.required]);
@@ -95,6 +107,9 @@ export class CheckoutComponent implements OnInit {
           this.orderSuccess = false;
         }
       }
+    });
+    this.registerFormGroup.valueChanges.subscribe(v => {
+      console.log("FG: ", this.registerFormGroup);
     });
   }
 
@@ -187,5 +202,14 @@ export class CheckoutComponent implements OnInit {
         - this.footerEl.nativeElement.getBoundingClientRect().height;
       }
     }
+  }
+}
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const invalidCtrl = !!(control?.invalid && control?.parent?.dirty);
+    const invalidParent = !!(control?.parent?.invalid && control?.parent?.dirty);
+
+    return invalidCtrl || invalidParent;
   }
 }
