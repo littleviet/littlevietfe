@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import * as _ from "lodash";
-import { Observable, tap } from "rxjs";
+import { combineLatest, Observable, tap } from "rxjs";
 import { BaseResponse } from "src/dtos/base-response";
 import { AdminUseCouponInfo } from "src/dtos/coupon/admin-use-coupon-info";
 import { CouponQueryRequest } from "src/dtos/coupon/coupon-query-request";
@@ -196,7 +196,8 @@ export class AdminState {
     }
 
     @Action(AdminGetReservations)
-    getReservations({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminReservation[]>> {
+    getReservations({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<PaginationResponse<AdminReservation[]>> {
         let state = getState();
         setState({
             ...state,
@@ -229,7 +230,8 @@ export class AdminState {
     }
 
     @Action(AdminGetReservationById)
-    getReservationById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminReservation>> {
+    getReservationById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<BaseResponse<AdminReservation>> {
         let state = getState();
         setState({
             ...state,
@@ -375,7 +377,8 @@ export class AdminState {
     }
 
     @Action(AdminGetProducts)
-    getProducts({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminProduct[]>> {
+    getProducts({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<PaginationResponse<AdminProduct[]>> {
         let state = getState();
         setState({
             ...state,
@@ -408,7 +411,8 @@ export class AdminState {
     }
 
     @Action(AdminGetProductById)
-    getProductById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminProduct>> {
+    getProductById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<[BaseResponse<AdminProduct>, PaginationResponse<AdminProductType[]>]> {
         let state = getState();
         setState({
             ...state,
@@ -417,24 +421,27 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == AdminGetProductById.name), 1);
         state = getState();
-
-        return this.adminService.getProductById(payload.id).pipe(tap((result) => {
-            if (result.success) {
+        let productTypeQuery = new AdminProductTypeQueryRequest();
+        productTypeQuery.pageSize = 1000;
+        return combineLatest(this.adminService.getProductById(payload.id), this.adminService.getProductTypes(productTypeQuery))
+            .pipe(tap((result) => {
+                if (result[0].success && result[1].success) {
+                    setState({
+                        ...state,
+                        product: result[0].payload,
+                        allProductTypes: result[1].payload,
+                        actions: tempActions
+                    });
+                } else {
+                    setState({
+                        ...state,
+                        actions: tempActions
+                    });
+                }
+            }, error => {
                 setState({
                     ...state,
-                    product: result.payload,
-                    actions: tempActions
-                });
-            } else {
-                setState({
-                    ...state,
-                    actions: tempActions
-                });
-            }
-        }, error => {
-            setState({
-                ...state,
-                actions: tempActions,
+                    actions: tempActions,
             });
         }));
     }
@@ -592,7 +599,7 @@ export class AdminState {
         tempActions.splice( tempActions.findIndex(a => a == AdminGetAllProductTypes.name), 1);
         state = getState();
         let productTypeQuery = new AdminProductTypeQueryRequest();
-        productTypeQuery.pageSize = 50;
+        productTypeQuery.pageSize = 1000;
         return this.adminService.getProductTypes(productTypeQuery).pipe(tap((result) => {
             if (result.success) {
                 setState({
@@ -615,7 +622,8 @@ export class AdminState {
     }
 
     @Action(AdminGetProductTypes)
-    getProductTypes({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminProductType[]>> {
+    getProductTypes({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<PaginationResponse<AdminProductType[]>> {
         let state = getState();
         setState({
             ...state,
@@ -648,7 +656,8 @@ export class AdminState {
     }
 
     @Action(AdminGetProductTypeById)
-    getProductTypeById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminProductType>> {
+    getProductTypeById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<BaseResponse<AdminProductType>> {
         let state = getState();
         setState({
             ...state,
@@ -680,7 +689,8 @@ export class AdminState {
     }
 
     @Action(AdminUpdateProductType)
-    updateProductType({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    updateProductType({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -719,7 +729,8 @@ export class AdminState {
     }
 
     @Action(SearchPickUpOrders)
-    searchPickUpOrders({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminOrder[]>> {
+    searchPickUpOrders({getState, setState}: StateContext<AdminStateModel>, payload: any)
+        : Observable<PaginationResponse<AdminOrder[]>> {
         let state = getState();
         setState({
             ...state,

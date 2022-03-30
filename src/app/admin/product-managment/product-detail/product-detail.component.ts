@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
-import { AdminAddServing, AdminClearProduct, AdminDeleteProductImage, AdminDeleteServing, AdminGetProductById,
+import { AdminAddServing, AdminClearProduct, AdminDeleteProductImage, AdminDeleteServing, AdminGetAllProductTypes, AdminGetProductById,
   AdminUpdateMainProductImage, AdminUpdateProduct, AdminUpdateServing, AdminUploadProductImage }
   from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
@@ -14,6 +14,7 @@ import { NgxGalleryImage } from '@kolkov/ngx-gallery';
 import { NgxGalleryAnimation } from '@kolkov/ngx-gallery';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
+import { AdminProductType } from 'src/dtos/product-type/admin-product-type';
 
 @Component({
   selector: 'app-product-detail',
@@ -23,6 +24,8 @@ import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product
 export class ProductDetailComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getProduct) productObs!: Observable<AdminProduct>;
+  @Select(AdminState.getAllProductTypes) allProductTypesObs!: Observable<AdminProductType[]>;
+  allProductTypes: AdminProductType[] = [];
   formatterPeople = (value: number): string => `${value} Pip`;
   parserPeople = (value: string): string => value.replace(' Pip', '');
   formatterEuro = (value: number): string => `${value} €`;
@@ -37,6 +40,7 @@ export class ProductDetailComponent implements OnInit {
     'caName': ['', [Validators.required]],
     'esName': ['', [Validators.required]],
     'description': ['', [Validators.required]],
+    'productTypeId': ['', [Validators.required]],
     'servings': this._fb.array([]),
   });
 
@@ -49,6 +53,10 @@ export class ProductDetailComponent implements OnInit {
     private _fb: FormBuilder) { }
 
   ngOnInit() {
+    this.allProductTypesObs.subscribe((result) => {
+      this.allProductTypes = result;
+    });
+
     this.productObs.subscribe((result) => {
       this.product = result;
       if (this.product != null) {
@@ -74,6 +82,7 @@ export class ProductDetailComponent implements OnInit {
         this.galleryImages = this.getImages();
       }
     });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id != null) {
       this.store.dispatch(new AdminGetProductById(id));
@@ -113,6 +122,7 @@ export class ProductDetailComponent implements OnInit {
     updateRequest.caName = this.productFG.controls['caName'].value;
     updateRequest.esName = this.productFG.controls['esName'].value;
     updateRequest.description = this.productFG.controls['description'].value;
+    updateRequest.productTypeId = this.productFG.controls['productTypeId'].value;
     this.store.dispatch(new AdminUpdateProduct(updateRequest));
   }
 

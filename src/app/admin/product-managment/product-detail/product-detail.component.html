@@ -130,6 +130,17 @@
           </ng-template>
         </nz-form-control>
       </nz-form-item>
+
+      <!-- Product type -->
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Product type</nz-form-label>
+        <nz-select *ngIf="allProductTypes && allProductTypes.length >= 0" nz-col [nzSpan]="12" nzShowSearch nzAllowClear
+          nzPlaceHolder="Select a product type" formControlName="productTypeId" [ngModel]="product.productType.id">
+          <nz-option  *ngFor="let productType of allProductTypes" nzLabel="{{productType.name}}"
+            nzValue="{{productType.id}}">
+          </nz-option>
+        </nz-select>
+      </nz-form-item>
   
       <!-- Description -->
       <nz-form-item>
