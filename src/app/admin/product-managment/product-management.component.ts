@@ -246,10 +246,6 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
     this.indeterminate = this.products.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
-  viewClick(id: string) {
-    if (id == '') return;
-  }
-
   ngOnDestroy() {
     if (this.routeSub) {
       this.routeSub.unsubscribe();

@@ -15,29 +15,29 @@
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="false">
       <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/products" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Products</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/product-types" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Product types</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/reservations" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Reservations</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/orders" [queryParams]="{ pageNumber: '1', pageSize: '10'}">Take away</a>
           </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="Tasks" nzIcon="form">
         <ul>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/pick-up-task">Pick up</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/check-in-reservation-task">Check in reservation</a>
           </li>
-          <li nz-menu-item nzMatchRouter>
+          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
             <a routerLink="/admin/use-coupon-task">Use coupon</a>
           </li>
         </ul>

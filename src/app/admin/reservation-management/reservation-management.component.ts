@@ -296,9 +296,6 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
     this.indeterminate = this.reservations.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
-  viewClick(id: string) {
-    if (id == '') return;
-  }
 
   ngOnDestroy() {
     if (this.routeSub) {

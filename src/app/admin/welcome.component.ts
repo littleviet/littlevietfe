@@ -18,6 +18,7 @@ export class WelcomeComponent implements OnInit {
   constructor(private store: Store, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.router.navigate([`/admin/products`], { queryParams: { pageNumber: '1', pageSize: '10'}});
     this.loginAccountInfo.subscribe((result) => {
       this.loginInfo = result;
     });

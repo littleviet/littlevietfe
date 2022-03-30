@@ -283,10 +283,6 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
     this.indeterminate = this.orders.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
-  viewClick(id: string) {
-    if (id == '') return;
-  }
-
   ngOnDestroy() {
     if (this.routeSub) {
       this.routeSub.unsubscribe();

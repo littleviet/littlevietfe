@@ -213,10 +213,6 @@ export class ProductTypeManagementComponent implements OnInit, AfterContentCheck
     this.indeterminate = this.productTypes.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
 
-  viewClick(id: string) {
-    if (id == '') return;
-  }
-
   ngOnDestroy() {
     if (this.routeSub) {
       this.routeSub.unsubscribe();

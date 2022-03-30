@@ -1,7 +1,7 @@
 <div *ngIf="reservation == null">
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1"
     class="view-btn" nz-button nzType="primary" routerLink="/admin/reservations/{{getCheckedItem()?.id}}"
-    (click)="viewClick(getCheckedItem()?.id || '')">
+  >
     View
   </button>
   <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'Completed'"

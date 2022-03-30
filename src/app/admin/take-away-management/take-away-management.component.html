@@ -1,7 +1,7 @@
 <div *ngIf="order == null">
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1"
     class="view-btn" nz-button nzType="primary" routerLink="/admin/orders/{{getCheckedItem()?.id}}"
-    (click)="viewClick(getCheckedItem()?.id || '')">
+  >
     View
   </button>
   <div *ngIf="orders != null">
