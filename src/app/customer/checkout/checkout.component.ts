@@ -72,12 +72,7 @@ export class CheckoutComponent implements OnInit {
     newsLetter: this.newsLetterFormControl,
     firstName: this.firstNameFormControl,
     lastName: this.lastNameFormControl,
-    // address: this.addressFormControl,
-    // number: this.numberFormControl,
-    // flatDoor: this.flatDoorFormControl,
-    // zipCode: this.zipCodeFormControl,
     phoneNumber1: this.phone1FormControl,
-    // phoneNumber2: this.phone2FormControl,
     email: this.regEmailFormControl,
     password: this.regPasswordFormControl,
     confirmPassword: this.regConfirmPasswordFormControl,
@@ -85,14 +80,12 @@ export class CheckoutComponent implements OnInit {
 
   // payment form control
   hourFormControl = new FormControl('', [Validators.required]);
-  dinnersFormControl = new FormControl('', [Validators.required]);
   paymentMethodFormControl = new FormControl(true, [Validators.required]);
   additionalRequestFormControl = new FormControl('');
 
   submitPay = new FormGroup({
     hours: this.hourFormControl,
     paymentMethod: this.paymentMethodFormControl,
-    dinners: this.dinnersFormControl,
     additionalRequest: this.additionalRequestFormControl,
   });
 
