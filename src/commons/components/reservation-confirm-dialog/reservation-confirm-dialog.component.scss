@@ -35,6 +35,7 @@
     }
 
     .info-reservation {
+
         text-align: center;
         .dotted {
             border-bottom: 1px dotted #000;
@@ -42,11 +43,9 @@
     }
 
     .reservation-form {
-
         display: flex;
         padding: 0 6%;
         flex-wrap: wrap;
-        justify-content: center;
         margin-top: 3%;
 
         .left-field {
@@ -132,7 +131,7 @@
         }
 
         .reserve-btn {
-            margin-top: 5%;
+            margin: 5% auto 0 auto;
             background-color: #c9ac82;
             border: 0px;
             padding: 7px 35px;
@@ -177,12 +176,6 @@
         }
     }
 }
-
-// ::ng-deep .mat-icon {
-//     font-size: 30px;
-//     height: 30px;
-//     width: 30px;
-// }
 
 ::ng-deep .mat-dialog-container {
     background-color: #f3eacd;

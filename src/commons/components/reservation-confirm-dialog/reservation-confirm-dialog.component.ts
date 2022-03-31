@@ -26,6 +26,7 @@ export class ReservationConfirmDialogComponent implements OnInit {
   emailFC = new FormControl("", [Validators.required,  Validators.email]);
   firstNameFC = new FormControl("", [Validators.required]);
   lastNameFC = new FormControl("", [Validators.required]);
+  phoneNumberFC = new FormControl("", [Validators.required]);
   vatFC = new FormControl();
   specificRequestFC = new FormControl();
   acceptConditionFC = new FormControl("", [Validators.required]);
@@ -40,6 +41,7 @@ export class ReservationConfirmDialogComponent implements OnInit {
       specificRequest: this.specificRequestFC,
       acceptCondition: this.acceptConditionFC,
       consentInfoConidtion: this.consentInfoConidtionFC,
+      phoneNumber: this.phoneNumberFC
     }
   );
 
@@ -65,6 +67,7 @@ export class ReservationConfirmDialogComponent implements OnInit {
         this.emailFC.setValue(this.userInfo.email);
         this.firstNameFC.setValue(this.userInfo.firstname);
         this.lastNameFC.setValue(this.userInfo.lastname);
+        this.phoneNumberFC.setValue(this.userInfo.phoneNumber1);
       }
     });
   }

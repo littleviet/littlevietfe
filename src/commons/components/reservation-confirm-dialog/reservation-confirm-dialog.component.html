@@ -51,8 +51,17 @@
         </mat-error>
       </mat-form-field>
 
-       <!-- VAT -->
+      <!-- Phone number -->
       <mat-form-field class="right-field" appearance="fill">
+        <mat-label>Phone number</mat-label>
+        <input type="text" appPhoneMask matInput formControlName="phoneNumber" placeholder="Phone number">
+        <mat-error *ngIf="phoneNumberFC.hasError('required')">
+          Phone number is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+       <!-- VAT -->
+      <mat-form-field class="left-field" appearance="fill">
         <mat-label>CIF/VAT (Optional. If you need invoice)</mat-label>
         <input type="text" matInput formControlName="vat" placeholder="CIF/VAT (Optional. If you need invoice)">
       </mat-form-field>

@@ -23,7 +23,8 @@
       <router-outlet></router-outlet>
     </div>
     <!-- Register section -->
-    <div *ngIf="(!loggedInAccountInfo || !loggedInAccountInfo.token) && orderSuccess == null" class="customer-register-section">
+    <div *ngIf="(!loggedInAccountInfo || !loggedInAccountInfo.token) && orderSuccess == null"
+      class="customer-register-section">
       <div class="customer-register-area">
         <!-- Login area -->
         <div class="login-area">
@@ -76,62 +77,14 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- Address -->
-            <!-- <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Address</mat-label>
-              <input type="text" matInput formControlName="address" placeholder="Ex. Barcelona">
-              <mat-error *ngIf="addressFormControl.hasError('required')">
-                Address is <strong>required</strong>
-              </mat-error>
-            </mat-form-field> -->
-
-            <!-- Number -->
-            <!-- <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Number</mat-label>
-              <input type="text" matInput formControlName="number" placeholder="Ex. 123">
-              <mat-error *ngIf="numberFormControl.hasError('required')">
-                Number is <strong>required</strong>
-              </mat-error>
-            </mat-form-field> -->
-
-            <!-- Flat door -->
-            <!-- <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Flat-Door</mat-label>
-              <input type="text" matInput formControlName="flatDoor" placeholder="Ex. A20">
-              <mat-error *ngIf="flatDoorFormControl.hasError('required')">
-                Flat-Door is <strong>required</strong>
-              </mat-error>
-            </mat-form-field> -->
-
-             <!-- Zip code -->
-            <!-- <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Zip/Postal code</mat-label>
-              <input type="text" matInput formControlName="zipCode" placeholder="Ex. 70000">
-              
-              <mat-error *ngIf="zipCodeFormControl.hasError('required')">
-                Zip code is <strong>required</strong>
-              </mat-error>
-            </mat-form-field> -->
-
             <!-- Telephone 1 -->
             <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Telephone 1</mat-label>
+              <mat-label>Telephone</mat-label>
               <input type="text" matInput formControlName="phoneNumber1" appPhoneMask placeholder="Ex. 036 289 2891">
-              
               <mat-error *ngIf="phone1FormControl.hasError('required')">
-                Phone number 1 is <strong>required</strong>
+                Phone number is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-
-            <!-- Telephone 2 -->
-            <!-- <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Telephone 2</mat-label>
-              <input type="text" matInput formControlName="phoneNumber2" appPhoneMask placeholder="Ex. 036 289 2892">
-             
-              <mat-error *ngIf="phone2FormControl.hasError('required')">
-                Phone number 2 is <strong>required</strong>
-              </mat-error>
-            </mat-form-field> -->
 
             <!-- Email -->
             <mat-form-field class="password-field" appearance="fill">
@@ -160,8 +113,10 @@
             <!-- Confirm password -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Confirm password</mat-label>
-              <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmPassword" placeholder="Ex. 123456" [errorStateMatcher]="matcher">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmPassword"
+                placeholder="Ex. 123456" [errorStateMatcher]="matcher">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
                 <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
               <mat-error *ngIf="registerFormGroup.hasError('notSame')">

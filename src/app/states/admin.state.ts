@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 import { Action, Selector, State, StateContext, Store } from "@ngxs/store";
 import * as _ from "lodash";
 import { combineLatest, Observable, tap } from "rxjs";
@@ -82,8 +82,8 @@ export class AdminStateModel {
 @Injectable()
 export class AdminState {
 
-    constructor(private store: Store, private adminService: AdminService, private router: Router) {
-    }
+    constructor(private store: Store, private adminService: AdminService, private router: Router,
+        private ngZone: NgZone) { }
 
     @Selector()
     static getReservations(state: AdminStateModel) {
@@ -913,7 +913,9 @@ export class AdminState {
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProductType.name), 1);
         return this.adminService.createProductType(payload.productType).pipe(tap((result) => {
             if (result.success) {
-                this.router.navigate(['/admin/product-types']);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/admin/product-types']);
+                });
             }
             setState({
                 ...state,
@@ -938,7 +940,9 @@ export class AdminState {
         tempActions.splice( tempActions.findIndex(a => a == AdminCreateProduct.name), 1);
         return this.adminService.createProduct(payload.data).pipe(tap((result) => {
             if (result.success) {
-                this.router.navigate(['/admin/products']);
+                this.ngZone.run(() => {
+                    this.router.navigate(['/admin/products/' + result.payload]);
+                });
             }
             setState({
                 ...state,

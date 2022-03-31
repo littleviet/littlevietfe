@@ -46,7 +46,7 @@ export class TakeAwayService {
                 furtherRequest: reservation.furtherRequest,
                 noOfPeople: reservation.noOfPeople,
                 bookingDate: date,
-                phoneNumber: "0362892891"
+                phoneNumber: reservation.phoneNumber
             }
         );
     }

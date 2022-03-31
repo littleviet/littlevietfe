@@ -234,6 +234,7 @@ export class TakeAwayState {
                 email: payload.reservationBookerInfo.email,
                 lastName: payload.reservationBookerInfo.lastName,
                 firstName: payload.reservationBookerInfo.firstName,
+                phoneNumber: payload.reservationBookerInfo.phoneNumber,
             }
         });
 
