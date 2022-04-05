@@ -71,13 +71,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     NzLayoutModule,
     NzMenuModule,
     NzDatePickerModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: httpTranslateLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+
   ],
   providers: [
     {

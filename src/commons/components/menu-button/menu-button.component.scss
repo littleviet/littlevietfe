@@ -78,15 +78,26 @@
 }
 
 .language-item {
-    font-size: 25px;
-    color: #e0c296;
-    display: block;
-    transition: 0.3s;
-    margin: 0 3%;
+  font-size: 25px;
+  color: #e0c296;
+  display: block;
+  transition: 0.3s;
+  margin: 0 3%;
+}
+
+.inactive-language {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 0 5px;
+}
+
+.inactive-language:hover {
+  border-bottom: 3px solid #e0c296;
 }
 
 .active-language {
-    border-bottom: 3px solid #e0c296;
+  border-bottom: 3px solid #e0c296;
+  cursor: default;
 }
 
 .menu-btn-title {

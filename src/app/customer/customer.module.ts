@@ -36,6 +36,13 @@ import { GlobalErrorDialogComponent } from 'src/commons/components/global-error-
 import { LoginComponent } from './login/login.component';
 import { CouponConfirmDialogComponent } from './coupon/coupon-confirm-dialog/coupon-confirm-dialog.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export function httpTranslateLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   imports: [
@@ -56,6 +63,13 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatDialogModule,
     MatProgressSpinnerModule,
     NzDatePickerModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     HomeComponent,

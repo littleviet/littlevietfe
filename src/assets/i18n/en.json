@@ -1,11 +1,34 @@
 {
-    "LANDING_PAGE": "Bienvenido, los detalles de su perfil son",
-    "USER_INFO": {
-        "NAME": "Nombre",
-        "WORKING_PROFILE": "Perfil de trabajo",
-        "ADDRESS_DETAILS": "Detalles de dirección",
-        "PHONE_NUMBER": "Número de teléfono",
-        "EMAIL_ADDRESS": "Dirección de correo electrónico",
-        "RELEVANT_EXPERIENCE": "Experiencia relevante"
+    "landingPage": {
+        "reservation": {
+            "title": "MAKE A RESERVATION",
+            "bookBtn": "BOOK TABLE NOW",
+            "open": "OPEN",
+            "days": "Monday Wednesday Thursday Friday Saturday Sunday",
+            "close": "CLOSE",
+            "tuesday": "Tuesday",
+            "description1": "Make a reservation and come to enjoy the unique food.",
+            "description2": "Your reservation will be annulled because of delay without informing us, after 15 minutes.",
+            "description3": "We have child chairs, but please let us know if you bring baby carriage and you need space.",
+            "description4": "For more requests or information, please call:"
+        },
+        "menu": {
+            "title": "MENU"
+        },
+        "takeaway": {
+            "title": "TAKE AWAY",
+            "description1": "Want to enjoy our dishes at home?",
+            "description2": "Please order here.",
+            "orderOnline": "ORDER ONLINE"
+        },
+        "couponGift": {
+            "title": "COUPON GIFT",
+            "description1": "You loved visiting us and want somebody special to enjoy in Little Viet?",
+            "description2": "Buy online our coupon gift and receive it instantly by email.",
+            "orderOnline": "BUY COUPON GIFT"
+        },
+        "product": {
+            "title": "PRODUCTS"
+        }
     }
 }

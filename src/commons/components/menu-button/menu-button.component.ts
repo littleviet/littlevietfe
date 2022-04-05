@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Logout } from 'src/app/actions/authentication.action';
@@ -15,8 +16,11 @@ export class MenuButtonComponent implements OnInit {
   @Input() menuOpen: boolean = false;
   @Output() menuOpenChange: EventEmitter<boolean> = new EventEmitter();
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfo!: Observable<LoginAccountInfo>;
-  loginInfo: LoginAccountInfo | null = null; 
-  constructor(private store: Store) { }
+
+  loginInfo: LoginAccountInfo | null = null;
+  currentLanguage = 'en';
+  
+  constructor(private store: Store, private translate: TranslateService) { }
 
   ngOnInit() {
     this.loginAccountInfo.subscribe((result) => {
@@ -38,5 +42,10 @@ export class MenuButtonComponent implements OnInit {
 
   logout() {
     this.store.dispatch(new Logout());
+  }
+
+  changeSiteLanguage(localeCode: string): void {
+    this.translate.use(localeCode);
+    this.currentLanguage = localeCode;
   }
 }

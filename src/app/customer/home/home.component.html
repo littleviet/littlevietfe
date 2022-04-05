@@ -20,24 +20,24 @@
   <!-- Reservation section -->
   <div id="reservation" class="reservation-section">
     <div class="title">
-      <app-landing-title title="MAKE A RESERVATION"></app-landing-title>
+      <app-landing-title title="{{'landingPage.reservation.title' | translate }}"></app-landing-title>
     </div>
     <div class="content">
       <div class="item">
-        <button routerLink="/reservation" class="booking-btn">BOOK TABLE NOW</button>
+        <button routerLink="/reservation" class="booking-btn">{{ 'landingPage.reservation.bookBtn' | translate }}</button>
       </div>
 
-      <div class="item open-title section-margin">OPEN</div>
+      <div class="item open-title section-margin">{{ 'landingPage.reservation.open' | translate }}</div>
       <div class="item time-title bloc-margin">13:00 - 16:00</div>
       <div class="item time-title item-margin">20:00 - 23:00</div>
-      <div class="item time-title item-margin">Monday Wednesday Thursday Friday Saturday Sunday</div>
-      <div class="item open-title section-margin">CLOSE</div>
-      <div class="item time-title bloc-margin">Tuesday</div>
+      <div class="item time-title item-margin">{{ 'landingPage.reservation.days' | translate }}</div>
+      <div class="item open-title section-margin">{{ 'landingPage.reservation.close' | translate }}</div>
+      <div class="item time-title bloc-margin">{{ 'landingPage.reservation.tuesday' | translate }}</div>
       <div class="item section-margin">
-        <p class="pt-font">Make a reservation and come to enjoy a unique food.</p>
-        <p class="pt-font item-margin">Your reservation will be annuled because of delay without informing us, after 15 minutes.</p>
-        <p class="pt-font item-margin">We have child chairs, but please let us know if you bring baby carriage and you need space.</p>
-        <p class="pt-font section-margin">For more request or information, please call:</p>
+        <p class="pt-font">{{ 'landingPage.reservation.description1' | translate }}</p>
+        <p class="pt-font item-margin">{{'landingPage.reservation.description2' | translate }}</p>
+        <p class="pt-font item-margin">{{ 'landingPage.reservation.description3' | translate }}</p>
+        <p class="pt-font section-margin">{{ 'landingPage.reservation.description4' | translate }}</p>
       </div>
 
       <div class="item section-margin">
@@ -57,7 +57,7 @@
   <!-- Menu -->
   <div id="menu" class="menu-section">
     <div class="menu-title">
-      <app-landing-title type="2" title="MENU" color="#f3eacd"></app-landing-title>
+      <app-landing-title type="2" title="{{ 'landingPage.menu.title' | translate }}" color="#f3eacd"></app-landing-title>
     </div>
     <div class="content">
       <owl-carousel-o #owlElement [options]="carouselOptions">
@@ -76,11 +76,11 @@
   <div id="take-away" class="take-away-section">
     <div class="take-away-action">
       <div class="take-away-title">
-        <app-landing-title title="TAKE AWAY" type="{{takeAwayTitleType}}"></app-landing-title>
+        <app-landing-title title="{{ 'landingPage.takeaway.title' | translate }}" type="{{takeAwayTitleType}}"></app-landing-title>
       </div>
-      <div class="take-way-description-1">Want to enjoy our dishes at home?</div>
-      <div class="take-way-description-2">Please order here.</div>
-      <button routerLink="/take-away" class="order-online-btn">ORDER ONLINE</button>
+      <div class="take-way-description-1">{{ 'landingPage.takeaway.description1' | translate }}</div>
+      <div class="take-way-description-2">{{ 'landingPage.takeaway.description2' | translate }}</div>
+      <button routerLink="/take-away" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
     </div>
     <div class="take-away-presentation">
       <div class="vertical-wave-line" >
@@ -100,13 +100,13 @@
     <div class="coupon-action-information">
       <div class="coupon-action">
         <div class="coupon-title">
-          <app-landing-title title="COUPON GIFT"></app-landing-title>
+          <app-landing-title title="{{ 'landingPage.couponGift.title' | translate }}"></app-landing-title>
         </div>
         <div class="counpon-description">
-          <div class="coupon-description-1">You loved visiting us and want somebody special to enjoy in Little Viet?</div>
-          <div class="coupon-description-2">Buy online our coupon gift and receive it instantly by email.</div>
+          <div class="coupon-description-1">{{ 'landingPage.couponGift.description1' | translate }}</div>
+          <div class="coupon-description-2">{{ 'landingPage.couponGift.description2' | translate }}</div>
         </div>
-        <button routerLink="/coupon-gift" class="buy-coupon-btn">BUY COUPON GIFT</button>
+        <button routerLink="/coupon-gift" class="buy-coupon-btn">{{ 'landingPage.couponGift.orderOnline' | translate }}</button>
       </div>
       <img src="assets/imgs/landing-page/horizontal-wave-line.png" alt="">
     </div>
@@ -115,7 +115,7 @@
   <!-- products section -->
   <div id="products" class="product-section">
     <div class="product-title">
-      <app-landing-title title="PRODUCTS"></app-landing-title>
+      <app-landing-title title="{{ 'landingPage.product.title' | translate }}"></app-landing-title>
     </div>
     <div class="item-layout" fxLayout="row wrap" fxLayoutAlign="center">
       <div class="product-item-layout" *ngFor="let product of packagedProducts" fxFlex="0 1 calc(33% - 48px)" fxFlex.lt-sm="0 1 calc(100%)" >

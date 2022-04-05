@@ -1,0 +1,34 @@
+{
+    "landingPage": {
+        "reservation": {
+            "title": "HACER UNA RESERVA",
+            "bookBtn": "RESERVAR MESA AHORA",
+            "open": "ABRIR",
+            "days": "Lunes Miércoles Jueves Viernes Sábado Domingo",
+            "close": "CERRAR",
+            "tuesday": "Martes",
+            "description1": "Haz tu reserva y ven a disfrutar de una comida única.",
+            "description2": "Su reserva será anulada por retraso sin informarnos, después de 15 minutos.",
+            "description3": "Tenemos sillas para niños, pero por favor avísanos si traes cochecito de bebé y necesitas espacio.",
+            "description4": "Para más solicitudes o información, llame al:"
+        },
+        "menu": {
+            "title": "MENÚ"
+        },
+        "takeaway": {
+            "title": "LLEVARSE",
+            "description1": "¿Quieres disfrutar de nuestros platos en casa?",
+            "description2": "Por favor ordene aquí.",
+            "orderOnline": "COMPRAR ONLINE"
+        },
+        "couponGift": {
+            "title": "CUPÓN DE REGALO",
+            "description1": "¿Te encantó visitarnos y quieres a alguien especial para disfrutar en Little Viet?",
+            "description2": "Compra online nuestro cupón regalo y recíbelo al instante por email.",
+            "orderOnline": "COMPRAR CUPÓN DE REGALO"
+        },
+        "product": {
+            "title": "PRODUCTOS"
+        }
+    }
+}

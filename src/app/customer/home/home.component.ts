@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
-  
+
   menuOpen: boolean = false;
   footerHeight: number = 0;
   landingPageModel: LandingPageModel | null = null;
@@ -67,9 +68,13 @@ export class HomeComponent implements OnInit {
     this.setUpTittleColorBasedOnScreenSize();
   }
 
-  constructor(private store: Store, private titleService: Title, private route: ActivatedRoute,
+  constructor(private store: Store, private titleService: Title, private translate: TranslateService,
     router: Router, private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
+    translate.addLangs(['en', 'es']);
+    translate.setDefaultLang('en');
+    translate.use('en');
     this.titleService.setTitle("Little Viet - Homepage");
+
     router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);

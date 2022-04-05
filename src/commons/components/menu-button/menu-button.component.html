@@ -42,9 +42,9 @@
     <div class="menu-item" (click)="menuClick()" routerLink="" fragment="products">PRODUCTS</div>
     <div class="menu-item" (click)="menuClick()" routerLink="" fragment="contact">CONTACT</div>
     <div class="menu-language">
-      <span class="language-item active-language">ES</span>
-      <span class="language-item">EN</span>
-      <span class="language-item">CA</span>
+      <span class="language-item" [ngClass]="currentLanguage == 'en' ? 'active-language' : 'inactive-language'" (click)="changeSiteLanguage('en')">EN</span>
+      <span class="language-item" [ngClass]="currentLanguage == 'es' ? 'active-language' : 'inactive-language'" (click)="changeSiteLanguage('es')">ES</span>
+      <span class="language-item" [ngClass]="currentLanguage == 'ca' ? 'active-language' : 'inactive-language'">CA</span>
     </div>
   </div>
 </div>
