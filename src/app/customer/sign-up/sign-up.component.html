@@ -7,11 +7,14 @@
   </div>
 
   <app-cart-button></app-cart-button>
-  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+
+  <div #menuBtn>
+    <app-menu-button [(menuOpen)]="menuOpen" [isDisplayBackground]="true"></app-menu-button>
+  </div>
 
   <div class="register-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
     <div class="register-area-title">SIGN UP</div>
-    <form *ngIf="!loginInfo" class="register-form" [formGroup]="registerFormGroup" (submit)="onRegisterSubmit()">
+    <form *ngIf="!loginInfo || !loginInfo.token" class="register-form" [formGroup]="registerFormGroup" (submit)="onRegisterSubmit()">
       <div class="registered-title">YOU'RE THE NEW CUSTOMER?</div>
       <!-- First name -->
       <mat-form-field class="email-field" appearance="fill">

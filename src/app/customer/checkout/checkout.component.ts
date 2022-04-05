@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
@@ -17,7 +17,7 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  hide = true;
+  hidePassword = true;
   matcher = new MyErrorStateMatcher();
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   scrHeight: number = 0;
@@ -25,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
   @Select(AuthenticationState.getLoggedInAccountInfo) loggedInAccountObs!: Observable<LoginAccountInfo>;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
@@ -36,6 +37,7 @@ export class CheckoutComponent implements OnInit {
   orderSuccess: boolean | null = null;
   pickUpTime: Date | null = null;
   pickUpTimeValues: any[] = [];
+  
   // Login control
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
@@ -90,7 +92,7 @@ export class CheckoutComponent implements OnInit {
   });
 
   constructor(private store: Store, private titleService: Title, private router: Router,
-    private cdRef : ChangeDetectorRef) {
+    private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.titleService.setTitle("Little Viet - Checkout");
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd) {
@@ -101,8 +103,17 @@ export class CheckoutComponent implements OnInit {
         }
       }
     });
+
     this.registerFormGroup.valueChanges.subscribe(v => {
       console.log("FG: ", this.registerFormGroup);
+    });
+
+    this.renderer.listen('window', 'click', (e: any) => {
+      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
+        }
+      }
     });
   }
 

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
@@ -17,20 +17,20 @@ import { CancellationPolicyDialogComponent } from './cancellation-policy-dialog/
 export class ReservationComponent implements OnInit {
   @Select(TakeAwayState.isReservationSuccess) reservationSuccessObs!: Observable<boolean>;
   @ViewChild('footer') footerEl!: ElementRef;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
+  
   menuOpen: boolean = false;
   footerHeight: number = 0;
   numberOfPeople = Array(15).fill(0);
   reservationSuccess: boolean | null = null;
   hours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00",
   "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30", "22:45", "23:00"];
-
   noPeopleFC = new FormControl("1", [Validators.required]);
   dayFC = new FormControl(new Date(), [Validators.required]);
   hourFC = new FormControl("13:00", [Validators.required]);
   today = new Date();
   disabledDate = (current: Date): boolean =>
     differenceInCalendarDays(current, this.today) < 0;
-
   reservationFG = new FormGroup({
     numberOfPeople: this.noPeopleFC,
     day: this.dayFC,
@@ -38,16 +38,20 @@ export class ReservationComponent implements OnInit {
   });
 
   constructor(public dialog: MatDialog, private store: Store,
-    private cdRef : ChangeDetectorRef) { }
+    private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
+    this.renderer.listen('window', 'click', (e: any) => {
+      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
+        }
+      }
+    });
+  }
 
   ngOnInit() {
     this.reservationSuccessObs.subscribe((result) => {
       this.reservationSuccess = result;
     });
-  }
-
-  clickBtn() {
-    this.menuOpen = !this.menuOpen;
   }
 
   openDialog(): void {

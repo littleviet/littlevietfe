@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Select, Store } from '@ngxs/store';
@@ -18,10 +18,12 @@ import { TakeAwayProduct } from 'src/dtos/product/take-away-product';
 export class TakeAwayComponent implements OnInit {
   @ViewChild("productTypeNav") productTypeNav!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
   @Select(TakeAwayState.getTakeAwayProducts) takeAwayProducts!: Observable<TakeAwayProduct[]>;
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
   @Select(TakeAwayState.getTimePickUp) timePickUpObs!: Observable<string>;
   @Select(TakeAwayState.getActions) takeAwayActionsObs!: Observable<string[]>;
+
   footerHeight: number = 0;
   cartDetail!: CartDetail;
   menuOpen: boolean = false;
@@ -34,8 +36,15 @@ export class TakeAwayComponent implements OnInit {
   products: TakeAwayProduct[] = [];
 
   constructor(private store: Store, private titleService: Title, public dialog: MatDialog,
-    private cdRef : ChangeDetectorRef) {
+    private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.titleService.setTitle("Little Viet - Take Away");
+    this.renderer.listen('window', 'click', (e: any) => {
+      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
+        }
+      }
+    });
   }
 
   ngOnInit() {
@@ -66,10 +75,6 @@ export class TakeAwayComponent implements OnInit {
       } else {
         this.sticky = false;
       }
-  }
-
-  clickBtn() {
-    this.menuOpen = !this.menuOpen;
   }
 
   clickProductType(index: number) {

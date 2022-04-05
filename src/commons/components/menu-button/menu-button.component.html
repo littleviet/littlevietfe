@@ -1,12 +1,11 @@
 <div class="menu-btn-section">
-  <div [ngClass]="{'open': menuOpen, 'menu-btn-bg': isDisplayBackground}" class="menu-btn" (click)="clickBtn()">
+  <div [ngClass]="{'open': menuOpen, 'menu-btn-bg': isDisplayBackground}" class="menu-btn" (click)="closeMenu()">
     <div class="menu-btn__burger"></div>
   </div>
 </div>
 
 <div class="overlay" [ngClass]="{'overlay-open': menuOpen}">
   <div class="overlay-content">
-
     <!-- Already logged in -->
     <div *ngIf="loginInfo != null && loginInfo.token != null" class="login-info-btn">
       <button mat-button #trigger="matMenuTrigger" class="name-info-btn" [matMenuTriggerFor]="beforeMenu">

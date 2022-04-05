@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
@@ -20,6 +20,8 @@ export class HomeComponent implements OnInit {
   @Select(LandingPageState.getActions) landingActionsObs!: Observable<string[]>;
   @ViewChild('owlElement', { static: true }) carousel!: CarouselComponent;
   @ViewChild('footer') footerEl!: ElementRef;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
+  
   menuOpen: boolean = false;
   footerHeight: number = 0;
   landingPageModel: LandingPageModel | null = null;
@@ -66,7 +68,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private store: Store, private titleService: Title, private route: ActivatedRoute,
-    router: Router, private cdRef : ChangeDetectorRef) {
+    router: Router, private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.titleService.setTitle("Little Viet - Homepage");
     router.events.subscribe(s => {
       if (s instanceof NavigationEnd) {
@@ -74,6 +76,14 @@ export class HomeComponent implements OnInit {
         if (tree.fragment) {
           const element = document.querySelector("#" + tree.fragment);
           if (element) { element.scrollIntoView(true); }
+        }
+      }
+    });
+
+    this.renderer.listen('window', 'click', (e: any) => {
+      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
         }
       }
     });
@@ -105,9 +115,5 @@ export class HomeComponent implements OnInit {
     } else {
       this.takeAwayTitleType = '2';
     }
-  }
-
-  clickBtn() {
-    this.menuOpen = !this.menuOpen;
   }
 }

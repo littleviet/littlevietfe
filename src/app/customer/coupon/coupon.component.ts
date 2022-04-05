@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
@@ -17,10 +17,12 @@ export class CouponComponent implements OnInit {
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
-  scrHeight: number = 0;
-  footerHeight: number = 0;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
   @Select(CouponState.getCouponTypes) couponTypesObs!: Observable<CustomerCouponType[]>;
   @Select(CouponState.isCouponBuyingSuccess) couponBuyingSuccessObs!: Observable<boolean | null>;
+  
+  scrHeight: number = 0;
+  footerHeight: number = 0;
   couponBuyingSuccess: boolean | null = null;
   couponTypes: CustomerCouponType[] = [];
   numberOfUnit = Array(10).fill(0);
@@ -31,8 +33,9 @@ export class CouponComponent implements OnInit {
     unit: this.unitFC,
   });
   menuOpen: boolean = false;
+
   constructor(private store: Store, public dialog: MatDialog,
-    private cdRef : ChangeDetectorRef) { }
+    private cdRef : ChangeDetectorRef, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.store.dispatch(new GetCouponTypes());
@@ -46,6 +49,14 @@ export class CouponComponent implements OnInit {
 
     this.couponBuyingSuccessObs.subscribe((result) => {
       this.couponBuyingSuccess = result;
+    });
+
+    this.renderer.listen('window', 'click', (e: any) => {
+      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+        if (this.menuOpen) {
+          this.menuOpen = false;
+        }
+      }
     });
   }
 
@@ -76,14 +87,9 @@ export class CouponComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (this.headerEl != null) {
-      if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
-        return;
-      } else {
-        this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
+    if (this.headerEl != null && this.fullEl.nativeElement.getBoundingClientRect().height <= window.innerHeight) {
+      this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
         - this.footerEl.nativeElement.getBoundingClientRect().height;
-      }
-      
     }
   }
 }

@@ -7,7 +7,10 @@
   </div>
 
   <app-cart-button></app-cart-button>
-  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+
+  <div #menuBtn>
+    <app-menu-button [(menuOpen)]="menuOpen" [isDisplayBackground]="true"></app-menu-button>
+  </div>
 
   <!-- Take away -->
   <div class="take-away-section">

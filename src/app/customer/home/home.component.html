@@ -3,7 +3,9 @@
   <div class="header">
   </div>
 
-  <app-menu-button (isMenuOpen)="menuOpen = $event"></app-menu-button>
+  <div #menuBtn>
+    <app-menu-button [(menuOpen)]="menuOpen"></app-menu-button>
+  </div>
 
   <!-- logo -->
   <div class="logo" ngClass.lt-sm="logo-lt-sm">

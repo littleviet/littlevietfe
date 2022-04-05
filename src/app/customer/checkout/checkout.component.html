@@ -7,7 +7,10 @@
   </div>
 
   <app-cart-button></app-cart-button>
-  <app-menu-button (isMenuOpen)="menuOpen = $event" [isDisplayBackground]="true"></app-menu-button>
+  
+  <div #menuBtn>
+    <app-menu-button [(menuOpen)]="menuOpen" [isDisplayBackground]="true"></app-menu-button>
+  </div>
 
   <div class="checkout-section" [style.height]="scrHeight > 0 ? scrHeight + 'px' : 'auto'">
 
@@ -98,9 +101,9 @@
              <!-- Password -->
             <mat-form-field class="email-field" appearance="fill">
               <mat-label>Password</mat-label>
-              <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" placeholder="Ex. 123456">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Ex. 123456">
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
               <mat-error *ngIf="regPasswordFormControl.hasError('required')">
                 Password is <strong>required</strong>
@@ -113,11 +116,11 @@
             <!-- Confirm password -->
             <mat-form-field class="password-field" appearance="fill">
               <mat-label>Confirm password</mat-label>
-              <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmPassword"
+              <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="confirmPassword"
                 placeholder="Ex. 123456" [errorStateMatcher]="matcher">
-              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                [attr.aria-pressed]="hide">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
               <mat-error *ngIf="registerFormGroup.hasError('notSame')">
                 Passwords do <strong>NOT</strong> match

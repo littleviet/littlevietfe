@@ -1,4 +1,3 @@
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -12,12 +11,12 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
   styleUrls: ['./menu-button.component.scss']
 })
 export class MenuButtonComponent implements OnInit {
-  @Input() isDisplayBackground: boolean = false
-  @Output() isMenuOpen: EventEmitter<boolean> = new EventEmitter();
+  @Input() isDisplayBackground: boolean = false;
+  @Input() menuOpen: boolean = false;
+  @Output() menuOpenChange: EventEmitter<boolean> = new EventEmitter();
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfo!: Observable<LoginAccountInfo>;
   loginInfo: LoginAccountInfo | null = null; 
-  menuOpen: boolean = false;
-  constructor(private store: Store,  private breakpointObserver: BreakpointObserver) { }
+  constructor(private store: Store) { }
 
   ngOnInit() {
     this.loginAccountInfo.subscribe((result) => {
@@ -25,9 +24,9 @@ export class MenuButtonComponent implements OnInit {
     });
   }
 
-  clickBtn() {
+  closeMenu() {
     this.menuOpen = !this.menuOpen;
-    this.isMenuOpen.emit(this.menuOpen);
+    this.menuOpenChange.emit(this.menuOpen);
   }
 
   menuClick() {

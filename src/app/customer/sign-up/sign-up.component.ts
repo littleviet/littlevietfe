@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -12,15 +12,18 @@ import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  scrHeight: number = 0;
-  footerHeight: number = 0;
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
-  menuOpen: boolean = false;
+  @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfoObs!: Observable<LoginAccountInfo>;
+
+  scrHeight: number = 0;
+  footerHeight: number = 0;
+  menuOpen: boolean = false;
   loginInfo: LoginAccountInfo | null = null; 
+
   // Register control
   policyFormControl = new FormControl('', [Validators.required]);
   firstNameFormControl = new FormControl('', [Validators.required]);
@@ -50,7 +53,16 @@ export class SignUpComponent implements OnInit {
     password: this.regPasswordFormControl,
   });
 
-  constructor(private store: Store, private cdRef : ChangeDetectorRef) { }
+  constructor(private store: Store, private cdRef : ChangeDetectorRef,
+    private renderer: Renderer2) {
+      this.renderer.listen('window', 'click', (e: any) => {
+        if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+          if (this.menuOpen) {
+            this.menuOpen = false;
+          }
+        }
+      });
+    }
 
   ngOnInit() {
     this.loginAccountInfoObs.subscribe((result) => {
