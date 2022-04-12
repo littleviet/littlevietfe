@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { Select, Store } from '@ngxs/store';
 import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
 import { Observable } from 'rxjs';
@@ -68,11 +67,8 @@ export class HomeComponent implements OnInit {
     this.setUpTittleColorBasedOnScreenSize();
   }
 
-  constructor(private store: Store, private titleService: Title, private translate: TranslateService,
+  constructor(private store: Store, private titleService: Title,
     router: Router, private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
-    translate.addLangs(['en', 'es']);
-    translate.setDefaultLang('en');
-    translate.use('en');
     this.titleService.setTitle("Little Viet - Homepage");
 
     router.events.subscribe(s => {

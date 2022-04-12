@@ -1,7 +1,7 @@
 <div class="order-detail-section" [ngClass]="{'order-detail-sticky': orderDetailSticky}" #orderDetailSection>
   <div class="order-detail-area" #orderDetail>
     <div class="order-detail-title">
-      My order
+      {{ 'takeaway.cart.title' | translate }}
     </div>
     <img src="assets/imgs/take-away/order-detail-wave.png" alt="">
     <div *ngIf="cartDetail &&  cartDetail.servings &&  cartDetail.servings.length > 0"  class="order-item-list">
@@ -24,12 +24,12 @@
     </div>
     <mat-divider class="section-divider"></mat-divider>
     <div class="total">
-      <div>Subtotal</div>
+      <div>{{ 'takeaway.cart.subtotal' | translate }}</div>
       <div class="total-price">{{cartDetail && cartDetail.subTotalPrice ? cartDetail.subTotalPrice : 0}} &#8364;</div>
     </div>
     <mat-divider class="section-divider"></mat-divider>
     <div class="total">
-      <div>Total</div>
+      <div>{{ 'takeaway.cart.total' | translate }}</div>
       <div class="total-price">{{cartDetail && cartDetail.totalPrice ? cartDetail.totalPrice : 0}} &#8364;</div>
     </div>
     <mat-divider class="section-divider"></mat-divider>

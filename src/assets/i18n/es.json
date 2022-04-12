@@ -30,5 +30,51 @@
         "product": {
             "title": "PRODUCTOS"
         }
+    },
+    "reservationPage": {
+        "title": "HACER UNA RESERVA",
+        "open": "ABRIR",
+        "close": "CERRAR",
+        "description1": "Little Viet Barcelona está abierto todos los días, excepto los martes de",
+        "and": "y de",
+        "to": "a",
+        "description2": "Haz tu reserva y ven a disfrutar de una comida única.",
+        "description3": "Su reserva será anulada por retraso sin informarnos, después de 15 minutos.",
+        "description4": "Tenemos sillas para niños, pero por favor avísanos si traes cochecito de bebé y necesitas espacio.",
+        "description5": "Para más solicitud o información, por favor llame",
+        "cancelationPolicy": "POLÍTICA DE CANCELACIÓN",
+        "description6": "Rellena los datos para hacer una reserva",
+        "bookNow": "RESERVAR AHORA",
+        "dialog": {
+            "description1": "En reservas de 8 personas o más le solicitaremos los datos de su tarjeta de crédito, como garantía.",
+            "description2": "El procedimiento de reserva no implica ningún cargo en su tarjeta de crédito.",
+            "description3": "Podrá modificar o anular su reserva sin ningún cargo hasta 24 horas antes de la misma.",
+            "description4": "Si anulas la reserva el mismo día o no vienes, se cobrarán 25€ por persona.",
+            "description5": "Podrá ajustar el número definitivo de comensales hasta 6 horas antes de la reserva, en caso contrario se cobrarán 25€ por cada persona que no asista.",
+            "description6": "Para su tranquilidad, siempre confirmamos (a través de correo electrónico o SMS) para verificar su reserva: uno de los momentos de hacerla y otro el día anterior."
+        }
+    },
+    "takeaway": {
+        "cart": {
+            "title": "Mi pedido",
+            "subtotal": "Total parcial",
+            "total": "Total",
+            "checkout": "VERIFICAR"
+        }
+    },
+    "common": {
+        "back": "REGRESA",
+        "noPeople": {
+            "label": "Número de personas",
+            "required": "Se requiere el número de personas"
+        },
+        "day": {
+            "label": "Día",
+            "required": "Se requiere día"
+        },
+        "hour": {
+            "label": "Hora",
+            "required": "Se requiere hora"
+        }
     }
 }

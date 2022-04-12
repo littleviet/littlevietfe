@@ -4,6 +4,7 @@ import { CheckOutSuccessfulComponent } from 'src/commons/components/check-out-su
 import { PageNotFoundComponent } from 'src/commons/components/page-not-found/page-not-found.component';
 import { CheckoutComponent } from './customer/checkout/checkout.component';
 import { CouponComponent } from './customer/coupon/coupon.component';
+import { HomeComponent } from './customer/home/home.component';
 import { LoginComponent } from './customer/login/login.component';
 import { ReservationComponent } from './customer/reservation/reservation.component';
 import { SignUpComponent } from './customer/sign-up/sign-up.component';
@@ -12,7 +13,7 @@ import { AuthGuard } from './helper/auth.guard';
 
 const routes: Routes = [
   { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/welcome.module').then(m => m.WelcomeModule), data: { breadcrumb: 'Home' } },
-  { path: '', canActivate: [AuthGuard], pathMatch: 'full', loadChildren: () => import('./customer/customer.module').then((m) => m.CustomerModule) },
+  { path: '', canActivate: [AuthGuard], component: HomeComponent },
   { path: 'take-away', canActivate: [AuthGuard], component: TakeAwayComponent },
   { path: 'checkout', canActivate: [AuthGuard], component: CheckoutComponent, children: [
       { path: 'order-successful', data: { orderSuccess: true}, component: CheckOutSuccessfulComponent},

@@ -120,10 +120,10 @@
     <div class="item-layout" fxLayout="row wrap" fxLayoutAlign="center">
       <div class="product-item-layout" *ngFor="let product of packagedProducts" fxFlex="0 1 calc(33% - 48px)" fxFlex.lt-sm="0 1 calc(100%)" >
         <div class="product-item">
-          <img src="{{product.imageUrl || 'assets/imgs/landing-page/landing-page-5.jpg'}}" alt="">
-          <div class="name">{{product.name}}</div>
-          <div class="other-name">{{product.esName}}</div>
-          <div class="other-name">{{product.caName}}</div>
+          <img src="{{ product.imageUrl || 'assets/imgs/landing-page/landing-page-5.jpg' }}" alt="">
+          <div class="name">{{ product.name }}</div>
+          <div class="other-name">{{ product.esName }}</div>
+          <div class="other-name">{{ product.caName }}</div>
         </div>
       </div>
     </div>

@@ -30,5 +30,51 @@
         "product": {
             "title": "PRODUCTS"
         }
+    },
+    "reservationPage": {
+        "title": "MAKE A RESERVATION",
+        "open": "OPEN",
+        "close": "CLOSE",
+        "description1": "Little Viet Barcelona is open every day, except on Tuesdays from",
+        "and": "&",
+        "to": "to",
+        "description2": "Make a reservation and come to enjoy the unique food.",
+        "description3": "Your reservation will be annulled because of delay without informing us, after 15 minutes.",
+        "description4": "We have child chairs, but please let us know if you bring baby carriage and you need space.",
+        "description5": "For more request or information, please call",
+        "cancelationPolicy": "CANCELLATION POLICY",
+        "description6": "Fill in the information to make a reservation",
+        "bookNow": "BOOK NOW",
+        "dialog": {
+            "description1": "In reservations of 8 people or more we will request your credit card data, as guarantee.",
+            "description2": "The procedure of reservation does not imply any charge on your credit card.",
+            "description3": "You will be able to modify or annul your reservation without any charge until 24 hours before it.",
+            "description4": "If you annul the reservation the same day or you do not come, 25€ per person will be charged.",
+            "description5": "You will be able to adjust the definitive number of diners until 6 hours before the reservation, on the contrary, 25€ will be charged for every person that does not assist.",
+            "description6": "For your tranquillity, we always confirm (via email or SMS) to double-check your reservation: one of the moments of doing it and another the previous day."
+        }
+    },
+    "takeaway": {
+        "cart": {
+            "title": "My order",
+            "subtotal": "Subtotal",
+            "total": "Total",
+            "checkout": "CHECK OUT"
+        }
+    },
+    "common": {
+        "back": "BACK",
+        "noPeople": {
+            "label": "Number of people",
+            "required": "Number of people is required"
+        },
+        "day": {
+            "label": "Day",
+            "required": "Day is required"
+        },
+        "hour": {
+            "label": "Hour",
+            "required": "Hour is required"
+        }
     }
 }

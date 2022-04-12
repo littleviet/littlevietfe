@@ -2,7 +2,7 @@
   <!-- header -->
   <div class="header">
     <div class="menu-title">
-      <app-landing-title type="2" title="MAKE A RESERVATION" color="#f3eacd"></app-landing-title>
+      <app-landing-title type="2" title="{{ 'reservationPage.title' | translate }}" color="#f3eacd"></app-landing-title>
     </div>
   </div>
 
@@ -14,18 +14,18 @@
 
   <div class="reservation-section">
 
-      <!-- Reservation introduction -->
+    <!-- Reservation introduction -->
     <div class="reservation-intro-section">
       <div class="back-btn-area">
         <div onclick="window.history.back()" class="back-button">
-          &lt;&lt; BACK
+          &lt;&lt; {{ 'common.back' | translate }}
         </div>
         <img class="wavy-line" src="assets/imgs/reservation/wavy-line.png" alt="">
       </div>
 
       <div class="reservation-time-info">
         <div class="time-open">
-          <div class="open-title">OPEN</div>
+          <div class="open-title">{{ 'reservationPage.open' | translate }}</div>
           <div class="open-time">13:00 - 16:00</div>
           <div>20:00 - 23:00</div>
         </div>
@@ -40,7 +40,7 @@
         </div>
 
         <div class="time-close">
-          <div class="close-title">CLOSE</div>
+          <div class="close-title">{{ 'reservationPage.close' | translate }}</div>
           <div>Tuesday</div>
         </div>
 
@@ -48,55 +48,55 @@
       </div>
 
       <div class="reservation-policy">
-        <div class="line-1">Little Viet Barcelona is open every day, except on Tuesdays from
-          <span class="time-title">13:00 to 16:00</span> & <span class="time-title">20:00 to 23:00</span>.
+        <div class="line-1">{{ 'reservationPage.description1' | translate }}
+          <span class="time-title">13:00 {{ 'reservationPage.to' | translate }} 16:00</span> {{ 'reservationPage.and' | translate }} <span class="time-title">20:00 {{ 'reservationPage.to' | translate }} 23:00</span>.
         </div>
-        <div class="line-2">Make a reservation and come to enjoy a unique food.</div>
+        <div class="line-2">{{ 'reservationPage.description2' | translate }}</div>
         <div class="line-3">Carrer de Cartagena, 328, 08025</div>
-        <div class="line-4">Your reservation will be annuled because of delay without informing us, after 15 minutes.</div>
-        <div class="line-5">We have child chairs, but please let us know if you bring baby carriage and you need space.</div>
-        <div class="line-6">For more request or information, please call 671270969 or 931757081.</div>
-        <div class="line-7"><span (click)="viewPolicy()">CACELLATION POLICY</span></div>
+        <div class="line-4">{{ 'reservationPage.description3' | translate }}</div>
+        <div class="line-5">{{ 'reservationPage.description4' | translate }}</div>
+        <div class="line-6">{{ 'reservationPage.description5' | translate }} 671270969 or 931757081.</div>
+        <div class="line-7"><span (click)="viewPolicy()">{{ 'reservationPage.cancelationPolicy' | translate }}</span></div>
       </div>
     </div>
 
     <!-- Reservation booking detail -->
     <div class="reservation-booking-section">
       <div class="reservation-booking-bg">
-        <div class="reservation-title">Fill in the information to make a reservation</div>
+        <div class="reservation-title">{{ 'reservationPage.description6' | translate }}</div>
         <form [formGroup]="reservationFG" class="reservation-form" name="message" method="post">
           <div class="reservation-field">
-            <label>Number of people</label>
+            <label>{{ 'common.noPeople.label' | translate }}</label>
             <select formControlName="numberOfPeople" class="input-field" required name="hour">
               <option value="{{i + 1}}" *ngFor="let item of numberOfPeople; let i = index">{{i + 1}} People</option>
             </select>
             <mat-error *ngIf="noPeopleFC.hasError('required')">
-              Number of people is <strong>required</strong>
+              {{ 'common.noPeople.required' | translate }}
             </mat-error>
           </div>
     
           <div class="reservation-field">
-            <label>Day</label>
+            <label>{{ 'common.day.label' | translate }}</label>
             <nz-date-picker [nzDisabledDate]="disabledDate" nzFormat='dd-MM-yyyy' formControlName="day"
               [nzDropdownClassName]="'style-2'" class="date-picker input-field"></nz-date-picker>
             <mat-error *ngIf="dayFC.hasError('required') && !dayFC.pristine">
-              Day is <strong>required</strong>
+              {{ 'common.day.required' | translate }}
             </mat-error>
           </div>
     
           <div class="reservation-field">
-            <label>Hour</label>
+            <label>{{ 'common.hour.label' | translate }}</label>
             <select formControlName="hour" class="input-field" required name="hour">
               <option value="{{item}}" *ngFor="let item of hours; let i = index">{{item}}</option>
             </select>
             <mat-error *ngIf="hourFC.hasError('required')">
-              Hour is <strong>required</strong>
+              {{ 'common.hour.required' | translate }}
             </mat-error>
           </div>
           <button [disabled]="reservationFG.invalid || !isValidDate()"
             [ngClass]="reservationFG.valid && isValidDate() ? 'book-now-btn-active': 'book-now-btn-inactive'"
             class="book-now-btn" (click)="openDialog()">
-            BOOK NOW
+            {{ 'reservationPage.bookNow' | translate }}
           </button>
       </form>
       </div>

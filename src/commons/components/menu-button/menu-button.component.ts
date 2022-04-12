@@ -20,7 +20,9 @@ export class MenuButtonComponent implements OnInit {
   loginInfo: LoginAccountInfo | null = null;
   currentLanguage = 'en';
   
-  constructor(private store: Store, private translate: TranslateService) { }
+  constructor(private store: Store, private translate: TranslateService) {
+    this.currentLanguage = translate.currentLang;
+  }
 
   ngOnInit() {
     this.loginAccountInfo.subscribe((result) => {
