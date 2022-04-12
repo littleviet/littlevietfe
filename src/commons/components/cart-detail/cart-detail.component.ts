@@ -11,7 +11,7 @@ import { CartDetail } from 'src/dtos/cart/cart-detail';
   styleUrls: ['./cart-detail.component.scss']
 })
 export class CartDetailComponent implements OnInit {
-  @Input() titleBtn: string = "CHECK OUT";
+  @Input() titleBtn: string = "";
   @Select(TakeAwayState.getCartDetail) cartDetailObs!: Observable<CartDetail>;
   totalItem: number = 0;
   cartDetail!: CartDetail;
