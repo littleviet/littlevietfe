@@ -84,7 +84,23 @@
             "title": "My order",
             "subtotal": "Subtotal",
             "total": "Total",
-            "checkout": "CHECK OUT"
+            "checkout": "CHECK OUT",
+            "orderMore": "ORDER MORE"
+        },
+        "checkout": {
+            "registered": "Already registered?",
+            "signIn": "SIGN IN",
+            "newCustomer": "New customer?",
+            "policy": "PRIVACY POLICY*",
+            "description1": "I agree to the terms and conditions and the privacy policy.",
+            "description2": "Sign up for our newsletter.",
+            "register": "REGISTER"
+        },
+        "confirm": {
+            "title": "THE ORDER CAN BE COLLECTED",
+            "paymentMethod": "Payment method:",
+            "creditCard": "Credit card",
+            "pay": "PAY"
         }
     },
     "common": {
@@ -123,6 +139,14 @@
         },
         "additionalInfo": {
             "label": "Additional information"
+        },
+        "password": {
+            "label": "Password",
+            "required": "Password is required",
+            "forgot": "Forgot your password?",
+            "match": "Passwords do NOT match",
+            "length": "Password must be at least 8 characters",
+            "confirm": "Confirm password"
         },
         "seeMore": "See more"
     }

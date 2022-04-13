@@ -84,7 +84,23 @@
             "title": "Mi pedido",
             "subtotal": "Total parcial",
             "total": "Total",
-            "checkout": "VERIFICAR"
+            "checkout": "VERIFICAR",
+            "orderMore": "PEDIR MÁS"
+        },
+        "checkout": {
+            "registered": "¿Ya registrado?",
+            "signIn": "INICIAR SESIÓN",
+            "newCustomer": "¿Nuevo cliente?",
+            "policy": "POLÍTICA DE PRIVACIDAD*",
+            "description1": "Estoy de acuerdo con los términos y condiciones y la política de privacidad.",
+            "description2": "Regístrese para nuestro boletín.",
+            "register": "REGISTRARSE"
+        },
+        "confirm": {
+            "title": "EL ORDEN PUEDE SER RECOGIDO.",
+            "paymentMethod": "Método de pago:",
+            "creditCard": "Tarjeta de crédito",
+            "pay": "PAGAR"
         }
     },
     "common": {
@@ -123,6 +139,14 @@
         },
         "additionalInfo": {
             "label": "Información adicional"
+        },
+        "password": {
+            "label": "Contraseña",
+            "required": "Se requiere contraseña",
+            "forgot": "¿Olvidaste tu contraseña?",
+            "match": "Las contraseñas no coinciden",
+            "length": "La contraseña debe tener al menos 8 caracteres",
+            "confirm": "Confirmar Contraseña"
         },
         "seeMore": "Ver más"
     }

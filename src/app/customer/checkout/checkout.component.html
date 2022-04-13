@@ -17,7 +17,7 @@
     <!-- Back button -->
     <div class="back-button-section">
       <div onclick="window.history.back()" class="back-button">
-        &lt;&lt; BACK
+        &lt;&lt; {{ 'common.back' | translate }}
       </div>
     </div>
 
@@ -31,118 +31,120 @@
       <div class="customer-register-area">
         <!-- Login area -->
         <div class="login-area">
-          <div class="login-area-title">Already registered?</div>
+          <div class="login-area-title">{{ 'takeaway.checkout.registered' | translate }}</div>
           <form class="login-form" [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
             <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Email address</mat-label>
+              <mat-label>{{ 'common.email.label' | translate }}</mat-label>
               <input type="email" matInput [formControl]="emailFormControl" name="email" placeholder="Ex. pat@example.com">
               <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
-                Please enter a valid email address
+                {{ 'common.email.format' | translate }}
               </mat-error>
               <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+                {{ 'common.email.required' | translate }}
               </mat-error>
             </mat-form-field>
             <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Password</mat-label>
+              <mat-label>{{ 'common.password.label' | translate }}</mat-label>
               <input type="password" matInput [formControl]="passwordFormControl" placeholder="Ex. 123456">
               <mat-error *ngIf="passwordFormControl.hasError('required')">
-                Password is <strong>required</strong>
+                {{ 'common.password.required' | translate }}
               </mat-error>
             </mat-form-field>
-            <div class="forgot-password">Forgot your password?</div>
+            <div class="forgot-password">{{ 'common.password.forgot' | translate }}</div>
             <button type="submit" [disabled]="loginFormGroup.invalid" class="login-btn"
               [ngClass]="{'login-btn-active': !loginFormGroup.invalid}">
-              SIGN IN
+              {{ 'takeaway.checkout.signIn' | translate }}
             </button>
           </form>
         </div>
 
         <!-- Register area -->
         <div class="register-area">
-          <div class="register-area-title">New customer?</div>
+          <div class="register-area-title">{{ 'takeaway.checkout.newCustomer' | translate }}</div>
           <form class="register-form" [formGroup]="registerFormGroup">
             <!-- First name -->
             <mat-form-field class="email-field" appearance="fill">
-              <mat-label>First name</mat-label>
+              <mat-label>{{ 'common.firstName.label' | translate }}</mat-label>
               <input type="text" matInput formControlName="firstName" placeholder="Ex. Viet">
               <mat-error *ngIf="firstNameFormControl.hasError('required')">
-                First name is <strong>required</strong>
+                {{ 'common.firstName.required' | translate }}
               </mat-error>
             </mat-form-field>
 
             <!-- Last name -->
             <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Last name</mat-label>
+              <mat-label>{{ 'common.lastName.label' | translate }}</mat-label>
               <input type="text" matInput formControlName="lastName" placeholder="Ex. Little">
               <mat-error *ngIf="lastNameFormControl.hasError('required')">
-                Last name is <strong>required</strong>
+                {{ 'common.lastName.required' | translate }}
               </mat-error>
             </mat-form-field>
 
             <!-- Telephone 1 -->
             <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Telephone</mat-label>
+              <mat-label>{{ 'common.phoneNumber.label' | translate }}</mat-label>
               <input type="text" matInput formControlName="phoneNumber1" appPhoneMask placeholder="Ex. 036 289 2891">
               <mat-error *ngIf="phone1FormControl.hasError('required')">
-                Phone number is <strong>required</strong>
+                {{ 'common.phoneNumber.required' | translate }}
               </mat-error>
             </mat-form-field>
 
             <!-- Email -->
             <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Email address</mat-label>
+              <mat-label>{{ 'common.email.label' | translate }}</mat-label>
               <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
               <mat-error *ngIf="emailFormControl.hasError('required')">
-                Email is <strong>required</strong>
+                {{ 'common.email.required' | translate }}
               </mat-error>
             </mat-form-field>
 
              <!-- Password -->
             <mat-form-field class="email-field" appearance="fill">
-              <mat-label>Password</mat-label>
+              <mat-label>{{ 'common.password.label' | translate }}</mat-label>
               <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password" placeholder="Ex. 123456">
               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
               <mat-error *ngIf="regPasswordFormControl.hasError('required')">
-                Password is <strong>required</strong>
+                {{ 'common.password.required' | translate }}
               </mat-error>
               <mat-error *ngIf="regPasswordFormControl.hasError('minlength')">
-                Password <strong>must be at least 8 characters</strong>
+                {{ 'common.password.length' | translate }}
               </mat-error>
             </mat-form-field>
 
             <!-- Confirm password -->
             <mat-form-field class="password-field" appearance="fill">
-              <mat-label>Confirm password</mat-label>
+              <mat-label>{{ 'common.password.confirm' | translate }}</mat-label>
               <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="confirmPassword"
                 placeholder="Ex. 123456" [errorStateMatcher]="matcher">
               <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
                 [attr.aria-pressed]="hidePassword">
-                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
               </button>
               <mat-error *ngIf="registerFormGroup.hasError('notSame')">
-                Passwords do <strong>NOT</strong> match
+                {{ 'common.password.match' | translate }}
               </mat-error>  
             </mat-form-field>
 
-            <div class="policy">PRIVACY POLICY*</div>
+            <div class="policy">{{ 'takeaway.checkout.policy' | translate }}</div>
 
             <div class="policy-frame">
               <mat-checkbox required class="policy-checkbox" formControlName="policy">
-                I agree to the terms and conditions and the privacy policy.
+                {{ 'takeaway.checkout.description1' | translate }}
               </mat-checkbox>
             </div>
 
             <div class="news-frame">
-              <mat-checkbox class="news-checkbox" formControlName="newsLetter">Sign up for our newsletter.</mat-checkbox>
+              <mat-checkbox class="news-checkbox" formControlName="newsLetter">
+                {{ 'takeaway.checkout.description2' | translate }}
+              </mat-checkbox>
             </div>
             
             <button [disabled]="registerFormGroup.invalid" class="register-btn"
               [ngClass]="{'register-btn-active': !registerFormGroup.invalid}"
               (click)="onRegisterSubmit()">
-              REGISTER
+              {{ 'takeaway.checkout.register' | translate }}
             </button>
           </form>
         </div>
@@ -154,7 +156,7 @@
       <div class="confirm-order-area">
         <!-- Confirm order area -->
         <form class="order-detail-area" [formGroup]="submitPay" (submit)="onPaySubmit()">
-          <div class="order-area-title">THE ORDER CAN BE COLLECTED</div>
+          <div class="order-area-title">{{ 'takeaway.confirm.title' | translate }}</div>
           <div class="day-title">Today {{getDay()}}</div>
           <div class="position-title">en: Little Viet Barcelona</div>
           <div class="time-title">at:
@@ -164,16 +166,16 @@
               </option>
             </select>
           </div>
-          <div class="payment-method-title">Payment method:
+          <div class="payment-method-title">{{ 'takeaway.confirm.paymentMethod' | translate }}
             <mat-checkbox required formControlName="paymentMethod" name="paymentMethod"
               class="payment-method-checkbox">
-              Credit card
+              {{ 'takeaway.confirm.creditCard' | translate }}
             </mat-checkbox>
           </div>
           <textarea formControlName="additionalRequest" class="additional-info-field" placeholder="Additional information"></textarea>
           <button [disabled]="submitPay.invalid || (isCartEmptyObs | async)"
             [ngClass]="!submitPay.invalid && !(isCartEmptyObs | async) ? 'pay-btn-active': 'pay-btn-inactive'" class="pay-btn">
-            PAY
+            {{ 'takeaway.confirm.pay' | translate }}
           </button>
         </form>
       </div>
@@ -181,7 +183,7 @@
 
     <!-- Order detail -->
     <div class="cart-detail">
-      <app-cart-detail titleBtn="ORDER MORE"></app-cart-detail>
+      <app-cart-detail [isCheckout]="false"></app-cart-detail>
     </div>
   </div>
 
