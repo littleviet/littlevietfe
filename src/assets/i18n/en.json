@@ -60,21 +60,6 @@
             "description3": "I consent to the processing of personal data.",
             "description4": "I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.",
             "description5": "DO YOU HAVE A CODE TO REDEEM?",
-            "description6": "Basic information about protection of personal data",
-            "description7": "In compliance with the General Regulation of Protection of Personal Data, the interested party is informed of the following:",
-            "responsible": "Responsible:",
-            "purposes": "Purpose:",
-            "description8": "The attention of requests made by users about reservations.",
-            "description9": "The inclusion in the contact list.",
-            "description10": "The provision of services and the management of the commercial relationship.",
-            "description11": "Management of duplicate reservations in different restaurants.",
-            "legitimation": "Legitimation:",
-            "description12": "Consent of the interested party.",
-            "description13": "Execution of a contract in which the interested party is a party.",
-            "description14": "The treatment is necessary for compliance with a legal obligation applicable to the controller.",
-            "assignments": "Assignments:",
-            "description15": "Data transfers may be made for statistical purposes.",
-            "description16": "Rights Access, rectify and delete the data, request the portability of the same, oppose the treatment and request the limitation of it.",
             "reserve": "RESERVE"
         },
         "success": "SUCCESSFUL BOOKING"
@@ -101,6 +86,20 @@
             "paymentMethod": "Payment method:",
             "creditCard": "Credit card",
             "pay": "PAY"
+        }
+    },
+    "coupon": {
+        "title": "BUY COUPON GIFT",
+        "description1": "You loved visiting us and want somebody special to enjoy in Little Viet?",
+        "description2": "Your guest could activate the Coupon Gift whenever desired, make a reservation and pay all or a part of the bill in Little Viet.",
+        "description3": "Buy online our coupon gift and receive it instantly by email.",
+        "buyNow": "BUY NOW",
+        "confirm": {
+            "customer": "Customer's information",
+            "description1": "I accept the conditions of use, privacy policy and legal notice.",
+            "description2": "I consent to the processing of personal data.",
+            "description3": "I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.",
+            "buy": "BUY"
         }
     },
     "common": {
@@ -147,6 +146,31 @@
             "match": "Passwords do NOT match",
             "length": "Password must be at least 8 characters",
             "confirm": "Confirm password"
+        },
+        "coupons": {
+            "label": "Coupons",
+            "required": "Coupon is required"
+        },
+        "unit": {
+            "label": "Unit",
+            "required": "Unit is required"
+        },
+        "policy": {
+            "description1": "Basic information about protection of personal data",
+            "description2": "In compliance with the General Regulation of Protection of Personal Data, the interested party is informed of the following:",
+            "responsible": "Responsible:",
+            "purposes": "Purpose:",
+            "description3": "The attention of requests made by users about reservations.",
+            "description4": "The inclusion in the contact list.",
+            "description5": "The provision of services and the management of the commercial relationship.",
+            "description6": "Management of duplicate reservations in different restaurants.",
+            "legitimation": "Legitimation:",
+            "description7": "Consent of the interested party.",
+            "description8": "Execution of a contract in which the interested party is a party.",
+            "description9": "The treatment is necessary for compliance with a legal obligation applicable to the controller.",
+            "assignments": "Assignments:",
+            "description10": "Data transfers may be made for statistical purposes.",
+            "description11": "Rights Access, rectify and delete the data, request the portability of the same, oppose the treatment and request the limitation of it."
         },
         "seeMore": "See more"
     }
