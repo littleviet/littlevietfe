@@ -52,7 +52,32 @@
             "description4": "Si anulas la reserva el mismo día o no vienes, se cobrarán 25€ por persona.",
             "description5": "Podrá ajustar el número definitivo de comensales hasta 6 horas antes de la reserva, en caso contrario se cobrarán 25€ por cada persona que no asista.",
             "description6": "Para su tranquilidad, siempre confirmamos (a través de correo electrónico o SMS) para verificar su reserva: uno de los momentos de hacerla y otro el día anterior."
-        }
+        },
+        "confirm": {
+            "title": "RESERVACION EN LINEA",
+            "description1": "En caso de que no tenga correo electrónico, llamemos a nosotros.",
+            "description2": "Acepto las condiciones de uso, la Política de privacidad y el Aviso Legal.",
+            "description3": "Yo consiento con el procesamiento de datos personales.",
+            "description4": "Consumo la recepción de las comunicaciones de restaurantes por correo electrónico y / o SMS con fines comerciales.",
+            "description5": "¿Tienes un código para canjear?",
+            "description6": "Información básica sobre la protección de datos personales.",
+            "description7": "En cumplimiento de la regulación general de la protección de los datos personales, la parte interesada está informada de lo siguiente:",
+            "responsible": "Responsable:",
+            "purposes": "Objetivo:",
+            "description8": "La atención de las solicitudes hechas por los usuarios sobre las reservas.",
+            "description9": "La inclusión en la lista de contactos.",
+            "description10": "La provisión de servicios y la gestión de la relación comercial.",
+            "description11": "Gestión de reservas duplicadas en diferentes restaurantes.",
+            "legitimation": "Legitimación:",
+            "description12": "Consentimiento de la parte interesada.",
+            "description13": "Ejecución de un contrato en el que la parte interesada es una fiesta.",
+            "description14": "El tratamiento es necesario para el cumplimiento de una obligación legal aplicable al controlador.",
+            "assignments": "Asignaciones:",
+            "description15": "Se pueden realizar transferencias de datos para fines estadísticos.",
+            "description16": "Acceso a los derechos, rectifique y elimine los datos, solicite la portabilidad de la misma, oponga al tratamiento y solicite la limitación de ella.",
+            "reserve": "RESERVA"
+        },
+        "success": "RESERVA EXITOSA"
     },
     "takeaway": {
         "cart": {
@@ -75,6 +100,30 @@
         "hour": {
             "label": "Hora",
             "required": "Se requiere hora"
-        }
+        },
+        "firstName": {
+            "label": "El primer nombre",
+            "required": "Se requiere el primer nombre"
+        },
+        "lastName": {
+            "label": "Apellido",
+            "required": "Se requiere apellido"
+        },
+        "email": {
+            "label": "Email",
+            "required": "Se requiere email",
+            "format": "Por favor, introduce una dirección de correo electrónico válida"
+        },
+        "phoneNumber": {
+            "label": "Número de teléfono",
+            "required": "El número de teléfono es obligatorio"
+        },
+        "vat": {
+            "label": "CIF/IVA (Opcional. Si necesita factura)"
+        },
+        "additionalInfo": {
+            "label": "Información adicional"
+        },
+        "seeMore": "Ver más"
     }
 }

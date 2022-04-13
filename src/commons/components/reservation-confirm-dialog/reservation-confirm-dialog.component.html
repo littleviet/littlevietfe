@@ -2,7 +2,7 @@
   <mat-icon mat-icon class="close-btn">close</mat-icon>
 </div>
 <div *ngIf="(reservationSuccessObs | async) == null" class="reservation-confirm-dialog">
-  <h1 mat-dialog-title class="reservation-confirm-title">ONLINE RESERVATION</h1>
+  <h1 mat-dialog-title class="reservation-confirm-title">{{ 'reservationPage.confirm.title' | translate }}</h1>
   <div class="info-reservation">
       DATE
       <span class="dotted">
@@ -21,104 +21,99 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="bookReservationFG" class="reservation-form" name="hour-form">
       <!-- First name -->
       <mat-form-field class="left-field" appearance="fill">
-        <mat-label>First name</mat-label>
-        <input type="text" matInput formControlName="firstName" placeholder="First name">
-        
+        <mat-label>{{ 'common.firstName.label' | translate }}</mat-label>
+        <input type="text" matInput formControlName="firstName" placeholder="{{ 'common.firstName.label' | translate }}">
         <mat-error *ngIf="firstNameFC.hasError('required')">
-          First name is <strong>required</strong>
+          {{ 'common.firstName.required' | translate }}
         </mat-error>
       </mat-form-field>
 
       <!-- Last name -->
       <mat-form-field class="right-field" appearance="fill">
-        <mat-label>Last name</mat-label>
-        <input type="text" matInput formControlName="lastName" placeholder="Last name">
-       
+        <mat-label>{{ 'common.lastName.label' | translate }}</mat-label>
+        <input type="text" matInput formControlName="lastName" placeholder="{{ 'common.lastName.label' | translate }}">
         <mat-error *ngIf="lastNameFC.hasError('required')">
-          Last name is <strong>required</strong>
+          {{ 'common.lastName.required' | translate }}
         </mat-error>
       </mat-form-field>
 
       <!-- Email -->
       <mat-form-field class="left-field" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" placeholder="Email">
+        <mat-label>{{ 'common.email.label' | translate }}</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="{{ 'common.email.label' | translate }}">
         <mat-error *ngIf="emailFC.hasError('email') && !emailFC.hasError('required')">
-          Please enter a valid email address
+          {{ 'common.email.format' | translate }}
         </mat-error>
         <mat-error *ngIf="emailFC.hasError('required')">
-          Email is <strong>required</strong>
+          {{ 'common.email.required' | translate }}
         </mat-error>
       </mat-form-field>
 
       <!-- Phone number -->
       <mat-form-field class="right-field" appearance="fill">
-        <mat-label>Phone number</mat-label>
-        <input type="text" appPhoneMask matInput formControlName="phoneNumber" placeholder="Phone number">
+        <mat-label>{{ 'common.phoneNumber.label' | translate }}</mat-label>
+        <input type="text" appPhoneMask matInput formControlName="phoneNumber" placeholder="{{ 'common.phoneNumber.label' | translate }}">
         <mat-error *ngIf="phoneNumberFC.hasError('required')">
-          Phone number is <strong>required</strong>
+          {{ 'common.phoneNumber.required' | translate }}
         </mat-error>
       </mat-form-field>
 
        <!-- VAT -->
       <mat-form-field class="left-field" appearance="fill">
-        <mat-label>CIF/VAT (Optional. If you need invoice)</mat-label>
-        <input type="text" matInput formControlName="vat" placeholder="CIF/VAT (Optional. If you need invoice)">
+        <mat-label>{{ 'common.vat.label' | translate }}</mat-label>
+        <input type="text" matInput formControlName="vat" placeholder="{{ 'common.vat.label' | translate }}">
       </mat-form-field>
 
-      <div class="no-email">In case you don't have email, let's call us 
+      <div class="no-email">{{ 'reservationPage.confirm.description1' | translate }} 
         <span class="phone"><a href="tel:671270969">671 270 969</a></span> or 
         <span class="phone"><a href="tel:931757081">931 757 081</a></span>
       </div>
 
-      <textarea formControlName="specificRequest" class="specific-request-field" placeholder="Additional information"></textarea>
+      <textarea formControlName="specificRequest" class="specific-request-field" placeholder="{{ 'common.additionalInfo.label' | translate }}"></textarea>
 
       <div class="condition-frame">
         <mat-checkbox required class="condition-checkbox" formControlName="acceptCondition">
-          I accept the conditions of use, privacy policy and legal notice.
+          {{ 'reservationPage.confirm.description2' | translate }}
         </mat-checkbox>
       </div>
 
       <div class="data-frame">
         <mat-checkbox required class="data-checkbox" formControlName="consentInfoConidtion">
-          I consent to the processing of personal data.
+          {{ 'reservationPage.confirm.description3' | translate }}
         </mat-checkbox>
       </div>
 
       <div class="sms-frame">
         <mat-checkbox class="sms-checkbox">
-          I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.
+          {{ 'reservationPage.confirm.description4' | translate }}
         </mat-checkbox>
       </div>
 
       <button [disabled]="!bookReservationFG.valid" type="submit" class="reserve-btn"
         [ngClass]="!bookReservationFG.invalid ? 'reserve-btn-active': 'reserve-btn-inactive'">
-        RESERVE
+        {{ 'reservationPage.confirm.reserve' | translate }}
       </button>
     </form>
 
     <div class="reservation-policy">
-      <div class="redeem">DO YOU HAVE A CODE TO REDEEM?</div>
-      <div class="bold">Basic information about protection of personal data</div>
-      <div>
-        In compliance with the General Regulation of Protection of Personal Data,
-        the interested party is informed of the following:
+      <div class="redeem">{{ 'reservationPage.confirm.description5' | translate }}</div>
+      <div class="bold">{{ 'reservationPage.confirm.description6' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description7' | translate }}</div>
+      <div><span class="bold">{{ 'reservationPage.confirm.responsible' | translate }}</span> Little Viet 
+        <span class="see-more">({{ 'common.seeMore' | translate }})</span>
       </div>
-      <div><span class="bold">Responsible:</span> Little Viet <span class="see-more">(See more)</span></div>
-      <div><span class="bold">Purposes:</span> The attention of requests made by users about reservations.</div>
-      <div>The inclusion in the contact list.</div>
-      <div>The provision of services and the management of the commercial relationship.</div>
-      <div>Management of duplicate reservations in different restaurants. <span class="see-more">(See more)</span></div>
-      <div class="bold">Legitimation:</div>
-      <div>Consent of the interested party. <span class="see-more">(See more)</span></div>
-      <div>Execution of a contract in which the interested party is a party.</div>
-      <div>The treatment is necessary for compliance with a legal obligation applicable to the controller.</div>
-      <div class="bold">Assignments:</div>
-      <div>Data transfers may be made for statistical purposes. <span class="see-more">(See more)</span></div>
-      <div class="bold">Assignments:</div>
-      <div>
-        Rights Access, rectify and delete the data, request the portability of the same, 
-        oppose the treatment and request the limitation of it. <span class="see-more">(See more)</span>
+      <div><span class="bold">{{ 'reservationPage.confirm.purposes' | translate }}</span> {{ 'reservationPage.confirm.description8' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description9' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description10' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description11' | translate }} <span class="see-more">({{ 'common.seeMore' | translate }})</span></div>
+      <div class="bold">{{ 'reservationPage.confirm.legitimation' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description12' | translate }} <span class="see-more">({{ 'common.seeMore' | translate }})</span></div>
+      <div>{{ 'reservationPage.confirm.description13' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description14' | translate }}</div>
+      <div class="bold">{{ 'reservationPage.confirm.assignments' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description15' | translate }} <span class="see-more">({{ 'common.seeMore' | translate }})</span></div>
+      <div class="bold">{{ 'reservationPage.confirm.assignments' | translate }}</div>
+      <div>{{ 'reservationPage.confirm.description16' | translate }} <span class="see-more">({{ 'common.seeMore' | translate }})</span>
       </div>
     </div>
   </div>
@@ -131,7 +126,7 @@
     <div class="f-modal-placeholder"></div>
     <div class="f-modal-fix"></div>
   </div>
-  <div class="title">SUCCESSFUL BOOKING</div>
+  <div class="title">{{ 'reservationPage.success' | translate }}</div>
 </div>
 
 <app-progress-spinner *ngIf="(takeAwayActionsObs | async)!.length > 0"></app-progress-spinner>

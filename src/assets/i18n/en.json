@@ -52,7 +52,32 @@
             "description4": "If you annul the reservation the same day or you do not come, 25€ per person will be charged.",
             "description5": "You will be able to adjust the definitive number of diners until 6 hours before the reservation, on the contrary, 25€ will be charged for every person that does not assist.",
             "description6": "For your tranquillity, we always confirm (via email or SMS) to double-check your reservation: one of the moments of doing it and another the previous day."
-        }
+        },
+        "confirm": {
+            "title": "ONLINE RESERVATION",
+            "description1": "In case you don't have email, let's call us",
+            "description2": "I accept the conditions of use, privacy policy, and legal notice.",
+            "description3": "I consent to the processing of personal data.",
+            "description4": "I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.",
+            "description5": "DO YOU HAVE A CODE TO REDEEM?",
+            "description6": "Basic information about protection of personal data",
+            "description7": "In compliance with the General Regulation of Protection of Personal Data, the interested party is informed of the following:",
+            "responsible": "Responsible:",
+            "purposes": "Purpose:",
+            "description8": "The attention of requests made by users about reservations.",
+            "description9": "The inclusion in the contact list.",
+            "description10": "The provision of services and the management of the commercial relationship.",
+            "description11": "Management of duplicate reservations in different restaurants.",
+            "legitimation": "Legitimation:",
+            "description12": "Consent of the interested party.",
+            "description13": "Execution of a contract in which the interested party is a party.",
+            "description14": "The treatment is necessary for compliance with a legal obligation applicable to the controller.",
+            "assignments": "Assignments:",
+            "description15": "Data transfers may be made for statistical purposes.",
+            "description16": "Rights Access, rectify and delete the data, request the portability of the same, oppose the treatment and request the limitation of it.",
+            "reserve": "RESERVE"
+        },
+        "success": "SUCCESSFUL BOOKING"
     },
     "takeaway": {
         "cart": {
@@ -75,6 +100,30 @@
         "hour": {
             "label": "Hour",
             "required": "Hour is required"
-        }
+        },
+        "firstName": {
+            "label": "First name",
+            "required": "First name is required"
+        },
+        "lastName": {
+            "label": "Last name",
+            "required": "Last name is required"
+        },
+        "email": {
+            "label": "Email",
+            "required": "Email is required",
+            "format": "Please enter a valid email address"
+        },
+        "phoneNumber": {
+            "label": "Phone number",
+            "required": "Phone number is required"
+        },
+        "vat": {
+            "label": "CIF/VAT (Optional. If you need invoice)"
+        },
+        "additionalInfo": {
+            "label": "Additional information"
+        },
+        "seeMore": "See more"
     }
 }
