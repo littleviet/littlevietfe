@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, NgxsOnInit, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable, tap } from 'rxjs';
 import { BaseResponse } from 'src/dtos/base-response';
@@ -36,9 +36,16 @@ export class TakeAwayStateModel {
 })
 
 @Injectable()
-export class TakeAwayState {
+export class TakeAwayState implements NgxsOnInit {
 
-    constructor(private takeAwayService: TakeAwayService) {
+    constructor(private takeAwayService: TakeAwayService, private store: Store) {
+    }
+
+    ngxsOnInit({getState, setState}: StateContext<TakeAwayStateModel>) {
+        const state = getState();
+        if (state.cart != null && state.cart.servings != null && state.cart.servings.length > 0) {
+            this.store.dispatch(new GetTakeAwayProducts());
+        }
     }
 
     @Selector()
@@ -93,9 +100,45 @@ export class TakeAwayState {
         tempActions.splice( tempActions.findIndex(a => a == GetTakeAwayProducts.name), 1);
         return this.takeAwayService.getTakeAwayProductMenu().pipe(tap((result) => {
             if (result.success) {
+                var newCart = _.cloneDeep(state.cart);
+                if (state.cart != null && state.cart.servings != null && state.cart.servings.length > 0) {
+                    state.cart.servings.forEach(element => {
+                        let isExist = false;
+                        // Check cart item is exist or not
+                        for (let index = 0; index < result.payload.length; index++) {
+                            let product = result.payload[index];
+                            let serving = product.servings.find(sv => sv.id == element.id);
+                            if (serving != null) {
+                                newCart.servings.map(sv => {
+                                    if (sv.id == element.id) {
+                                        sv.esName = product.esName + ' - ' + serving?.name;
+                                        sv.caName = product.caName;
+                                        sv.name = product.name;
+                                        sv.price = serving?.price || 0;
+                                    }
+                                });
+                                isExist = true;
+                                break;
+                            }
+                        }
+
+                        if (isExist == false) {
+                            newCart.servings = newCart.servings.filter(sv => sv.id != element.id);
+                        }
+                    });
+
+                    newCart.subTotalPrice = 0;
+                    newCart.totalPrice = 0;
+                    newCart.servings.forEach(element => {
+                        newCart.totalPrice += element.price * element.quantity;
+                        newCart.subTotalPrice += element.price * element.quantity;
+                    });
+                }
+
                 setState({
                     ...state,
                     products: result.payload,
+                    cart: newCart,
                     actions: tempActions
                 });
             } else {

@@ -1,0 +1,177 @@
+{
+    "landingPage": {
+        "reservation": {
+            "title": "FER UNA RESERVA",
+            "bookBtn": "Taula de llibres ara",
+            "open": "OBERT",
+            "days": "Dilluns Dimecres Dijous Divendres Dissabte Diumenge",
+            "close": "TANCA",
+            "tuesday": "Dimarts",
+            "description1": "Feu una reserva i gaudiu de l'aliment únic.",
+            "description2": "La vostra reserva s'anul·larà a causa del retard sense informar-nos, després de 15 minuts.",
+            "description3": "Tenim cadires infantils, però si us plau, fes-nos saber si portes el transport per a nadons i necessites espai.",
+            "description4": "Per obtenir més sol·licituds o informació, truqueu:"
+        },
+        "menu": {
+            "title": "MENÚ"
+        },
+        "takeaway": {
+            "title": "EMPORTAR",
+            "description1": "Voleu gaudir dels nostres plats a casa?",
+            "description2": "Ordeneu aquí.",
+            "orderOnline": "ORDRE EN LÍNIA"
+        },
+        "couponGift": {
+            "title": "REGAL DE CUPÓ",
+            "description1": "Li agradava visitar-nos i volia que algú sigui especial per gaudir a Little Viet?",
+            "description2": "Compreu en línia el nostre regal de cupó i rebreu-lo a l'instant per correu electrònic.",
+            "orderOnline": "COMPRA UN REGAL DE CUPÓ"
+        },
+        "product": {
+            "title": "PRODUCTES"
+        }
+    },
+    "reservationPage": {
+        "title": "FER UNA RESERVA",
+        "open": "OBERT",
+        "close": "TANCA",
+        "description1": "El petit Viet Barcelona està obert tots els dies, excepte els dimarts de",
+        "and": "&",
+        "to": "a",
+        "description2": "Feu una reserva i gaudiu de l'aliment únic.",
+        "description3": "La vostra reserva s'anul·larà a causa del retard sense informar-nos, després de 15 minuts.",
+        "description4": "Tenim cadires infantils, però si us plau, fes-nos saber si portes el transport per a nadons i necessites espai.",
+        "description5": "Per obtenir més informació o informació, truqueu",
+        "cancelationPolicy": "POLÍTICA DE CANCEL · LACIÓ",
+        "description6": "Empleneu la informació per fer una reserva",
+        "bookNow": "RESERVAR ARA",
+        "dialog": {
+            "description1": "En reserves de 8 persones o més, sol·licitarem les vostres dades de targeta de crèdit, com a garantia.",
+            "description2": "El procediment de reserva no implica cap càrrec a la vostra targeta de crèdit.",
+            "description3": "Podreu modificar o anul·lar la vostra reserva sense cap càrrec fins a les 24 hores.",
+            "description4": "Si anul·la la reserva el mateix dia o no arribeu, es carregaran 25 € per persona.",
+            "description5": "Podreu ajustar el nombre definitiu de comensals fins a les 6 hores abans de la reserva, al contrari, es cobraran 25 € per a cada persona que no ajudi.",
+            "description6": "Per a la vostra tranquil·litat, sempre confirmem (per correu electrònic o SMS) per comprovar la vostra reserva: un dels moments de fer-ho i un altre el dia anterior."
+        },
+        "confirm": {
+            "title": "Reserva en línia RESERVA EN LÍNIA",
+            "description1": "En cas que no tingueu correu electrònic, anem a cridar-nos",
+            "description2": "Accepto les condicions d'ús, la política de privadesa i l'avís legal.",
+            "description3": "Accepto el processament de dades personals.",
+            "description4": "Accepto la recepció de comunicacions de restaurants per correu electrònic i / o SMS amb finalitats comercials.",
+            "description5": "TENIU UN CODI PER CANVIAR?",
+            "reserve": "RESERVAR"
+        },
+        "success": "RESERVAR AMB ÈXIT"
+    },
+    "takeaway": {
+        "cart": {
+            "title": "El meu ordre",
+            "subtotal": "Subtotal",
+            "total": "Total",
+            "checkout": "LA SORTIDA",
+            "orderMore": "ORDRE MÉS"
+        },
+        "checkout": {
+            "registered": "Ja registrat?",
+            "signIn": "INICIEU LA SESSIÓ",
+            "newCustomer": "Nou client?",
+            "policy": "POLÍTICA DE PRIVACITAT*",
+            "description1": "Accepto els termes i condicions i la política de privadesa.",
+            "description2": "Inscriviu-vos al nostre butlletí de notícies.",
+            "register": "REGISTRAR"
+        },
+        "confirm": {
+            "title": "ES POT RECOLLIR L'ORDRE",
+            "paymentMethod": "Mètode de pagament:",
+            "creditCard": "Targeta de crèdit",
+            "pay": "Pagament"
+        }
+    },
+    "coupon": {
+        "title": "COMPRA UN REGAL DE CUPÓ",
+        "description1": "Li agradava visitar-nos i volia que algú sigui especial per gaudir a Little Viet?",
+        "description2": "El vostre convidat podria activar el regal de cupons quan ho desitgeu, feu una reserva i pagueu tota o una part de la factura de Little Viet.",
+        "description3": "Compreu en línia el nostre regal de cupó i rebreu-lo a l'instant per correu electrònic.",
+        "buyNow": "COMPRA ARA",
+        "confirm": {
+            "customer": "Informació del client",
+            "description1": "Accepto les condicions d'ús, política de privadesa i avís legal.",
+            "description2": "Accepto el processament de dades personals.",
+            "description3": "Accepto la recepció de comunicacions de restaurants per correu electrònic i / o SMS amb finalitats comercials.",
+            "buy": "COMPRAR"
+        }
+    },
+    "common": {
+        "back": "ESQUENA",
+        "noPeople": {
+            "label": "Nombre de gent",
+            "required": "Es requereix un nombre de persones"
+        },
+        "day": {
+            "label": "Dia",
+            "required": "Es requereix un dia"
+        },
+        "hour": {
+            "label": "Hores",
+            "required": "Es requereix una hora"
+        },
+        "firstName": {
+            "label": "Nom",
+            "required": "Es requereix el nom"
+        },
+        "lastName": {
+            "label": "Cognom",
+            "required": "Es requereix el cognom"
+        },
+        "email": {
+            "label": "Navegar",
+            "required": "Cal un correu electrònic",
+            "format": "siusplau, introdueixi una adreça de correu electrònic vàlida"
+        },
+        "phoneNumber": {
+            "label": "Número de telèfon",
+            "required": "Cal el número de telèfon"
+        },
+        "vat": {
+            "label": "CIF / IVA (opcional. Si necessiteu factura)"
+        },
+        "additionalInfo": {
+            "label": "Informació adicional"
+        },
+        "password": {
+            "label": "Contrasenya",
+            "required": "Es requereix contrasenya",
+            "forgot": "Has oblidat la teva contrasenya?",
+            "match": "Les contrasenyes no coincideixen",
+            "length": "La contrasenya ha de tenir com a mínim 8 caràcters",
+            "confirm": "Confirma la contrassenya"
+        },
+        "coupons": {
+            "label": "Cupons",
+            "required": "Cal un cupó"
+        },
+        "unit": {
+            "label": "Unitat",
+            "required": "Es requereix una unitat"
+        },
+        "policy": {
+            "description1": "Informació bàsica sobre protecció de dades personals",
+            "description2": "En compliment de la regulació general de la protecció de dades personals, s'informa l'interessat del següent:",
+            "responsible": "Responsable:",
+            "purposes": "Propòsit:",
+            "description3": "L'atenció de les sol·licituds realitzades pels usuaris sobre les reserves.",
+            "description4": "La inclusió a la llista de contactes.",
+            "description5": "La prestació de serveis i la gestió de la relació comercial.",
+            "description6": "Gestió de reserves duplicades en diferents restaurants.",
+            "legitimation": "Legitimació:",
+            "description7": "Consentiment de l'interessat.",
+            "description8": "Execució d'un contracte en què l'interessat és una festa.",
+            "description9": "El tractament és necessari per al compliment d'una obligació legal aplicable al controlador.",
+            "assignments": "Assignacions:",
+            "description10": "Es poden fer transferències de dades amb finalitats estadístiques.",
+            "description11": "Accés als drets, rectificació i supressió de les dades, sol·liciteu la portabilitat del mateix, s'oposen al tractament i sol·licitar la limitació d'ella."
+        },
+        "seeMore": "Veure més"
+    }
+}
