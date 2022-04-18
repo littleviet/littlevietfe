@@ -1,4 +1,4 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -83,7 +83,7 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
   productQuery!: AdminProductQueryRequest;
 
   constructor(private store: Store, public route: ActivatedRoute, private router: Router,
-    private cdRef : ChangeDetectorRef) { }
+    private cdRef : ChangeDetectorRef, private ngZone: NgZone) { }
 
   ngOnInit() {
     this.router.events.subscribe((val) => {
@@ -245,6 +245,13 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
     this.checked = this.products.payload.every(item => this.setOfCheckedId.has(item.id));
     this.indeterminate = this.products.payload.some(item => this.setOfCheckedId.has(item.id)) && !this.checked;
   }
+
+   viewDetail() {
+    let id = this.getCheckedItem()?.id;
+    this.ngZone.run(() => {
+      this.router.navigate(['/admin/products/' + id]);
+    });
+   }
 
   ngOnDestroy() {
     if (this.routeSub) {

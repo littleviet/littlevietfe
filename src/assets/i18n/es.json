@@ -52,14 +52,54 @@
             "description4": "Si anulas la reserva el mismo día o no vienes, se cobrarán 25€ por persona.",
             "description5": "Podrá ajustar el número definitivo de comensales hasta 6 horas antes de la reserva, en caso contrario se cobrarán 25€ por cada persona que no asista.",
             "description6": "Para su tranquilidad, siempre confirmamos (a través de correo electrónico o SMS) para verificar su reserva: uno de los momentos de hacerla y otro el día anterior."
-        }
+        },
+        "confirm": {
+            "title": "RESERVACION EN LINEA",
+            "description1": "En caso de que no tenga correo electrónico, llamemos a nosotros.",
+            "description2": "Acepto las condiciones de uso, la Política de privacidad y el Aviso Legal.",
+            "description3": "Yo consiento con el procesamiento de datos personales.",
+            "description4": "Consumo la recepción de las comunicaciones de restaurantes por correo electrónico y / o SMS con fines comerciales.",
+            "description5": "¿Tienes un código para canjear?",
+            "reserve": "RESERVA"
+        },
+        "success": "RESERVA EXITOSA"
     },
     "takeaway": {
         "cart": {
             "title": "Mi pedido",
             "subtotal": "Total parcial",
             "total": "Total",
-            "checkout": "VERIFICAR"
+            "checkout": "VERIFICAR",
+            "orderMore": "PEDIR MÁS"
+        },
+        "checkout": {
+            "registered": "¿Ya registrado?",
+            "signIn": "INICIAR SESIÓN",
+            "newCustomer": "¿Nuevo cliente?",
+            "policy": "POLÍTICA DE PRIVACIDAD*",
+            "description1": "Estoy de acuerdo con los términos y condiciones y la política de privacidad.",
+            "description2": "Regístrese para nuestro boletín.",
+            "register": "REGISTRARSE"
+        },
+        "confirm": {
+            "title": "EL ORDEN PUEDE SER RECOGIDO.",
+            "paymentMethod": "Método de pago:",
+            "creditCard": "Tarjeta de crédito",
+            "pay": "PAGAR"
+        }
+    },
+    "coupon": {
+        "title": "COMPRAR UN REGALO DE CUPÓN",
+        "description1": "¿Te encantó visitarnos y quieres que alguien sea especial para disfrutar en Little Viet?",
+        "description2": "Su invitado podría activar el regalo del cupón cuando lo desee, haga una reserva y pague todo o una parte de la factura en Little Viet.",
+        "description3": "Compre en línea nuestro regalo de cupones y recibirlo al instante por correo electrónico.",
+        "buyNow": "COMPRA AHORA",
+        "confirm": {
+            "customer": "Información del cliente",
+            "description1": "Acepto las condiciones de uso, la política de privacidad y el aviso legal.",
+            "description2": "Yo consiento con el procesamiento de datos personales.",
+            "description3": "Consumo la recepción de las comunicaciones de restaurantes por correo electrónico y / o SMS con fines comerciales.",
+            "buy": "COMPRAR"
         }
     },
     "common": {
@@ -75,6 +115,63 @@
         "hour": {
             "label": "Hora",
             "required": "Se requiere hora"
-        }
+        },
+        "firstName": {
+            "label": "El primer nombre",
+            "required": "Se requiere el primer nombre"
+        },
+        "lastName": {
+            "label": "Apellido",
+            "required": "Se requiere apellido"
+        },
+        "email": {
+            "label": "Email",
+            "required": "Se requiere email",
+            "format": "Por favor, introduce una dirección de correo electrónico válida"
+        },
+        "phoneNumber": {
+            "label": "Número de teléfono",
+            "required": "El número de teléfono es obligatorio"
+        },
+        "vat": {
+            "label": "CIF/IVA (Opcional. Si necesita factura)"
+        },
+        "additionalInfo": {
+            "label": "Información adicional"
+        },
+        "password": {
+            "label": "Contraseña",
+            "required": "Se requiere contraseña",
+            "forgot": "¿Olvidaste tu contraseña?",
+            "match": "Las contraseñas no coinciden",
+            "length": "La contraseña debe tener al menos 8 caracteres",
+            "confirm": "Confirmar Contraseña"
+        },
+        "coupons": {
+            "label": "Cupones",
+            "required": "Se requiere cupón"
+        },
+        "unit": {
+            "label": "Unidad",
+            "required": "Se requiere unidad"
+        },
+        "policy": {
+            "description1": "Información básica sobre la protección de datos personales.",
+            "description2": "En cumplimiento de la regulación general de la protección de los datos personales, la parte interesada está informada de lo siguiente:",
+            "responsible": "Responsable:",
+            "purposes": "Objetivo:",
+            "description3": "La atención de las solicitudes hechas por los usuarios sobre las reservas.",
+            "description4": "La inclusión en la lista de contactos.",
+            "description5": "La provisión de servicios y la gestión de la relación comercial.",
+            "description6": "Gestión de reservas duplicadas en diferentes restaurantes.",
+            "legitimation": "Legitimación:",
+            "description7": "Consentimiento de la parte interesada.",
+            "description8": "Ejecución de un contrato en el que la parte interesada es una fiesta.",
+            "description9": "El tratamiento es necesario para el cumplimiento de una obligación legal aplicable al controlador.",
+            "assignments": "Asignaciones:",
+            "description10": "Se pueden realizar transferencias de datos para fines estadísticos.",
+            "description11": "Acceso a los derechos, rectifique y elimine los datos, solicite la portabilidad de la misma, oponga al tratamiento y solicite la limitación de ella."
+        },
+        "seeMore": "Ver más"
     }
 }

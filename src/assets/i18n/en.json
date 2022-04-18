@@ -52,14 +52,54 @@
             "description4": "If you annul the reservation the same day or you do not come, 25€ per person will be charged.",
             "description5": "You will be able to adjust the definitive number of diners until 6 hours before the reservation, on the contrary, 25€ will be charged for every person that does not assist.",
             "description6": "For your tranquillity, we always confirm (via email or SMS) to double-check your reservation: one of the moments of doing it and another the previous day."
-        }
+        },
+        "confirm": {
+            "title": "ONLINE RESERVATION",
+            "description1": "In case you don't have email, let's call us",
+            "description2": "I accept the conditions of use, privacy policy, and legal notice.",
+            "description3": "I consent to the processing of personal data.",
+            "description4": "I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.",
+            "description5": "DO YOU HAVE A CODE TO REDEEM?",
+            "reserve": "RESERVE"
+        },
+        "success": "SUCCESSFUL BOOKING"
     },
     "takeaway": {
         "cart": {
             "title": "My order",
             "subtotal": "Subtotal",
             "total": "Total",
-            "checkout": "CHECK OUT"
+            "checkout": "CHECK OUT",
+            "orderMore": "ORDER MORE"
+        },
+        "checkout": {
+            "registered": "Already registered?",
+            "signIn": "SIGN IN",
+            "newCustomer": "New customer?",
+            "policy": "PRIVACY POLICY*",
+            "description1": "I agree to the terms and conditions and the privacy policy.",
+            "description2": "Sign up for our newsletter.",
+            "register": "REGISTER"
+        },
+        "confirm": {
+            "title": "THE ORDER CAN BE COLLECTED",
+            "paymentMethod": "Payment method:",
+            "creditCard": "Credit card",
+            "pay": "PAY"
+        }
+    },
+    "coupon": {
+        "title": "BUY COUPON GIFT",
+        "description1": "You loved visiting us and want somebody special to enjoy in Little Viet?",
+        "description2": "Your guest could activate the Coupon Gift whenever desired, make a reservation and pay all or a part of the bill in Little Viet.",
+        "description3": "Buy online our coupon gift and receive it instantly by email.",
+        "buyNow": "BUY NOW",
+        "confirm": {
+            "customer": "Customer's information",
+            "description1": "I accept the conditions of use, privacy policy and legal notice.",
+            "description2": "I consent to the processing of personal data.",
+            "description3": "I consent to the reception of restaurant communications by e-mail and / or SMS for commercial purposes.",
+            "buy": "BUY"
         }
     },
     "common": {
@@ -75,6 +115,63 @@
         "hour": {
             "label": "Hour",
             "required": "Hour is required"
-        }
+        },
+        "firstName": {
+            "label": "First name",
+            "required": "First name is required"
+        },
+        "lastName": {
+            "label": "Last name",
+            "required": "Last name is required"
+        },
+        "email": {
+            "label": "Email",
+            "required": "Email is required",
+            "format": "Please enter a valid email address"
+        },
+        "phoneNumber": {
+            "label": "Phone number",
+            "required": "Phone number is required"
+        },
+        "vat": {
+            "label": "CIF/VAT (Optional. If you need invoice)"
+        },
+        "additionalInfo": {
+            "label": "Additional information"
+        },
+        "password": {
+            "label": "Password",
+            "required": "Password is required",
+            "forgot": "Forgot your password?",
+            "match": "Passwords do NOT match",
+            "length": "Password must be at least 8 characters",
+            "confirm": "Confirm password"
+        },
+        "coupons": {
+            "label": "Coupons",
+            "required": "Coupon is required"
+        },
+        "unit": {
+            "label": "Unit",
+            "required": "Unit is required"
+        },
+        "policy": {
+            "description1": "Basic information about protection of personal data",
+            "description2": "In compliance with the General Regulation of Protection of Personal Data, the interested party is informed of the following:",
+            "responsible": "Responsible:",
+            "purposes": "Purpose:",
+            "description3": "The attention of requests made by users about reservations.",
+            "description4": "The inclusion in the contact list.",
+            "description5": "The provision of services and the management of the commercial relationship.",
+            "description6": "Management of duplicate reservations in different restaurants.",
+            "legitimation": "Legitimation:",
+            "description7": "Consent of the interested party.",
+            "description8": "Execution of a contract in which the interested party is a party.",
+            "description9": "The treatment is necessary for compliance with a legal obligation applicable to the controller.",
+            "assignments": "Assignments:",
+            "description10": "Data transfers may be made for statistical purposes.",
+            "description11": "Rights Access, rectify and delete the data, request the portability of the same, oppose the treatment and request the limitation of it."
+        },
+        "seeMore": "See more"
     }
 }

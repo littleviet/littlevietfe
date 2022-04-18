@@ -3,7 +3,7 @@
     Create
   </button>
   <button [disabled]="getCheckedItem() == null || setOfCheckedId == null || setOfCheckedId.size != 1" class="view-btn"
-    nz-button nzType="primary" routerLink="/admin/products/{{getCheckedItem()?.id}}">
+    nz-button nzType="primary" (click)="viewDetail()">
     View
   </button>
   <button *ngIf="getCheckedItem() && getCheckedItem()?.status != 'InStock'" class="completed-btn" nz-button

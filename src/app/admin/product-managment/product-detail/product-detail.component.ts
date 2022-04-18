@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -65,6 +65,7 @@ export class ProductDetailComponent implements OnInit {
         this.productFG.controls['caName'].setValue(this.product.caName);
         this.productFG.controls['esName'].setValue(this.product.esName);
         this.productFG.controls['description'].setValue(this.product.description);
+        this.productFG.controls['productTypeId'].setValue(this.product.productType.id);
 
         if (this.product.servings && this.product.servings.length >= 0) {
           this.servings.clear();

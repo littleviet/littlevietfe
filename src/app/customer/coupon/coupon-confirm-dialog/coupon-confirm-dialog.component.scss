@@ -170,6 +170,10 @@
     overflow: hidden;
 }
 
+::ng-deep .mat-dialog-content {
+   max-height: 60vh;
+}
+
 body {
 	background-color: rgba(0, 0, 0, .2);
 }

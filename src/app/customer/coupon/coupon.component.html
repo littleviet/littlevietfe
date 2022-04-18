@@ -18,7 +18,7 @@
     <div class="galery-section">
       <div class="back-btn-area">
         <div onclick="window.history.back()" class="back-button">
-          &lt;&lt; BACK
+          &lt;&lt; {{ 'common.back' | translate }}
         </div>
         <img src="assets/imgs/coupon/wave-line.png" alt="">
       </div>
@@ -27,44 +27,37 @@
     <!-- Coupon buying detail -->
     <div class="coupon-buying-section">
       <div class="coupon-buying-bg">
-        <div class="coupon-title">BUY COUPON GIFT</div>
+        <div class="coupon-title">{{ 'coupon.title' | translate }}</div>
         <form [formGroup]="couponFG" class="coupon-form" name="message">
           <div class="coupon-field">
-            <label>Coupons</label>
+            <label>{{ 'common.coupons.label' | translate }}</label>
             <select formControlName="couponTypeId" class="input-field" required>
               <option value="{{item.id}}" *ngFor="let item of couponTypes; let i = index">{{item.name}}</option>
             </select>
             <mat-error *ngIf="couponTypeFC.hasError('required') && couponTypeFC.dirty">
-              Coupon is <strong>required</strong>
+              {{ 'common.coupons.required' | translate }}
             </mat-error>
           </div>
 
           <div class="coupon-field">
-            <label>Unit</label>
+            <label>{{ 'common.unit.label' | translate }}</label>
             <select formControlName="unit" class="input-field" required>
               <option value="{{i + 1}}" [selected]="i == 0" *ngFor="let item of numberOfUnit; let i = index">{{i + 1}}</option>
             </select>
             <mat-error *ngIf="unitFC.hasError('required') && unitFC.dirty">
-              Unit is <strong>required</strong>
+              {{ 'common.unit.required' | translate }}
             </mat-error>
           </div>
 
           <div class="coupon-introduction">
-            <div>
-              You loved visiting us and want somebody special to enjoy in Little Viet? 
-            </div>
-            <div>
-              Your guest could activate the Coupon Gift whenever desired, make a reservation and pay all or a part of the bill in Little Viet.
-            </div>
-            <div>
-              Buy online our coupon gift and receive it instantly by email.
-            </div>
-
+            <div>{{ 'coupon.description1' | translate }}</div>
+            <div>{{ 'coupon.description2' | translate }}</div>
+            <div>{{ 'coupon.description3' | translate }}</div>
             <div class="buy-now-btn-frame">
-              <button
-                [disabled]="!couponFG.valid"
+              <button [disabled]="!couponFG.valid"
                 [ngClass]="!couponFG.invalid ? 'book-now-btn-active': 'book-now-btn-inactive'"
-                class="book-now-btn" (click)="openDialog()">BUY NOW
+                class="book-now-btn" (click)="openDialog()">
+                {{ 'coupon.buyNow' | translate }}
               </button>
             </div>
           </div>
