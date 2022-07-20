@@ -1021,7 +1021,23 @@ export class AdminState {
                 actions: tempActions
             });
             if (result.success) {
-                this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
+                let serving = {
+                    id: result.payload,
+                    description: payload.data.description,
+                    name: payload.data.name,
+                    numberOfPeople: payload.data.numberOfPeople,
+                    price: payload.data.price
+                };
+
+                if (state.product != null) {
+                    setState({
+                        ...state,
+                        product: {
+                            ...state.product,
+                            servings: [...state.product.servings, serving]
+                        }
+                    });
+                }
             }
         }, error => {
             setState({
