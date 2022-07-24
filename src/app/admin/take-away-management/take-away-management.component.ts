@@ -171,7 +171,7 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
 
     query.pageSize = pageSize;
 
-    if (filter != null && filter.length > 0) {
+    if (filter != null && filter.length > 0 && (filter[0].value.length > 0 || filter[1].value.length > 0)) {
       filter.forEach(v => {
         if (v.key == 'paymentTypes') {
           query.paymentTypes = v.value;
@@ -180,8 +180,8 @@ export class TakeAwayManagementComponent implements OnInit, AfterContentChecked 
         }
       })
     } else {
-      query.paymentTypes = [];
-      query.orderTypes = [];
+      query.paymentTypes = null;
+      query.orderTypes = null;
     }
     
     this.router.navigate(['/admin/orders'], { queryParams: query });

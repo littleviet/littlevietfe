@@ -154,10 +154,10 @@ export class ProductManagementComponent implements OnInit, AfterContentChecked {
 
     query.pageSize = pageSize;
 
-    if (filter != null && filter.length > 0) {
+    if (filter != null && filter.length > 0 && filter[0].value.length > 0) {
       query.statuses = filter[0].value;
     } else {
-      query.statuses = [];
+      query.statuses = null;
     }
 
     this.router.navigate(['/admin/products'], { queryParams: query });

@@ -4,7 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { Observable, Subscription, tap } from 'rxjs';
-import { AdminGetReservations } from 'src/app/actions/admin.action';
+import { AdminGetReservations, AdminGetUnhandledTask } from 'src/app/actions/admin.action';
 import { AdminState } from 'src/app/states/admin.state';
 import { ColumnItem } from 'src/dtos/column-item';
 import { PaginationResponse } from 'src/dtos/pagination-response';
@@ -122,7 +122,10 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
       this.furtherRequestSearchValue = this.reservationQuery.furtherRequest || '';
       if (this.statusColumn.listOfFilter != null &&  this.statusColumn.listOfFilter.length > 0) {
         this.statusColumn.listOfFilter.forEach((v) => {
-          this.reservationQuery.statuses?.forEach((status) => {
+          if (!this.reservationQuery.statuses) {
+            return;
+          }
+          this.reservationQuery.statuses.forEach((status) => {
             if (status == v.value) {
               v.byDefault = true;
             }
@@ -140,7 +143,7 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
         if (query.pageNumber == null || query.pageNumber == undefined) {
           query.pageNumber = 1;
         }
-        this.store.dispatch(new AdminGetReservations(query));
+        this.store.dispatch([new AdminGetReservations(query), new AdminGetUnhandledTask()]);
         this.setOfCheckedId.clear();
       }
     );
@@ -166,10 +169,10 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
 
     query.pageSize = pageSize;
 
-    if (filter != null && filter.length > 0) {
+    if (filter != null && filter.length > 0 && filter[0].value.length > 0) {
       query.statuses = filter[0].value;
     } else {
-      query.statuses = [];
+      query.statuses = null;
     }
     
     this.router.navigate(['/admin/reservations'], { queryParams: query });

@@ -73,11 +73,12 @@ export class CheckInReservationComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 7) && this.adminReservations.pageNumber < Math.ceil(this.adminReservations.total / this.adminReservations.pageSize)) {
+    if (e == (total - 8) && this.adminReservations.pageNumber < Math.ceil(this.adminReservations.total / this.adminReservations.pageSize)) {
       let query = _.cloneDeep(this.reservationQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;
       }
+      
       this.store.dispatch(new SearchReservationOrders(query));
     }
   }

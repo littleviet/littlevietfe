@@ -166,3 +166,7 @@ export class AdminUseCoupon {
   static readonly type = '[ADMIN] Admin Use Coupon';
   constructor(public useCouponInfo: any) {};
 }
+
+export class AdminGetUnhandledTask {
+  static readonly type = '[ADMIN] Admin Get Unhandled Task';
+}
