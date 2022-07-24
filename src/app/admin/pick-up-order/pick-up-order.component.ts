@@ -85,7 +85,7 @@ export class PickUpOrderComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 7) && this.adminOrders.pageNumber < Math.ceil(this.adminOrders.total / this.adminOrders.pageSize)) {
+    if (e == (total - 8) && this.adminOrders.pageNumber < Math.ceil(this.adminOrders.total / this.adminOrders.pageSize)) {
       let query = _.cloneDeep(this.orderQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;

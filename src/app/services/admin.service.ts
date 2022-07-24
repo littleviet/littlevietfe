@@ -16,6 +16,7 @@ import { AdminOrderInfo } from 'src/dtos/order/admin-order-info';
 import { AdminUpdateProductRequest } from 'src/dtos/product/admin-update-product-request';
 import { CouponQueryRequest } from 'src/dtos/coupon/coupon-query-request';
 import { AdminUseCouponInfo } from 'src/dtos/coupon/admin-use-coupon-info';
+import { UnhandledTask } from 'src/dtos/tasks/unhandled-task';
 
 @Injectable({
   providedIn: 'root'
@@ -243,5 +244,9 @@ export class AdminService {
 
   useCoupon(data: any): Observable<BaseResponse<string>> {
     return this.http.post<BaseResponse<string>>(environment.apiUrl + 'task/use-coupon', data);
+  }
+
+  getUnhandledThings(): Observable<UnhandledTask> {
+    return this.http.get<UnhandledTask>(environment.apiUrl + 'task/initialize');
   }
 }

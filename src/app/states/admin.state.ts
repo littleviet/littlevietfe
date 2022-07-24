@@ -21,10 +21,11 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     SearchPickUpOrderById, SearchPickUpOrders, AdminGetAllProductTypes, AdminUpdateMainProductImage, AdminUploadProductImage,
     AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing,
     AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons, AdminUseCoupon,
-    AdminGetOrderById, AdminClearOrder,
+    AdminGetOrderById, AdminClearOrder, AdminGetUnhandledTask,
 } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 import { Router } from "@angular/router";
+import { UnhandledTask } from "src/dtos/tasks/unhandled-task";
 
 export class AdminStateModel {
     reservations!: PaginationResponse<AdminReservation[]> | null;
@@ -48,6 +49,7 @@ export class AdminStateModel {
     reservationOderQuery!: AdminReservationQueryRequest;
     useCouponQuery!: CouponQueryRequest;
     useCoupons!: PaginationResponse<AdminUseCouponInfo[]> | null;
+    unhandledTask!: UnhandledTask | null;
     actions!: string[];
 }
 
@@ -75,6 +77,7 @@ export class AdminStateModel {
         reservationOderQuery: new AdminReservationQueryRequest(),
         useCouponQuery: new CouponQueryRequest(),
         useCoupons: null,
+        unhandledTask: null,
         actions: []
     }
 })
@@ -195,8 +198,13 @@ export class AdminState {
         return state.useCoupons;
     }
 
+    @Selector()
+    static getUnhandledTask(state: AdminStateModel) {
+        return state.unhandledTask;
+    }
+
     @Action(AdminGetReservations)
-    getReservations({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getReservations({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<PaginationResponse<AdminReservation[]>> {
         let state = getState();
         setState({
@@ -210,8 +218,7 @@ export class AdminState {
 
         return this.adminService.getReservations(state.reservationQuery).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     reservations: result,
                     actions: tempActions
                 });
@@ -230,7 +237,7 @@ export class AdminState {
     }
 
     @Action(AdminGetReservationById)
-    getReservationById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getReservationById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<BaseResponse<AdminReservation>> {
         let state = getState();
         setState({
@@ -243,8 +250,7 @@ export class AdminState {
 
         return this.adminService.getReservationById(payload.id).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     reservation: result.payload,
                     actions: tempActions
                 });
@@ -263,7 +269,7 @@ export class AdminState {
     }
 
     @Action(AdminUpdateReservation)
-    updateReservation({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    updateReservation({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -274,8 +280,7 @@ export class AdminState {
         return this.adminService.updateReservation(payload.reservation).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetReservationById(state.reservation?.id || ''));
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             } else {
@@ -294,16 +299,14 @@ export class AdminState {
 
 
     @Action(AdminClearReservation)
-    clearReservation({getState, setState}: StateContext<AdminStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    clearReservation({getState, setState, patchState}: StateContext<AdminStateModel>) {
+        patchState({
            reservation: null
         });
     }
 
     @Action(AdminGetOrders)
-    getOrders({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminOrder[]>> {
+    getOrders({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminOrder[]>> {
         let state = getState();
         setState({
             ...state,
@@ -316,27 +319,24 @@ export class AdminState {
 
         return this.adminService.getTakeAwayOrders(state.orderQuery).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     orders: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminGetOrderById)
-    getOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
+    getOrderById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
         let state = getState();
         setState({
             ...state,
@@ -348,36 +348,31 @@ export class AdminState {
 
         return this.adminService.getTakeAwayOrderById(payload.id).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     order: result.payload,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminClearOrder)
-    cleareOrder({getState, setState}: StateContext<AdminStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    cleareOrder({getState, setState, patchState}: StateContext<AdminStateModel>) {
+        patchState({
            order: null
         });
     }
 
     @Action(AdminGetProducts)
-    getProducts({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getProducts({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<PaginationResponse<AdminProduct[]>> {
         let state = getState();
         setState({
@@ -391,27 +386,24 @@ export class AdminState {
 
         return this.adminService.getProducts(state.productQuery).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     products: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminGetProductById)
-    getProductById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getProductById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<[BaseResponse<AdminProduct>, PaginationResponse<AdminProductType[]>]> {
         let state = getState();
         setState({
@@ -426,28 +418,25 @@ export class AdminState {
         return combineLatest(this.adminService.getProductById(payload.id), this.adminService.getProductTypes(productTypeQuery))
             .pipe(tap((result) => {
                 if (result[0].success && result[1].success) {
-                    setState({
-                        ...state,
+                    patchState({
                         product: result[0].payload,
                         allProductTypes: result[1].payload,
                         actions: tempActions
                     });
                 } else {
-                    setState({
-                        ...state,
+                    patchState({
                         actions: tempActions
                     });
                 }
             }, error => {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUpdateProduct)
-    updateProduct({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    updateProduct({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -458,26 +447,23 @@ export class AdminState {
         return this.adminService.updateProduct(payload.product).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUpdateMainProductImage)
-    updateMainProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    updateMainProductImage({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -497,27 +483,24 @@ export class AdminState {
                         img.isMain = false;
                     }
                 });
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                     product: product
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminDeleteProductImage)
-    deleteProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    deleteProductImage({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -529,27 +512,24 @@ export class AdminState {
             if (result.success) {
                 let product = _.cloneDeep(state.product);
                 product?.productImages.splice(product?.productImages.findIndex(img => img.id == payload.imageId), 1);
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                     product: product
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUploadProductImage)
-    uploadProductImage({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    uploadProductImage({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -560,36 +540,31 @@ export class AdminState {
         return this.adminService.uploadProductImages(state.product?.id || '', payload.data).pipe(tap((result) => {
 
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                 });
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminClearProduct)
-    clearProduct({getState, setState}: StateContext<AdminStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    clearProduct({getState, setState, patchState}: StateContext<AdminStateModel>) {
+        patchState({
            product: null
         });
     }
 
     @Action(AdminGetAllProductTypes)
-    getAllProductTypes({getState, setState}: StateContext<AdminStateModel>) : Observable<PaginationResponse<AdminProductType[]>> {
+    getAllProductTypes({getState, setState, patchState}: StateContext<AdminStateModel>) : Observable<PaginationResponse<AdminProductType[]>> {
         let state = getState();
         setState({
             ...state,
@@ -602,27 +577,24 @@ export class AdminState {
         productTypeQuery.pageSize = 1000;
         return this.adminService.getProductTypes(productTypeQuery).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     allProductTypes: result.payload,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminGetProductTypes)
-    getProductTypes({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getProductTypes({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<PaginationResponse<AdminProductType[]>> {
         let state = getState();
         setState({
@@ -636,27 +608,24 @@ export class AdminState {
 
         return this.adminService.getProductTypes(state.productTypeQuery).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     productTypes: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminGetProductTypeById)
-    getProductTypeById({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    getProductTypeById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<BaseResponse<AdminProductType>> {
         let state = getState();
         setState({
@@ -669,27 +638,24 @@ export class AdminState {
 
         return this.adminService.getProductTypeById(payload.id).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     productType: result.payload,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUpdateProductType)
-    updateProductType({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    updateProductType({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
@@ -701,35 +667,30 @@ export class AdminState {
         return this.adminService.updateProductType(payload.productType).pipe(tap((result) => {
             if (result.success) {
                 this.store.dispatch(new AdminGetProductTypeById(state.productType?.id || ''));
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminClearProductType)
-    clearProductType({getState, setState}: StateContext<AdminStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    clearProductType({getState, setState, patchState}: StateContext<AdminStateModel>) {
+        patchState({
            productType: null
         });
     }
 
     @Action(SearchPickUpOrders)
-    searchPickUpOrders({getState, setState}: StateContext<AdminStateModel>, payload: any)
+    searchPickUpOrders({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any)
         : Observable<PaginationResponse<AdminOrder[]>> {
         let state = getState();
         setState({
@@ -746,28 +707,24 @@ export class AdminState {
                 if (state.pickUpOrders != null && state.pickUpOderQuery.pageNumber != 1) {
                     result.payload = [...state.pickUpOrders.payload, ...result.payload]
                 }
-
-                setState({
-                    ...state,
+                patchState({
                     pickUpOrders: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(SearchUseCoupons)
-    searchUseCoupons({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminUseCouponInfo[]>> {
+    searchUseCoupons({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminUseCouponInfo[]>> {
         let state = getState();
         setState({
             ...state,
@@ -784,27 +741,24 @@ export class AdminState {
                     result.payload = [...state.useCoupons.payload, ...result.payload]
                 }
 
-                setState({
-                    ...state,
+                patchState({
                     useCoupons: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(SearchPickUpOrderById)
-    searchPickUpOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
+    searchPickUpOrderById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminOrderInfo>> {
         let state = getState();
         setState({
             ...state,
@@ -815,27 +769,24 @@ export class AdminState {
 
         return this.adminService.getTakeAwayOrderById(payload.id).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     pickUpOrder: result.payload,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(SearchReservationOrders)
-    searchReservationOrders({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminReservation[]>> {
+    searchReservationOrders({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<PaginationResponse<AdminReservation[]>> {
         let state = getState();
         setState({
             ...state,
@@ -851,28 +802,24 @@ export class AdminState {
                 if (state.reservationOrders != null && state.reservationOderQuery.pageNumber != 1) {
                     result.payload = [...state.reservationOrders.payload, ...result.payload]
                 }
-
-                setState({
-                    ...state,
+                patchState({
                     reservationOrders: result,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(SearchReservationOrderById)
-    searchReservationOrderById({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminReservation>> {
+    searchReservationOrderById({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<AdminReservation>> {
         let state = getState();
         setState({
             ...state,
@@ -883,27 +830,24 @@ export class AdminState {
 
         return this.adminService.getReservationById(payload.id).pipe(tap((result) => {
             if (result.success) {
-                setState({
-                    ...state,
+                patchState({
                     reservationOrder: result.payload,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
             
     @Action(AdminCreateProductType)
-    createProductType({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    createProductType({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -917,20 +861,18 @@ export class AdminState {
                     this.router.navigate(['/admin/product-types']);
                 });
             }
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminCreateProduct)
-    createProduct({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    createProduct({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -944,20 +886,18 @@ export class AdminState {
                     this.router.navigate(['/admin/products/' + result.payload]);
                 });
             }
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUpdateServing)
-    updateServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    updateServing({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -966,23 +906,21 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice(tempActions.findIndex(a => a == AdminUpdateServing.name), 1);
         return this.adminService.updateServing(payload.data).pipe(tap((result) => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
             if (result.success) {
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminDeleteServing)
-    deleteServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    deleteServing({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -991,23 +929,21 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice(tempActions.findIndex(a => a == AdminDeleteServing.name), 1);
         return this.adminService.deleteServing(payload.servingId).pipe(tap((result) => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
             if (result.success) {
                 this.store.dispatch(new AdminGetProductById(state.product?.id || ''));
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminAddServing)
-    addServing({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    addServing({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -1016,8 +952,7 @@ export class AdminState {
         let tempActions = [...state.actions];
         tempActions.splice(tempActions.findIndex(a => a == AdminAddServing.name), 1);
         return this.adminService.createServing(payload.data).pipe(tap((result) => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
             if (result.success) {
@@ -1040,15 +975,14 @@ export class AdminState {
                 }
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminCompletePickUpOrder)
-    completePickUpOrder({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    completePickUpOrder({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -1062,27 +996,24 @@ export class AdminState {
                 if (pickUpOrder != null) {
                     pickUpOrder.orderStatus = "PickedUp";
                 }
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                     pickUpOrder: pickUpOrder
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminCheckInReservation)
-    adminCheckUpReservation({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    adminCheckUpReservation({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -1096,27 +1027,24 @@ export class AdminState {
                 if (reservationOrder != null) {
                     reservationOrder.status = "Completed";
                 }
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                     reservationOrder: reservationOrder
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(AdminUseCoupon)
-    adminUseCoupon({getState, setState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+    adminUseCoupon({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
         let state = getState();
         setState({
             ...state,
@@ -1134,20 +1062,40 @@ export class AdminState {
                         }
                     })
                 }
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions,
                     useCoupons: useCoupons
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminGetUnhandledTask)
+    getUnhandledTask({getState, setState, patchState}: StateContext<AdminStateModel>)
+        : Observable<UnhandledTask> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminGetUnhandledTask.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice( tempActions.findIndex(a => a == AdminGetUnhandledTask.name), 1);
+
+        return this.adminService.getUnhandledThings().pipe(tap((result) => {
+            patchState({
+                unhandledTask: result,
+                actions: tempActions
+            });
+        }, error => {
+            patchState({
                 actions: tempActions,
             });
         }));

@@ -31,14 +31,20 @@
       </li>
       <li nz-submenu nzOpen nzTitle="Tasks" nzIcon="form">
         <ul>
-          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-            <a routerLink="/admin/pick-up-task">Pick up</a>
+          <li routerLink="/admin/pick-up-task" nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+            <nz-badge *ngIf="unhandledTask && unhandledTask.newPickupOrderCount > 0" [nzCount]="unhandledTask.newPickupOrderCount">
+              <a class="unhandled-noti" >Pick up</a>
+            </nz-badge>
+            <a *ngIf="!unhandledTask || unhandledTask.newPickupOrderCount <= 0" routerLink="/admin/pick-up-task">Pick up</a>
           </li>
-          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-            <a routerLink="/admin/check-in-reservation-task">Check in reservation</a>
+          <li routerLink="/admin/check-in-reservation-task" nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+            <nz-badge *ngIf="unhandledTask && unhandledTask.newReservationCount > 0" [nzCount]="unhandledTask.newReservationCount">
+              <a class="unhandled-noti">Check in reservation</a>
+            </nz-badge>
+            <a *ngIf="!unhandledTask || unhandledTask.newReservationCount <= 0" routerLink="/admin/check-in-reservation-task">Check in reservation</a>
           </li>
-          <li nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-            <a routerLink="/admin/use-coupon-task">Use coupon</a>
+          <li routerLink="/admin/use-coupon-task" nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+            <a>Use coupon</a>
           </li>
         </ul>
       </li>
