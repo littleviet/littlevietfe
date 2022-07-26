@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfo!: Observable<LoginAccountInfo>;
-
+  isViewInit = false;
   loginInfo: LoginAccountInfo | null = null; 
   menuOpen: boolean = false;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
   ngAfterViewChecked() {
     this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
+    this.isViewInit = true;
   }
 
   onLoginSubmit() {
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (this.headerEl != null && this.fullEl.nativeElement.getBoundingClientRect().height <= window.innerHeight) {
+    if (this.isViewInit && this.headerEl != null && this.fullEl.nativeElement.getBoundingClientRect().height <= window.innerHeight) {
       this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
         - this.footerEl.nativeElement.getBoundingClientRect().height;
     }
