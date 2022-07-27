@@ -1,3 +1,5 @@
+@import '../../../../assets/breakpoint/breakpoints.scss';
+
 .main-frame {
     display: flex;
     flex-wrap: wrap;
@@ -13,6 +15,10 @@
         max-width: 40%;
         height: 100% !important;
 
+        @include breakpoint-lg-down() {
+            min-width: 100%;
+            max-width: 100%;
+        }
         
         .edit-frame {
             display: flex;
@@ -69,6 +75,11 @@
         width: 60%;
         padding-top: 50px;
         padding-bottom: 200px;
+
+        @include breakpoint-lg-down() {
+            min-width: 100%;
+            max-width: 100%;
+        }
         
         .reset-button {
             margin-left: 12px; 
