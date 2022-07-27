@@ -26,8 +26,8 @@ export class ProductDetailComponent implements OnInit {
   @Select(AdminState.getProduct) productObs!: Observable<AdminProduct>;
   @Select(AdminState.getAllProductTypes) allProductTypesObs!: Observable<AdminProductType[]>;
   allProductTypes: AdminProductType[] = [];
-  formatterPeople = (value: number): string => `${value} ppl`;
-  parserPeople = (value: string): string => value.replace(' ppl', '');
+  formatterPeople = (value: number): string => `${value} Pip`;
+  parserPeople = (value: string): string => value.replace(' Pip', '');
   formatterEuro = (value: number): string => `${value} €`;
   parserEuro = (value: string): string => value.replace(' €', '');
   product!: AdminProduct;
