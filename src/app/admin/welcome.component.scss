@@ -8,7 +8,7 @@
   }
   
 .app-layout {
-  height: 100vh;
+  height: auto;
 }
 
 .menu-sidebar {
@@ -86,7 +86,7 @@ nz-content {
 .inner-content {
   padding: 24px;
   background: #fff;
-  height: 100%;
+  height: auto;
   margin-top: 12px;
 
   @include breakpoint-lg-down() {
