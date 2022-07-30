@@ -73,10 +73,10 @@ export class PickUpOrderComponent implements OnInit {
 
   onFilter() {
     let query = _.clone(this.orderQuery);
-    if (this.nameFC.value != null && this.nameFC.value != '') {
+    if (this.nameFC.value != null) {
       query.fullName = this.nameFC.value;
     }
-    if (this.phoneFC.value != null && this.phoneFC.value != '') {
+    if (this.phoneFC.value != null) {
       query.phoneNumber = this.phoneFC.value;
     }
     query.pageNumber = 1;

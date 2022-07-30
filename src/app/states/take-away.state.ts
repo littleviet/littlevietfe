@@ -90,10 +90,9 @@ export class TakeAwayState implements NgxsOnInit {
     }
 
     @Action(GetTakeAwayProducts)
-    getTakeAwayProducts({getState, setState}: StateContext<TakeAwayStateModel>) : Observable<BaseResponse<TakeAwayProduct[]>> {
+    getTakeAwayProducts({getState, setState, patchState}: StateContext<TakeAwayStateModel>) : Observable<BaseResponse<TakeAwayProduct[]>> {
         const state = getState();
-        setState({
-            ...state,
+        patchState({
             actions: [...state.actions, GetTakeAwayProducts.name]
         });
         let tempActions = [...state.actions];
@@ -135,21 +134,18 @@ export class TakeAwayState implements NgxsOnInit {
                     });
                 }
 
-                setState({
-                    ...state,
+                patchState({
                     products: result.payload,
                     cart: newCart,
                     actions: tempActions
                 });
             } else {
-                setState({
-                    ...state,
+                patchState({
                     actions: tempActions
                 });
             }
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
@@ -208,16 +204,14 @@ export class TakeAwayState implements NgxsOnInit {
     }
 
     @Action(UpdatePickUpTime)
-    updatePickUpTime({getState, setState}: StateContext<TakeAwayStateModel>, payload: Date) {
-        const state = getState();
-        setState({
-            ...state,
+    updatePickUpTime({getState, setState, patchState}: StateContext<TakeAwayStateModel>, payload: Date) {
+        patchState({
            timePickUp: payload
         });
     }
 
     @Action(CheckOutCart)
-    checkoutCart({getState, setState}: StateContext<TakeAwayStateModel>, payload: any) {
+    checkoutCart({getState, setState, patchState}: StateContext<TakeAwayStateModel>, payload: any) {
         const state = getState();
         setState({
             ...state,
@@ -230,23 +224,19 @@ export class TakeAwayState implements NgxsOnInit {
             if (result.success) {
                 window.location.href = result.payload.url;
             }
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions
             });
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
             });
         }));
     }
 
     @Action(ClearCart)
-    clearCart({getState, setState}: StateContext<TakeAwayStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    clearCart({getState, setState, patchState}: StateContext<TakeAwayStateModel>) {
+        patchState({
            timePickUp: null,
            cart: new CartDetail()
         });
@@ -267,7 +257,7 @@ export class TakeAwayState implements NgxsOnInit {
     }
 
     @Action(UpdateReservationBookerInfo)
-    updateBookerReservationInfo({getState, setState}: StateContext<TakeAwayStateModel>, payload: any) {
+    updateBookerReservationInfo({getState, setState, patchState}: StateContext<TakeAwayStateModel>, payload: any) {
         const state = getState();
         setState({
             ...state,
@@ -285,14 +275,12 @@ export class TakeAwayState implements NgxsOnInit {
         let tempActions = [...state.actions];
         tempActions.splice( tempActions.findIndex(a => a == UpdateReservationBookerInfo.name), 1);
         return this.takeAwayService.bookReservation(newState.reservationInfo).pipe(tap((result) => {            
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
                 reservationSuccess: result.success
             });
         }, error => {
-            setState({
-                ...state,
+            patchState({
                 actions: tempActions,
                 reservationSuccess: false
             });
@@ -301,10 +289,8 @@ export class TakeAwayState implements NgxsOnInit {
 
     
     @Action(ClearReservation)
-    clearReservation({getState, setState}: StateContext<TakeAwayStateModel>) {
-        const state = getState();
-        setState({
-            ...state,
+    clearReservation({getState, setState, patchState}: StateContext<TakeAwayStateModel>) {
+        patchState({
             reservationInfo: new CusReservation(),
             reservationSuccess: null
         });

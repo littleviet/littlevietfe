@@ -82,7 +82,7 @@
   <!-- Search result -->
   <div *ngIf="adminReservations" class="result-layout">
     <div class="search-result-area">
-      <div class="list-reservation-title">LIST CUSTOMER RESERVATION</div>
+      <div class="list-reservation-title">LIST <strong style="color: red;">UNHANDLED</strong> CUSTOMER RESERVATION</div>
       <cdk-virtual-scroll-viewport class="search-result-viewport" itemSize="73" (scrolledIndexChange)="handler($event)">
         <nz-list>
           <nz-list-item class="list-item" [ngClass]="{'item-selected': reservation.id == selectedId}"
