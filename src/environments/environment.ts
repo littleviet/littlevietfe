@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://littlevietbe.azurewebsites.net/api/'
+  apiUrl: 'https://littleviet-dev.azurewebsites.net/api/'
 };
 
 /*
