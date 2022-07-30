@@ -24,7 +24,7 @@ jobs:
           submodules: true
       - name: Sets env var for prod
         run: |
-          echo "ANGULAR_ENV=production" >> $GITHUB_ENV"
+          echo "ANGULAR_ENV=production" >> $GITHUB_ENV
         if: github.ref == 'refs/heads/master'
       - name: Build And Deploy
         id: builddeploy
