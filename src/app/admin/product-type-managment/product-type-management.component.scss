@@ -49,6 +49,15 @@
   margin-right: 8px;
 }
 
+.row:hover {
+  cursor: pointer;
+  color: rgb(61, 61, 230);
+}
+
+a {
+  color: inherit;
+}
+
 tr:nth-child(2n) {
   background: #fbfbfb;
 }

@@ -143,7 +143,7 @@ export class ReservationManagementComponent implements OnInit, AfterContentCheck
         if (query.pageNumber == null || query.pageNumber == undefined) {
           query.pageNumber = 1;
         }
-        this.store.dispatch([new AdminGetReservations(query), new AdminGetUnhandledTask()]);
+        this.store.dispatch(new AdminGetReservations(query));
         this.setOfCheckedId.clear();
       }
     );

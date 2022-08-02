@@ -57,6 +57,15 @@
   margin-right: 8px;
 }
 
+.row:hover {
+  cursor: pointer;
+  color: rgb(61, 61, 230);
+}
+
+a {
+  color: inherit;
+}
+
 .mobile-col {
   @include breakpoint-lg-down() {
     display: none;

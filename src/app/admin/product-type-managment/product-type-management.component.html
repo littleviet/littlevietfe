@@ -55,12 +55,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of filterTable.data">
+        <tr *ngFor="let data of filterTable.data" class="row">
           <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-          <td>{{ data.name }}</td>
-          <td>{{ data.esName }}</td>
-          <td class="mobile-col">{{ data.caName }}</td>
-          <td class="mobile-col">{{ data.description }}</td>
+          <td><a routerLink="/admin/product-types/{{data.id}}">{{ data.name }}</a></td>
+          <td><a routerLink="/admin/product-types/{{data.id}}">{{ data.esName }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/product-types/{{data.id}}">{{ data.caName }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/product-types/{{data.id}}">{{ data.description }}</a></td>
         </tr>
       </tbody>
     </nz-table>

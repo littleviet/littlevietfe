@@ -72,20 +72,21 @@
             nzColumnKey="statuses">
             {{statusColumn.name}}
           </th>
-
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of filterTable.data">
+        <tr *ngFor="let data of filterTable.data" class="row">
           <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-          <td>{{ data.name }}</td>
-          <td class="mobile-col">{{ data.esName }}</td>
-          <td class="mobile-col">{{ data.caName }}</td>
-          <td class="mobile-col">{{ data.description }}</td>
+          <td><a routerLink="/admin/products/{{data.id}}">{{ data.name }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/products/{{data.id}}">{{ data.esName }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/products/{{data.id}}">{{ data.caName }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/products/{{data.id}}">{{ data.description }}</a></td>
           <!-- <td>{{ data.producType.name }}</td> -->
           <td>
-            <nz-tag *ngIf="data.status == 'InStock'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>
-            <nz-tag *ngIf="data.status == 'OutOfStock'" class="tag-status" nzColor="error">{{data.status}}</nz-tag>
+            <a routerLink="/admin/products/{{data.id}}">
+              <nz-tag *ngIf="data.status == 'InStock'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>
+              <nz-tag *ngIf="data.status == 'OutOfStock'" class="tag-status" nzColor="error">{{data.status}}</nz-tag>
+            </a>
           </td>
         </tr>
       </tbody>

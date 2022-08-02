@@ -87,14 +87,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of filterTable.data">
+        <tr *ngFor="let data of filterTable.data" class="row">
           <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-          <td>{{ data.account.firstname }} {{data.account.lastname}}</td>
-          <td class="mobile-col">{{ data.account.phoneNumber1 }}</td>
-          <td>{{ data.pickupTime.toString() | customDate }}</td>
-          <td class="mobile-col">{{ data.totalPrice }}</td>
-          <td class="mobile-col">{{ data.paymentType }}</td>
-          <td class="mobile-col">{{ data.orderType }}</td>
+          <td><a routerLink="/admin/orders/{{data.id}}">{{ data.account.firstname }} {{data.account.lastname}}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/orders/{{data.id}}">{{ data.account.phoneNumber1 }}</a></td>
+          <td><a routerLink="/admin/orders/{{data.id}}">{{ data.pickupTime.toString() | customDate }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/orders/{{data.id}}">{{ data.totalPrice }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/orders/{{data.id}}">{{ data.paymentType }}</a></td>
+          <td class="mobile-col"><a routerLink="/admin/orders/{{data.id}}">{{ data.orderType }}</a></td>
         </tr>
       </tbody>
     </nz-table>
