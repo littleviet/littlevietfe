@@ -117,18 +117,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let data of filterTable.data">
+        <tr *ngFor="let data of filterTable.data" class="row">
           <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-          <td>{{ data.firstName }} {{data.lastName}}</td>
-          <td>{{ data.email }}</td>
-          <td>{{ data.phoneNumber }}</td>
-          <td>{{ data.bookingDate.toString() | customDate }}</td>
-          <td>{{ data.noOfPeople }}</td>
-          <td>{{ data.furtherRequest }}</td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.firstName }} {{data.lastName}}</a></td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.email }}</a></td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.phoneNumber }}</a></td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.bookingDate.toString() | customDate }}</a></td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.noOfPeople }}</a></td>
+          <td><a routerLink="/admin/reservations/{{data.id}}">{{ data.furtherRequest }}</a></td>
           <td>
-            <nz-tag *ngIf="data.status == 'Completed'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>
-            <nz-tag *ngIf="data.status == 'Reserved'" class="tag-status" nzColor="processing">{{data.status}}</nz-tag>
-            <nz-tag *ngIf="data.status == 'Cancelled'" class="tag-status" nzColor="error">{{data.status}}</nz-tag>
+            <a routerLink="/admin/reservations/{{data.id}}">
+              <nz-tag *ngIf="data.status == 'Completed'" class="tag-status" nzColor="success">{{data.status}}</nz-tag>
+              <nz-tag *ngIf="data.status == 'Reserved'" class="tag-status" nzColor="processing">{{data.status}}</nz-tag>
+              <nz-tag *ngIf="data.status == 'Cancelled'" class="tag-status" nzColor="error">{{data.status}}</nz-tag>
+            </a>
           </td>
         </tr>
       </tbody>

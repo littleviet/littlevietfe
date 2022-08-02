@@ -51,6 +51,11 @@ tr:nth-child(2n) {
   background: #fbfbfb;
 }
 
+.row:hover {
+  cursor: pointer;
+  color: rgb(61, 61, 230);
+}
+
 .date-picker-dropdown {
   display: flex;
   flex-direction: column;
@@ -59,4 +64,8 @@ tr:nth-child(2n) {
     text-align: end;
     margin-top: 6px;
   }
+}
+
+a {
+  color: inherit;
 }

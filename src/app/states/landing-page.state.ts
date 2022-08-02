@@ -47,6 +47,19 @@ export class LandingPageState {
         tempActions.splice( tempActions.findIndex(a => a == GetProductMenu.name), 1);
         return this.landingPageService.getLandingPageProduct().pipe(tap((result) => {
             if (result.success) {
+                let menuProducts : CustomerProductType[] = [];
+                result.payload.menuProducts.forEach( v => {
+                    do {
+                        let products = v.products.splice(0, 10);
+                        menuProducts.push({
+                            caName : v.caName,
+                            esName : v.caName,
+                            name : v.caName,
+                            products : products
+                        })
+                    } while (v.products.length > 10)
+                });
+                result.payload.menuProducts = menuProducts;
                 setState({
                     ...state,
                     landingPageModel: result.payload,
