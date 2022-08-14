@@ -83,7 +83,7 @@ export class UseCouponComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 7) && this.adminCoupons.pageNumber < Math.ceil(this.adminCoupons.total / this.adminCoupons.pageSize)) {
+    if (e == (total - 9) && this.adminCoupons.pageNumber < Math.ceil(this.adminCoupons.total / this.adminCoupons.pageSize)) {
       let query = _.cloneDeep(this.couponQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;

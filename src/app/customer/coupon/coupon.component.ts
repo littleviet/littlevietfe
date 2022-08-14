@@ -21,6 +21,7 @@ export class CouponComponent implements OnInit {
   @Select(CouponState.getCouponTypes) couponTypesObs!: Observable<CustomerCouponType[]>;
   @Select(CouponState.isCouponBuyingSuccess) couponBuyingSuccessObs!: Observable<boolean | null>;
   
+  isViewInit = false;
   scrHeight: number = 0;
   footerHeight: number = 0;
   couponBuyingSuccess: boolean | null = null;
@@ -83,11 +84,12 @@ export class CouponComponent implements OnInit {
   ngAfterViewChecked() {
     this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
+    this.isViewInit = true;
   }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (this.headerEl != null && this.fullEl.nativeElement.getBoundingClientRect().height <= window.innerHeight) {
+    if (this.isViewInit && this.headerEl != null && this.fullEl.nativeElement.getBoundingClientRect().height <= window.innerHeight) {
       this.scrHeight = window.innerHeight - this.headerEl.nativeElement.getBoundingClientRect().height
         - this.footerEl.nativeElement.getBoundingClientRect().height;
     }

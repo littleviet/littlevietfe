@@ -31,10 +31,6 @@
             width: 100%;
             overflow: hidden;
 
-            @include breakpoint-lg-down() {
-                height: 250px;
-            }
-
             .search-result-title {
                 text-align: center;
                 font-weight: 500;
@@ -47,6 +43,10 @@
 
                 .list-item {
                     cursor: pointer;
+
+                    .expired-badge {
+                        margin-right: 10px;
+                    }
                 }
 
                 .list-item:hover {
@@ -209,9 +209,18 @@
     }
 }
 
-
 ::ng-deep .ant-collapse-content>.ant-collapse-content-box {
     @include breakpoint-lg-down() {
         padding: 4px 8px;
     }
+}
+
+::ng-deep .ant-ribbon-color-red {
+    color: white;
+    font-size: 11px;
+}
+
+::ng-deep .ant-ribbon-color-green {
+    color: white;
+    font-size: 11px;
 }

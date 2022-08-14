@@ -50,6 +50,7 @@ import { UseCouponComponent } from './use-coupon/use-coupon.component';
 import { SharedModule } from 'src/commons/shared.module';
 import { TakeAwayDetailComponent } from './take-away-management/take-away-detail/take-away-detail.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { DateAgoPipe } from 'src/commons/pipes/date-ago.pipe';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   override overrides = {
@@ -107,6 +108,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     ProductTypeDetailComponent,
     PickUpOrderComponent,
     DateFormatPipe,
+    DateAgoPipe,
     ProductTypeCreateComponent,
     CheckInReservationComponent,
     ProductCreateComponent,
