@@ -85,7 +85,7 @@ export class PickUpOrderComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 8) && this.adminOrders.pageNumber < Math.ceil(this.adminOrders.total / this.adminOrders.pageSize)) {
+    if (e == (total - 9) && this.adminOrders.pageNumber < Math.ceil(this.adminOrders.total / this.adminOrders.pageSize)) {
       let query = _.cloneDeep(this.orderQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;
@@ -103,6 +103,12 @@ export class PickUpOrderComponent implements OnInit {
     this.store.dispatch(new AdminCompletePickUpOrder(this.selectedId));
   }
 
+  isExpired(dateStr: string) {
+    var now = new Date();
+    let date = Date.parse(dateStr);
+    return date < now.getTime();
+  }
+  
   isDiplayLoading() {
     if (this.adminActions && this.adminActions.findIndex(ac => ac == SearchPickUpOrderById.name) >= 0) {
       return true;

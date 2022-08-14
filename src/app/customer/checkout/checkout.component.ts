@@ -22,6 +22,7 @@ export class CheckoutComponent implements OnInit {
   daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   scrHeight: number = 0;
   footerHeight: number = 0;
+  isViewInit = false;
   @ViewChild('header') headerEl!: ElementRef;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('full') fullEl!: ElementRef;
@@ -194,11 +195,12 @@ export class CheckoutComponent implements OnInit {
   ngAfterViewChecked() {
     this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
+    this.isViewInit = true;
   }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (this.headerEl != null && this.fullEl != null && this.footerEl != null) {
+    if (this.isViewInit && this.headerEl != null && this.fullEl != null && this.footerEl != null) {
       if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
         return;
       } else {

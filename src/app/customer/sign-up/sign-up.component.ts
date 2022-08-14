@@ -19,6 +19,7 @@ export class SignUpComponent implements OnInit {
   @Select(AuthenticationState.getActions) authActionsObs!: Observable<string[]>;
   @Select(AuthenticationState.getLoggedInAccountInfo) loginAccountInfoObs!: Observable<LoginAccountInfo>;
 
+  isViewInit = false;
   scrHeight: number = 0;
   footerHeight: number = 0;
   menuOpen: boolean = false;
@@ -81,11 +82,12 @@ export class SignUpComponent implements OnInit {
   ngAfterViewChecked() {
     this.footerHeight = this.footerEl.nativeElement.getBoundingClientRect().height;
     this.cdRef.detectChanges();
+    this.isViewInit = true;
   }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
-    if (this.headerEl != null && this.fullEl != null && this.footerEl != null) {
+    if (this.isViewInit && this.headerEl != null && this.fullEl != null && this.footerEl != null) {
       if (this.fullEl.nativeElement.getBoundingClientRect().height > window.innerHeight) {
         return;
       } else {

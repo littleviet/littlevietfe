@@ -97,6 +97,10 @@
                 {{reservation.firstName + ' ' + reservation.lastName + ' - ' + reservation.phoneNumber}}
               </nz-list-item-meta-title>
             </nz-list-item-meta>
+            <nz-ribbon *ngIf="isExpired(reservation.bookingDate)" class="expired-badge" nzText="Expired {{reservation.bookingDate | dateAgo}}" nzColor="red">
+            </nz-ribbon>
+            <nz-ribbon *ngIf="!isExpired(reservation.bookingDate)" class="expired-badge" nzText="Coming {{reservation.bookingDate | dateAgo}}" nzColor="green">
+            </nz-ribbon>
           </nz-list-item>
         </nz-list>
       </cdk-virtual-scroll-viewport>

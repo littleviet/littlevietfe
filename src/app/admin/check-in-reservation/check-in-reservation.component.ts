@@ -43,7 +43,7 @@ export class CheckInReservationComponent implements OnInit {
   ngOnInit() {
     let query = new AdminReservationQueryRequest();
     query.pageNumber = 1;
-    query.orderBy = "bookingDate asc";
+    query.orderBy = "bookingDate desc";
     query.statuses = [ReservationStatus.Reserved];
     this.store.dispatch(new SearchReservationOrders(query));
     this.reservationOdersObs.subscribe((result) => {
@@ -73,7 +73,8 @@ export class CheckInReservationComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 8) && this.adminReservations.pageNumber < Math.ceil(this.adminReservations.total / this.adminReservations.pageSize)) {
+    console.log(e,' ', total - 9, ' ' , this.adminReservations.pageNumber, ' ' , Math.ceil(this.adminReservations.total / this.adminReservations.pageSize));
+    if (e == (total - 9) && this.adminReservations.pageNumber < Math.ceil(this.adminReservations.total / this.adminReservations.pageSize)) {
       let query = _.cloneDeep(this.reservationQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;
@@ -116,6 +117,12 @@ export class CheckInReservationComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  isExpired(dateStr: string) {
+    var now = new Date();
+    let date = Date.parse(dateStr);
+    return date < now.getTime();
   }
 
   checkInReservation() {

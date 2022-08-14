@@ -60,6 +60,11 @@
         width: 50%;
         padding-right: 12px;
 
+        @include breakpoint-lg-down() {
+            width: 100%;
+            padding-right: 0;
+        }
+
         .search-result-area {
             width: 100%;
             overflow: hidden;
@@ -71,15 +76,15 @@
                 margin-bottom: 16px;
             }
 
-            @include breakpoint-lg-down() {
-                height: 250px;
-            }
-
             .search-result-viewport {
                 height: 511px;
 
                 .list-item {
                     cursor: pointer;
+
+                    .expired-badge {
+                        margin-right: 10px;
+                    }
                 }
 
                 .list-item:hover {
@@ -174,4 +179,14 @@
     @include breakpoint-lg-down() {
         padding: 4px 8px;
     }
+}
+
+::ng-deep .ant-ribbon-color-red {
+    color: white;
+    font-size: 11px;
+}
+
+::ng-deep .ant-ribbon-color-green {
+    color: white;
+    font-size: 11px;
 }

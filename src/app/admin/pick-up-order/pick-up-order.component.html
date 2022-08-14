@@ -66,6 +66,10 @@
                 {{(order.account.firstname || '') + ' - ' + order.account.phoneNumber1 || ''}}
               </nz-list-item-meta-title>
             </nz-list-item-meta>
+            <nz-ribbon *ngIf="isExpired(order.pickupTime)" class="expired-badge" nzText="Expired {{order.pickupTime | dateAgo}}" nzColor="red">
+            </nz-ribbon>
+            <nz-ribbon *ngIf="!isExpired(order.pickupTime)" class="expired-badge" nzText="Pick up {{order.pickupTime | dateAgo}}" nzColor="green">
+            </nz-ribbon>
           </nz-list-item>
         </nz-list>
       </cdk-virtual-scroll-viewport>
