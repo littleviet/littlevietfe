@@ -106,7 +106,6 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.registerFormGroup.valueChanges.subscribe(v => {
-      console.log("FG: ", this.registerFormGroup);
     });
 
     this.renderer.listen('window', 'click', (e: any) => {
