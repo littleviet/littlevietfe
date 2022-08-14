@@ -72,9 +72,7 @@ export class AuthenticationState {
                 }
                 let expiredToken = this.helper.getTokenExpirationDate(result.payload.token);
                 if (expiredToken != null) {
-                    console.log("expired, ", expiredToken);
                     let expirationDuration = expiredToken.getTime() - new Date().getTime();
-                    console.log("hihi, ", expirationDuration, expirationDuration, new Date().getTime());
                     this.authService.setLogoutTimer(expirationDuration);
                 }
                 setState({

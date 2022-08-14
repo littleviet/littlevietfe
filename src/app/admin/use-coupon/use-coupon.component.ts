@@ -38,7 +38,6 @@ export class UseCouponComponent implements OnInit {
 
   ngOnInit() {
     this.useCouponFG.valueChanges.subscribe((v) => {
-      console.log("form", this.useCouponFG.controls['usage'].validator);
     });
     this.adminCouponsObs.subscribe((result) => {
       this.adminCoupons = result;
