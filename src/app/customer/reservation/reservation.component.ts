@@ -30,7 +30,8 @@ export class ReservationComponent implements OnInit {
   hourFC = new FormControl("13:00", [Validators.required]);
   today = new Date();
   disabledDate = (current: Date): boolean =>
-    differenceInCalendarDays(current, this.today) < 0;
+    differenceInCalendarDays(current, this.today) < 0 || current.getDay() == 2;
+
   reservationFG = new FormGroup({
     numberOfPeople: this.noPeopleFC,
     day: this.dayFC,
@@ -85,6 +86,9 @@ export class ReservationComponent implements OnInit {
   isValidDate(): boolean {
     if (this.dayFC.value != null && this.hourFC.value != null) {
       let bookingDate = new Date(this.dayFC.value);
+      if (bookingDate.getDay() == 2) {
+        return false;
+      }
       bookingDate.setHours(parseInt(this.hourFC.value.substring(0, 2)));
       bookingDate.setMinutes(parseInt(this.hourFC.value.substring(3)));
       var currentDate = new Date();
