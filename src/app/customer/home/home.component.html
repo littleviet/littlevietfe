@@ -80,7 +80,9 @@
       </div>
       <div class="take-way-description-1">{{ 'landingPage.takeaway.description1' | translate }}</div>
       <div class="take-way-description-2">{{ 'landingPage.takeaway.description2' | translate }}</div>
-      <button routerLink="/take-away" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
+      <button *ngIf="today != 5" routerLink="/take-away" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
+      <button *ngIf="today == 5" (click)="isBookingClick = true" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
+      <div *ngIf="isBookingClick">Quán sẽ đóng cửa vào thứ 3 hàng tuần, vui lòng quay lại vào ngày mai!</div>
     </div>
     <div class="take-away-presentation">
       <div class="vertical-wave-line" >
