@@ -355,6 +355,15 @@
                 .pay-btn-inactive {
                     opacity: 0.6;
                 }
+
+                .close-warning {
+                    margin-top: 4%;
+                    font-weight: 500;
+        
+                    .icon {
+                        color: orange;
+                    }
+                }
             }
         }
     }

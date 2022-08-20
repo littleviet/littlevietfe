@@ -38,6 +38,8 @@ export class CheckoutComponent implements OnInit {
   orderSuccess: boolean | null = null;
   pickUpTime: Date | null = null;
   pickUpTimeValues: any[] = [];
+  today = new Date().getDay();
+  isPayClick = false;
   
   // Login control
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);

@@ -244,7 +244,16 @@
         
         .order-online-btn:hover {
             cursor: pointer;
-            background-color: #c7a67a;
+            background-color: #df9f4d;
+        }
+
+        .close-warning {
+            margin-top: 4%;
+            font-weight: 500;
+
+            .icon {
+                color: orange;
+            }
         }
     }
 
