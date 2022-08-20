@@ -38,7 +38,6 @@ export class UseCouponComponent implements OnInit {
 
   ngOnInit() {
     this.useCouponFG.valueChanges.subscribe((v) => {
-      console.log("form", this.useCouponFG.controls['usage'].validator);
     });
     this.adminCouponsObs.subscribe((result) => {
       this.adminCoupons = result;
@@ -83,7 +82,7 @@ export class UseCouponComponent implements OnInit {
 
   handler(e: any) {
     const total = this.viewPort.getDataLength();
-    if (e == (total - 7) && this.adminCoupons.pageNumber < Math.ceil(this.adminCoupons.total / this.adminCoupons.pageSize)) {
+    if (e == (total - 9) && this.adminCoupons.pageNumber < Math.ceil(this.adminCoupons.total / this.adminCoupons.pageSize)) {
       let query = _.cloneDeep(this.couponQuery)
       if (query.pageNumber != null) {
         query.pageNumber += 1;

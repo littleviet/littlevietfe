@@ -22,6 +22,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
 
+  today = new Date().getDay();
+  isBookingClick = false;
   menuOpen: boolean = false;
   footerHeight: number = 0;
   landingPageModel: LandingPageModel | null = null;

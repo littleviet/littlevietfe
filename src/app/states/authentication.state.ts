@@ -7,6 +7,7 @@ import { Role } from 'src/commons/enums/app-enum';
 import { LoginAccountInfo } from 'src/dtos/account/login-account-info';
 import { AutoLogin, CreateAccount, Login, Logout } from '../actions/authentication.action';
 import { AuthService } from '../services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 export class AuthenticationStateModel {
     loggedinUser!: LoginAccountInfo | null;
@@ -23,9 +24,24 @@ export class AuthenticationStateModel {
 
 @Injectable()
 export class AuthenticationState {
-
+    helper = new JwtHelperService();
     constructor(private authService: AuthService, private store: Store, private router: Router,
         private ngZone: NgZone) { }
+    
+    ngxsOnInit({getState, setState}: StateContext<AuthenticationStateModel>) {
+        const state = getState();
+        if (state.loggedinUser != null) {
+            let expiredToken = this.helper.getTokenExpirationDate(state.loggedinUser.token);
+            if (expiredToken != null) {
+                let expirationDuration = expiredToken.getTime() - new Date().getTime();
+                if (expirationDuration > 0) {
+                    this.authService.setLogoutTimer(expirationDuration);
+                } else {
+                    this.store.dispatch(new Logout());
+                }
+            }
+        }
+    }
 
     @Selector()
     static getLoggedInAccountInfo(state: AuthenticationStateModel) {
@@ -54,6 +70,11 @@ export class AuthenticationState {
                         this.router.navigate(['/admin/']);
                     });
                 }
+                let expiredToken = this.helper.getTokenExpirationDate(result.payload.token);
+                if (expiredToken != null) {
+                    let expirationDuration = expiredToken.getTime() - new Date().getTime();
+                    this.authService.setLogoutTimer(expirationDuration);
+                }
                 setState({
                     ...state,
                     loggedinUser: result.payload,
@@ -81,6 +102,7 @@ export class AuthenticationState {
     @Action(Logout)
     logout({getState, setState}: StateContext<AuthenticationStateModel>) {
         const state = getState();
+        this.authService.clearLogoutTimer();
         setState({
             ...state,
             loggedinUser: null,
