@@ -19,7 +19,8 @@
             "title": "LLEVARSE",
             "description1": "¿Quieres disfrutar de nuestros platos en casa?",
             "description2": "Por favor ordene aquí.",
-            "orderOnline": "COMPRAR ONLINE"
+            "orderOnline": "COMPRAR ONLINE",
+            "closeWarning": "Nuestro restaurante está cerrado todos los martes, ¡vuelve mañana!"
         },
         "couponGift": {
             "title": "CUPÓN DE REGALO",

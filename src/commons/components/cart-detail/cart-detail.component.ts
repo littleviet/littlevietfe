@@ -16,6 +16,9 @@ export class CartDetailComponent implements OnInit {
   totalItem: number = 0;
   cartDetail!: CartDetail;
   orderDetailSticky: boolean = false;
+  today = new Date().getDay();
+  isCheckoutClick = false;
+
   constructor(private store: Store) { }
 
   ngOnInit() {
