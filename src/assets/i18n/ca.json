@@ -19,7 +19,8 @@
             "title": "EMPORTAR",
             "description1": "Voleu gaudir dels nostres plats a casa?",
             "description2": "Ordeneu aquí.",
-            "orderOnline": "ORDRE EN LÍNIA"
+            "orderOnline": "ORDRE EN LÍNIA",
+            "closeWarning": "El nostre restaurant tanca tots els dimarts, torneu demà!"
         },
         "couponGift": {
             "title": "REGAL DE CUPÓ",
