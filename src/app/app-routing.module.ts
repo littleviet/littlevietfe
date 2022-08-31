@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
   { path: 'sign-up', canActivate: [AuthGuard], component: SignUpComponent },
   { path: 'coupon-gift', canActivate: [AuthGuard], component: CouponComponent },
-  { path: 'not-found', component: PageNotFoundComponent},
+  { path: 'apple-app-site-association', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'}
 ];
 
