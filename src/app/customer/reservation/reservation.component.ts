@@ -103,7 +103,6 @@ export class ReservationComponent implements OnInit {
   }
 
   isChristmas(date: Date) {
-    console.log(date, date.getMonth(),date.getDate(), date.getMonth() == 11 && (date.getDay() == 22 || date.getDay() == 23));
     return date.getMonth() == 11 && (date.getDate() == 23 || date.getDate() == 24);
   }
 }
