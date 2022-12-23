@@ -20,7 +20,7 @@
             "description1": "Want to enjoy our dishes at home?",
             "description2": "Please order here.",
             "orderOnline": "ORDER ONLINE",
-            "closeWarning": "Our restaurant is closed every Tuesday, please come back tomorrow!"
+            "closeWarning": "Our restaurant closes every Tuesday and holidays, please come back other days!"
         },
         "couponGift": {
             "title": "COUPON GIFT",

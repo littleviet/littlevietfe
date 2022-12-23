@@ -40,4 +40,9 @@ export class CartDetailComponent implements OnInit {
     }
     return this.totalItem <= 0;
   }
+
+  isChristmas() {
+    let now = new Date();
+    return now.getMonth() == 11 && (now.getDate() == 23 || now.getDate() == 24);
+  }
 }

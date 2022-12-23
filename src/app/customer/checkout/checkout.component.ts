@@ -199,6 +199,11 @@ export class CheckoutComponent implements OnInit {
     this.isViewInit = true;
   }
 
+  isChristmas() {
+    let now = new Date();
+    return now.getMonth() == 11 && (now.getDate() == 23 || now.getDate() == 24);
+  }
+
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
     if (this.isViewInit && this.headerEl != null && this.fullEl != null && this.footerEl != null) {
