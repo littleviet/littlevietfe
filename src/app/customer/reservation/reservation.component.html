@@ -86,8 +86,11 @@
     
           <div class="reservation-field">
             <label>{{ 'common.hour.label' | translate }}</label>
-            <select formControlName="hour" class="input-field" required name="hour">
-              <option value="{{item}}" *ngFor="let item of hours; let i = index">{{item}}</option>
+            <select *ngIf="!isSunday()" formControlName="hour" class="input-field" required name="hour">
+              <option  value="{{item}}" *ngFor="let item of hours; let i = index">{{item}}</option>
+            </select>
+            <select *ngIf="isSunday()" formControlName="hour" class="input-field" required name="hour">
+              <option  value="{{item}}" *ngFor="let item of sundayHours; let i = index">{{item}}</option>
             </select>
             <mat-error *ngIf="hourFC.hasError('required')">
               {{ 'common.hour.required' | translate }}
