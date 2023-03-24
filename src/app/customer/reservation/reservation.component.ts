@@ -23,8 +23,10 @@ export class ReservationComponent implements OnInit {
   footerHeight: number = 0;
   numberOfPeople = Array(15).fill(0);
   reservationSuccess: boolean | null = null;
-  hours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30", "15:45", "16:00",
-  "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30", "22:45", "23:00"];
+  hours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30",
+  "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30"];
+  sundayHours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30",
+  "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30"];
   noPeopleFC = new FormControl("1", [Validators.required]);
   dayFC = new FormControl(new Date(), [Validators.required]);
   hourFC = new FormControl("13:00", [Validators.required]);
@@ -94,6 +96,25 @@ export class ReservationComponent implements OnInit {
       var currentDate = new Date();
       
       if (bookingDate > currentDate) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isChristmas(date: Date) {
+    return date.getMonth() == 11 && (date.getDate() == 23 || date.getDate() == 24);
+  }
+
+  isSunday(): boolean {
+    if (this.dayFC.value != null) {
+      let bookingDate = new Date(this.dayFC.value);
+      if (bookingDate.getDay() == 0) {
+        if (this.hourFC.value) {
+          this.hourFC.setValue(this.sundayHours.includes(this.hourFC.value) ? this.hourFC.value : this.sundayHours[0]) 
+        }
+
         return true;
       }
     }

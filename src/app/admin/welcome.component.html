@@ -38,7 +38,8 @@
             <a *ngIf="!unhandledTask || unhandledTask.newPickupOrderCount <= 0" routerLink="/admin/pick-up-task">Pick up</a>
           </li>
           <li routerLink="/admin/check-in-reservation-task" nz-menu-item routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
-            <nz-badge *ngIf="unhandledTask && unhandledTask.newReservationCount > 0" [nzCount]="unhandledTask.newReservationCount">
+            <nz-badge *ngIf="unhandledTask && unhandledTask.newReservationCount > 0" [nzCount]="unhandledTask.newReservationCount"
+              [nzOverflowCount]="999">
               <a class="unhandled-noti">Check in reservation</a>
             </nz-badge>
             <a *ngIf="!unhandledTask || unhandledTask.newReservationCount <= 0" routerLink="/admin/check-in-reservation-task">Check in reservation</a>
