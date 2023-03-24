@@ -32,7 +32,8 @@ export class ReservationComponent implements OnInit {
   hourFC = new FormControl("13:00", [Validators.required]);
   today = new Date();
   disabledDate = (current: Date): boolean =>
-    differenceInCalendarDays(current, this.today) < 0 || current.getDay() == 2;
+    differenceInCalendarDays(current, this.today) < 0 || current.getDay() == 2
+      || this.isChristmas(current);
 
   reservationFG = new FormGroup({
     numberOfPeople: this.noPeopleFC,

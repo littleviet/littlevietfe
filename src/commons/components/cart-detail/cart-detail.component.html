@@ -33,9 +33,9 @@
       <div class="total-price">{{cartDetail && cartDetail.totalPrice ? cartDetail.totalPrice : 0}} &#8364;</div>
     </div>
     <mat-divider class="section-divider"></mat-divider>
-    <button *ngIf="isCheckout && today != 2" class="check-out-btn"
+    <button *ngIf="isCheckout && (today != 2 && !isChristmas())" class="check-out-btn"
       [disabled]="isCartEmpty()" [ngClass]="{'check-out-btn-active': !isCartEmpty()}"  routerLink="/checkout">{{'takeaway.cart.checkout' | translate }}</button>
-    <button *ngIf="isCheckout && today == 2" class="check-out-btn"
+    <button *ngIf="isCheckout && (today == 2 || isChristmas())" class="check-out-btn"
       [disabled]="isCartEmpty()" [ngClass]="{'check-out-btn-active': !isCartEmpty()}"  (click)="isCheckoutClick = true">{{'takeaway.cart.checkout' | translate }}</button>
     <div *ngIf="isCheckoutClick" class="close-warning"><i nz-icon nzType="warning" class="icon" nzTheme="fill"></i> {{ 'landingPage.takeaway.closeWarning' | translate }} </div>
 

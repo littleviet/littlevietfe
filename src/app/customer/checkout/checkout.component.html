@@ -173,11 +173,11 @@
             </mat-checkbox>
           </div>
           <textarea formControlName="additionalRequest" class="additional-info-field" placeholder="Additional information"></textarea>
-          <button *ngIf="today != 2" [disabled]="submitPay.invalid || (isCartEmptyObs | async)"
+          <button *ngIf="today != 2 && !isChristmas()" [disabled]="submitPay.invalid || (isCartEmptyObs | async)"
             [ngClass]="!submitPay.invalid && !(isCartEmptyObs | async) ? 'pay-btn-active': 'pay-btn-inactive'" class="pay-btn">
             {{ 'takeaway.confirm.pay' | translate }}
           </button>
-          <button type="button" *ngIf="today == 2" [disabled]="submitPay.invalid || (isCartEmptyObs | async)" (click)="isPayClick = true"
+          <button type="button" *ngIf="today == 2 || isChristmas()" [disabled]="submitPay.invalid || (isCartEmptyObs | async)" (click)="isPayClick = true"
             [ngClass]="!submitPay.invalid && !(isCartEmptyObs | async) ? 'pay-btn-active': 'pay-btn-inactive'" class="pay-btn">
             {{ 'takeaway.confirm.pay' | translate }}
           </button>

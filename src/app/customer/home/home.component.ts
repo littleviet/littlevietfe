@@ -119,4 +119,9 @@ export class HomeComponent implements OnInit {
       this.takeAwayTitleType = '2';
     }
   }
+
+  isChristmas() {
+    let now = new Date();
+    return now.getMonth() == 11 && (now.getDate() == 23 || now.getDate() == 24);
+  }
 }

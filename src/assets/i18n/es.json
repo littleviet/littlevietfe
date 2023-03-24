@@ -20,7 +20,7 @@
             "description1": "¿Quieres disfrutar de nuestros platos en casa?",
             "description2": "Por favor ordene aquí.",
             "orderOnline": "COMPRAR ONLINE",
-            "closeWarning": "Nuestro restaurante está cerrado todos los martes, ¡vuelve mañana!"
+            "closeWarning": "Nuestro restaurante cierra todos los martes y festivos, por favor vuelve otros días"
         },
         "couponGift": {
             "title": "CUPÓN DE REGALO",

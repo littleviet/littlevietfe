@@ -80,8 +80,8 @@
       </div>
       <div class="take-way-description-1">{{ 'landingPage.takeaway.description1' | translate }}</div>
       <div class="take-way-description-2">{{ 'landingPage.takeaway.description2' | translate }}</div>
-      <button *ngIf="today != 2" routerLink="/take-away" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
-      <button *ngIf="today == 2" (click)="isBookingClick = true" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
+      <button *ngIf="today != 2 && !isChristmas()" routerLink="/take-away" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
+      <button *ngIf="today == 2 || isChristmas()" (click)="isBookingClick = true" class="order-online-btn">{{ 'landingPage.takeaway.orderOnline' | translate }}</button>
       <div *ngIf="isBookingClick" class="close-warning"><i nz-icon nzType="warning" class="icon" nzTheme="fill"></i> {{ 'landingPage.takeaway.closeWarning' | translate }} </div>
     </div>
     <div class="take-away-presentation">
