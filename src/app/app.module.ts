@@ -1,4 +1,4 @@
-import { CommonModule, registerLocaleData } from '@angular/common';
+import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { NgModule } from '@angular/core';
@@ -136,6 +136,7 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     },
     { provide: NZ_I18N, useValue: en_US },
     ErrorDialogService,
+    DatePipe
   ],
   exports: [
   ],

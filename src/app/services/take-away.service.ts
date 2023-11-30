@@ -38,6 +38,7 @@ export class TakeAwayService {
         date.setMinutes(parseInt(reservation.hour.substring(3)));
         date.setSeconds(0);
         date.setMilliseconds(0);
+
         return this.http.post<BaseResponse<CheckoutPaymentResponse>>(environment.apiUrl + 'reservation',
             {
                 firstName: reservation.firstName,
@@ -45,9 +46,28 @@ export class TakeAwayService {
                 email: reservation.email,
                 furtherRequest: reservation.furtherRequest,
                 noOfPeople: reservation.noOfPeople,
-                bookingDate: date,
+                bookingDate: new Date(`${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()} ${this.getTimeZone('Europe/Madrid')}`),
                 phoneNumber: reservation.phoneNumber
             }
         );
     }
+
+    getTimeZone(timeZone: string) {
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: timeZone,
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false,
+            formatMatcher: "basic",
+            timeZoneName: "short"
+          });
+        
+          let offset = formatter.formatToParts().find(part => part.type == "timeZoneName")?.value;
+
+          return offset;
+      }
 }
