@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
@@ -19,9 +19,9 @@ export class ProductCreateComponent implements OnInit {
   allProductTypes: AdminProductType[] = [];
   listImgs: NzUploadFile[] = [];
 
-  constructor(private store: Store, private _fb: FormBuilder) { }
+  constructor(private store: Store, private _fb: UntypedFormBuilder) { }
 
-  productFG: FormGroup = this._fb.group({
+  productFG: UntypedFormGroup = this._fb.group({
     'name': ['', [Validators.required]],
     'caName': ['', [Validators.required]],
     'esName': ['', [Validators.required]],

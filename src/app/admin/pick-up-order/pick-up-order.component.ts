@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
@@ -29,10 +29,10 @@ export class PickUpOrderComponent implements OnInit {
   adminOrders!: PaginationResponse<AdminOrder[]>;
   adminActions!: string[];
   selectedId!: string;
-  nameFC = new FormControl('');
-  phoneFC = new FormControl('');
+  nameFC = new UntypedFormControl('');
+  phoneFC = new UntypedFormControl('');
 
-  filterFG = new FormGroup({
+  filterFG = new UntypedFormGroup({
     fullName: this.nameFC,
     phoneNumber: this.phoneFC,
   });

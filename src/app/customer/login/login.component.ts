@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Login } from 'src/app/actions/authentication.action';
@@ -21,18 +21,18 @@ export class LoginComponent implements OnInit {
   isViewInit = false;
   loginInfo: LoginAccountInfo | null = null; 
   menuOpen: boolean = false;
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  emailFormControl = new UntypedFormControl('', [Validators.required, Validators.email]);
+  passwordFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(2)]);
   scrHeight: number = 0;
   footerHeight: number = 0;
-  loginFormGroup = new FormGroup({
+  loginFormGroup = new UntypedFormGroup({
     email: this.emailFormControl,
     password: this.passwordFormControl,
   });
 
   constructor(private store: Store, private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: any) => {
-      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+      if(!this.menuEl.nativeElement.contains(e.target)){
         if (this.menuOpen) {
           this.menuOpen = false;
         }

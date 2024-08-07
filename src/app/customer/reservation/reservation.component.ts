@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { differenceInCalendarDays } from 'date-fns';
@@ -27,15 +27,15 @@ export class ReservationComponent implements OnInit {
   "20:00", "20:15", "20:30", "20:45", "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30"];
   sundayHours = ["13:00", "13:15", "13:30", "13:45", "14:00", "14:15", "14:30", "14:45", "15:00", "15:15", "15:30",
   "21:00", "21:15", "21:30", "21:45", "22:00", "22:15", "22:30"];
-  noPeopleFC = new FormControl("1", [Validators.required]);
-  dayFC = new FormControl(new Date(), [Validators.required]);
-  hourFC = new FormControl("13:00", [Validators.required]);
+  noPeopleFC = new UntypedFormControl("1", [Validators.required]);
+  dayFC = new UntypedFormControl(new Date(), [Validators.required]);
+  hourFC = new UntypedFormControl("13:00", [Validators.required]);
   today = new Date();
   disabledDate = (current: Date): boolean =>
     differenceInCalendarDays(current, this.today) < 0 || current.getDay() == 2
       || this.isChristmas(current);
 
-  reservationFG = new FormGroup({
+  reservationFG = new UntypedFormGroup({
     numberOfPeople: this.noPeopleFC,
     day: this.dayFC,
     hour: this.hourFC
@@ -44,7 +44,7 @@ export class ReservationComponent implements OnInit {
   constructor(public dialog: MatDialog, private store: Store,
     private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: any) => {
-      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+      if(!this.menuEl.nativeElement.contains(e.target)){
         if (this.menuOpen) {
           this.menuOpen = false;
         }
