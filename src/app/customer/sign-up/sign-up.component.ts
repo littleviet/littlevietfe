@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { CreateAccount } from 'src/app/actions/authentication.action';
@@ -26,20 +26,20 @@ export class SignUpComponent implements OnInit {
   loginInfo: LoginAccountInfo | null = null; 
 
   // Register control
-  policyFormControl = new FormControl('', [Validators.required]);
-  firstNameFormControl = new FormControl('', [Validators.required]);
-  lastNameFormControl = new FormControl('', [Validators.required]);
-  addressFormControl = new FormControl('', [Validators.required]);
-  numberFormControl = new FormControl('', [Validators.required]);
-  flatDoorFormControl = new FormControl('', [Validators.required]);
-  zipCodeFormControl = new FormControl('', [Validators.required]);
-  phone1FormControl = new FormControl('', [Validators.required]);
-  phone2FormControl = new FormControl('');
-  regEmailFormControl = new FormControl('', [Validators.required]);
-  regPasswordFormControl = new FormControl('', [Validators.required]);
-  newsLetterFormControl = new FormControl();
+  policyFormControl = new UntypedFormControl('', [Validators.required]);
+  firstNameFormControl = new UntypedFormControl('', [Validators.required]);
+  lastNameFormControl = new UntypedFormControl('', [Validators.required]);
+  addressFormControl = new UntypedFormControl('', [Validators.required]);
+  numberFormControl = new UntypedFormControl('', [Validators.required]);
+  flatDoorFormControl = new UntypedFormControl('', [Validators.required]);
+  zipCodeFormControl = new UntypedFormControl('', [Validators.required]);
+  phone1FormControl = new UntypedFormControl('', [Validators.required]);
+  phone2FormControl = new UntypedFormControl('');
+  regEmailFormControl = new UntypedFormControl('', [Validators.required]);
+  regPasswordFormControl = new UntypedFormControl('', [Validators.required]);
+  newsLetterFormControl = new UntypedFormControl();
 
-  registerFormGroup = new FormGroup({
+  registerFormGroup = new UntypedFormGroup({
     policy: this.policyFormControl,
     newsLetter: this.newsLetterFormControl,
     firstName: this.firstNameFormControl,

@@ -1,7 +1,7 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
@@ -30,7 +30,7 @@ export class CheckInReservationComponent implements OnInit {
   adminActions!: string[];
   selectedId!: string;
 
-  filterFG: FormGroup = this._fb.group({
+  filterFG: UntypedFormGroup = this._fb.group({
     'fullName': [''],
     'phoneNumber': [''],
     'email': [''],
@@ -38,7 +38,7 @@ export class CheckInReservationComponent implements OnInit {
     'noOfPeople': [''],
   });
   
-  constructor(private _fb: FormBuilder, private store: Store) { }
+  constructor(private _fb: UntypedFormBuilder, private store: Store) { }
 
   ngOnInit() {
     let query = new AdminReservationQueryRequest();

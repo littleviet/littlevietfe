@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -17,13 +17,13 @@ export class ProductTypeDetailComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getProductType) productTypeObs!: Observable<AdminProductType>;
   productType!: AdminProductType;
-  nameFC = new FormControl("", [Validators.required]);
-  esNameFC = new FormControl("", [Validators.required]);
-  caNameFC = new FormControl("", [Validators.required]);
-  descriptionFC = new FormControl("", [Validators.required]);
+  nameFC = new UntypedFormControl("", [Validators.required]);
+  esNameFC = new UntypedFormControl("", [Validators.required]);
+  caNameFC = new UntypedFormControl("", [Validators.required]);
+  descriptionFC = new UntypedFormControl("", [Validators.required]);
 
 
-  validateForm: FormGroup = new FormGroup({
+  validateForm: UntypedFormGroup = new UntypedFormGroup({
     name: this.nameFC,
     caName: this.caNameFC,
     esName: this.esNameFC,

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -23,16 +23,16 @@ export class ReservationConfirmDialogComponent implements OnInit {
   userInfo!: LoginAccountInfo;
   reservationSuccessful: boolean | null = null;
 
-  emailFC = new FormControl("", [Validators.required,  Validators.email]);
-  firstNameFC = new FormControl("", [Validators.required]);
-  lastNameFC = new FormControl("", [Validators.required]);
-  phoneNumberFC = new FormControl("", [Validators.required]);
-  vatFC = new FormControl();
-  specificRequestFC = new FormControl();
-  acceptConditionFC = new FormControl("", [Validators.required]);
-  consentInfoConidtionFC = new FormControl("", [Validators.required]);
+  emailFC = new UntypedFormControl("", [Validators.required,  Validators.email]);
+  firstNameFC = new UntypedFormControl("", [Validators.required]);
+  lastNameFC = new UntypedFormControl("", [Validators.required]);
+  phoneNumberFC = new UntypedFormControl("", [Validators.required]);
+  vatFC = new UntypedFormControl();
+  specificRequestFC = new UntypedFormControl();
+  acceptConditionFC = new UntypedFormControl("", [Validators.required]);
+  consentInfoConidtionFC = new UntypedFormControl("", [Validators.required]);
 
-  bookReservationFG = new FormGroup(
+  bookReservationFG = new UntypedFormGroup(
     {
       email: this.emailFC,
       firstName: this.firstNameFC,

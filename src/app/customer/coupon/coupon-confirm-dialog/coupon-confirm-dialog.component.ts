@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -27,15 +27,15 @@ export class CouponConfirmDialogComponent implements OnInit {
   couponBuyingSuccess: boolean | null = null;
   selectedCoupon: CustomerCouponType | null = null;
 
-  emailFC = new FormControl("", [Validators.required, Validators.email]);
-  firstNameFC = new FormControl("", [Validators.required]);
-  lastNameFC = new FormControl("", [Validators.required]);
-  phoneFC = new FormControl("", [Validators.required]);
-  vatFC = new FormControl();
-  acceptConditionFC = new FormControl("", [Validators.required]);
-  consentInfoConidtionFC = new FormControl("", [Validators.required]);
+  emailFC = new UntypedFormControl("", [Validators.required, Validators.email]);
+  firstNameFC = new UntypedFormControl("", [Validators.required]);
+  lastNameFC = new UntypedFormControl("", [Validators.required]);
+  phoneFC = new UntypedFormControl("", [Validators.required]);
+  vatFC = new UntypedFormControl();
+  acceptConditionFC = new UntypedFormControl("", [Validators.required]);
+  consentInfoConidtionFC = new UntypedFormControl("", [Validators.required]);
 
-  couponBuyingFG = new FormGroup(
+  couponBuyingFG = new UntypedFormGroup(
     {
       email: this.emailFC,
       firstName: this.firstNameFC,

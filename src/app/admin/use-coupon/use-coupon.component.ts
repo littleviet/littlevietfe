@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
@@ -34,7 +34,7 @@ export class UseCouponComponent implements OnInit {
     'usage': [0, [Validators.required, Validators.min(1)]]
   });
 
-  constructor(private store: Store, private _fb: FormBuilder) { }
+  constructor(private store: Store, private _fb: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.useCouponFG.valueChanges.subscribe((v) => {

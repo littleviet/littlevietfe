@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -27,9 +27,9 @@ export class CouponComponent implements OnInit {
   couponBuyingSuccess: boolean | null = null;
   couponTypes: CustomerCouponType[] = [];
   numberOfUnit = Array(10).fill(0);
-  couponTypeFC = new FormControl("", [Validators.required]);
-  unitFC = new FormControl(1, [Validators.required]);
-  couponFG = new FormGroup({
+  couponTypeFC = new UntypedFormControl("", [Validators.required]);
+  unitFC = new UntypedFormControl(1, [Validators.required]);
+  couponFG = new UntypedFormGroup({
     couponTypeId: this.couponTypeFC,
     unit: this.unitFC,
   });

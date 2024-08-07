@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -17,16 +17,16 @@ export class ReservationDetailComponent implements OnInit {
   @Select(AdminState.getActions) adminActionsObs!: Observable<string[]>;
   @Select(AdminState.getReservation) reservationObs!: Observable<AdminReservation>;
   reservation!: AdminReservation;
-  emailFC = new FormControl("", [Validators.required,  Validators.email]);
-  firstNameFC = new FormControl("", [Validators.required]);
-  lastNameFC = new FormControl("", [Validators.required]);
-  bookingDateFC = new FormControl("", [Validators.required]);
-  statusFC = new FormControl("", [Validators.required]);
-  noPeopleFC = new FormControl("", [Validators.required]);
-  futherRequestFC = new FormControl("");
-  phoneNumberFC = new FormControl("", [Validators.required]);
+  emailFC = new UntypedFormControl("", [Validators.required,  Validators.email]);
+  firstNameFC = new UntypedFormControl("", [Validators.required]);
+  lastNameFC = new UntypedFormControl("", [Validators.required]);
+  bookingDateFC = new UntypedFormControl("", [Validators.required]);
+  statusFC = new UntypedFormControl("", [Validators.required]);
+  noPeopleFC = new UntypedFormControl("", [Validators.required]);
+  futherRequestFC = new UntypedFormControl("");
+  phoneNumberFC = new UntypedFormControl("", [Validators.required]);
 
-  validateForm: FormGroup = new FormGroup({
+  validateForm: UntypedFormGroup = new UntypedFormGroup({
     email: this.emailFC,
     firstName: this.firstNameFC,
     lastName: this.lastNameFC,

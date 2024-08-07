@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import * as _ from 'lodash';
@@ -35,7 +35,7 @@ export class ProductDetailComponent implements OnInit {
   galleryImages: NgxGalleryImage[] = [];
   listImgs: NzUploadFile[] = [];
 
-  productFG: FormGroup = this._fb.group({
+  productFG: UntypedFormGroup = this._fb.group({
     'name': ['', [Validators.required]],
     'caName': ['', [Validators.required]],
     'esName': ['', [Validators.required]],
@@ -50,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
   };
 
   constructor(private route: ActivatedRoute, private store: Store,
-    private _fb: FormBuilder) { }
+    private _fb: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.allProductTypesObs.subscribe((result) => {
@@ -189,7 +189,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   enable(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     if (group.controls['id'] != null) {
       group.controls['name'].enable();
       group.controls['numberOfPeople'].enable();
@@ -198,7 +198,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   resetAServing(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
 
     this.product.servings.forEach((v, i) => {
       if (i == index) {
@@ -216,17 +216,17 @@ export class ProductDetailComponent implements OnInit {
   }
 
   isEditMode(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     return group.controls['name'].enabled;
   }
 
   isNewServing(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     return group.value['id'] == null;
   }
 
   updateServing(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     this.store.dispatch(new AdminUpdateServing({
       id: group.value['id'],
       name: group.value['name'],
@@ -238,12 +238,12 @@ export class ProductDetailComponent implements OnInit {
   }
 
   deleteServing(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     this.store.dispatch(new AdminDeleteServing(group.value['id']));
   }
 
   addNewServing(index: number) {
-    let group = this.servings.controls[index] as FormGroup;
+    let group = this.servings.controls[index] as UntypedFormGroup;
     this.store.dispatch(new AdminAddServing({
       name: group.value['name'],
       numberOfPeople: group.value['numberOfPeople'],
@@ -254,7 +254,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   get servings() {
-    return this.productFG.controls["servings"] as FormArray;
+    return this.productFG.controls["servings"] as UntypedFormArray;
   }
 
   ngOnDestroy() {

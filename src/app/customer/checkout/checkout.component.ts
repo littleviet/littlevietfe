@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Title } from '@angular/platform-browser';
 import { NavigationEnd, Router } from '@angular/router';
@@ -42,25 +42,25 @@ export class CheckoutComponent implements OnInit {
   isPayClick = false;
   
   // Login control
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+  emailFormControl = new UntypedFormControl('', [Validators.required, Validators.email]);
+  passwordFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(2)]);
 
   // Register control
-  policyFormControl = new FormControl('', [Validators.required]);
-  firstNameFormControl = new FormControl('', [Validators.required]);
-  lastNameFormControl = new FormControl('', [Validators.required]);
-  addressFormControl = new FormControl('', [Validators.required]);
-  numberFormControl = new FormControl('', [Validators.required]);
-  flatDoorFormControl = new FormControl('', [Validators.required]);
-  zipCodeFormControl = new FormControl('', [Validators.required]);
-  phone1FormControl = new FormControl('', [Validators.required]);
-  phone2FormControl = new FormControl('', [Validators.required]);
-  regEmailFormControl = new FormControl('', [Validators.required]);
-  regPasswordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
-  regConfirmPasswordFormControl = new FormControl('');
-  newsLetterFormControl = new FormControl();
+  policyFormControl = new UntypedFormControl('', [Validators.required]);
+  firstNameFormControl = new UntypedFormControl('', [Validators.required]);
+  lastNameFormControl = new UntypedFormControl('', [Validators.required]);
+  addressFormControl = new UntypedFormControl('', [Validators.required]);
+  numberFormControl = new UntypedFormControl('', [Validators.required]);
+  flatDoorFormControl = new UntypedFormControl('', [Validators.required]);
+  zipCodeFormControl = new UntypedFormControl('', [Validators.required]);
+  phone1FormControl = new UntypedFormControl('', [Validators.required]);
+  phone2FormControl = new UntypedFormControl('', [Validators.required]);
+  regEmailFormControl = new UntypedFormControl('', [Validators.required]);
+  regPasswordFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(8)]);
+  regConfirmPasswordFormControl = new UntypedFormControl('');
+  newsLetterFormControl = new UntypedFormControl();
 
-  loginFormGroup = new FormGroup({
+  loginFormGroup = new UntypedFormGroup({
     email: this.emailFormControl,
     password: this.passwordFormControl,
   });
@@ -72,7 +72,7 @@ export class CheckoutComponent implements OnInit {
     return pass === confirmPass ? null : { notSame: true }
   }
 
-  registerFormGroup = new FormGroup({
+  registerFormGroup = new UntypedFormGroup({
     policy: this.policyFormControl,
     newsLetter: this.newsLetterFormControl,
     firstName: this.firstNameFormControl,
@@ -84,11 +84,11 @@ export class CheckoutComponent implements OnInit {
   }, {validators: this.checkPasswords});
 
   // payment form control
-  hourFormControl = new FormControl('', [Validators.required]);
-  paymentMethodFormControl = new FormControl(true, [Validators.required]);
-  additionalRequestFormControl = new FormControl('');
+  hourFormControl = new UntypedFormControl('', [Validators.required]);
+  paymentMethodFormControl = new UntypedFormControl(true, [Validators.required]);
+  additionalRequestFormControl = new UntypedFormControl('');
 
-  submitPay = new FormGroup({
+  submitPay = new UntypedFormGroup({
     hours: this.hourFormControl,
     paymentMethod: this.paymentMethodFormControl,
     additionalRequest: this.additionalRequestFormControl,
@@ -218,7 +218,7 @@ export class CheckoutComponent implements OnInit {
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const invalidCtrl = !!(control?.invalid && control?.parent?.dirty);
     const invalidParent = !!(control?.parent?.invalid && control?.parent?.dirty);
 
