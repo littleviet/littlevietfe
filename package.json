@@ -54,5 +54,13 @@
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.8.4"
+  },
+  "overrides": {
+    "@angular/flex-layout": {
+    "@angular/cdk": "^14.0.0",
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/platform-browser": "^14.0.0"
+    }
   }
 }
