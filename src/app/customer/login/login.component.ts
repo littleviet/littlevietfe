@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private store: Store, private cdRef : ChangeDetectorRef, private renderer: Renderer2) {
     this.renderer.listen('window', 'click', (e: any) => {
-      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+      if (e.path?.indexOf(this.menuEl.nativeElement) === -1) {
         if (this.menuOpen) {
           this.menuOpen = false;
         }

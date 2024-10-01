@@ -62,6 +62,7 @@ import { GlobalErrorDialogComponent } from 'src/commons/components/global-error-
 import { LoginComponent } from './customer/login/login.component';
 import { CouponConfirmDialogComponent } from './customer/coupon/coupon-confirm-dialog/coupon-confirm-dialog.component';
 import { SignUpComponent } from './customer/sign-up/sign-up.component';
+import { MenuComponent } from './customer/menu/menu.component';
 
 registerLocaleData(en);
 
@@ -93,7 +94,8 @@ export function httpTranslateLoaderFactory(http: HttpClient) {
     GlobalErrorDialogComponent,
     LoginComponent,
     CouponConfirmDialogComponent,
-    SignUpComponent
+    SignUpComponent,
+    MenuComponent
    ],
   imports: [
     BrowserModule,

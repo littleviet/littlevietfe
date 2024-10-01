@@ -14,6 +14,7 @@ import { PickUpOrderComponent } from './pick-up-order/pick-up-order.component';
 import { WelcomeComponent } from './welcome.component';
 import { UseCouponComponent } from './use-coupon/use-coupon.component';
 import { TakeAwayDetailComponent } from './take-away-management/take-away-detail/take-away-detail.component';
+import { MenuUploadComponent } from './menu-upload/menu-upload.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,13 @@ const routes: Routes = [
           }
 
         ]
+      },
+      {
+        path: 'upload-menu',
+        component: MenuUploadComponent,
+        data: {
+          breadcrumb: 'Upload menu'
+        }
       },
       {
         path: 'pick-up-task',

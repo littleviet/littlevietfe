@@ -43,6 +43,7 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzModalModule  } from 'ng-zorro-antd/modal';
 import { ProductCreateComponent } from './product-managment/product-create/product-create.component';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzSelectModule } from 'ng-zorro-antd/select';
@@ -51,6 +52,7 @@ import { SharedModule } from 'src/commons/shared.module';
 import { TakeAwayDetailComponent } from './take-away-management/take-away-detail/take-away-detail.component';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { DateAgoPipe } from 'src/commons/pipes/date-ago.pipe';
+import { MenuUploadComponent } from './menu-upload/menu-upload.component';
 
 export class CustomHammerConfig extends HammerGestureConfig {
   override overrides = {
@@ -92,6 +94,7 @@ export class CustomHammerConfig extends HammerGestureConfig {
     NzEmptyModule,
     NzTabsModule,
     NzUploadModule,
+    NzModalModule,
     NzRadioModule,
     NzSelectModule,
     NzBadgeModule,
@@ -113,7 +116,8 @@ export class CustomHammerConfig extends HammerGestureConfig {
     CheckInReservationComponent,
     ProductCreateComponent,
     UseCouponComponent,
-    TakeAwayDetailComponent
+    TakeAwayDetailComponent,
+    MenuUploadComponent,
   ],
   providers: [
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig}

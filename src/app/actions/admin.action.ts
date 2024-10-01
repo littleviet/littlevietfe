@@ -170,3 +170,8 @@ export class AdminUseCoupon {
 export class AdminGetUnhandledTask {
   static readonly type = '[ADMIN] Admin Get Unhandled Task';
 }
+
+export class AdminUploadMenu {
+  static readonly type = '[ADMIN] Admin Upload Menu';
+  constructor(public menu: any) {};
+}
