@@ -34,7 +34,7 @@ jobs:
           git config --global user.email 'github-actions@github.com'
           git fetch origin
           git checkout -B always-on-master origin/always-on-master
-          git merge origin/master
+          git merge refs/heads/master
           git push origin always-on-master
       - name: Build And Deploy
         id: builddeploy
