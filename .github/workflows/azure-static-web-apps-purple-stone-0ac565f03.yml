@@ -27,15 +27,15 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: |
           echo "ANGULAR_ENV=production" >> $GITHUB_ENV
-      - name: Merge to always-on-dev if push to master
+      - name: Merge to always-on-master if push to master
         if: github.ref == 'refs/heads/master'
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@github.com'
           git fetch origin
-          git checkout always-on-dev
+          git checkout always-on-master
           git merge origin/master
-          git push origin always-on-dev
+          git push origin always-on-master
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
