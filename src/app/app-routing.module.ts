@@ -10,6 +10,7 @@ import { ReservationComponent } from './customer/reservation/reservation.compone
 import { SignUpComponent } from './customer/sign-up/sign-up.component';
 import { TakeAwayComponent } from './customer/take-away/take-away.component';
 import { AuthGuard } from './helper/auth.guard';
+import { MenuComponent } from './customer/menu/menu.component';
 
 const routes: Routes = [
   { path: 'admin', canActivate: [AuthGuard], loadChildren: () => import('./admin/welcome.module').then(m => m.WelcomeModule), data: { breadcrumb: 'Home' } },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
   { path: 'sign-up', canActivate: [AuthGuard], component: SignUpComponent },
   { path: 'coupon-gift', canActivate: [AuthGuard], component: CouponComponent },
+  { path: 'menu', canActivate: [AuthGuard], component: MenuComponent },
   { path: 'not-found', component: PageNotFoundComponent},
   { path: '**', redirectTo: '/not-found'}
 ];

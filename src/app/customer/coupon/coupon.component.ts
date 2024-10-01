@@ -53,7 +53,7 @@ export class CouponComponent implements OnInit {
     });
 
     this.renderer.listen('window', 'click', (e: any) => {
-      if (e.path.indexOf(this.menuEl.nativeElement) === -1) {
+      if (e.path?.indexOf(this.menuEl.nativeElement) === -1) {
         if (this.menuOpen) {
           this.menuOpen = false;
         }

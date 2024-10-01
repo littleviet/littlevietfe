@@ -1,0 +1,25 @@
+<div class="main-frame">
+    <div class="left-layout">
+      <button *ngIf="pdfSrc" class="cancel-menu-btn" nzType="default" nzDanger nz-button (click)="onCancel()">
+        Cancel  
+      </button>
+      <button *ngIf="pdfSrc" class="upload-menu-btn" nzType="primary" nz-button (click)="onSave()">
+        Save  
+      </button>
+
+      <nz-upload *ngIf="!pdfSrc"
+        [nzFileType]="'application/pdf'"
+        [nzAccept]="'application/pdf'"
+        [(nzFileList)]="menuFile"
+        [nzBeforeUpload]="beforeUpload"
+        nzLimit="1"
+      >
+        <button nz-button>
+          <span nz-icon nzType="upload"></span>
+          Upload menu
+        </button>
+      </nz-upload>
+          
+      <iframe id="pdfIframe" class="menu-view" width="100%" [src]="pdfSrc ?? defaultMenu" type="application/pdf"></iframe>
+    </div>
+  </div>

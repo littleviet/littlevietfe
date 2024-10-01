@@ -22,6 +22,7 @@ import { AdminClearProduct, AdminClearProductType, AdminClearReservation, AdminC
     AdminDeleteProductImage, SearchReservationOrders, SearchReservationOrderById, AdminCreateProduct, AdminUpdateServing,
     AdminDeleteServing, AdminAddServing, AdminCompletePickUpOrder, AdminCheckInReservation, SearchUseCoupons, AdminUseCoupon,
     AdminGetOrderById, AdminClearOrder, AdminGetUnhandledTask,
+    AdminUploadMenu,
 } from "../actions/admin.action";
 import { AdminService } from "../services/admin.service";
 import { Router } from "@angular/router";
@@ -1092,6 +1093,26 @@ export class AdminState {
         return this.adminService.getUnhandledThings().pipe(tap((result) => {
             patchState({
                 unhandledTask: result,
+                actions: tempActions
+            });
+        }, error => {
+            patchState({
+                actions: tempActions,
+            });
+        }));
+    }
+
+    @Action(AdminUploadMenu)
+    adminUploadMenu({getState, setState, patchState}: StateContext<AdminStateModel>, payload: any) : Observable<BaseResponse<string>> {
+        let state = getState();
+        setState({
+            ...state,
+            actions: [...state.actions, AdminUploadMenu.name],
+        });
+        let tempActions = [...state.actions];
+        tempActions.splice(tempActions.findIndex(a => a == AdminUploadMenu.name), 1);
+        return this.adminService.uploadMenu(payload.menu).pipe(tap((result) => {
+            patchState({
                 actions: tempActions
             });
         }, error => {

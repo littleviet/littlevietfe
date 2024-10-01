@@ -249,4 +249,8 @@ export class AdminService {
   getUnhandledThings(): Observable<UnhandledTask> {
     return this.http.get<UnhandledTask>(environment.apiUrl + 'task/initialize');
   }
+
+  uploadMenu(data: FormData): Observable<BaseResponse<string>> {
+    return this.http.put<BaseResponse<string>>(environment.apiUrl + 'landing-page/menu', data);
+  }
 }
