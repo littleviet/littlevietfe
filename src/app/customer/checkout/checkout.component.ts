@@ -111,7 +111,7 @@ export class CheckoutComponent implements OnInit {
     });
 
     this.renderer.listen('window', 'click', (e: any) => {
-      if (e.path?.indexOf(this.menuEl.nativeElement) === -1) {
+      if (!this.menuEl.nativeElement.contains(e.target)) {
         if (this.menuOpen) {
           this.menuOpen = false;
         }
