@@ -35,7 +35,7 @@ jobs:
           git fetch origin
           git status
           git checkout -B always-on-master origin/always-on-master
-          
+          git status
           git merge refs/heads/master --allow-unrelated-histories
           git push origin always-on-master
       - name: Build And Deploy
