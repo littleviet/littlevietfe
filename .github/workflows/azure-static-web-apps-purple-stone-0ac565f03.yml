@@ -33,9 +33,9 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@github.com'
           git fetch origin
-          git status
+          git log
           git checkout -B always-on-master origin/always-on-master
-          git status
+          git log
           git merge refs/heads/master --allow-unrelated-histories
           git push origin always-on-master
       - name: Build And Deploy
