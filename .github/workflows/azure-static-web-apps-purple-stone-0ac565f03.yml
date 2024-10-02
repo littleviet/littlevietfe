@@ -22,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
+          fetch-depth: 20
           submodules: true
       - name: Set env var for prod if push to master
         if: github.ref == 'refs/heads/master'
@@ -33,10 +34,8 @@ jobs:
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'github-actions@github.com'
           git fetch origin
-          git log
           git checkout -B always-on-master origin/always-on-master
-          git log
-          git merge refs/heads/master --allow-unrelated-histories
+          git merge origin/master
           git push origin always-on-master
       - name: Build And Deploy
         id: builddeploy
