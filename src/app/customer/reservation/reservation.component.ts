@@ -18,7 +18,7 @@ export class ReservationComponent implements OnInit {
   @Select(TakeAwayState.isReservationSuccess) reservationSuccessObs!: Observable<boolean>;
   @ViewChild('footer') footerEl!: ElementRef;
   @ViewChild('menuBtn', { static: true }) menuEl!: ElementRef;
-  
+
   menuOpen: boolean = false;
   footerHeight: number = 0;
   numberOfPeople = Array(15).fill(0);
@@ -95,7 +95,7 @@ export class ReservationComponent implements OnInit {
       bookingDate.setHours(parseInt(this.hourFC.value.substring(0, 2)));
       bookingDate.setMinutes(parseInt(this.hourFC.value.substring(3)));
       var currentDate = new Date();
-      
+
       if (bookingDate > currentDate) {
         return true;
       }
@@ -105,7 +105,7 @@ export class ReservationComponent implements OnInit {
   }
 
   isChristmas(date: Date) {
-    return date.getMonth() == 11 && (date.getDate() == 23 || date.getDate() == 24);
+    return date.getMonth() == 11 && (date.getDate() == 24 || date.getDate() == 25 || date.getDate() == 31);
   }
 
   isSunday(): boolean {
@@ -113,7 +113,7 @@ export class ReservationComponent implements OnInit {
       let bookingDate = new Date(this.dayFC.value);
       if (bookingDate.getDay() == 0) {
         if (this.hourFC.value) {
-          this.hourFC.setValue(this.sundayHours.includes(this.hourFC.value) ? this.hourFC.value : this.sundayHours[0]) 
+          this.hourFC.setValue(this.sundayHours.includes(this.hourFC.value) ? this.hourFC.value : this.sundayHours[0])
         }
 
         return true;

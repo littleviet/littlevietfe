@@ -15,10 +15,12 @@ export class TimePickerDialogComponent implements OnInit {
 
   hourFormControl = new FormControl([Validators.required]);
 
-  constructor(public dialogRef: MatDialogRef<TimePickerDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-            private store: Store) {
-              this.hourFormControl.setValue('Hour*', {onlySelf: true});
-            }
+  constructor(
+    public dialogRef: MatDialogRef<TimePickerDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store) {
+    this.hourFormControl.setValue('Hour*', {onlySelf: true});
+  }
 
   pickUpTimeValues: any[] = [];
   ngOnInit(): void {
@@ -29,7 +31,7 @@ export class TimePickerDialogComponent implements OnInit {
       }
     });
   }
-  
+
   setUpTimeDropdown() {
     var date = new Date();
     this.today = this.daysOfWeek[date.getDay()];
@@ -44,20 +46,20 @@ export class TimePickerDialogComponent implements OnInit {
     var date = new Date();
     let startMinute = 0;
 
-    switch(true) { 
+    switch(true) {
       case (date.getMinutes() >= 45):
         startMinute = 0;
         date.setHours(date.getHours() + 1);
-        break; 
+        break;
       case (date.getMinutes() >= 30):
         startMinute = 45;
-        break; 
+        break;
       case (date.getMinutes() >= 15):
         startMinute = 30;
-        break; 
+        break;
       case (date.getMinutes() >= 0):
         startMinute = 15;
-        break; 
+        break;
       default:
         break;
     }
