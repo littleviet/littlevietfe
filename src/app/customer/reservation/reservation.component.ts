@@ -31,9 +31,11 @@ export class ReservationComponent implements OnInit {
   dayFC = new FormControl(new Date(), [Validators.required]);
   hourFC = new FormControl("13:00", [Validators.required]);
   today = new Date();
+  blockedStartDate = new Date(2026, 1, 3); // February 3, 2026
+  blockedEndDate = new Date(2026, 1, 14); // February 14, 2026
   disabledDate = (current: Date): boolean =>
     differenceInCalendarDays(current, this.today) < 0 || current.getDay() == 2
-      || this.isChristmas(current);
+      || this.isChristmas(current) || this.isInBlockedRange(current);
 
   reservationFG = new FormGroup({
     numberOfPeople: this.noPeopleFC,
@@ -106,6 +108,13 @@ export class ReservationComponent implements OnInit {
 
   isChristmas(date: Date) {
     return date.getMonth() == 11 && (date.getDate() == 24 || date.getDate() == 25 || date.getDate() == 31);
+  }
+
+  isInBlockedRange(date: Date): boolean {
+    const checkDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const startDate = new Date(this.blockedStartDate.getFullYear(), this.blockedStartDate.getMonth(), this.blockedStartDate.getDate());
+    const endDate = new Date(this.blockedEndDate.getFullYear(), this.blockedEndDate.getMonth(), this.blockedEndDate.getDate());
+    return checkDate >= startDate && checkDate <= endDate;
   }
 
   isSunday(): boolean {
